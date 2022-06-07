@@ -16,7 +16,7 @@ tags: [ios-app-development,firebase,google-cloud-platform,notifications,ios]
 最近想為 APP 導入的功能，未實作前我們只能從後端 Post 資料給 APNS/FCM 的成功與否當作推播基數並記錄推播點擊，計算出「點擊率」；但此方法其實非常不準確，基數包含許多無效裝置，APP 已刪除的（不一定會馬上失效）、關閉推播權限的在後端 Post 時都還是會得到成功的回傳。
 
 在 iOS 10 之後可以透過實踐 Notification Service Extension 在推播橫幅出現時的時機點偷偷 Call API 回傳做統計；好處是非常精準，只有在使用者推播橫幅有出現才會 Call；如果 APP 刪除、關閉通知、通知沒開橫幅，都不會有動作，橫幅等於有出現推播訊息，用此當推播基數然後再算上點擊數就能得到「精確的點擊率」。
-> _詳細原理及實作方式可參考之前的文章：「 [i **OS ≥ 10 Notification Service Extension 應用 (Swift)**](ios-10-notification-service-extension-%E6%87%89%E7%94%A8-swift-cb6eba52a342) 」_
+> _詳細原理及實作方式可參考之前的文章：「 [i **OS ≥ 10 Notification Service Extension 應用 (Swift)**](https://medium.com/zrealm-ios-dev/ios-10-notification-service-extension-%E6%87%89%E7%94%A8-swift-cb6eba52a342) 」_
 > _目前測試下來 APP 的 Loss 率應該是 0%，實際常見應用像是 Line 的訊息點對點加解密（推播的訊息是加密過的，在手機收到才解密然後顯示出來）。_
 
 #### 問題
@@ -37,7 +37,7 @@ APP 端的功其實不大，iOS/Android 都只要實作類似的功能（但 And
 [Firebase Functions](https://firebase.google.com/docs/functions) 其實就是 Google Cloud Functions 但只能使用 JavaScript (node.js) 撰寫，沒試過但如果用 Google Cloud Functions 選擇用其他語言撰寫然後同樣 import Firebase 服務我想應該也能用。
 
 用在 API 就是我可以寫一個 node.js 檔案，得到一個實體 URL (ex: my-project.cloudfunctions.net/getUser)，自行撰寫取得 Request 資訊和給予相應的 Response 邏輯。
-> _之前寫過一篇關於 Google Functions 的文章「 [使用 Python+Google Cloud Platform+Line Bot 自動執行例行瑣事](%E4%BD%BF%E7%94%A8-python-google-cloud-platform-line-bot-%E8%87%AA%E5%8B%95%E5%9F%B7%E8%A1%8C%E4%BE%8B%E8%A1%8C%E7%91%A3%E4%BA%8B-70a1409b149a) 」_
+> _之前寫過一篇關於 Google Functions 的文章「 [使用 Python+Google Cloud Platform+Line Bot 自動執行例行瑣事](https://medium.com/zrealm-ios-dev/%E4%BD%BF%E7%94%A8-python-google-cloud-platform-line-bot-%E8%87%AA%E5%8B%95%E5%9F%B7%E8%A1%8C%E4%BE%8B%E8%A1%8C%E7%91%A3%E4%BA%8B-70a1409b149a) 」_
 > _Firebase Functions 必須啟用 Blaze 專案（用多少、付多少）才能使用。_
 
 ![](/assets/9659db1357e4/1*YqIJ1tr2Ay-oLVjSSU0zUg.png)
@@ -89,7 +89,7 @@ firebase init
 
 記下 Firebase init 所在路徑：
 ```
-**You're about to** initialize a Firebase project in this directory:
+You're about to initialize a Firebase project in this directory:
 ```
 
 這邊可以選擇要安裝的 Firebase CLI 工具，按 「↑」「↓」進行選擇，「空白鍵」進行選擇；這邊可以只選擇「Functions」或連「Firestore」一起選擇安裝。
@@ -416,7 +416,7 @@ _p.s 如果你出現 brew: command not found 請先安裝 [brew](https://brew.sh
 
 安裝完成後可下：
 ```
-siege **-c 100 -r 1** -H 'Content-Type: application/json' ' **https://us-central1-project.cloudfunctions.net/post/like/id** POST **{}** '
+siege -c 100 -r 1 -H 'Content-Type: application/json' 'https://us-central1-project.cloudfunctions.net/post/like/id POST {}'
 ```
 
 進行壓力測試：
@@ -661,8 +661,8 @@ Functions 還可以串 Authentication(身份驗證)、Storage(檔案上傳)，�
 - [https://javascript.plainenglish.io/firebase-cloud-functions-tutorial-creating-a-rest-api-8cbc51479f80](https://javascript.plainenglish.io/firebase-cloud-functions-tutorial-creating-a-rest-api-8cbc51479f80)
 
 ### 延伸閱讀
-- [使用 Python+Google Cloud Platform+Line Bot 自動執行例行瑣事](%E4%BD%BF%E7%94%A8-python-google-cloud-platform-line-bot-%E8%87%AA%E5%8B%95%E5%9F%B7%E8%A1%8C%E4%BE%8B%E8%A1%8C%E7%91%A3%E4%BA%8B-70a1409b149a)
-- [i **OS ≥ 10 Notification Service Extension 應用 (Swift)**](ios-10-notification-service-extension-%E6%87%89%E7%94%A8-swift-cb6eba52a342)
+- [使用 Python+Google Cloud Platform+Line Bot 自動執行例行瑣事](https://medium.com/zrealm-ios-dev/%E4%BD%BF%E7%94%A8-python-google-cloud-platform-line-bot-%E8%87%AA%E5%8B%95%E5%9F%B7%E8%A1%8C%E4%BE%8B%E8%A1%8C%E7%91%A3%E4%BA%8B-70a1409b149a)
+- [i **OS ≥ 10 Notification Service Extension 應用 (Swift)**](https://medium.com/zrealm-ios-dev/ios-10-notification-service-extension-%E6%87%89%E7%94%A8-swift-cb6eba52a342)
 
 [Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
 

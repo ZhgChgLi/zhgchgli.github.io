@@ -10,7 +10,7 @@ tags: [deeplink,ios-app-development,swift,universal-links,app-store]
 
 動手打造適應所有場景、不中斷的App轉跳流程
 ### [2020/07/02] 更新
-- [因應 iOS 14 更新，讀取剪貼簿時會提示使用者，如要實作請一併參考此篇文章。](ios-14-%E5%89%AA%E8%B2%BC%E7%B0%BF%E7%AB%8A%E8%B3%87%E6%81%90%E6%85%8C-%E9%9A%B1%E7%A7%81%E8%88%87%E4%BE%BF%E5%88%A9%E7%9A%84%E5%85%A9%E9%9B%A3-8a04443024e2)
+- [因應 iOS 14 更新，讀取剪貼簿時會提示使用者，如要實作請一併參考此篇文章。](https://medium.com/@zhgchgli/ios-14-%E5%89%AA%E8%B2%BC%E7%B0%BF%E7%AB%8A%E8%B3%87%E6%81%90%E6%85%8C-%E9%9A%B1%E7%A7%81%E8%88%87%E4%BE%BF%E5%88%A9%E7%9A%84%E5%85%A9%E9%9B%A3-8a04443024e2)
 
 #### 無關
 

@@ -52,15 +52,15 @@ self.contentTextView.attributedText = combination //回寫回去
 - 圖片上傳失敗處理：這裡要說一下，我實際另外寫了一個Class 擴充原始的 NSTextAttachment 目的就是要多塞個屬性存識別用的值
 
 ```
-**class** UploadImageNSTextAttachment:NSTextAttachment {
-   **var** uuid:String?
+class UploadImageNSTextAttachment:NSTextAttachment {
+   var uuid:String?
 }
 ```
 
 上傳圖片時改成：
 ```
-**let** id = UUID().uuidString
-**let** attachment = UploadImageNSTextAttachment()
+let id = UUID().uuidString
+let attachment = UploadImageNSTextAttachment()
 attachment.uuid = id
 ```
 
@@ -238,19 +238,19 @@ self.contentTextView.textStorage.enumerateAttribute(NSAttributedStringKey.attach
 
 Tip 3:刪除NSTextAttachment項目改為
 ```
-**self** .contentTextView.textStorage.deleteCharacters(in: range)
+self.contentTextView.textStorage.deleteCharacters(in: range)
 ```
 
 Tip 4:取得當前內容長度
 ```
-**self** .contentTextView.textStorage.length
+self.contentTextView.textStorage.length
 ```
 
 Tip 5:刷新Attachment的Bounds大小
 
 主因是為了使用者體驗；插入圖片時我會先塞一張loading圖，插入的圖片在背景壓縮後才會替換上去，要去更新TextAttachment的Bounds成Resize後大小
 ```
-**self** .contentTextView.textStorage.addAttributes([:], range: range)
+self.contentTextView.textStorage.addAttributes([:], range: range)
 ```
 
 (新增空屬性，觸發刷新)
@@ -261,7 +261,7 @@ Tip 6: 將輸入內容轉譯成可傳遞文本
 
 Tip 7: 內容取代
 ```
-**self** .contentTextView.textStorage.replaceCharacters(in: range,with: NSAttributedString(attachment: newImageAttachment))
+self.contentTextView.textStorage.replaceCharacters(in: range,with: NSAttributedString(attachment: newImageAttachment))
 ```
 
 Tip 8: 正規表示法匹配內容所在Range

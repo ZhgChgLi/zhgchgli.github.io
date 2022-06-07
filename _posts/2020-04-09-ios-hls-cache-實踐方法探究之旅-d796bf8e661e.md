@@ -60,7 +60,7 @@ player.play()
 ```
 ### **2021–01–05 更新：**
 
-我們退而求其次退回去使用 mp3 檔，這樣就能直接使用 `AVAssetResourceLoaderDelegate` 進行實作，詳細實作可參考「 [AVPlayer 邊播邊 Cache 實戰](avplayer-%E9%82%8A%E6%92%AD%E9%82%8A-cache-%E5%AF%A6%E6%88%B0-ee47f8f1e2d2) 」。
+我們退而求其次退回去使用 mp3 檔，這樣就能直接使用 `AVAssetResourceLoaderDelegate` 進行實作，詳細實作可參考「 [AVPlayer 邊播邊 Cache 實戰](https://zhgchgli.medium.com/avplayer-%E9%82%8A%E6%92%AD%E9%82%8A-cache-%E5%AF%A6%E6%88%B0-ee47f8f1e2d2) 」。
 ### 實踐方案
 
 針對我們的目標能達成的幾個方案及實踐時遇到的問題。
@@ -70,7 +70,7 @@ player.play()
 
 不過很抱歉，此路不通，因為無法在 Delegate 中攔截到 **`.ts`** 檔案的下載請求資訊，可以在這則 [問答](https://stackoverflow.com/questions/29752028/unknown-error-12881-when-using-avassetresourceloader/30239876#30239876) 和 [官方文件](https://developer.apple.com/library/archive/technotes/tn2232/_index.html#//apple_ref/doc/uid/DTS40012884-CH1-SECHTTPLIVESTREAMING) 上確切此事。
 
-AVAssetResourceLoaderDelegate 實作可參考「 [AVPlayer 邊播邊 Cache 實戰](avplayer-%E9%82%8A%E6%92%AD%E9%82%8A-cache-%E5%AF%A6%E6%88%B0-ee47f8f1e2d2) 」。
+AVAssetResourceLoaderDelegate 實作可參考「 [AVPlayer 邊播邊 Cache 實戰](https://zhgchgli.medium.com/avplayer-%E9%82%8A%E6%92%AD%E9%82%8A-cache-%E5%AF%A6%E6%88%B0-ee47f8f1e2d2) 」。
 #### 方案 2.1 URLProtocol 攔截請求 ❌
 
 URLProtocol 也是最近才學到的方法，所有基於 **`URL Loading System`** 的請求 (URLSession、Call API、下載圖片…) 都可以被我們攔截下來修改 Request、Response 然後再返回，一切就像沒發生一樣，偷偷來；關於 URLProtocol 可以參考 [此篇文章](https://www.jianshu.com/p/fbe57730d3e1) 。

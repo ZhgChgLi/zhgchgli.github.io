@@ -27,7 +27,7 @@ iOS 13, iOS 14 Universal Links 新鮮事＆建立本地測試環境
 #### apple-app-site-association Apple CDN 確認：
 ```
 Headers: HOST=app-site-association.cdn-apple.com
-GET https://app-site-association.cdn-apple.com/a/v1/ **你的網域**
+GET https://app-site-association.cdn-apple.com/a/v1/你的網域
 ```
 ![](/assets/12c5026da33d/1*dgDfMgkFPUfeuAuEhl7RFQ.png)
 
@@ -61,15 +61,15 @@ brew install nginx
 
 如果沒安裝過 [brew](https://brew.sh/index_zh-tw) 可先安裝：
 ```
-`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 安裝完 nginx 後，前往 `/usr/local/etc/nginx/` 打開編輯 `nginx.conf` 檔案：
 ```
 ...略
 server {
-        **listen  **8080;**** 
-**ser** ver_name  localhost;
+        **listen       8080;** 
+        server_name  localhost;
 #charset koi8-r;
 #access_log  logs/host.access.log  main;
 ```
@@ -103,7 +103,7 @@ nginx -s reload
 
 在 terminal 下：
 ```
-`defaults write com.apple.finder AppleShowAllFiles TRUE`
+defaults write com.apple.finder AppleShowAllFiles TRUE
 ```
 
 再下 killall finder 重啟所有 finder，即可。
@@ -116,7 +116,7 @@ nginx -s reload
 
 沒問題後，打開瀏覽器測試以下連結是否正常下載 apple-app-site-association：
 ```
-[http://localhost:8080/.well-known/apple-app-site-association](http://localhost:8080/.well-known/apple-app-site-association)
+http://localhost:8080/.well-known/apple-app-site-association
 ```
 
 如果能正常下載代表本地環境模擬成功！
@@ -128,12 +128,12 @@ nginx -s reload
 ![解壓縮出 ngrok 執行檔](/assets/12c5026da33d/1*ljBqKrOFb9Gq48dO0GeIeA.png "解壓縮出 ngrok 執行檔")
 ![進入 [Dashboard 頁面](https://dashboard.ngrok.com/get-started/setup) 執行 Config 設定](/assets/12c5026da33d/1*fnEUyJMtVhUGurU5vX5K6A.png "進入 [Dashboard 頁面](https://dashboard.ngrok.com/get-started/setup) 執行 Config 設定")
 ```
-`./ngrok authtoken 你的TOKEN`
+./ngrok authtoken 你的TOKEN
 ```
 
 設定好之後，下：
 ```
-`./ngrok http **8080**`
+./ngrok http 8080
 ```
 > _因我們的 nginx 在 8080 port。_
 
@@ -331,16 +331,16 @@ _- 中文網址須先轉成 ASCII 後才能放在 paths 中 (所有url 字元均
 
 在有使用 `SceneDelegate` 的情況下，open universal link 的進入點是在SceneDelegate 中：
 ```
-**func** scene( **_** scene: UIScene, continue userActivity: NSUserActivity)
+func scene(_ scene: UIScene, continue userActivity: NSUserActivity)
 ```
 
 **而非 AppDelegate 的：**
 ```
-**func** application( **_** application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: **@escaping** ([UIUserActivityRestoring]?) -> Void) -> Bool
+func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool
 ```
 ### 延伸閱讀
-- [iOS 跨平台帳號密碼整合，加強登入體驗](ios-%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%B8%B3%E8%99%9F%E5%AF%86%E7%A2%BC%E6%95%B4%E5%90%88%E5%8A%A0%E5%BC%B7%E7%99%BB%E5%85%A5%E9%AB%94%E9%A9%97-948ed34efa09)
-- [iOS Deferred Deep Link 延遲深度連結實作(Swift)](ios-deferred-deep-link-%E5%BB%B6%E9%81%B2%E6%B7%B1%E5%BA%A6%E9%80%A3%E7%B5%90%E5%AF%A6%E4%BD%9C-swift-b08ef940c196)
+- [iOS 跨平台帳號密碼整合，加強登入體驗](https://medium.com/zrealm-ios-dev/ios-%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%B8%B3%E8%99%9F%E5%AF%86%E7%A2%BC%E6%95%B4%E5%90%88%E5%8A%A0%E5%BC%B7%E7%99%BB%E5%85%A5%E9%AB%94%E9%A9%97-948ed34efa09)
+- [iOS Deferred Deep Link 延遲深度連結實作(Swift)](https://medium.com/zrealm-ios-dev/ios-deferred-deep-link-%E5%BB%B6%E9%81%B2%E6%B7%B1%E5%BA%A6%E9%80%A3%E7%B5%90%E5%AF%A6%E4%BD%9C-swift-b08ef940c196)
 
 #### 參考資料
 - [What’s new in Universal Links](https://www.wwdcnotes.com/notes/wwdc20/10098/)

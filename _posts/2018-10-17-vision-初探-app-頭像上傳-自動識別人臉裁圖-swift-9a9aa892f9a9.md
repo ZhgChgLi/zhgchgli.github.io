@@ -13,7 +13,7 @@ Vision 實戰應用
 ![優化前 V.S 優化後 — [結婚吧APP](https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E4%B8%8D%E6%89%BE%E6%9C%80%E8%B2%B4-%E5%8F%AA%E6%89%BE%E6%9C%80%E5%B0%8D/id1356057329?ls=1&mt=8)](/assets/9a9aa892f9a9/1*c-ioRH_Z2nMYRxSbuBD71A.png "優化前 V.S 優化後 — [結婚吧APP](https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E4%B8%8D%E6%89%BE%E6%9C%80%E8%B2%B4-%E5%8F%AA%E6%89%BE%E6%9C%80%E5%B0%8D/id1356057329?ls=1&mt=8)")
 
 前陣子iOS 12發佈更新，注意到新開放的CoreML 機器學習框架；覺得挺有趣的，就開始構想如果想用在當前的產品上能放在哪裡？
-> **CoreML嚐鮮文章現已發佈： [使用機器學習自動預測文章分類，連模型也自己訓練](%E5%9A%90%E9%AE%AE-ios-12-coreml-%E4%BD%BF%E7%94%A8%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E8%87%AA%E5%8B%95%E9%A0%90%E6%B8%AC%E6%96%87%E7%AB%A0%E5%88%86%E9%A1%9E-%E9%80%A3%E6%A8%A1%E5%9E%8B%E4%B9%9F%E8%87%AA%E5%B7%B1%E8%A8%93%E7%B7%B4-793bf2cdda0f)**
+> **CoreML嚐鮮文章現已發佈： [使用機器學習自動預測文章分類，連模型也自己訓練](https://medium.com/@zhgchgli/%E5%9A%90%E9%AE%AE-ios-12-coreml-%E4%BD%BF%E7%94%A8%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E8%87%AA%E5%8B%95%E9%A0%90%E6%B8%AC%E6%96%87%E7%AB%A0%E5%88%86%E9%A1%9E-%E9%80%A3%E6%A8%A1%E5%9E%8B%E4%B9%9F%E8%87%AA%E5%B7%B1%E8%A8%93%E7%B7%B4-793bf2cdda0f)**
 
 
 CoreML提供文字、圖像的機器學習模型訓練及引用到APP裡的接口，我原先的想法是，使用CoreML來做到人臉識別，解決APP中有裁圖的項目頭或臉被卡掉的問題，如上圖左所示，若人臉出現在周圍則很容易因為縮放＋裁圖造成臉不完整．

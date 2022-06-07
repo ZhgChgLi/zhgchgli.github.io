@@ -10,7 +10,7 @@ tags: [swift,ios,machine-learning,natural-language-process,ios-app-development]
 
 探索CoreML 2.0，如何轉換或訓練模型及將其應用在實際產品上
 
-接續 [上一篇](vision-%E5%88%9D%E6%8E%A2-app-%E9%A0%AD%E5%83%8F%E4%B8%8A%E5%82%B3-%E8%87%AA%E5%8B%95%E8%AD%98%E5%88%A5%E4%BA%BA%E8%87%89%E8%A3%81%E5%9C%96-swift-9a9aa892f9a9) 針對在 iOS上使用機器學習的研究，本篇正式切入使用CoreML
+接續 [上一篇](https://medium.com/@zhgchgli/vision-%E5%88%9D%E6%8E%A2-app-%E9%A0%AD%E5%83%8F%E4%B8%8A%E5%82%B3-%E8%87%AA%E5%8B%95%E8%AD%98%E5%88%A5%E4%BA%BA%E8%87%89%E8%A3%81%E5%9C%96-swift-9a9aa892f9a9) 針對在 iOS上使用機器學習的研究，本篇正式切入使用CoreML
 
 首先簡述一下歷史，蘋果在2017年發布了CoreML(包含上篇文章介紹的Vision) 機器學習框架；2018緊接著推出CoreML 2.0，除 [效能提升](https://www.appcoda.com.tw/core-ml-2/) 外還支援 **自訂客製化CoreML模型** 。
 #### 前言

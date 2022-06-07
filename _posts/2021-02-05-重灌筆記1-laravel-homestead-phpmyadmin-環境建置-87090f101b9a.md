@@ -22,9 +22,9 @@ tags: [ios-app-development,php,laravel,vagrant,virtualbox]
 
 ### 配置 Homestead 環境
 ```
-`git clone https://github.com/laravel/homestead.git ~/Homestead` 
-`cd ~/Homestead` 
-`git checkout release` 
+git clone https://github.com/laravel/homestead.git ~/Homestead
+cd ~/Homestead
+git checkout release
 bash init.sh
 ```
 ### phpMyAdmin
@@ -337,7 +337,7 @@ blog 專案建立成功！
 ```
 sites:
   - map: myblog.test
-  to: /home/vagrant/code/ **blog/public**
+  to: /home/vagrant/code/blog/public
 ```
 
 記得 hosts 也要加上對應紀錄：
@@ -347,7 +347,7 @@ sites:
 
 最後重啟 homestead：
 ```
-vagrant reload `--provision`
+vagrant reload --provision
 ```
 
 在瀏覽器輸入 [http://myblog.test](http://myblog.test) 測試是否正確建立＆運行：

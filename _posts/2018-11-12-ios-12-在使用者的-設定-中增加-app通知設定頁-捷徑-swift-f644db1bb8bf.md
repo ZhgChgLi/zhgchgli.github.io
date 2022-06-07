@@ -10,9 +10,9 @@ tags: [ios-app-development,ios,swift,push-notification,ios-12]
 
 除了從系統關閉通知，讓使用者還有其他選擇
 #### 緊接著前三篇文章：
-- [iOS ≥ 10 Notification Service Extension 應用 (Swift)](ios-10-notification-service-extension-%E6%87%89%E7%94%A8-swift-cb6eba52a342)
-- [什麼？iOS 12 不需使用者授權就能傳送推播通知(Swift)](%E4%BB%80%E9%BA%BC-ios-12-%E4%B8%8D%E9%9C%80%E4%BD%BF%E7%94%A8%E8%80%85%E6%8E%88%E6%AC%8A%E5%B0%B1%E8%83%BD%E6%94%B6%E5%88%B0%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5-swift-ade9e745a4bf)
-- [從 iOS 9 到 iOS 12 推播通知權限狀態處理(Swift)](%E5%BE%9E-ios-9-%E5%88%B0-ios-12-%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5%E6%AC%8A%E9%99%90%E7%8B%80%E6%85%8B%E8%99%95%E7%90%86-swift-fd7f92d52baa)
+- [iOS ≥ 10 Notification Service Extension 應用 (Swift)](https://medium.com/@zhgchgli/ios-10-notification-service-extension-%E6%87%89%E7%94%A8-swift-cb6eba52a342)
+- [什麼？iOS 12 不需使用者授權就能傳送推播通知(Swift)](https://medium.com/@zhgchgli/%E4%BB%80%E9%BA%BC-ios-12-%E4%B8%8D%E9%9C%80%E4%BD%BF%E7%94%A8%E8%80%85%E6%8E%88%E6%AC%8A%E5%B0%B1%E8%83%BD%E6%94%B6%E5%88%B0%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5-swift-ade9e745a4bf)
+- [從 iOS 9 到 iOS 12 推播通知權限狀態處理(Swift)](https://medium.com/@zhgchgli/%E5%BE%9E-ios-9-%E5%88%B0-ios-12-%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5%E6%AC%8A%E9%99%90%E7%8B%80%E6%85%8B%E8%99%95%E7%90%86-swift-fd7f92d52baa)
 
 
 我們繼續針對推播進行改進，不管是原有的技術或是新開放的功能，都來嘗試嘗試！
@@ -74,7 +74,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 完成！相較於前幾篇文章，這個功能實作相較起來非常簡單 🏆
 ### 總結
 
-這個功能跟 [前一篇](%E4%BB%80%E9%BA%BC-ios-12-%E4%B8%8D%E9%9C%80%E4%BD%BF%E7%94%A8%E8%80%85%E6%8E%88%E6%AC%8A%E5%B0%B1%E8%83%BD%E6%94%B6%E5%88%B0%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5-swift-ade9e745a4bf) 提到的先不用使用者授權就發干擾性較低的靜音推播給使用者試試水溫有點類似！
+這個功能跟 [前一篇](https://medium.com/@zhgchgli/%E4%BB%80%E9%BA%BC-ios-12-%E4%B8%8D%E9%9C%80%E4%BD%BF%E7%94%A8%E8%80%85%E6%8E%88%E6%AC%8A%E5%B0%B1%E8%83%BD%E6%94%B6%E5%88%B0%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5-swift-ade9e745a4bf) 提到的先不用使用者授權就發干擾性較低的靜音推播給使用者試試水溫有點類似！
 
 都是在開發者與使用者之前架起新的橋樑，以往APP太吵，我們會直接進到設定頁無情地關閉所有通知，但這樣對開發者來說，以後不管好的壞的有用的…任何通知都無法再發給使用者，使用者可能也因此錯過重要消息或限定優惠．
 

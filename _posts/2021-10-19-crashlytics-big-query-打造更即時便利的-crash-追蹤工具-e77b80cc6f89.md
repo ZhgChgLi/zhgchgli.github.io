@@ -49,7 +49,7 @@ tags: [ios-app-development,crashlytics,firebase,bigquery,slack]
 
 以上 Integrations 的內容、規則都無法客製化。
 
-最一開始我們直接使用 2.New Fatal Issue to Slack or Email，to Email 的話再由 [Google Apps Script 觸發後續處理腳本](%E9%81%8B%E7%94%A8-google-apps-script-%E8%BD%89%E7%99%BC-gmail-%E4%BF%A1%E4%BB%B6%E5%88%B0-slack-d414bdbdb8c9) ；但是這個通知會瘋狂轟炸通知頻道，因為不管是大是小或只是使用者裝置、iOS 本身很零星的問題造成的閃退都會通知；隨著 DAU 增長每天都被這通知狂轟濫炸，而其中真的有價值，很多人踩到而且是跟我們程式錯誤有關的通知大概只佔其中的 10%。
+最一開始我們直接使用 2.New Fatal Issue to Slack or Email，to Email 的話再由 [Google Apps Script 觸發後續處理腳本](https://medium.com/zrealm-ios-dev/%E9%81%8B%E7%94%A8-google-apps-script-%E8%BD%89%E7%99%BC-gmail-%E4%BF%A1%E4%BB%B6%E5%88%B0-slack-d414bdbdb8c9) ；但是這個通知會瘋狂轟炸通知頻道，因為不管是大是小或只是使用者裝置、iOS 本身很零星的問題造成的閃退都會通知；隨著 DAU 增長每天都被這通知狂轟濫炸，而其中真的有價值，很多人踩到而且是跟我們程式錯誤有關的通知大概只佔其中的 10%。
 
 以至於根本沒有解決 Crashlytics 難以自動追蹤的問題，一樣要花很多時間在審閱這個問題究竟重不重要之上。
 ### Crashlytics + Big Query
@@ -398,7 +398,7 @@ function sendTop10CrashToSlack() {
   })
 }
 ```
-> _如果不知道怎麼取得 in-cming WebHook URL 可以參考 [此篇文章](%E9%81%8B%E7%94%A8-google-apps-script-%E8%BD%89%E7%99%BC-gmail-%E4%BF%A1%E4%BB%B6%E5%88%B0-slack-d414bdbdb8c9) 的「取得 Incoming WebHooks App URL」章節。_
+> _如果不知道怎麼取得 in-cming WebHook URL 可以參考 [此篇文章](https://medium.com/zrealm-ios-dev/%E9%81%8B%E7%94%A8-google-apps-script-%E8%BD%89%E7%99%BC-gmail-%E4%BF%A1%E4%BB%B6%E5%88%B0-slack-d414bdbdb8c9) 的「取得 Incoming WebHooks App URL」章節。_
 
 #### 測試＆設定排程
 ![](/assets/e77b80cc6f89/1*epwnVrltY7ei8_osPnbaww.jpeg)
@@ -423,12 +423,12 @@ function sendTop10CrashToSlack() {
 現在起，你只要在 Slack 上就能快速追蹤當前 App 閃退問題；甚至直接在上面進行討論。
 ### App Crash-Free Users Rate？
 
-如果你想追的是 App Crash-Free Users Rate，可參考下篇「 [Crashlytics + Google Analytics 自動查詢 App Crash-Free Users Rate](crashlytics-google-analytics-%E8%87%AA%E5%8B%95%E6%9F%A5%E8%A9%A2-app-crash-free-users-rate-793cb8f89b72) 」
+如果你想追的是 App Crash-Free Users Rate，可參考下篇「 [Crashlytics + Google Analytics 自動查詢 App Crash-Free Users Rate](https://blog.zhgchg.li/crashlytics-google-analytics-%E8%87%AA%E5%8B%95%E6%9F%A5%E8%A9%A2-app-crash-free-users-rate-793cb8f89b72) 」
 ### 延伸閱讀
-- [Crashlytics + Google Analytics 自動查詢 App Crash-Free Users Rate](crashlytics-google-analytics-%E8%87%AA%E5%8B%95%E6%9F%A5%E8%A9%A2-app-crash-free-users-rate-793cb8f89b72)
-- [使用 Python+Google Cloud Platform+Line Bot 自動執行例行瑣事](%E4%BD%BF%E7%94%A8-python-google-cloud-platform-line-bot-%E8%87%AA%E5%8B%95%E5%9F%B7%E8%A1%8C%E4%BE%8B%E8%A1%8C%E7%91%A3%E4%BA%8B-70a1409b149a)
-- [Slack 打造全自動 WFH 員工健康狀況回報系統](slack-%E6%89%93%E9%80%A0%E5%85%A8%E8%87%AA%E5%8B%95-wfh-%E5%93%A1%E5%B7%A5%E5%81%A5%E5%BA%B7%E7%8B%80%E6%B3%81%E5%9B%9E%E5%A0%B1%E7%B3%BB%E7%B5%B1-d61062833c1a)
-- [運用 Google Apps Script 轉發 Gmail 信件到 Slack](%E9%81%8B%E7%94%A8-google-apps-script-%E8%BD%89%E7%99%BC-gmail-%E4%BF%A1%E4%BB%B6%E5%88%B0-slack-d414bdbdb8c9)
+- [Crashlytics + Google Analytics 自動查詢 App Crash-Free Users Rate](https://blog.zhgchg.li/crashlytics-google-analytics-%E8%87%AA%E5%8B%95%E6%9F%A5%E8%A9%A2-app-crash-free-users-rate-793cb8f89b72)
+- [使用 Python+Google Cloud Platform+Line Bot 自動執行例行瑣事](https://medium.com/zrealm-ios-dev/%E4%BD%BF%E7%94%A8-python-google-cloud-platform-line-bot-%E8%87%AA%E5%8B%95%E5%9F%B7%E8%A1%8C%E4%BE%8B%E8%A1%8C%E7%91%A3%E4%BA%8B-70a1409b149a)
+- [Slack 打造全自動 WFH 員工健康狀況回報系統](https://blog.zhgchg.li/slack-%E6%89%93%E9%80%A0%E5%85%A8%E8%87%AA%E5%8B%95-wfh-%E5%93%A1%E5%B7%A5%E5%81%A5%E5%BA%B7%E7%8B%80%E6%B3%81%E5%9B%9E%E5%A0%B1%E7%B3%BB%E7%B5%B1-d61062833c1a)
+- [運用 Google Apps Script 轉發 Gmail 信件到 Slack](https://medium.com/zrealm-ios-dev/%E9%81%8B%E7%94%A8-google-apps-script-%E8%BD%89%E7%99%BC-gmail-%E4%BF%A1%E4%BB%B6%E5%88%B0-slack-d414bdbdb8c9)
 
 [Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
 

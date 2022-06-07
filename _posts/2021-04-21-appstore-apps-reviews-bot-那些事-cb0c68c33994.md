@@ -29,7 +29,7 @@ tags: [slackbot,ios-app-development,ruby,fastlane,automator]
 
 蘋果有提供公開的 APP 評價 [RSS 訂閱網址](https://rss.itunes.apple.com/zh-tw) ，而且除了 rss xml 還提供 json 格式。
 ```
-https://itunes.apple.com/ **國家碼** /rss/customerreviews/id= **APP_ID** /page= **1** /sortBy= **mostRecent** / **json**
+https://itunes.apple.com/國家碼/rss/customerreviews/id=APP_ID/page=1/sortBy=mostRecent/json
 ```
 - 國家碼：可參考 [這份文件](https://help.apple.com/app-store-connect/#/dev997f9cf7c) 。
 - APP_ID：前往 App 網頁版，會得到網址：https://apps.apple.com/tw/app/APP名稱/id **12345678** ，id 後面的數字及為 App ID（純數字）。
@@ -122,7 +122,7 @@ https://itunes.apple.com/ **國家碼** /rss/customerreviews/id= **APP_ID** /pag
 
 得到蘋果後台是透過打：
 ```
-https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/apps/ **APP_ID** /platforms/ios/reviews?index=0&sort=REVIEW_SORT_ORDER_MOST_RECENT
+https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/apps/APP_ID/platforms/ios/reviews?index=0&sort=REVIEW_SORT_ORDER_MOST_RECENT
 ```
 
 這個 endpoint 取得評價列表：
@@ -163,7 +163,7 @@ API 有了、要求的 header 知道了，再來就要想辦法自動化取得�
 
 因蘋果現在實行全 Two-Step Verification，所以對於登入驗證自動化變得更加煩瑣，幸好與蘋果鬥智鬥勇的 [Fastlane](https://docs.fastlane.tools/best-practices/continuous-integration/) ，除了正規的 App Store Connect API、iTMSTransporter、網頁認證(包含兩步驟認證)全都有實作；我們可以直接使用 Fastlane 的指令：
 ```
-fastlane spaceauth -u < **App Store Connect 帳號(Email)>**
+fastlane spaceauth -u <App Store Connect 帳號(Email)>
 ```
 
 此指令會完成網頁登入驗證(包含兩步驟認證)，然後將 cookie 存入 FASTLANE_SESSION 檔案之中。
@@ -171,7 +171,7 @@ fastlane spaceauth -u < **App Store Connect 帳號(Email)>**
 會得到類似如下字串：
 ```
 !ruby/object:HTTP::Cookie
-name: ** **myaci** nfo**  va **lue: **<** token>**  
+name: **myacinfo**  value: **<token>**  
 domain: apple.com for_domain: true  path: "/"  
 secure: true  httponly: true  expires: max_age: 
 created_at: 2021-04-21 20:42:36.818821000 +08:00  

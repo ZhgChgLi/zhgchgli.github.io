@@ -55,7 +55,7 @@ Lighting Talk的部分在台下聽得也好想上去分享😂 下次要提早�
 
 #### **ID** entifier **F** or **V** endor (IDFV)：
 ```
-**let** DEVICE_UUID:String = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
+let DEVICE_UUID:String = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
 ```
 
 **唯需注意：當所有同Vendor的APP都移除後再重裝就會產生新的UUID (** com.518.work跟com.518.job都被刪除，再裝回com.518.work這時就會產生新的UUID **)** 

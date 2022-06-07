@@ -99,7 +99,7 @@ class NotificationService: UNNotificationServiceExtension {
             "push_id":"2018001",
             "title": "新文章推薦給您",
             "body": "立即查看",
-            "image": " [https://d2uju15hmm6f78.cloudfront.net/image/2016/12/04/3113/2018/09/28/trim_153813426461775700_450x300.jpg](https://d2uju15hmm6f78.cloudfront.net/image/2016/12/04/3113/2018/09/28/trim_153813426461775700_450x300.jpg) "
+            "image": "https://d2uju15hmm6f78.cloudfront.net/image/2016/12/04/3113/2018/09/28/trim_153813426461775700_450x300.jpg"
         },
         "mutable-content":1,
         "sound": "default",

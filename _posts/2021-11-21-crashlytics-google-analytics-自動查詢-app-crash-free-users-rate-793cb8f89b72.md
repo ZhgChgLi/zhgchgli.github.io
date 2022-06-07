@@ -10,7 +10,7 @@ tags: [crashlytics,ios-app-development,google-analytics,google-apps-script,googl
 
 使用 Google Apps Script 透過 Google Analytics 查詢 Crashlytics 自動填入到 Google Sheet
 ![](/assets/793cb8f89b72/1*yPSS8J7o-jowQ6NRYArzjQ.png)
-> _上篇「 [Crashlytics + Big Query 打造更即時便利的 Crash 追蹤工具](crashlytics-big-query-%E6%89%93%E9%80%A0%E6%9B%B4%E5%8D%B3%E6%99%82%E4%BE%BF%E5%88%A9%E7%9A%84-crash-%E8%BF%BD%E8%B9%A4%E5%B7%A5%E5%85%B7-e77b80cc6f89) 」我們將 Crashlytics 閃退紀錄 Export Raw Data 到 Big Query，並使用 Google Apps Script 自動排程查詢 Top 10 Crash & 發布訊息到 Slack Channel。_
+> _上篇「 [Crashlytics + Big Query 打造更即時便利的 Crash 追蹤工具](https://medium.com/zrealm-ios-dev/crashlytics-big-query-%E6%89%93%E9%80%A0%E6%9B%B4%E5%8D%B3%E6%99%82%E4%BE%BF%E5%88%A9%E7%9A%84-crash-%E8%BF%BD%E8%B9%A4%E5%B7%A5%E5%85%B7-e77b80cc6f89) 」我們將 Crashlytics 閃退紀錄 Export Raw Data 到 Big Query，並使用 Google Apps Script 自動排程查詢 Top 10 Crash & 發布訊息到 Slack Channel。_
 
 
 本篇接續自動化一個與 App 閃退相關的重要數據 — **Crash-Free Users Rate 不受影響使用者的百分比** ，想必很多 App Team 都會持續追縱、紀錄此數據，以往都是傳統人工手動查詢，本篇目標是將此重複性工作自動化、也能避免人工查詢時可能貼錯數據的狀況；同之前所述，Firebase Crashlytics 沒有提供任何 API 供使用者查詢，所以我們同樣要借助將 Firebase 數據串接到其他 Google 服務，再透過該服務 API 查詢相關數據。
@@ -224,13 +224,13 @@ function fetchCrashFreeUsersRate(platform = "iOS", startDate = "30daysAgo", endD
 > _p.s. 不同於上一篇使用 Big Query 需要花錢查詢資料，此篇查詢 Crash-Free Users Rate、Google Apps Script 都是完全免費，可以放心使用。_
 
 
-如果想將結果同步發送到 Slack Channel 可參考 [上一篇文章](crashlytics-big-query-%E6%89%93%E9%80%A0%E6%9B%B4%E5%8D%B3%E6%99%82%E4%BE%BF%E5%88%A9%E7%9A%84-crash-%E8%BF%BD%E8%B9%A4%E5%B7%A5%E5%85%B7-e77b80cc6f89) ：
+如果想將結果同步發送到 Slack Channel 可參考 [上一篇文章](https://medium.com/zrealm-ios-dev/crashlytics-big-query-%E6%89%93%E9%80%A0%E6%9B%B4%E5%8D%B3%E6%99%82%E4%BE%BF%E5%88%A9%E7%9A%84-crash-%E8%BF%BD%E8%B9%A4%E5%B7%A5%E5%85%B7-e77b80cc6f89) ：
 ![](/assets/793cb8f89b72/1*0VfbK9BIt13LsIEeHGc2LQ.jpeg)
 ### 延伸閱讀
-- [Crashlytics + Big Query 打造更即時便利的 Crash 追蹤工具](crashlytics-big-query-%E6%89%93%E9%80%A0%E6%9B%B4%E5%8D%B3%E6%99%82%E4%BE%BF%E5%88%A9%E7%9A%84-crash-%E8%BF%BD%E8%B9%A4%E5%B7%A5%E5%85%B7-e77b80cc6f89)
-- [使用 Python+Google Cloud Platform+Line Bot 自動執行例行瑣事](%E4%BD%BF%E7%94%A8-python-google-cloud-platform-line-bot-%E8%87%AA%E5%8B%95%E5%9F%B7%E8%A1%8C%E4%BE%8B%E8%A1%8C%E7%91%A3%E4%BA%8B-70a1409b149a)
-- [Slack 打造全自動 WFH 員工健康狀況回報系統](slack-%E6%89%93%E9%80%A0%E5%85%A8%E8%87%AA%E5%8B%95-wfh-%E5%93%A1%E5%B7%A5%E5%81%A5%E5%BA%B7%E7%8B%80%E6%B3%81%E5%9B%9E%E5%A0%B1%E7%B3%BB%E7%B5%B1-d61062833c1a)
-- [運用 Google Apps Script 轉發 Gmail 信件到 Slack](%E9%81%8B%E7%94%A8-google-apps-script-%E8%BD%89%E7%99%BC-gmail-%E4%BF%A1%E4%BB%B6%E5%88%B0-slack-d414bdbdb8c9)
+- [Crashlytics + Big Query 打造更即時便利的 Crash 追蹤工具](https://medium.com/zrealm-ios-dev/crashlytics-big-query-%E6%89%93%E9%80%A0%E6%9B%B4%E5%8D%B3%E6%99%82%E4%BE%BF%E5%88%A9%E7%9A%84-crash-%E8%BF%BD%E8%B9%A4%E5%B7%A5%E5%85%B7-e77b80cc6f89)
+- [使用 Python+Google Cloud Platform+Line Bot 自動執行例行瑣事](https://medium.com/zrealm-ios-dev/%E4%BD%BF%E7%94%A8-python-google-cloud-platform-line-bot-%E8%87%AA%E5%8B%95%E5%9F%B7%E8%A1%8C%E4%BE%8B%E8%A1%8C%E7%91%A3%E4%BA%8B-70a1409b149a)
+- [Slack 打造全自動 WFH 員工健康狀況回報系統](https://blog.zhgchg.li/slack-%E6%89%93%E9%80%A0%E5%85%A8%E8%87%AA%E5%8B%95-wfh-%E5%93%A1%E5%B7%A5%E5%81%A5%E5%BA%B7%E7%8B%80%E6%B3%81%E5%9B%9E%E5%A0%B1%E7%B3%BB%E7%B5%B1-d61062833c1a)
+- [運用 Google Apps Script 轉發 Gmail 信件到 Slack](https://medium.com/zrealm-ios-dev/%E9%81%8B%E7%94%A8-google-apps-script-%E8%BD%89%E7%99%BC-gmail-%E4%BF%A1%E4%BB%B6%E5%88%B0-slack-d414bdbdb8c9)
 
 [Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
 
