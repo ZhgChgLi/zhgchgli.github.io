@@ -9,6 +9,7 @@ tags: [ios-app-development,php,laravel,vagrant,virtualbox]
 ### [重灌筆記1]-Laravel Homestead + phpMyAdmin 環境建置
 
 從 0 到 1 建置 Laravel 開發環境並搭配 phpMyAdmin GUI 管理 MySql 資料庫
+
 ![[Laravel](https://laravel.com/)](/assets/87090f101b9a/1*9MZPkre9WoEpnu9-BCQNrw.png "[Laravel](https://laravel.com/)")
 > 最近把 Mac Reset 一遍，紀錄一下重新還原 Laravel 開發環境的步驟。
 
@@ -36,9 +37,11 @@ bash init.sh
 到 [phpMyAdmin](https://www.phpmyadmin.net/) 官網下載最新版本回來。
 
 **解壓縮 .zip -> 資料夾 -> 重新命名資料夾名稱 -> 「phpMyAdmin」：**
+
 ![](/assets/87090f101b9a/1*HPhO6Mfyon4RaKnyoqiWJw.png)
 
 **將** **phpMyAdmin 資料夾移動到 ~/Homestead 資料夾中：**
+
 ![](/assets/87090f101b9a/1*MNYv9kaQ9tUfMhNrh2RKeQ.png)
 #### phpMyAdmin 設定
 
@@ -278,6 +281,7 @@ to: /home/vagrant/phpMyAdmin
 
 
 **打開複製出來的 Hosts 檔案，增加 sites 紀錄：**
+
 ![](/assets/87090f101b9a/1*KS7uM3NAftc593HplpQskQ.png)
 ```
 <homestead IP 位置> <網域名稱>
@@ -293,18 +297,21 @@ vagrant up --provision
 
 
 第一次啟動，需要下載 Homestead 環境包，需要較長的時間。
+
 ![](/assets/87090f101b9a/1*KKt0gW0o4dPZ5Jt4rK-1AQ.png)
 
 如果沒有出現特別的錯誤即表示啟動成功，可以下：
 ```
 vagrant ssh
 ```
+
 ![](/assets/87090f101b9a/1*HLcOSCdr3Q12OMtEDKi5_A.png)
 
 ssh 進入虛擬機。
 #### 檢查 phpMyAdmin 是否正確連線
 
 前往 [http://phpmyadmin.test/](http://phpmyadmin.test/index.php) 檢查是否正常開啟。
+
 ![](/assets/87090f101b9a/1*wdIhgvubJCZbMNJadB138A.png)
 
 成功！我們遇到要操作資料庫的地方，直接進來這邊修改即可。
@@ -325,7 +332,9 @@ cd ./code
 ```
 laravel new blog
 ```
+
 ![](/assets/87090f101b9a/1*8OoRlwxNB-TlILmrBuZ39Q.png)
+
 ![](/assets/87090f101b9a/1*77PMrTOLuJgEAa7KluZtmg.png)
 
 blog 專案建立成功！
@@ -351,6 +360,7 @@ vagrant reload --provision
 ```
 
 在瀏覽器輸入 [http://myblog.test](http://myblog.test) 測試是否正確建立＆運行：
+
 ![](/assets/87090f101b9a/1*35xKNTeA7KvEmCnPbFItgA.png)
 
 完成！
@@ -358,6 +368,7 @@ vagrant reload --provision
 
 雖然已經有用 Homestead 可以不需要另外裝 Composer，但考慮到有的 PHP 專案並不一定使用 Laravel 所以還是要在本機上安裝 Composer。
 - [Composer](https://getcomposer.org/download/)
+
 
 ![](/assets/87090f101b9a/1*_z7Tcj74Pw-n1QIOfbhIwA.png)
 
@@ -376,12 +387,15 @@ php composer-setup.php **--install-dir=/usr/local/bin --filename=composer**
 並依序在 terminal 輸入指令。
 > **_⚠️請注意_** _，不要直接複製使用以上範例，因為隨著 Composer 版本更新 hash check 碼也會跟著變。_
 
+
 ![](/assets/87090f101b9a/1*i8s7m3ah2YEWI5reRDhpZg.png)
 
 輸入 `composer -V` 確認版本＆安裝成功！
+
 ![](/assets/87090f101b9a/1*gga67ah9Td2L1xjyWcQtWw.png)
 ### 參考資料
 - [https://laravel.com/docs/8.x/homestead](https://laravel.com/docs/8.x/homestead)
 - [https://getcomposer.org/download/](https://getcomposer.org/download/)
 
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/%E9%87%8D%E7%81%8C%E7%AD%86%E8%A8%981-laravel-homestead-phpmyadmin-%E7%92%B0%E5%A2%83%E5%BB%BA%E7%BD%AE-87090f101b9a)

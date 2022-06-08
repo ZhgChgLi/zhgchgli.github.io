@@ -12,6 +12,7 @@ tags: [ios,push-notification,observables,ios-app-development,swift]
 ### 做什麼？
 
 接續前一篇「 [什麼？iOS 12 不需使用者授權就能傳送推播通知(Swift)](https://medium.com/@zhgchgli/%E4%BB%80%E9%BA%BC-ios-12-%E4%B8%8D%E9%9C%80%E4%BD%BF%E7%94%A8%E8%80%85%E6%8E%88%E6%AC%8A%E5%B0%B1%E8%83%BD%E6%94%B6%E5%88%B0%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5-swift-ade9e745a4bf?fbclid=IwAR1AKi3io4Jt-rFFgrLWEFsmA0lKYVFUD7Dw9n9LpMa2zAzJCHeGGGgn9Vs) 」提到的推播權限取得流程優化，經過上一篇Murmur部分寫的優化之後又遇到了新的需求：
+
 ![](/assets/fd7f92d52baa/1*fm_hG0GuT-BhSNTEB3Ht1g.jpeg)
 . 使用者若關閉通知功能，我們能在特定功能頁面提示他去設定開啟
 . 跳轉至設定頁後，若有打開/關閉通知的操作，回到APP要能跟著更改狀態
@@ -188,7 +189,9 @@ override func viewDidLoad() {
 ***notificationStatus 使用 Observable 請注意記憶體控制，該釋放時要能釋放（防止記憶體洩漏）、不該釋放時需持有（避免監聽失效）**
 
 ### 最後附上完整Demo成品：
+
 ![[結婚吧APP](https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E4%B8%8D%E6%89%BE%E6%9C%80%E8%B2%B4-%E5%8F%AA%E6%89%BE%E6%9C%80%E5%B0%8D/id1356057329?ls=1&mt=8)](/assets/fd7f92d52baa/1*_iVzlJLNQ7f0hO7IWxg1Zg.gif "[結婚吧APP](https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E4%B8%8D%E6%89%BE%E6%9C%80%E8%B2%B4-%E5%8F%AA%E6%89%BE%E6%9C%80%E5%B0%8D/id1356057329?ls=1&mt=8)")
 
 _*由於我們的專案支援範圍是iOS 9 ~ iOS12，iOS 8未進行任何測試不確定支援程度_
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/%E5%BE%9E-ios-9-%E5%88%B0-ios-12-%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5%E6%AC%8A%E9%99%90%E7%8B%80%E6%85%8B%E8%99%95%E7%90%86-swift-fd7f92d52baa)

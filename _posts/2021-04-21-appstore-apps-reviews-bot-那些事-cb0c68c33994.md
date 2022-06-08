@@ -9,8 +9,10 @@ tags: [slackbot,ios-app-development,ruby,fastlane,automator]
 ### AppStore APP’s Reviews Slack Bot 那些事
 
 使用 Ruby+Fastlane-SpaceShip 動手打造 APP 評價追蹤通知 Slack 機器人
+
 ![Photo by [Austin Distel](https://unsplash.com/@austindistel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](/assets/cb0c68c33994/1*BMCG3cu21W5MbODBbhI-sA.jpeg "Photo by [Austin Distel](https://unsplash.com/@austindistel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)")
 #### 吃米不知米價
+
 ![[AppReviewBot 為例](https://appreviewbot.com)](/assets/cb0c68c33994/1*Iv6qvrBfyv3bU1NK1hPVHg.png "[AppReviewBot 為例](https://appreviewbot.com)")
 
 最近才知道 Slack 中轉發 APP 最新評價訊息的機器人是要付費的，我一直以為這功能是免費的；費用從 $5 到 $200 美金/月都有，因為各平台都不會只做「App Review Bot」的功能，其他還有數據統計、紀錄、統一後台、與競品比較…等等，費用也是照各平台能提供的服務為標準；Review Bot 只是他們的一環，但我就只想用這個功能其他不需要，如果是這樣付費蠻浪費的。
@@ -118,6 +120,7 @@ https://itunes.apple.com/國家碼/rss/customerreviews/id=APP_ID/page=1/sortBy=m
 
 
 **第一步 — 嗅探 App Store Connect 後台評論區塊 Load 資料的 API：**
+
 ![](/assets/cb0c68c33994/1*74lbicQ_vPzrLfm1imk7Pg.png)
 
 得到蘋果後台是透過打：
@@ -126,6 +129,7 @@ https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/apps/APP_ID/pl
 ```
 
 這個 endpoint 取得評價列表：
+
 ![](/assets/cb0c68c33994/1*I00Znmzaivm_-7ous0-4Pw.png)
 
 index = 分頁 offset，一次最多顯示 100 筆。
@@ -155,6 +159,7 @@ index = 分頁 offset，一次最多顯示 100 筆。
 ```
 
 另外經過測試後發現，只需要在帶上 `cookie: myacinfo=<Token>` 即可偽造請求得到資料：
+
 ![](/assets/cb0c68c33994/1*b_vINNRMrAIQrkuouN7X1Q.png)
 
 API 有了、要求的 header 知道了，再來就要想辦法自動化取得後台這個 cookie 資訊。
@@ -189,6 +194,7 @@ accessed_at: 2021-04-21 20:42:35.735921000 +08:00
 **第三步 — SpaceShip**
 
 本來以為 Fastlane 只能幫我們到這了，再來要自己串起從 Fastlane 拿到 cookie 然後打 api 的 flow；沒想到經過一番探索發現 Fastlane 關於驗證這塊的模組 [**`SpaceShip`**](https://github.com/fastlane/fastlane/tree/master/spaceship) 還有更多強大的功能！
+
 ![[`SpaceShip`](https://github.com/fastlane/fastlane/tree/master/spaceship)](/assets/cb0c68c33994/1*OlYQLNXAOk1oNqDP7LSlrA.png "[`SpaceShip`](https://github.com/fastlane/fastlane/tree/master/spaceship)")
 
 SpaceShip 裡面已經幫我們打包好撈評價列表的方法 [**Class: Spaceship::TunesClient::get_reviews**](https://www.rubydoc.info/gems/spaceship/0.39.0/Spaceship/TunesClient#get_reviews-instance_method) 了！
@@ -457,6 +463,7 @@ end
 
 
 **效果圖：**
+
 ![](/assets/cb0c68c33994/1*B0xW1CXU-avz2j8_ny3Ang.jpeg)
 ### 免費的其他選擇
 . [AppFollow](https://appfollow.io/) ：使用 Public URL API (RSS)，只能說堪用吧。
@@ -467,6 +474,7 @@ end
 ### 溫馨提示
 
 1.⚠️Private URL API 方法，如果用有二階段驗證的帳號，最長每 30 天都需要重新驗證才能使用且目前無解；如果有辦法生出沒二階段的帳號就可以無痛爽爽用。
+
 ![[#important-note-about-session-duration](https://docs.fastlane.tools/best-practices/continuous-integration/#important-note-about-session-duration)](/assets/cb0c68c33994/1*EE2J5HmdiIogMwC3Iiy0KA.png "[#important-note-about-session-duration](https://docs.fastlane.tools/best-practices/continuous-integration/#important-note-about-session-duration)")
 
 2.⚠️不論是免費、付費、本文的自架；切勿使用開發者帳號，務必開一個獨立的 App Store Connect 帳號使用，權限只開放「Customer Support」；防止資安問題。
@@ -477,4 +485,5 @@ end
 ### Problem Solved!
 
 經過以上心路歷程，更瞭解的 Slack Bot 的運作方式；還有 iOS App Store 是如何爬取評價內容的，另外也摸了下 ruby！寫起來真不錯！
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/appstore-apps-reviews-bot-%E9%82%A3%E4%BA%9B%E4%BA%8B-cb0c68c33994)

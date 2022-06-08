@@ -9,6 +9,7 @@ tags: [medium,markdown,backup,ruby,automation]
 ### Converting Medium Posts to Markdown
 
 撰寫小工具將 Medium 心血文章備份下來 & 轉換成 Markdown 格式
+
 ![](/assets/ddd88a84e177/1*Widc44swFkytb1jRNhA6Lg.jpeg)
 ### [EN] [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)
 
@@ -105,6 +106,7 @@ METHOD: POST
 **如何剖析文章內容？**
 
 檢視文章原始碼後可發現，Medium 是使用 [Apollo Client](https://www.apollographql.com/docs/react/) 服務進行架設；其端 HTML 實際是從 JS 渲染而來；因此可以再檢視原始碼中的 <script> 區段找到 `window.__APOLLO_STATE__` 字段，內容就是整篇文章的段落架構，Medium 會把你整篇文章拆成一句一句的段落，再透過 JS 引擎渲染回 HTML。
+
 ![](/assets/ddd88a84e177/1*mH8iq7W-pJZrMBPpEyN6Zw.png)
 
 我們要做的事也一樣，解析這個 JSON，比對 Type 在 Markdown 的樣式，組合出 Markdown 格式。
@@ -173,4 +175,5 @@ code `in` text, and [ink](http://zhgchg.li) in text, and ZhgChgLi, and **bold,_ 
 ### 成果
 
 [原文](../%E5%AF%A6%E6%88%B0%E7%B4%80%E9%8C%84-4-%E5%80%8B%E5%A0%B4%E6%99%AF-7-%E5%80%8B-design-patterns-78507a8de6a5) -> [轉換後的 Markdown 結果](https://github.com/ZhgChgLi/ZMediumToMarkdown/blob/main/example/%E5%AF%A6%E6%88%B0%E7%B4%80%E9%8C%84-4-%E5%80%8B%E5%A0%B4%E6%99%AF-7-%E5%80%8B-design-patterns-78507a8de6a5.md)
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/converting-medium-posts-to-markdown-ddd88a84e177)

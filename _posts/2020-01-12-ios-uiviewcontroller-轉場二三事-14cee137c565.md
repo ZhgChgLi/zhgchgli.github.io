@@ -10,6 +10,7 @@ tags: [ios,ios-app-development,swift,uiviewcontroller,mobile-app-development]
 
 UIViewController 下拉關閉/上拉出現/全頁右滑返回 效果全解
 ### 前言
+
 ![](/assets/14cee137c565/1*6IQTrlT4vIKR-NjLRsvZ-A.gif)
 
 一直以來都很好奇諸如 Facebook、Line、Spotify…等等常用的 APP 是如何實作「Present 的 UIViewController 可下拉關閉」、「上拉漸入 UIViewController」、「全頁面支援手勢右滑返回」這些效果的。
@@ -30,6 +31,7 @@ _內容有點多，嫌麻煩的可以直接拉到底看範例，或直接下載 
 首先講最新系統內建的效果
 iOS ≥ 13 後 `UIViewController.present(_:animated:completion:)` 
 默認的 `modalPresentationStyle` 效果就是 `UIModalPresentationAutomatic` 片樣式呈現頁面，若想要保持之前的全頁面呈現就要特別指定回 `UIModalPresentationFullScreen` 即可。
+
 ![內建行事曆新增效果](/assets/14cee137c565/1*j0NeJfAuR2fXP56KWglS7Q.gif "內建行事曆新增效果")
 #### 如何取消下拉關閉？關閉確認？
 
@@ -98,6 +100,7 @@ _**如果之前有把一些邏輯放在 viewWillAppear/viewWillDisappear/viewDid
 ### 哪裡可做轉場動畫？
 
 首先先整理哪裡可以做視窗切換轉場動畫。
+
 ![UITabBarController/UIViewController/UINavigationController](/assets/14cee137c565/1*G0us0AtYJCy3va1sh_bWhQ.gif "UITabBarController/UIViewController/UINavigationController")
 #### UITabBarController 切換時
 
@@ -338,6 +341,7 @@ _因為能繼續、中斷的特性；所以 `interruptibleAnimator` 是有可能
 
 **Murmur…** 
 其實我本來是想全都改用新的 `UIViewPropertyAnimator` 也想推薦大家都用新的來做，但我遇到一個很奇怪的問題，就是在做全頁手勢返回 Pop 動畫時，若手勢放開，動畫歸位，上方的 Navigation Bar 的 Item 會淡入淡出閃一下…找不到解，但回去用 `UIView.animate` 就沒這問題；如果有地方沒注意到歡迎跟我說<( _ _ )>。
+
 ![問題圖; + 按鈕是上一頁的](/assets/14cee137c565/1*cVg7iZ_rFC2nxm2H5ET1Gg.gif "問題圖; + 按鈕是上一頁的")
 
 所以保險起見還是用舊的方式吧！
@@ -562,6 +566,7 @@ _可以多加設置確保一下！_
 ### 自製下拉關閉頁面效果
 
 自製下拉的好處在能支援市面所有 iOS 版本、可控制蓋板百分比、控制觸發關閉位置、客製化動畫效果。
+
 ![點右上方 + Present 頁面](/assets/14cee137c565/1*Wz8y5UJSgS0IUN86upSqLw.gif "點右上方 + Present 頁面")
 
 這是一個 `HomeViewController` Present `HomeAddViewController` 和 `HomeAddViewController` Dismiss的範例。
@@ -926,6 +931,7 @@ class SlideFromLeftToRightTransition: NSObject, UIViewControllerAnimatedTransiti
 
 要說哪裡要注意，大概就是 **在上拉漸入時，動畫要確保是使用「.curveLinear 線性」否則會出現上拉不跟手的問題** ；拉的程度跟顯示的位置不是正比。
 ### 完成！
+
 ![完成圖](/assets/14cee137c565/1*RRAVb3p7mZpUCNOpd64-Pw.gif "完成圖")
 > 此篇很長，也花了我許久時間整理製作，感謝您的耐心閱讀。
 #### 全篇 GitHub 範例下載：
@@ -944,4 +950,5 @@ You can't perform that action at this time. You signed in with another tab or wi
 . Swift: [https://github.com/Kharauzov/SwipeableCards](https://github.com/Kharauzov/SwipeableCards)
 . Objective-C: [https://github.com/saiday/DraggableViewControllerDemo](https://github.com/saiday/DraggableViewControllerDemo)
 
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/ios-uiviewcontroller-%E8%BD%89%E5%A0%B4%E4%BA%8C%E4%B8%89%E4%BA%8B-14cee137c565)

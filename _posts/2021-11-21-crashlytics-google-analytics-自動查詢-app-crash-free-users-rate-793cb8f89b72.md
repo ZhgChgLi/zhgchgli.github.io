@@ -9,14 +9,17 @@ tags: [crashlytics,ios-app-development,google-analytics,google-apps-script,googl
 ### Crashlytics + Google Analytics 自動查詢 App Crash-Free Users Rate
 
 使用 Google Apps Script 透過 Google Analytics 查詢 Crashlytics 自動填入到 Google Sheet
+
 ![](/assets/793cb8f89b72/1*yPSS8J7o-jowQ6NRYArzjQ.png)
 > _上篇「 [Crashlytics + Big Query 打造更即時便利的 Crash 追蹤工具](../crashlytics-big-query-%E6%89%93%E9%80%A0%E6%9B%B4%E5%8D%B3%E6%99%82%E4%BE%BF%E5%88%A9%E7%9A%84-crash-%E8%BF%BD%E8%B9%A4%E5%B7%A5%E5%85%B7-e77b80cc6f89) 」我們將 Crashlytics 閃退紀錄 Export Raw Data 到 Big Query，並使用 Google Apps Script 自動排程查詢 Top 10 Crash & 發布訊息到 Slack Channel。_
 
 
 本篇接續自動化一個與 App 閃退相關的重要數據 — **Crash-Free Users Rate 不受影響使用者的百分比** ，想必很多 App Team 都會持續追縱、紀錄此數據，以往都是傳統人工手動查詢，本篇目標是將此重複性工作自動化、也能避免人工查詢時可能貼錯數據的狀況；同之前所述，Firebase Crashlytics 沒有提供任何 API 供使用者查詢，所以我們同樣要借助將 Firebase 數據串接到其他 Google 服務，再透過該服務 API 查詢相關數據。
+
 ![](/assets/793cb8f89b72/1*nvZXYgkj_8AdqHdR_yTCWg.png)
 
 一開始我以為這個數據同樣能從 Big Query 查詢出來；但其實這方向完全錯誤，因為 Big Query 是 Crash 的 Raw Data，不會有沒有閃退的人的數據，因此也算不出 Crash-Free Users Rate；關於這個需求在網路上的資料不多，查詢許久才找到有人提到 Google Analytics 這個關鍵字；我知道 Firebase 的 Analytics、Event 都能串到 GA 查詢使用，但沒想到 Crash-Free Users Rate 這個數據也包含在內，翻閱了 GA 的 API 後，Bingo！
+
 ![[API Dimensions & Metrics](https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema?hl=en)](/assets/793cb8f89b72/1*4BVf-FMVcY1UbVuLwfKOQg.png "[API Dimensions & Metrics](https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema?hl=en)")
 
 [Google Analytics Data API (GA4)](https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema#metrics) 提供兩個 Metrics：
@@ -33,24 +36,30 @@ tags: [crashlytics,ios-app-development,google-analytics,google-apps-script,googl
 開始寫 Code 之前，我們可以先用官方提供的 Web GUI Tool 來快速建造查詢條件、取得查詢結果；實驗完結果是我們想要的之後，再開始寫 Code。前
 
 [前往 >>> GA4 Query Explorer](https://ga-dev-tools.web.app/ga4/query-explorer/)
+
 ![](/assets/793cb8f89b72/1*qsCMVfWIAzWdZ78LBj8n2A.jpeg)
 - 在左上方記得選到 GA4
 - 右方登入完帳號後，選擇相應的 GA Account & Property
 
+
 ![](/assets/793cb8f89b72/1*hFJ9KYfecVNmdi4VfDAyIw.png)
 - Start Date、EndDate：可直接輸入日期或用特殊變數表示日期 ( `ysterday` , `today` , `30daysAgo` , `7daysAgo` )
+
 
 ![](/assets/793cb8f89b72/1*GEa3BNpUAqoPD07gE-N21A.png)
 - metrics：增加 `crashFreeUsersRate`
 
+
 ![](/assets/793cb8f89b72/1*WygzFvmOLp2kUQC3H_lh2g.png)
 - dimensions：增加 `platform` (設備類型 iOS/Android/Desktop...)
+
 
 ![](/assets/793cb8f89b72/1*RE8SIIVx4PUkqnHQVsJcTg.png)
 - dimension filter：增加 `platform` 、 `string` 、 `exact` 、 `iOS` or `Android`
 
 
 針對雙平台的 Crash Free Users Rate 分別查詢。
+
 ![](/assets/793cb8f89b72/1*1NJNUZscuU2XIicgRPGFYg.png)
 
 拉到最下面點擊「Make Request」查看結果，我們就能得到指定日期範圍內的 Crash-Free Users Rate。
@@ -60,18 +69,23 @@ _這邊有發現兩邊數字可能會有微微差距(我們有一項數字差了
 #### 使用 Google Apps Script 自動填入數據到 Google Sheet
 
 再來就是自動化的部分，我們將使用 Google Apps Script 查詢 GA Crash-Free Users Rate 數據後自動填入到我們的 Google Sheet 表單；已達自動填寫、自動追蹤的目標。
+
 ![](/assets/793cb8f89b72/1*kMByIU9_6mxg8-F4BbwLuw.png)
 
 假設我們的 Google Sheet 如上圖。
+
 ![](/assets/793cb8f89b72/1*pnJ7gmjDefB9OLl0NgceLA.png)
 
 可以點擊 Google Sheet 上方的 Extensions -> Apps Script 建立 Google Apps Script 或是 [點此前網 Google Apps Script](https://script.google.com/home/start) -> 左上方 新增專案即可。
+
 ![](/assets/793cb8f89b72/1*81_RPPZgBDvW4XplOHGmVg.png)
 
 進來後可以先點上方未命名專案名稱，給個專案名稱。
+
 ![](/assets/793cb8f89b72/1*C4qUfJr2UHAzbcksP2zYWA.jpeg)
 
 在左方的「Services」點「+」加上「Google Analytics Data API」。
+
 ![](/assets/793cb8f89b72/1*FfWGQiV2IpOAsQB6TN887g.png)
 
 回到剛剛的 [GA4 Query Explorer](https://ga-dev-tools.web.app/ga4/query-explorer/) 工具，在 Make Request 按鈕旁邊可以勾選「Show Request JSON」取得此條件的 Request JSON。
@@ -124,21 +138,26 @@ function fetchCrashFreeUsersRate(platform = "iOS", startDate = "30daysAgo", endD
 ```
 - GA Property ID：一樣也可以由剛剛的 [GA4 Query Explorer](https://ga-dev-tools.web.app/ga4/query-explorer/) 工具取得：
 
+
 ![](/assets/793cb8f89b72/1*_ypOYamULlL_dcDsph4KiQ.jpeg)
 
 在一開始的選擇 Property 選單中，選擇的 Property 下方的數字就是 `propertyId` 。
 - googleSheetID：可以由 Google Sheet 網址中取得 [https://docs.google.com/spreadsheets/d/ `googleSheetID` /edit](https://docs.google.com/spreadsheets/d/googleSheetID/edit)
 - googleSheetName：Google Sheet 中閃退紀錄的 Sheet 名稱
 
+
 ![](/assets/793cb8f89b72/1*5lCtwwr3kZlBEEoW_D33gw.jpeg)
 
 將以上程式碼貼到 Google Apps Script 右方程式碼區塊＆上方執行方法選擇「execute」function 後可以點擊 Debug 測試看看是否能正常取得資料：
+
 ![](/assets/793cb8f89b72/1*patatPx4XveqzXfkmetZyA.jpeg)
 
 第一次執行會出現要求授權視窗：
+
 ![](/assets/793cb8f89b72/1*6997jA1kINxLfhcxx2NcDQ.png)
 
 按照步驟完成帳號授權即可。
+
 ![](/assets/793cb8f89b72/1*_UjZ9Gx3TEvuxZd4ypaYsw.png)
 
 執行成功會在下方 Log Print 出 Crash-Free Users Rate，代表查詢成功。
@@ -204,13 +223,16 @@ function fetchCrashFreeUsersRate(platform = "iOS", startDate = "30daysAgo", endD
 ```
 
 再次點擊上方 Run or Debug 執行「execute」。
+
 ![](/assets/793cb8f89b72/1*tO7f0t5if6Db_eiv5BLOUQ.png)
 
 回到 Google Sheet，數據新增成功！
 #### 新增 Trigger 排程自動執行
+
 ![](/assets/793cb8f89b72/1*MGO4FhC_8N8ul9dXZRYaMg.jpeg)
 
 選擇左方時鐘按鈕 -> 右下方「+ Add Trigger」。
+
 ![](/assets/793cb8f89b72/1*EArxafXakAcfuPWcr1wtIg.png)
 - 第一個 function 選擇「execute」
 - time based trigger 可選擇 week timer 每週追蹤＆新增一次數據
@@ -225,4 +247,7 @@ function fetchCrashFreeUsersRate(platform = "iOS", startDate = "30daysAgo", endD
 
 
 如果想將結果同步發送到 Slack Channel 可參考 [上一篇文章](../crashlytics-big-query-%E6%89%93%E9%80%A0%E6%9B%B4%E5%8D%B3%E6%99%82%E4%BE%BF%E5%88%A9%E7%9A%84-crash-%E8%BF%BD%E8%B9%A4%E5%B7%A5%E5%85%B7-e77b80cc6f89) ：
+
 ![](/assets/793cb8f89b72/1*0VfbK9BIt13LsIEeHGc2LQ.jpeg)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/crashlytics-google-analytics-%E8%87%AA%E5%8B%95%E6%9F%A5%E8%A9%A2-app-crash-free-users-rate-793cb8f89b72)

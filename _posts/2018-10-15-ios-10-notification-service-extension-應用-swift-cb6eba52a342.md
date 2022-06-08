@@ -11,6 +11,7 @@ tags: [swift,push-notification,notificationservice,ios,ios-app-development]
 圖片推播、推播顯示統計、推播顯示前處理
 
 關於基礎的推播建置、推播原理；網路資料很多，這邊就不再論述，本篇主要重點在如何讓APP支援圖片推播及運用新特性達成更精準的推播顯示統計．
+
 ![](/assets/cb6eba52a342/1*8juoKO7BZiT3PQjqufWcrA.jpeg)
 
 如上圖所示，Notification Service Extension讓你在APP收到推播後能針對推播做預處理，然後才顯示推播內容
@@ -21,6 +22,7 @@ tags: [swift,push-notification,notificationservice,ios,ios-app-development]
 iOS ≥ 10.0
 #### 30秒可以幹嘛？
 - (目標1) 從推播內容的圖片連結欄位下載圖片回來，並附加到推播內容上🏆
+
 
 ![](/assets/cb6eba52a342/1*dd2kRizi6v-AIXcMWourow.png)
 - (目標2) 統計推播有無顯示🏆
@@ -45,12 +47,17 @@ iOS ≥ 10.0
 }
 ```
 #### And… 第一步，為專案新建一個Target
+
 ![**Step 1.** Xcode -> File -> New -> Target](/assets/cb6eba52a342/1*ZjPVTxLR6ywAdk70Y7_J7A.png "**Step 1.** Xcode -> File -> New -> Target")
+
 ![**Step 2.** iOS -> Notification Service Extension -> Next](/assets/cb6eba52a342/1*2KRusR8MJUim7UH1CmS7pw.png "**Step 2.** iOS -> Notification Service Extension -> Next")
+
 ![**Step 3.** 輸入Product Name -> Finish](/assets/cb6eba52a342/1*sAuzxJPpohTGp-KV13yupg.png "**Step 3.** 輸入Product Name -> Finish")
+
 ![**Step 4.** 點選 Activate](/assets/cb6eba52a342/1*3DF_fMQLSrGxTbmLY6CJAg.png "**Step 4.** 點選 Activate")
 
 **第二步，撰寫推播內容處理程式**
+
 ![找到Product Name/NotificationService.swift檔](/assets/cb6eba52a342/1*UsCd2btDPK6GWKrYEA9LbQ.png "找到Product Name/NotificationService.swift檔")
 ```swift
 import UserNotifications
@@ -195,5 +202,7 @@ override func didReceive(_ request: UNNotificationRequest, withContentHandler co
 iOS 12之後支援更多動作處理： [iOS 12 新通知功能：添加互動性 在通知中實作複雜功能](https://www.appcoda.com.tw/user-notifications-ios12/)
 
 Notification Content Extension的部分，我只拉了一個能展示圖片推播的UIView 並沒有做太多琢磨：
+
 ![[結婚吧APP](https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E4%B8%8D%E6%89%BE%E6%9C%80%E8%B2%B4-%E5%8F%AA%E6%89%BE%E6%9C%80%E5%B0%8D/id1356057329?ls=1&mt=8)](/assets/cb6eba52a342/1*SepeUiS7CN7xmGFxariPjA.png "[結婚吧APP](https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E4%B8%8D%E6%89%BE%E6%9C%80%E8%B2%B4-%E5%8F%AA%E6%89%BE%E6%9C%80%E5%B0%8D/id1356057329?ls=1&mt=8)")
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/ios-10-notification-service-extension-%E6%87%89%E7%94%A8-swift-cb6eba52a342)

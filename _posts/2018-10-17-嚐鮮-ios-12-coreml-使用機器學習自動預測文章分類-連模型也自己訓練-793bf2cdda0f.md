@@ -61,12 +61,14 @@ _p.s 由於圖片辨識我還沒想到能訓練它做什麼，所以就沒去研
 
 **訓練工具：** [BlankSpace007/TextClassiferPlayground](https://github.com/BlankSpace007/TextClassiferPlayground) （官方只提供 **圖片的GUI訓練工具** ，文字的要自己寫；這是由網路大神提供的第三方工具）
 #### 準備訓練資料：
+
 ![資料結構如上圖，支援.json,.csv檔](/assets/793bf2cdda0f/1*bqKGHErvqhd6gIKCnvve4Q.png "資料結構如上圖，支援.json,.csv檔")
 
 準備好要拿來訓練的資料，這裡以用Phpmyadmin(Mysql) 匯出訓練資料
 ```
 SELECT `title` AS `text`,`type` AS `label` FROM `posts` WHERE `status` = '1'
 ```
+
 ![匯出方式更改成JSON格式](/assets/793bf2cdda0f/1*fc10j10OzmI2TGemaqlDmw.png "匯出方式更改成JSON格式")
 ```
 [
@@ -88,15 +90,21 @@ SELECT `title` AS `text`,`type` AS `label` FROM `posts` WHERE `status` = '1'
 #### 使用訓練工具：
 
 下載好訓練工具後，點擊 TextClassifer.playground 打開 Playground
+
 ![點擊紅匡執行->點擊綠匡切換View顯示](/assets/793bf2cdda0f/1*ct9AHpetBuEKHDGfRwvMlg.png "點擊紅匡執行->點擊綠匡切換View顯示")
+
 ![將JSON檔案拉入GUI工具](/assets/793bf2cdda0f/1*kV_Dh2pP94gUakcmYcI6bQ.png "將JSON檔案拉入GUI工具")
+
 ![打開下方Console查看訓練進度，看到「測試正確率」這行代表已完成模型訓練](/assets/793bf2cdda0f/1*NIyGqbNaArovIDEPK6Ynhg.png "打開下方Console查看訓練進度，看到「測試正確率」這行代表已完成模型訓練")
 
 資料太多就要考驗考驗你的電腦處理能力。
+
 ![填寫基本訊息後按「保存」](/assets/793bf2cdda0f/1*-jN91i4v0ijo6_qkCH1qwg.png "填寫基本訊息後按「保存」")
 
 保存下訓練好的模型檔案
+
 ![](/assets/793bf2cdda0f/1*ML0yNr3NzRwGfBjIBzCfpg.png)
+
 ![CoreML 模型檔](/assets/793bf2cdda0f/1*WWg3yfrgNastu0U20iiCUQ.png "CoreML 模型檔")
 
 到此你的模型就已經訓練好囉！是不是很容易
@@ -107,6 +115,7 @@ SELECT `title` AS `text`,`type` AS `label` FROM `posts` WHERE `status` = '1'
 
 
 到這邊已經完成大部分的工作，接下來只要把模型檔加入iOS 專案中，寫個幾行程式就行囉。
+
 ![將模型檔案(*.mlmodel) 拖曳/加入專案之中](/assets/793bf2cdda0f/1*4Uc1elBmhEnQ-J8z_RIQHQ.png "將模型檔案(*.mlmodel) 拖曳/加入專案之中")
 #### 程式部分：
 ```swift
@@ -130,6 +139,7 @@ if #available(iOS 12.0, *),let prediction = try? textClassifier().prediction(tex
 #### 結語：
 
 目前我將其應用在實務APP上，做文章發文時預測他的分類
+
 ![[結婚吧APP](https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E4%B8%8D%E6%89%BE%E6%9C%80%E8%B2%B4-%E5%8F%AA%E6%89%BE%E6%9C%80%E5%B0%8D/id1356057329?ls=1&mt=8)](/assets/793bf2cdda0f/1*pOYPHRwPNLVtikVKzfIqsw.png "[結婚吧APP](https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E4%B8%8D%E6%89%BE%E6%9C%80%E8%B2%B4-%E5%8F%AA%E6%89%BE%E6%9C%80%E5%B0%8D/id1356057329?ls=1&mt=8)")
 
 我拿去訓練資料約才100筆，目前預測命中率約35%，主要為實驗性質而已。
@@ -139,4 +149,5 @@ if #available(iOS 12.0, *),let prediction = try? textClassifier().prediction(tex
 就是這麼簡單，完成人生中第一個機器學習項目；其中背景如何運作還有很長的路可以學習，希望這個項目能給大家一些啟發！
 
 參考資料： [WWDC2018之Create ML(二)](https://www.jianshu.com/p/205ee896663f)
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/%E5%9A%90%E9%AE%AE-ios-12-coreml-%E4%BD%BF%E7%94%A8%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E8%87%AA%E5%8B%95%E9%A0%90%E6%B8%AC%E6%96%87%E7%AB%A0%E5%88%86%E9%A1%9E-%E9%80%A3%E6%A8%A1%E5%9E%8B%E4%B9%9F%E8%87%AA%E5%B7%B1%E8%A8%93%E7%B7%B4-793bf2cdda0f)

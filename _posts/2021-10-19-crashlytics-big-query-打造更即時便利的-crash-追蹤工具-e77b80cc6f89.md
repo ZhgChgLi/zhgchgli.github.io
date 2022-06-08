@@ -9,8 +9,10 @@ tags: [ios-app-development,crashlytics,firebase,bigquery,slack]
 ### Crashlytics + Big Query 打造更即時便利的 Crash 追蹤工具
 
 串接 Crashlytics 和 Big Query 自動轉發閃退記錄到 Slack Channel
+
 ![](/assets/e77b80cc6f89/1*-luP3wtJr1XJ9Vq3M0sQLA.png)
 ### 成果
+
 ![Pinkoi iOS Team 實拍圖](/assets/e77b80cc6f89/1*gJhRllB0sQb-W3P7tQAQ6g.jpeg "Pinkoi iOS Team 實拍圖")
 
 先上成果圖，每週定時查詢 Crashlytics 閃退紀錄；篩選出閃退次數前 10 多的問題；將訊息發送到 Slack Channel，方便所有 iOS 隊友快速了解目前穩定性。
@@ -53,6 +55,7 @@ tags: [ios-app-development,crashlytics,firebase,bigquery,slack]
 
 以至於根本沒有解決 Crashlytics 難以自動追蹤的問題，一樣要花很多時間在審閱這個問題究竟重不重要之上。
 ### Crashlytics + Big Query
+
 ![](/assets/e77b80cc6f89/1*ABFLOY1AEKkSJah6EVJEkg.png)
 
 轉來轉去只找到這個方法，官方也只提供這個方法；這就是免費糖衣下的陷阱，我猜不管是 Crashlytics 或 Analytics Event 都不會也沒有計劃推出 API 讓使用者可以串 API 查資料；因為官方的唯一建議就是把資料匯入到 Big Query 使用，而 Big Query 超過免費儲存與查詢額度是要收費的。
@@ -65,26 +68,33 @@ Crashlytics to Big Query 的設定細節可參考 [**官方文件**](https://fir
 ### 開始使用 Big Query 查詢 Crashlytics Log
 
 設好 Crashlytics Log to Big Query 匯入週期＆完成第一次匯入有資料後，我們就能開始查詢資料囉。
+
 ![](/assets/e77b80cc6f89/1*dvjnubHWwYF7Bhz8SiuuLA.jpeg)
 
 首先到 Firebase 專案 -> Crashlytics -> 列表右上方的「•••」-> 點擊前往「BigQuery dataset」。
+
 ![](/assets/e77b80cc6f89/1*TEJY6kH9guplY1kZvOfxzw.jpeg)
 
 前往 GCP -> Big Query 後可在左方「Exploer」中選擇「firebase_crashlytics」->選擇你的 Table 名稱 ->「Detail」 -> 右邊可查看 Table 資訊，包含最新修改時間、已使用容量、儲存期限…等等。
 > _確認已有匯入的資料可查詢。_
 
+
 ![](/assets/e77b80cc6f89/1*4atxy5aRHkQrVvRE1GE2AQ.jpeg)
 
 上方 Tab 可切換到「SCHEMA」查看 Table 的欄位資訊或參考 [官方文件](https://firebase.google.com/docs/crashlytics/bigquery-export#without_stack_traces) 。
+
 ![](/assets/e77b80cc6f89/1*K0got1UinY2y4cFxZ2HM3w.jpeg)
 
 點擊右上方的「Query」可開啟帶有輔助 SQL Builder 的介面(如對 SQL 不熟建議使用這個)：
+
 ![](/assets/e77b80cc6f89/1*fxget7SOAb7hlnKDWhvmFQ.jpeg)
 
 或直接點「COMPOSE NEW QUERY」開一個空白的 Query Editor：
+
 ![](/assets/e77b80cc6f89/1*3T7vHuR4LoojnZ5xe6LWfg.png)
 
 不管是哪種方法，都是同個文字編輯器；在輸入完 SQL 之後可以預先在右上方自動完成 SQL 語法檢查和預計會花費的查詢額度( `This query will process XXX when run.` )：
+
 ![](/assets/e77b80cc6f89/1*wGMkfqGPg277BzuUgOag1w.jpeg)
 
 確認要查詢後點左上方「RUN」執行查詢，結果會在下方 Query results 區塊顯示。
@@ -179,6 +189,7 @@ ORDER BY
 LIMIT 
   10;
 ```
+
 ![](/assets/e77b80cc6f89/1*YtbpV4tm0Z_iwrOA0AJ9Jg.jpeg)
 
 比對 Crashlytics 的 Top 10 閃退問題結果，符合✅。
@@ -401,26 +412,33 @@ function sendTop10CrashToSlack() {
 > _如果不知道怎麼取得 in-cming WebHook URL 可以參考 [此篇文章](../%E9%81%8B%E7%94%A8-google-apps-script-%E8%BD%89%E7%99%BC-gmail-%E4%BF%A1%E4%BB%B6%E5%88%B0-slack-d414bdbdb8c9) 的「取得 Incoming WebHooks App URL」章節。_
 
 #### 測試＆設定排程
+
 ![](/assets/e77b80cc6f89/1*epwnVrltY7ei8_osPnbaww.jpeg)
 
 此時你的 Google Apps Script 專案應該會有上述兩個 Function。
 
 接下來請在上方的選擇「sendTop10CrashToSlack」Function，然後點擊 Debug 或 Run 執行測試一次；因第一次執行需要完成身份驗證，所以請至少執行過一次再進行下一步。
+
 ![](/assets/e77b80cc6f89/1*Pt-falvO3uCtfSrJpNZeZQ.png)
 
 **執行測試一次沒問題後，可以開始設定排程自動執行：**
+
 ![](/assets/e77b80cc6f89/1*-lI8vcewsS5ZRt5vR1iAkg.jpeg)
 
 於左方選擇鬧鐘圖案，再選擇右下方「+ Add Trigger」。
+
 ![](/assets/e77b80cc6f89/1*V20eoW30mHYnHkhUk5uKnw.png)
 
 第一個「Choose which function to run」(需要執行的 function 入口) 請改為 `sendTop10CrashToSlack` ，時間週期可依個人喜好設定。
 > _⚠️⚠️⚠️_ **_請特別注意每次查詢都會累積然後收費的，所以千萬不要亂設定；否則可能被排程自動執行搞到破產。_**
 
 ### 完成
+
 ![範例成果圖](/assets/e77b80cc6f89/1*J4k9SMFX8hU7-M_zX3wDtw.jpeg "範例成果圖")
 
 現在起，你只要在 Slack 上就能快速追蹤當前 App 閃退問題；甚至直接在上面進行討論。
 ### App Crash-Free Users Rate？
 
 如果你想追的是 App Crash-Free Users Rate，可參考下篇「 [Crashlytics + Google Analytics 自動查詢 App Crash-Free Users Rate](../crashlytics-google-analytics-%E8%87%AA%E5%8B%95%E6%9F%A5%E8%A9%A2-app-crash-free-users-rate-793cb8f89b72) 」
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/crashlytics-big-query-%E6%89%93%E9%80%A0%E6%9B%B4%E5%8D%B3%E6%99%82%E4%BE%BF%E5%88%A9%E7%9A%84-crash-%E8%BF%BD%E8%B9%A4%E5%B7%A5%E5%85%B7-e77b80cc6f89)

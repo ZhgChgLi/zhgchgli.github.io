@@ -9,6 +9,7 @@ tags: [ios-app-development,swift,design-patterns,visitor-pattern,double-dispatch
 ### Visitor Pattern in Swift
 
 Design Pattern Visitor 的實際應用場景分析
+
 ![Photo by [Daniel McCullough](https://unsplash.com/@d_mccullough?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](/assets/ba5773a7bfea/1*Q1BLU8QHVBLEMx6KlMSHWQ.jpeg "Photo by [Daniel McCullough](https://unsplash.com/@d_mccullough?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)")
 #### 前言
 
@@ -33,12 +34,14 @@ Design Pattern Visitor 的實際應用場景分析
 #### Visitor 是什麼
 
 首先請先了解 Visitor 是什麼？想要解決什麼問題？組成結構是什麼？
+
 ![圖片取自 [refactoringguru](https://refactoringguru.cn/design-patterns/visitor)](/assets/ba5773a7bfea/1*rbswlsges8_oS3pNI1-WKA.png "圖片取自 [refactoringguru](https://refactoringguru.cn/design-patterns/visitor)")
 
 詳細內容這邊不再重複贅述，請先直接參考 [refactoringguru 對於 Visitor 的講解](https://refactoringguru.cn/design-patterns/visitor) 。
 ### iOS 實務場景(一)
 
 假設今天我們有以下幾個 Model：UserModel、SongModel、PlaylistModel 這三個 Model，現在我們要實作分享功能，可以分享到：Facebook、Line、Instagram，這三個平台；每個 Model 需要呈現的分享訊息皆為不同、每個平台需要的資料也各有不同：
+
 ![](/assets/ba5773a7bfea/1*ad2ijo5Bvm9_wnM1g2LNog.png)
 
 組合場景如上圖，第一個表格顯示各 Model 的客製化內容、第二個表格顯示各分享平台需要的資料。
@@ -93,6 +96,7 @@ let playlist = PlaylistModel(id: "1",
 #### 什麼都沒想的做法
 
 完全不考慮架構，先上一個什麼都沒想的最髒做法。
+
 ![周星馳 — 食神](/assets/ba5773a7bfea/1*5kBPDRNpaHNyW4u4YEsOGA.png "周星馳 — 食神")
 ```swift
 class ShareManager {
@@ -393,3 +397,5 @@ class SaveToCoreDataVisitor {
 
 > _inspired by [＠saiday](https://twitter.com/saiday)_
 
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/visitor-pattern-in-ios-swift-ba5773a7bfea)

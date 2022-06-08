@@ -9,6 +9,7 @@ tags: [ios-app-development,firebase,google-cloud-platform,notifications,ios]
 ### 使用 Firebase Firestore + Functions 快速搭建可供測試的 API 服務
 
 當推播統計遇上 Firebase Firestore + Functions
+
 ![Photo by [Carlos Muza](https://unsplash.com/@kmuza?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](/assets/9659db1357e4/1*RVPRxqz2VUuY7NGXSXzmtw.jpeg "Photo by [Carlos Muza](https://unsplash.com/@kmuza?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)")
 ### 前言
 #### 推播精確統計功能
@@ -40,6 +41,7 @@ APP 端的功其實不大，iOS/Android 都只要實作類似的功能（但 And
 > _之前寫過一篇關於 Google Functions 的文章「 [使用 Python+Google Cloud Platform+Line Bot 自動執行例行瑣事](../%E4%BD%BF%E7%94%A8-python-google-cloud-platform-line-bot-%E8%87%AA%E5%8B%95%E5%9F%B7%E8%A1%8C%E4%BE%8B%E8%A1%8C%E7%91%A3%E4%BA%8B-70a1409b149a) 」_
 > _Firebase Functions 必須啟用 Blaze 專案（用多少、付多少）才能使用。_
 
+
 ![](/assets/9659db1357e4/1*YqIJ1tr2Ay-oLVjSSU0zUg.png)
 #### Firebase Firestore
 
@@ -62,21 +64,25 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 如果安裝過程出現錯誤，請確認有 `~/.bashrc` 或 `~/.zshrc` 檔案，沒有可用 `touch ~/.bashrc` 或 `touch ~/.zshrc` 建立檔案然後再跑一下 install script。
 
 再來就可以使用 `nvm install node` 安裝最新版的 node.js。
+
 ![](/assets/9659db1357e4/1*5fxz4HD9q4feAqO0zXbojg.png)
 
 可下 `npm --version` 確認 npm 安裝成功、安裝版本：
+
 ![](/assets/9659db1357e4/1*VHZMRFIDzFA9AxmsDNqNlA.png)
 ### 部署 Firebase Functions
 #### 安裝 Firebase-tools：
 ```
 npm install -g firebase-tools
 ```
+
 ![](/assets/9659db1357e4/1*POfMR0p1600iYqy8rzQkTQ.png)
 
 安裝成功後，第一次使用請先輸入：
 ```
 firebase login
 ```
+
 ![](/assets/9659db1357e4/1*kqeECyXVPOq1cpKvcdOBeA.png)
 
 完成 Firebase 登入驗證。
@@ -85,6 +91,7 @@ firebase login
 ```
 firebase init
 ```
+
 ![](/assets/9659db1357e4/1*Xx2grpX2PZb3wEFt9mQbNw.png)
 
 記下 Firebase init 所在路徑：
@@ -95,6 +102,7 @@ You're about to initialize a Firebase project in this directory:
 這邊可以選擇要安裝的 Firebase CLI 工具，按 「↑」「↓」進行選擇，「空白鍵」進行選擇；這邊可以只選擇「Functions」或連「Firestore」一起選擇安裝。
 
 **=== Functions Setup**
+
 ![](/assets/9659db1357e4/1*2gd9pAIdLAkJRhROpJtPKA.png)
 - 語言選擇「 **JavaScript** 」
 - 關於「use ESLint to catch probable bugs and enforce style」語法 style 檢查 ， **YES / NO 都可** 。
@@ -102,6 +110,7 @@ You're about to initialize a Firebase project in this directory:
 
 
 **===Emulators Setup**
+
 ![](/assets/9659db1357e4/1*xHWp195BZIZdXyUd-ub78g.png)
 
 可在本地環境測試 Functions、Firestore 功能及設定，不會算在使用度且不需等到部署上線才能測試。
@@ -135,16 +144,19 @@ firebase deploy
 
 
 開始驗證＆部署到 Firebase…
+
 ![](/assets/9659db1357e4/1*hUdvD4ANKD3s73mLWNZZOQ.png)
 
 可能需要稍等一下， `Deploy complete!` 後你的第一個 Request & Response 網頁就完成了！
 
 這時候可以回到 Firebase -> Functions 頁面：
+
 ![](/assets/9659db1357e4/1*SY4iJZL6gDEZ5AEcepIpMA.png)
 
 就會看到剛剛撰寫的接口和網址位置。
 
 複製下方網址貼到 PostMan 測試：
+
 ![](/assets/9659db1357e4/1*OMfLkdg12QHsp-yc9RkKvA.png)
 > _POST Body 記得選擇 `x-www-form-urlencoded` 。_
 
@@ -160,6 +172,7 @@ functions.logger.log("log:", value);
 進行 Log 紀錄。
 
 並可在 Firebase -> Functions -> 紀錄中查看 log 結果：
+
 ![](/assets/9659db1357e4/1*Wi-4MbPh2tVJ_utdhzN4_A.png)
 ### Example Goal
 > 建立一個可新增、修改、刪除、查詢文章和按讚的 API
@@ -197,9 +210,11 @@ exports.post= functions.https.onRequest(app); // 這邊的 POST 指的是 /post 
 現在我們改用 Express 來處理網路請求，這邊先新增一個 路徑 **`/ 的 POST`** 方法，最後一行表示路徑都在 `/post` 之下，再來我們會加上修改、刪除的 API。
 
 下 `firebase deploy` 部署成功後，回到 Post Man 測試：
+
 ![](/assets/9659db1357e4/1*yVAjhlr6wLdONeG7nY0VEw.png)
 
 Post Man 打成功後可以再到 Firebase -> Firestore 檢查一下資料是否有正確寫入：
+
 ![](/assets/9659db1357e4/1*xYVrRdFro3bQVHx05JUaTw.png)
 #### PUT 修改文章
 ```javascript
@@ -299,6 +314,7 @@ app.get("/:id", async (req, res) => {
 
 exports.post= functions.https.onRequest(app);
 ```
+
 ![](/assets/9659db1357e4/1*n_mI4l1EmhpWK8M_FbrzbQ.png)
 
 部署＆測試方式如新增，Post Man Http Method 記得改成 `GET` 還有將 `Body` 切回 `none` 。
@@ -332,6 +348,7 @@ exports.post= functions.https.onRequest(app);
 ```
 
 這邊以新增 tag 為例，部署＆測試方式如新增，可以看到 Firestore 不會一直重複新增新資料。
+
 ![](/assets/9659db1357e4/1*qkTMGjC0EkrMO85-6pQFwg.png)
 #### 文章按讚計數器
 
@@ -366,6 +383,7 @@ exports.post= functions.https.onRequest(app);
 #### 大流量文章按讚計數器
 
 因為 Firestore 有 [寫入速度限制](https://cloud.google.com/firestore/quotas?hl=zh-tw#soft_limits) 的：
+
 ![](/assets/9659db1357e4/1*U9ubGe3M8XEdx9XGAV8nfA.png)
 
 **一個文檔一秒只能寫入一次** ，所以當按讚的人一多；同時請求下可能會變得很慢。
@@ -399,6 +417,7 @@ app.post("/like2/:id", async (req, res) => {
 
 exports.post= functions.https.onRequest(app);
 ```
+
 ![](/assets/9659db1357e4/1*GhNEcWUjgvYRYCMBk1DayA.png)
 
 以上就是分散出欄位來紀錄 Count 避免寫入太慢；但如果分散的欄位太多會增加讀取成本($$)，但應該還是比每次按讚都 add 一筆新紀錄還便宜。
@@ -427,11 +446,13 @@ siege -c 100 -r 1 -H 'Content-Type: application/json' 'https://us-central1-proje
 
 
 執行完成後可看到執行結果：
+
 ![](/assets/9659db1357e4/1*BUcMfJJ4x_mgK0HHLc6C4g.png)
 
 `successful_transactions: 100` 表示 100 次都執行成功。
 
 **可以回 Firebase -> Firestore 查看結果是否有 Loss Data：**
+
 ![](/assets/9659db1357e4/1*wd5z743Zp9xtjKhhcMaVOg.png)
 > 成功！
 #### 完整 Example Code
@@ -611,16 +632,19 @@ app.get('/:type/:id', async (req, res) => {
 exports.notification = functions.https.onRequest(app);
 ```
 #### 新增推播紀錄
+
 ![](/assets/9659db1357e4/1*3koe6QBxF9oOhBDqjF5mhA.png)
 #### 檢視推播統計數字
 ```
 https://us-centra1-xxx.cloudfunctions.net/notification/iOS/1
 ```
+
 ![](/assets/9659db1357e4/1*SStEkNoDjiL7pffC2pHDkQ.png)
 
 另外也做了個介面統計推播數字。
 #### 踩坑
 > _因為對 node.js 用法不太熟悉，一開始摸索的時候在 add 資料時沒加上 `await` 再加上寫入速度限制，導致在大流量情況下會 Data Loss…_
+
 
 ![](/assets/9659db1357e4/1*dVsBhKJQ3qqxlSvv-mCENA.png)
 ### Pricing
@@ -629,13 +653,17 @@ https://us-centra1-xxx.cloudfunctions.net/notification/iOS/1
 #### Functions
 - [https://cloud.google.com/functions/pricing?hl=zh-tw](https://cloud.google.com/functions/pricing?hl=zh-tw)
 
+
 ![](/assets/9659db1357e4/1*76yRqeDyrp0kFmGHN4ZNXg.png)
+
 ![運算時間](/assets/9659db1357e4/1*G_At8v80BQl81EUqPuUIbQ.png "運算時間")
+
 ![網路](/assets/9659db1357e4/1*iXk7oKFidHfzRVwrDvKX0A.png "網路")
 > _Cloud Functions 針對運算時間資源提供永久免費方案，當中包含 GB/秒和 GHz/秒的運算時間。除了 200 萬次叫用以外，免費方案也提供 400,000 GB/秒和 200,000 GHz/秒的運算時間，以及每月 5 GB 的網際網路輸出流量。_
 
 #### Firestore
 - [https://cloud.google.com/firestore/pricing?hl=zh-tw](https://cloud.google.com/firestore/pricing?hl=zh-tw)
+
 
 ![](/assets/9659db1357e4/1*ylduiqevk4WH-eNc8EOpvQ.png)
 - [計算範例](https://cloud.google.com/firestore/docs/billing-example?hl=zh-tw)
@@ -660,3 +688,5 @@ Functions 還可以串 Authentication(身份驗證)、Storage(檔案上傳)，�
 - [https://firebase.google.com/docs/firestore/solutions/counters#node.js_1](https://firebase.google.com/docs/firestore/solutions/counters#node.js_1)
 - [https://javascript.plainenglish.io/firebase-cloud-functions-tutorial-creating-a-rest-api-8cbc51479f80](https://javascript.plainenglish.io/firebase-cloud-functions-tutorial-creating-a-rest-api-8cbc51479f80)
 
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/%E4%BD%BF%E7%94%A8-firebase-firestore-functions-%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%8F%AF%E4%BE%9B%E6%B8%AC%E8%A9%A6%E7%9A%84-api-%E6%9C%8D%E5%8B%99-9659db1357e4)

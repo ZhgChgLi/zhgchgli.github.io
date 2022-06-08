@@ -9,6 +9,7 @@ tags: [ios,shell-script,xcode,ios-app-development,toolkit]
 ### Xcode 直接使用 Swift 撰寫 Shell Script！
 
 導入 Localization 多語系及 Image Assets 缺漏檢查、使用 Swift 打造 Shell Script 腳本
+
 ![Photo by [Glenn Carstens-Peters](https://unsplash.com/@glenncarstenspeters?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](/assets/41c49a75a743/1*RU89TcfRAR5mmclMX9x57w.jpeg "Photo by [Glenn Carstens-Peters](https://unsplash.com/@glenncarstenspeters?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)")
 ### 緣由
 
@@ -48,6 +49,7 @@ build 專案時能自動檢查多語系有無錯誤、缺露、重複、Image As
 . [下載工具的 Swift Script 檔案](https://github.com/freshOS/Localize/blob/master/Localize.swift)
 . 放到專案目錄下 EX: `${SRCROOT}/Localize.swift`
 . 打開專案設定 → iOS Target → Build Phases →左上角「+」 → New Run Script Phases → 在 Script 內容貼上路徑 EX: `${SRCROOT}/Localize.swift`
+
 
 ![](/assets/41c49a75a743/1*k2OHjrcQaQIWLqV7G57TgA.png)
 
@@ -97,10 +99,11 @@ let checkForUntranslated = true
 ```
 
 5. Build！成功！
+
 ![](/assets/41c49a75a743/1*74osParg9RRi2gcRx9ELuw.png)
 
 **檢查結果提示類型：**
-- **Build Error** ❌ ：
+- **Build Error** ❌ **：** 
 - [Duplication] 項目在語系檔案內存在重複
 - [Unused Key] 項目在語系檔案內有定義，但實際程式中未使用到
 - [Missing] 項目在語系檔案內未定義，但實際程式中有使用到
@@ -549,12 +552,15 @@ func shell(_ command: String) -> String {
 ```
 swiftc -o Localize Localize.swift
 ```
+
 ![](/assets/41c49a75a743/1*rwq_KZIDW-Lvtpd2xmgjDw.png)
+
 ![](/assets/41c49a75a743/1*BCKtqshZxHH17j3nBGtNlg.png)
 
 然後再回頭到 Build Phases 更改 Script 內容路徑成執行檔
 
 EX: `${SRCROOT}/Localize`
+
 ![](/assets/41c49a75a743/1*ewhCXzXNuS0MCTMCuINWng.png)
 
 **完工！**
@@ -575,6 +581,7 @@ EX: `${SRCROOT}/Localize`
 ${SRCROOT}/AssetChecker.swift ${SRCROOT}/專案目錄 ${SRCROOT}/Resources/Images.xcassets
 //${SRCROOT}/Resources/Images.xcassets = 你 .xcassets 的位置
 ```
+
 ![](/assets/41c49a75a743/1*TPLS60W1iQiGFzU-inf3aA.png)
 
 可直接將設定參數帶在路徑上，參數1:專案目錄位置、參數2:圖片資源目錄位置；或跟語系檢查工具一樣編輯 `AssetChecker.swift` 頂部參數設定區塊：
@@ -594,7 +601,7 @@ let ignoredUnusedNames = [String]()
 4. Build！ 成功！
 
 **檢查結果提示類型：**
-- **Build Error** ❌ ：
+- **Build Error** ❌ **：** 
 - [Asset Missing] 項目在程式內有呼叫使用，但圖片資源目錄內沒有出現
 - **Build Warning** ⚠️ **：** 
 - [Asset Unused] 項目在程式內未使用，但圖片資源目錄內有出現
@@ -825,4 +832,5 @@ print("Project檔案.lproj" + "/檔案:行: " + "warning: 警告訊息")
 ### 總結
 
 這兩個檢查工具導入之後，我們在開發上就能更安心、更有效率並且減少冗餘；也因為這次經驗大開眼界，日後如果有什麼新的 build run script 需求都能直接使用最熟悉的語言 swift 來進行製作！
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/xcode-%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8-swift-%E6%92%B0%E5%AF%AB-run-script-41c49a75a743)

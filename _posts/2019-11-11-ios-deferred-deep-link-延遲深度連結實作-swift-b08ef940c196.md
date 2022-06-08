@@ -23,7 +23,7 @@ tags: [deeplink,ios-app-development,swift,universal-links,app-store]
 
 1.當使用者有裝 APP 時點擊網址連結(Google搜尋來源、FB貼文、Line連結…) 則直接開 APP 呈現目標畫面，若無則跳轉到 APP Store 安裝 APP； **安裝完後打開APP，要能重現之前欲前往的畫面** 。
 
-[![iOS Deferred Deep Link Demo](assets/b08ef940c196/249b_hqdefault.jpg "iOS Deferred Deep Link Demo")](https://www.youtube.com/watch?v=sY6-Q7BFUOM)
+[![iOS Deferred Deep Link Demo](/assets/b08ef940c196/249b_hqdefault.jpg "iOS Deferred Deep Link Demo")](https://www.youtube.com/watch?v=sY6-Q7BFUOM)
 
 2.APP 下載和開啟數據追蹤，我們想知道 APP 推廣連結有多少人確實從這個入口下載和開啟 APP 的。
 
@@ -33,6 +33,7 @@ tags: [deeplink,ios-app-development,swift,universal-links,app-store]
 iOS ≥ 9
 ### 何謂 Deferred Deep Link 與 Deep Link 的差別？
 #### 純 Deep Link 本身：
+
 ![](/assets/b08ef940c196/1*15arO4L94ZoEyOLtFARtsA.jpeg)
 
 可以看到 iOS Deep Link 本身運作機制只有判斷 APP 有無安裝，有則開 APP，無則不處理．
@@ -78,9 +79,11 @@ iOS ≥ 9
 有網頁服務的網站可以在 `<head></head>` 中加入：
 
 [`<meta name=”apple-itunes-app” content=”app-id=APPID, app-argument=頁面參數”>`](https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html)
+
 ![](/assets/b08ef940c196/1*nC1JytAwIwKU04EMBBvf0A.jpeg)
 
 使用 iPhone Safari 瀏覽網頁版上方就會出現 APP 安裝提示、使用 APP 開啟本頁的按鈕； 參數 `app-argument` 就是用來帶入頁面值，並傳遞到 APP 用的。
+
 ![加上「無則跳轉到 APP Store」的流程圖](/assets/b08ef940c196/1*B-_5tIDWQpNO8NxpXQsEcA.jpeg "加上「無則跳轉到 APP Store」的流程圖")
 #### 完善 Deep Link APP 端處理：
 
@@ -137,15 +140,18 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
   return true  
 }
 ```
+
 ![](/assets/b08ef940c196/1*zhtWK56EqWpE91yTVu64Lg.jpeg)
 
 完成！
 #### 那還缺什麼？
 
 目前看來已經很完美了，我們處理了所有會遇到的狀況，那還缺什麼？
+
 ![](/assets/b08ef940c196/1*ulrLKyvTKoChPScWD9wHyA.jpeg)
 
 如圖所示，如果是 未安裝 -> APP Store 安裝 -> APP Store 打開，來源所帶的資料就會中斷，APP 不知道來源所以就只會顯示首頁；使用者要再回到上一步網頁再點一次開啟，APP 才會驅動跳頁。
+
 ![](/assets/b08ef940c196/1*dFdvCRRdM3vrN3lnyG8Diw.jpeg)
 > _雖然這樣也不是不行，但考慮到跳出流失率，多一個步驟就是多一層流失，還有使用者體驗起來不順暢；更何況使用者未必這麼聰明。_
 
@@ -163,6 +169,7 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
 一種是透過使用者裝置、IP、環境…等等參數計算出一個雜湊值，在網頁端存入資料到伺服器；當 APP 安裝後打開用同樣方式計算，如果值相同則取出資料恢復（branch.io 的做法）。
 
 另一種是本文要介紹的方法，同 Firebase 作法；使用 iPhone 剪貼簿和 Safari 與 APP Cookie 共享機制的方法，等於是把資料存在剪貼簿或Cookie，APP安裝完成後再去讀出來使用。
+
 ![](/assets/b08ef940c196/1*VVahSlHV2N2jcIw4afzr2g.jpeg)
 ```
 點擊「Open」後你的剪貼簿就會被 JavaScript 自動覆蓋複製上跳轉相關資訊：https://XXX.app.goo.gl/?link=https://XXX.net/topicID=1&type=topic
@@ -174,6 +181,7 @@ func application(_ application: UIApplication, continue userActivity: NSUserActi
 #### 支援度
 
 首先講個坑，支援度問題；如前所說的「不友善」！
+
 ![](/assets/b08ef940c196/1*LR3MSAcwjaoSQhwvtD2sUQ.png)
 
 如果 APP 只考慮 iOS ≥ 10 以上的話容易許多，APP 實作剪貼簿存取、Web 使用 JavaScript 將資訊覆蓋到剪貼簿，然後再跳轉到 APP Store 導下載就好。
@@ -183,8 +191,10 @@ iOS = 9 不支援JavaScript自動剪貼簿但支援 **Safari 與 APP SFSafariVie
 另外在 APP 需要偷偷在背景加入 SFSafariViewController 載入 Web，再從 Web 取得剛才點連結時存的Cookie資訊。
 > _步驟繁瑣＆連結點擊僅限 Safari瀏覽器。_
 
+
 ![[SFSafariViewController](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller)](/assets/b08ef940c196/1*tPXHlrQE3MdrjMzFbnS_4w.png "[SFSafariViewController](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller)")
 > _根據官方文件，iOS 11 已無法取得使用者的 Safari Cookie，若有這方面需求可使用 SFAuthenticationSession，但此方法無法在背景偷執行，每次載入前都會跳出以下詢問視窗：_
+
 
 ![_SFAuthenticationSession 詢問視窗_](/assets/b08ef940c196/1*eisreftWPWn9PTCbuLQqdw.jpeg "_SFAuthenticationSession 詢問視窗_")
 > _還有就是 APP審查是不允許將SFSafariViewController放在使用者看不到的地方的。(用程式觸發再 addSubview 不太容易被發現)_
@@ -193,6 +203,7 @@ iOS = 9 不支援JavaScript自動剪貼簿但支援 **Safari 與 APP SFSafariVie
 
 先講簡單的，只考慮 iOS ≥ 10 以上的用戶，單純使用 iPhone 剪貼簿轉傳資訊。
 #### Web 端：
+
 ![](/assets/b08ef940c196/1*P2saSHeIX7TZyCQY0StN1Q.jpeg)
 
 我們仿造 Firebase Dynamic Links 客製化刻了自己的頁面，使用 [`clipboard.js`](https://clipboardjs.com/) 這個套件讓使用者點擊「立即前往」時先將我們要帶給 APP 的資訊複製到剪貼簿 `（marry://topicID=1&type=topic）` ，然後再使用 `location.href` 跳轉到 APP Store 商城頁。
@@ -249,6 +260,7 @@ function getCookie(name) {
 
 **再說個坑：** 偷偷加載這件事，iOS ≥ 10 SFSafariViewController 的 View如果大小設定小於1、透明度小於0.05、設成 isHidden，SFSafariViewController 就 **不會載入** 。
 > p.s iOS = 10 同時支援 Cookie 及 剪貼簿。
+
 
 ![[https://stackoverflow.com/questions/39019352/ios10-sfsafariviewcontroller-not-working-when-alpha-is-set-to-0/39216788](https://stackoverflow.com/questions/39019352/ios10-sfsafariviewcontroller-not-working-when-alpha-is-set-to-0/39216788)](/assets/b08ef940c196/1*ab-6ppwHU72AsKKLYBitbw.png "[https://stackoverflow.com/questions/39019352/ios10-sfsafariviewcontroller-not-working-when-alpha-is-set-to-0/39216788](https://stackoverflow.com/questions/39019352/ios10-sfsafariviewcontroller-not-working-when-alpha-is-set-to-0/39216788)")
 
@@ -326,9 +338,11 @@ override func viewDidLoad() {
 
 所以之後對應的 CallBack 處理就會回到 `AppDelegate` 中的 **`func`** `application( **_** application: UIApplication, open url: URL, sourceApplication: String?, annotation: **Any** ) -> Bool` 進行處理。
 ### 完工！總結：
+
 ![](/assets/b08ef940c196/1*kp26TdlJBW5sVxw4zYa9Rg.jpeg)
 
 如果覺得煩瑣，可以直接使用 [branch.io](http://branch.io) 或 [Firebase Dynamic](https://firebase.google.com/docs/dynamic-links) 沒必要重造輪子，這邊是因為介面客製化及一些複雜需求，只好自己打造。
 
 iOS=9 的用戶已經非常稀少，不是很必要的話可以直接忽略；使用剪貼簿的方法快又有效率，而且用剪貼簿就不用局限連結一定要用 Safari 開啟！
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/ios-deferred-deep-link-%E5%BB%B6%E9%81%B2%E6%B7%B1%E5%BA%A6%E9%80%A3%E7%B5%90%E5%AF%A6%E4%BD%9C-swift-b08ef940c196)

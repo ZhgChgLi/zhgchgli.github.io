@@ -9,6 +9,7 @@ tags: [hls,ios,ios-app-development,cache,reverse-proxy]
 ### iOS HLS Cache 實踐方法探究之旅
 
 使用 AVPlayer 播放 m3u8 串流影音檔時如何做到邊播放邊 Cache 的功能
+
 ![photo by [Mihis Alex](https://www.pexels.com/zh-tw/@mcraftpix?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](/assets/d796bf8e661e/1*x_Js63o52qJMmYHKIuKF7A.jpeg "photo by [Mihis Alex](https://www.pexels.com/zh-tw/@mcraftpix?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)")
 ### 關於
 
@@ -146,6 +147,7 @@ _`所以說不完美啊…`_
 #### 方案 4. 使用 HTTP Client 本身的 caching 機制 ❌
 
 我們的 **`.m3u8/.ts`** 檔的 Response Headers 都有給予 `Cache-Control` 、 `Age` 、 `eTag` … 這些 HTTP Client Cache 資訊；我們的網站 Cache 機制在 Chrome 上使用也完全沒問題，另外也在官方新的針對 [Protocol Extension for Low-Latency HLS (低延遲HLS)](https://developer.apple.com/documentation/http_live_streaming/protocol_extension_for_low-latency_hls_preliminary_specification) 初步規格文件中提到 Cache 的地方也看到可以設定 cache-control headers 來做緩存。
+
 ![](/assets/d796bf8e661e/1*vyvVp1sf9Hbtb_nWiLXYEg.png)
 
 但實際 AVFoundation AVPlayer 並沒有任何 HTTP Client Caching 效果，此路也不通！單純癡人說夢。
@@ -173,6 +175,7 @@ _`所以說不完美啊…`_
 **這邊比較像是做離線播放而非做 Cache 的功能。**
 
 另外使用者也能從「設定」->「一般」->「iPhone 儲存空間」-> APP 中查看、管理已下載打包的音訊檔案。
+
 ![下方 已下載的影片 部分](/assets/d796bf8e661e/1*_YNIdy8NRkhVdeDTNvXzxA.jpeg "下方 已下載的影片 部分")
 
 **詳細實作可參考此範例：**
@@ -188,4 +191,5 @@ _`所以說不完美啊…`_
 - [iOS音频播放 (九)：边播边缓存](http://msching.github.io/blog/2016/05/24/audio-in-ios-9/)
 - [StyleShare/HLSCachingReverseProxyServer](https://github.com/StyleShare/HLSCachingReverseProxyServer)
 
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/ios-hls-cache-%E5%AF%A6%E8%B8%90%E6%96%B9%E6%B3%95%E6%8E%A2%E7%A9%B6%E4%B9%8B%E6%97%85-d796bf8e661e)

@@ -9,6 +9,7 @@ tags: [ios,ios-app-development,universal-links,app-store,deeplink]
 ### Universal Links 新鮮事
 
 iOS 13, iOS 14 Universal Links 新鮮事＆建立本地測試環境
+
 ![Photo by [NASA](https://unsplash.com/@nasa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](/assets/12c5026da33d/1*HYAd1aal5Et1A-Qzs6VAtQ.jpeg "Photo by [NASA](https://unsplash.com/@nasa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)")
 ### 前言
 
@@ -29,6 +30,7 @@ iOS 13, iOS 14 Universal Links 新鮮事＆建立本地測試環境
 Headers: HOST=app-site-association.cdn-apple.com
 GET https://app-site-association.cdn-apple.com/a/v1/你的網域
 ```
+
 ![](/assets/12c5026da33d/1*dgDfMgkFPUfeuAuEhl7RFQ.png)
 
 可以取得當前 Apple CDN 上的版本長怎樣。（記得加上 Request Header `Host=https://app-site-association.cdn-apple.com/` ）
@@ -37,11 +39,13 @@ GET https://app-site-association.cdn-apple.com/a/v1/你的網域
 因前述的 CDN 問題，那我們在開發階段該如何 debug 呢？
 
 還好這部分蘋果有給解決方法，不然沒辦法即時更新真的要吐血了；我們只需要再 `applinks:domain.com` 加上 `?mode=developer` 即可，另外還有 `managed(for 企業內部 APP)` , or `developer+managed` 模式可設定。
+
 ![](/assets/12c5026da33d/1*z4R7wEHHAlLyF1rdAEAmew.png)
 
 加上 mode=developer 後，APP 在模擬器上每次 Build & Ｒun 時都會直接跟網站拿最新的 app-site-association 來用。
 
 如果要 Build & Run 在實機則要先去「設定」->「開發者」-> 打開「Associated Domains Development」選項即可。
+
 ![](/assets/12c5026da33d/1*gj4Qm445mFERa25t6PZV1Q.jpeg)
 > _⚠️ **這邊有個坑** ，app-site-association 可以放在網站根目錄或是 `./.well-known` 目錄下；但在 mode=developer 下他只會問 `./.well-known/app-site-association` ，害我以為怎麼沒效。_
 
@@ -107,11 +111,13 @@ defaults write com.apple.finder AppleShowAllFiles TRUE
 ```
 
 再下 killall finder 重啟所有 finder，即可。
+
 ![](/assets/12c5026da33d/1*AzM6lK0kzT-M-2OdXoyIXA.png)
 > _⚠️_ `apple-app-site-association` _看起來沒有副檔名，但實際還是有 .json 副檔名：_
 
 
 在檔案上按右鍵 -> 「取得資訊 Get Info」->「Name & Extension」-> 檢查有無副檔名＆同時可取消勾選「隱藏檔案類型 Hide extension」
+
 ![](/assets/12c5026da33d/1*UFwnnjCot8xRqslhdQktKg.png)
 
 沒問題後，打開瀏覽器測試以下連結是否正常下載 apple-app-site-association：
@@ -124,8 +130,11 @@ http://localhost:8080/.well-known/apple-app-site-association
 
 
 **註冊＆下載 [Ngrok](http://ngrok.com)**
+
 ![[ngrok.com](https://dashboard.ngrok.com/get-started/setup)](/assets/12c5026da33d/1*Shk9u59HgRRSiMw0wt899Q.png "[ngrok.com](https://dashboard.ngrok.com/get-started/setup)")
+
 ![解壓縮出 ngrok 執行檔](/assets/12c5026da33d/1*ljBqKrOFb9Gq48dO0GeIeA.png "解壓縮出 ngrok 執行檔")
+
 ![進入 [Dashboard 頁面](https://dashboard.ngrok.com/get-started/setup) 執行 Config 設定](/assets/12c5026da33d/1*fnEUyJMtVhUGurU5vX5K6A.png "進入 [Dashboard 頁面](https://dashboard.ngrok.com/get-started/setup) 執行 Config 設定")
 ```
 ./ngrok authtoken 你的TOKEN
@@ -139,6 +148,7 @@ http://localhost:8080/.well-known/apple-app-site-association
 
 
 啟動服務。
+
 ![](/assets/12c5026da33d/1*8i6EP7KKwxihLZ1PG1RUGw.png)
 
 這時候我們會看到一個服務啟動狀態視窗，可以從 Forwarding 中取的此次分配到的公開網址。
@@ -149,11 +159,13 @@ _**這邊以此次分配到的網址** `https://ec87f78bec0f.ngrok.io/` 為例_
 回到瀏覽器改輸入 `https://ec87f78bec0f.ngrok.io/.well-known/apple-app-site-association` 看看能不能正常下載瀏覽 apple-app-site-association 檔案，如果沒問題則可繼續下一步。
 
 將 ngrok 分配到的網址輸入到 Associated Domains applinks: 設定中。
+
 ![](/assets/12c5026da33d/1*K5Eio0Yi7nNHQuLSuIsYeA.png)
 
 記得帶上 `?mode=developer` 方便我們測試。
 
 **重新 Build & Run APP：**
+
 ![](/assets/12c5026da33d/1*VFIKU-UxCHNQVnf8DOV8Qw.png)
 
 打開瀏覽器輸入相應的 Universal Links 測試網址（EX: `https://ec87f78bec0f.ngrok.io/buy/123` ）查看效果。
@@ -166,6 +178,7 @@ _最後記得將 Associated Domains applinks: 改為正試機網址。_
 
 
 另外我們也可以從 ngrok 運行狀態視窗中看到每次 APP Build & Run 有沒有跟我們要 apple-app-site-association 檔案：
+
 ![](/assets/12c5026da33d/1*d6yvnEaiOPbqy57PDMe2Mw.png)
 ### Applinks 設定內容
 #### iOS < 13 之前：
@@ -338,3 +351,5 @@ func scene(_ scene: UIScene, continue userActivity: NSUserActivity)
 ```
 func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool
 ```
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/universal-links-%E6%96%B0%E9%AE%AE%E4%BA%8B-12c5026da33d)

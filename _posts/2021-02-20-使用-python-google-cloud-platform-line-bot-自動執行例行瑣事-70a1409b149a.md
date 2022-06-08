@@ -9,6 +9,7 @@ tags: [google-cloud-platform,cloud-functions,cloud-scheduler,ios-app-development
 ### 使用 Python+Google Cloud Platform+Line Bot 自動執行例行瑣事
 
 以簽到獎勵 APP 為例，打造每日自動簽到腳本
+
 ![Photo by [Paweł Czerwiński](https://unsplash.com/@pawel_czerwinski?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](/assets/70a1409b149a/1*dFvxm6SynzYOmMEUALKJaA.jpeg "Photo by [Paweł Czerwiński](https://unsplash.com/@pawel_czerwinski?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)")
 ### 起源
 
@@ -18,6 +19,7 @@ tags: [google-cloud-platform,cloud-functions,cloud-scheduler,ios-app-development
 ### 目標
 > 將 Python 腳本搬到雲端執行、定時自動執行、可透過網路開啟/關閉。
 > _本篇以我耍的小聰明，針對簽到獎勵型 APP 撰寫的自動完成簽到的腳本為例，能每日自動幫我簽到，我不用在特別打開 APP 使用；並在執行完成後發通知給我。_
+
 
 ![完成通知！](/assets/70a1409b149a/1*14yKaOt2YNSMILOD_EoXLg.png "完成通知！")
 #### 本篇章節順序
@@ -42,6 +44,7 @@ tags: [google-cloud-platform,cloud-functions,cloud-scheduler,ios-app-development
 - 到官網 [https://proxyman.io/](https://proxyman.io/) 下載 Proxyman 工具
 - 下載完後啟動 Proxyman，安裝 Root 憑證（為了做 Man in the middle attack 解包 https 流量內容）
 
+
 ![](/assets/70a1409b149a/1*jb-FAN5h1oFVFFvu1bpYgw.png)
 
 「Certificate 」->「 Install Certificate On this Mac」->「Installed & Trusted」
@@ -49,16 +52,19 @@ tags: [google-cloud-platform,cloud-functions,cloud-scheduler,ios-app-development
 **電腦的 Root 憑證裝好後換手機的：**
 
 「Certificate 」->「 Install Certificate On iOS」->「Physical Devices…」
+
 ![](/assets/70a1409b149a/1*DBi9YVmfoaPH9WSCoPXycA.png)
 
 依照指示在手機上掛好 Proxy 並完成憑證安裝及啟用。
 - 在手機上打開想要嗅探 API 傳輸內容的 APP
+
 
 ![](/assets/70a1409b149a/1*q2wbmQ3MJ6nYfjFSBHL9fw.png)
 
 這時候 Mac 上的 Proxyman 就會出現嗅探到的流量，點擊裝置 IP 下想要查看的 APP API 網域；第一次查看需要先點「Enable only this domain」之後的流量才能被解包出來。
 
 **「Enable only this domain」後就能看到新攔截的流量就會出現原始的 Request、Response 資訊：**
+
 ![](/assets/70a1409b149a/1*dIp1k-0u-BhJ7iTs0wEIuA.png)
 > _我們使用此方法嗅探 APP 上操作簽到時打了哪隻 API EndPoint 及帶了哪些資料，將這些資訊記錄下來，等下使用 Python 直接模擬請求。_
 > _⚠️要注意有的 APP token 資訊可能會換，導致日後 Python 模擬請求失效，還要多了解 APP token 交換的方式。_
@@ -81,6 +87,7 @@ Accept-Encoding: gzip, deflate, br
 ```
 ### 2. 撰寫 Python 腳本，偽造 APP API 請求（模擬簽到動作）
 > _在撰寫 Python 腳本之前，我們可先使用 [Postman](https://www.postman.com/) 調試一下參數，觀察看看哪個參數是必要的或是有時效會改變；但要直接照搬也可以。_
+
 
 ![](/assets/70a1409b149a/1*eVF56j1oOgXeZYbkD1m22g.png)
 ```python
@@ -121,22 +128,28 @@ ImportError: No module named requests
 - 前往&啟用 [**Line Developers Console 開發者**](https://developers.line.biz/console/)
 - 建立一個 Provider
 
+
 ![](/assets/70a1409b149a/1*XVYHKZXoHT-2qkbwRcK5Qw.png)
 - 選擇「Create a Messaging API channel」
+
 
 ![](/assets/70a1409b149a/1*8l_awW31J7FlYh5EvacSmA.png)
 
 下一步填好基本訊息後按「Create」送出建立。
 - 建立好之後在第一個「Basic settings」Tab 下面找到「Your user ID」區塊，這就是你的 User ID
 
+
 ![](/assets/70a1409b149a/1*JCmFicC5gXVJ6j3Vgi7CPQ.png)
 - 建立好之後，選擇「Messaging API」Tab，掃描 QRCode 將機器人加入好友。
+
 
 ![](/assets/70a1409b149a/1*dOF0mHXz6z7be13zjIubTA.png)
 - 繼續往下滾找到「Channel access token」區塊，點擊「Issue」產生 token。
 
+
 ![](/assets/70a1409b149a/1*eNiyLol6nokoOKsrGp21kw.png)
 - 複製下來產生出來的 Token，我們有這組 Token 就能發訊息給使用者。
+
 
 ![](/assets/70a1409b149a/1*LDr_vT4urUL73Z_p--yiKA.png)
 > _有了 User Id 跟 Token 之後我們就能發訊息給自己了。_ 
@@ -188,6 +201,7 @@ def sendLineNotification(message):
 ```
 
 **測看看通知有沒有發成功：**
+
 ![](/assets/70a1409b149a/1*7I7FMpQ-Gv5MKD0SWkIE0A.png)
 
 **Success!**
@@ -201,11 +215,14 @@ def sendLineNotification(message):
 - 如果沒使用過 Google Cloud 的朋友，請先前往 [**主控台**](https://console.cloud.google.com/) 新增好專案＆設定好帳單資訊
 - 在專案主控台首頁，資源的地方點擊「Cloud Functions」
 
+
 ![](/assets/70a1409b149a/1*pWDK9AQKpbDpgDltFfS9-g.png)
 - 上方選擇「建立函式」
 
+
 ![](/assets/70a1409b149a/1*ED2WPgfaSHEth3zWUJn05w.png)
 - 輸入基本資訊
+
 
 ![](/assets/70a1409b149a/1*oetW_iIU9XywDbLZIa8tJQ.png)
 > _⚠️記下「 **觸發網址」**_
@@ -224,6 +241,7 @@ _⚠️詳細計價方式請參考文末。_
 **驗證：** 依需求，我希望我能從外部點連結執行腳本，所以選擇「允許未經驗證的叫用」；如果選擇需要驗證，後續 Scheduler 服務也要做相應設定。
 
 **變數、網路及進階設定可在變數中設定變數給 Python 使用（這樣參數有變動就不用改到 Python 程式碼）：**
+
 ![](/assets/70a1409b149a/1*qJC7rcjOnSeKWa8NiYxbpQ.png)
 
 **在 Python 中調用的方式：**
@@ -236,6 +254,7 @@ def main(request):
 
 其他設定都不需要動，直接「儲存」->「下一步」。
 - 執行階段選「Python 3.x」並將寫好的 Python 腳本貼上，進入點改成「main」
+
 
 ![](/assets/70a1409b149a/1*zCK21j82QwsHD1nARuZkBw.png)
 
@@ -254,8 +273,10 @@ request_json = request.get_json(silent=True)
 example: name=zhgchgli => request_json = [“name”:”zhgchgli”]
 
 **如果使用 Postman 測試 POST 記得使用「Raw+JSON」POST 資料，否則不會有東西：**
+
 ![](/assets/70a1409b149a/1*jl5joofEWPMLR3JuP988BQ.png)
 - 程式碼部分 OK 之後，切換到「requirements.txt」輸入有用到的套件依賴：
+
 
 ![](/assets/70a1409b149a/1*2MTOKWDWlXbfjYP1qgp7Sw.png)
 
@@ -267,19 +288,23 @@ requests>=2.25.1
 這邊指定版本 ≥ 2.25.1，也可不指定只輸入 `requests` 安裝最新版。
 - 都 OK 之後點擊「部署」開始部署。
 
+
 ![](/assets/70a1409b149a/1*eQvtozhghRLQhxUgE9fMhw.png)
 
 需要花約 1~3 分鐘的時間等他部署完成。
 - 部署完成後可由前面記下的「 **觸發網址** 」前去執行查看是否正確運行，或使用「動作」->「測試函式」進行測試
 
+
 ![](/assets/70a1409b149a/1*yv1wMHELWSrXiEvE44c9Sw.png)
 
 如果出現 `500 Internal Server Error` 則代表程式有錯，可點擊名稱進入查看「紀錄」，在其中找到原因：
+
 ![](/assets/70a1409b149a/1*DeiRZT3wC1Z7Jv4WIRaM_Q.png)
 ```
 UnboundLocalError: local variable 'db' referenced before assignment
 ```
 - 點擊名稱進入後也可按「編輯」修改腳本內容
+
 
 ![](/assets/70a1409b149a/1*KqwYbY826bdVaSIlHUnpbA.png)
 > **_測試沒問題就完成了！我們已經順利將 Python 腳本搬上雲端。_**
@@ -294,6 +319,7 @@ UnboundLocalError: local variable 'db' referenced before assignment
 - [Read Only] GET/POST 傳送資料
 - [Read Only] 放入附加檔案
 
+
 ![](/assets/70a1409b149a/1*AAXUcDRZNnRAqIFj02RnyA.png)
 
 在程式中使用相對路徑 `./` 就能讀取到， **僅限讀取無法動態修改** ；要修改只能在控制台這修改＆重新部署。
@@ -303,12 +329,15 @@ UnboundLocalError: local variable 'db' referenced before assignment
 
 
 **按照 [入門步驟](https://firebase.google.com/docs/firestore/quickstart#read_data) ，建立好 Firebase 專案後；進入 Firebase 後台：**
+
 ![](/assets/70a1409b149a/1*0DO31noJ4a3xweb1annbSQ.png)
 
 在左方選單列找到「 **Cloud Firestore** 」->「 **新增集合** 」
+
 ![](/assets/70a1409b149a/1*7c9sA8ZbxE6uGh6f-nfiVA.png)
 
 輸入集合 ID。
+
 ![](/assets/70a1409b149a/1*wcp94_25maNL9EoFJTOndA.png)
 
 輸入資料內容。
@@ -320,12 +349,15 @@ UnboundLocalError: local variable 'db' referenced before assignment
 請先到 [GCP控制台 -> IAM與管理 -> 服務帳戶](https://console.cloud.google.com/iam-admin/serviceaccounts) ，按照以下步驟下載身份驗證私鑰文件：
 
 首先選擇帳號：
+
 ![](/assets/70a1409b149a/1*JeB9m4BWzfRCZSofHq2tLg.png)
 
 下方「新增金鑰」->「建立新的金鑰」
+
 ![](/assets/70a1409b149a/1*xi9nQUy48-QlFI4BEdIMew.png)
 
 選擇「JSON」下載檔案。
+
 ![](/assets/70a1409b149a/1*bsphvdEHgg0XDnHAHMXJvg.png)
 
 將此 JSON 檔案放到同 Python 的專案目錄下。
@@ -338,6 +370,7 @@ pip install --upgrade firebase-admin
 安裝 firebase-admin 套件。
 
 在 Cloud Functions 上要在 `requirements.txt` 中多加入 `firebase **-** admin` 。
+
 ![](/assets/70a1409b149a/1*d67oTblFFKaBHkGC77Mapw.png)
 
 環境弄好後，可以來讀取我們剛剛新增的數據了：
@@ -379,12 +412,15 @@ db = firestore.client()
 - 前往 [**Google Cloud Scheduler**](https://console.cloud.google.com/cloudscheduler/) 控制台首頁
 - 上方「建立工作」
 
+
 ![](/assets/70a1409b149a/1*5tNybi2HssmWoyJDQyPSJQ.png)
 - 輸入工作基本資料
+
 
 ![](/assets/70a1409b149a/1*yqkJnt9PVYEllOpDtK1RmQ.png)
 
 **執行頻率：** 同 crontab 輸入方式，如果你對 crontab 語法不熟，可以直接使用 [**crontab.guru 這個神器網站**](https://crontab.guru/#15_1_*_*_*) ：
+
 ![](/assets/70a1409b149a/1*xnZBlcsMrQVJc6ewJIfAxA.png)
 
 他能很直白的翻譯給你所設定的語法實際意思。（點 **next** 可查看下次執行時間）
@@ -402,9 +438,12 @@ db = firestore.client()
 **都填好後** ，按下「 **建立** 」。
 - 建立成功後可選擇「立即執行」測試一下正不正常。
 
+
 ![](/assets/70a1409b149a/1*H_nsZNQ16iIKwThQpGJDmA.png)
+
 ![](/assets/70a1409b149a/1*X6pL0J4hGL_KodhsppvsJg.png)
 - 可查看執行結果、上次執行日期
+
 
 ![](/assets/70a1409b149a/1*pUqTo-NM1z-srXbq1BM4rA.png)
 > _⚠️ **請注意，執行結果「失敗」僅針對 web status code 是 400~500 或 python 程式有錯誤。**_
@@ -416,18 +455,22 @@ db = firestore.client()
 
 還有一部分很重要，就是計價方式；Google Cloud、Linebot 都不是全免費服務，所以了解收費方式很重要；不然為了一個小小的腳本，付出太多的金錢那不如電腦開著掛著跑哩。
 #### Linebot
+
 ![](/assets/70a1409b149a/1*cfuKJxNoW4tvCEhqdC7oIQ.png)
 
 參考 [官方定價](https://tw.linebiz.com/service/account-solutions/line-official-account/) 資訊，一個月 500 則內免費。
 #### Google Cloud Functions
+
 ![](/assets/70a1409b149a/1*2431d2F1BNtEJUg845uDQg.png)
 
 參考 [官方定價](https://cloud.google.com/functions/pricing?hl=zh-tw) 資訊，每月有 200 萬次叫用、400,000 GB/秒和 200,000 GHz/秒的運算時間、 5 GB 的網際網路輸出流量。
 #### Google Firebase Cloud Firestore
+
 ![](/assets/70a1409b149a/1*2t1boe9DQX1NBgGyYTrVnA.png)
 
 參考 [官方定價](https://firebase.google.com/docs/firestore/quotas) 資訊，有 1 GB 大小容量、每月 10 GB 流量、每天 50,000 次讀取、20,000 次寫入/刪除；輕量使用很夠用了！
 #### Google Cloud Scheduler
+
 ![](/assets/70a1409b149a/1*b9cvGpPqjKRFHa-45Yuzdw.png)
 
 參考 [官方定價](https://cloud.google.com/scheduler/pricing?hl=zh-tw) 資訊，每個帳號有 3 項免費工作可設定。
@@ -437,12 +480,15 @@ db = firestore.client()
 東躲西躲，還是躲不掉可能被收費的服務。
 
 Cloud Functions 建立好之後會自動建立兩個 Cloud Storage 實體：
+
 ![](/assets/70a1409b149a/1*OvWXsZbwnM8sNfvdtDAIOA.png)
 
 如果剛剛 Cloud Functions 選擇的是 US-WEST1、US-CENTRAL1 或 US-EAST1 這三個地區則可享有免費使用額度：
+
 ![](/assets/70a1409b149a/1*arevMQGpsIumGlw_PE-hQQ.png)
 
 我是選擇 US-CENTRAL1 沒錯，可以看到第一個 Cloud Storage 實體的地區是 US-CENTRAL1 沒錯，但第二個是寫 **美國多個地區** ； **我自已估計這項是會被收費的** 。
+
 ![](/assets/70a1409b149a/1*kuX9HlPTfMxbEg-sa3rJOQ.png)
 
 參考 [官方定價](https://cloud.google.com/storage/pricing?hl=zh-tw) 資訊，依照主機地區不同有不同的價格。
@@ -456,37 +502,48 @@ just in case…假設真的有狀況超出免費用量開始計價，我希望�
 - 前往 [**主控台**](https://console.cloud.google.com/)
 - 找到「 **計費功能** 」Card：
 
+
 ![](/assets/70a1409b149a/1*r0T8gZsaWroxhWxIxKwRWQ.png)
 
 點擊「 **查看詳細扣款紀錄** 」進入。
 - 展開左邊選單，進入「 **預算與快訊** 」功能
 
+
 ![](/assets/70a1409b149a/1*GtT4Sj9Q19O_QxWTWgM5UA.png)
 - 點擊上方「 **設定預算** 」
 
+
 ![](/assets/70a1409b149a/1*ytmGKw4sy6b-U3XAeI_geQ.png)
 - 輸入自訂名稱
+
 
 ![](/assets/70a1409b149a/1*_qgQMB_WsCuoxtJ4vA6xgw.png)
 
 下一步。
 - 金額，輸入「 **目標金額** 」，可輸入 $1、$10；我們不希望在小東西上花太。
 
+
 ![](/assets/70a1409b149a/1*y6fIpzReQxZZRsVpZIk-tw.png)
 
 下一步。
 
 動作這邊可以設定當預算達到多少百分比時會觸發通知。
+
 ![](/assets/70a1409b149a/1*y4B62yjPWAy1pBQhZmiySQ.png)
 
 **勾選** 「 **透過電子郵件將快訊傳送給帳單管理員和使用者** 」，這樣當條件處發時就能第一時間收到通知。
+
 ![](/assets/70a1409b149a/1*PTQDG_Uffa8fvHxaeYCnrQ.png)
 
 點擊「完成」送出儲存。
+
 ![](/assets/70a1409b149a/1*QWH-bIlQAC7hhc4SVQOI5g.png)
+
 ![](/assets/70a1409b149a/1*-BAHV1lovaYgblnCCubmSQ.png)
 
 當預算超過時我們就能馬上就能知道，避免產生更多費用。
 ### 總結
 
 人的精力是有限的，現今科技資訊洪流，每個平台每個服務都想要榨取我們有限的精力；如果能透過一些自動化腳本分擔我們的日常生活，聚沙成塔，讓我們省下更多精力專心在重要的事情之上！
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/%E4%BD%BF%E7%94%A8-python-google-cloud-platform-line-bot-%E8%87%AA%E5%8B%95%E5%9F%B7%E8%A1%8C%E4%BE%8B%E8%A1%8C%E7%91%A3%E4%BA%8B-70a1409b149a)

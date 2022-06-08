@@ -12,6 +12,7 @@ iPlayground 2018 回來 & UUID那些事
 ### 前言：
 
 上週六、日跑去參加 [iPlayground](https://iplayground.io/) Apple 軟體開發者研討會，這個活動訊息是同事PASS過來的，去之前我也不清楚這個活動。
+
 ![](/assets/a4bc3bce7513/1*gEmmuDOD92d2b2fLp4AKsw.jpeg)
 
 兩天下來，整題活動跟時程安排流暢，議程內容：
@@ -29,6 +30,7 @@ iPlayground 2018 回來 & UUID那些事
 Lighting Talk的部分在台下聽得也好想上去分享😂 下次要提早做好準備了!
 
 會後的offical party，酒水食物場地都很有誠意，聽前輩們的真心話吐露，很輕鬆有趣之外還吸收許多職場軟實力．
+
 ![台大後台咖啡](/assets/a4bc3bce7513/1*Xwk_96lVKcMKgeL7IOC70g.jpeg "台大後台咖啡")
 
 我才知道原來這是第一屆，真的有榮幸能夠參加，所有工作人員跟講者辛苦了！
@@ -64,6 +66,7 @@ let DEVICE_UUID:String = UIDevice.current.identifierForVendor?.uuidString ?? UUI
 因為這個特性，我們公司的其他APP是使用Key-Chain來解決這個問題，聽了講者前輩的指點也驗證了這個做法是正確的！
 
 **流程如下：**
+
 ![Key-Chain UUID欄位有值時取值，無則取IDFA的UUID值並回寫](/assets/a4bc3bce7513/1*-8rufG1QW-J5tn6ZadT17A.jpeg "Key-Chain UUID欄位有值時取值，無則取IDFA的UUID值並回寫")
 
 Key-Chain寫入方式：
@@ -123,4 +126,5 @@ let DEVICE_UUID:String = {
     }
 }()
 ```
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/ios-uuid-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B-swift-ios-6-a4bc3bce7513)

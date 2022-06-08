@@ -9,10 +9,12 @@ tags: [ios-app-development,google-apps-script,cicd,slack,workflow-automation]
 ### 運用 Google Apps Script 轉發 Gmail 信件到 Slack
 
 使用 Gmail Filter + Google Apps Script 在收到信件時自動將客製化內容轉寄至 Slack Channel
+
 ![Photo by [Lukas Blazek](https://unsplash.com/@goumbik?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](/assets/d414bdbdb8c9/1*U6CDgIAMt2l2vDoFqhwv6A.jpeg "Photo by [Lukas Blazek](https://unsplash.com/@goumbik?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)")
 ### 起源
 
 最近在優化 iOS App CI/CD 的流程，使用 Fastlane 作為自動化工具；打包上傳後如果要繼續完成自動送審步驟 ( `skip_submission=false` )，就需要等蘋果完成 Process 大概需要浪費 30~40 mins 的 CI Server 時間，因為蘋果 App Store Connect API 並不完善，Fastlane 也只能每分鐘去檢查一次上傳的 Build 是否處理完成，非常浪費資源。
+
 ![](/assets/d414bdbdb8c9/1*JXuVoKM-gGJwfvF7tXY1nQ.png)
 - **Bitrise CI Server：** 限制同時 Builds 數量及最大執行時間 90 mins，90 mins 是夠，但會卡著一條 Build 阻礙其他人執行。
 - **Travis CI Server：** 依照 Build Time 收費，這樣更不能等了，錢直接打水漂。
@@ -20,12 +22,15 @@ tags: [ios-app-development,google-apps-script,cicd,slack,workflow-automation]
 #### 換個思路
 
 不等了，上傳完直接結束！靠處理完成的信件通知觸發後續動作。
+
 ![](/assets/d414bdbdb8c9/1*57FOYivs5toW2aipgRVCeg.jpeg)
 > **_不過最近我都沒收到這封信了，不知道是設定問題還是蘋果不再發此類通知。_**
 
 
 本文將以 Testflight 已經可以開始測試的信件通知為例。
+
 ![](/assets/d414bdbdb8c9/1*2fmqWCAMiM2UeuGss7VzzA.jpeg)
+
 ![](/assets/d414bdbdb8c9/1*sndRqvnELhCshb6yyPFhqg.jpeg)
 > _完整流程如上圖所示，原理上可行；但不是本文要討論的重點，本文將著重在收到信件、使用 Apps Script 轉發至 Slack Channel 部分。_
 
@@ -36,6 +41,7 @@ tags: [ios-app-development,google-apps-script,cicd,slack,workflow-automation]
 可參考官方文件進行設置： [傳送電子郵件至 Slack](https://slack.com/intl/zh-tw/help/articles/206819278-%E5%82%B3%E9%80%81%E9%9B%BB%E5%AD%90%E9%83%B5%E4%BB%B6%E8%87%B3-Slack)
 
 **不管哪種方法效果都如下：**
+
 ![](/assets/d414bdbdb8c9/1*qdoLTotLTaeZPsEHaJ8C7Q.jpeg)
 > _預設摺疊信件內容，點擊後可以展開查看全部內容。_
 
@@ -53,10 +59,12 @@ tags: [ios-app-development,google-apps-script,cicd,slack,workflow-automation]
 ### 客製轉發內容
 
 就是本篇要介紹的重點。
+
 ![](/assets/d414bdbdb8c9/1*w4E7wf-Kf8XVFxowmDopIw.png)
 
 將信件內容資料轉譯成自己想呈現的樣式，如上圖範例。
 #### 先上一張完整運作流程圖：
+
 ![](/assets/d414bdbdb8c9/1*yB5s_5rBr4l6hid21huJMQ.jpeg)
 - 使用 Gmail Filter 對要轉發信件加上辨識 Label
 - Apps Script 定時獲取被標記成該 Label 的信件
@@ -69,12 +77,16 @@ tags: [ios-app-development,google-apps-script,cicd,slack,workflow-automation]
 #### 首先，要在 Gmail 中建立篩選器
 
 篩選器可以在收到符合條件信件時自動化做一些事，例如：自動標記已讀、自動標記 Tag、自動移入垃圾郵件、自動歸入分類…等等操作
+
 ![](/assets/d414bdbdb8c9/1*qNXxtTLzEnlArl4UTTWQMw.jpeg)
 
 在 Gmail 點擊右上進階搜尋圖標按鈕，輸入要轉發的信件規則條件，例如來自： `no_reply@email.apple.com` + 主題是 `is now available to test.` ，點擊「Search」查看篩選結果是否如預期；如果正確可以點擊 Search 旁的「Create filter」按鈕。
+
 ![或直接在信件裡上方點 Filter message like these 就能快速建立篩選條件](/assets/d414bdbdb8c9/1*i7grToZwE_ixwJTEjI9qtw.jpeg "或直接在信件裡上方點 Filter message like these 就能快速建立篩選條件")
+
 ![](/assets/d414bdbdb8c9/1*n_nbqgIlE-E1eaW5QfqkWg.jpeg)
 > 這按鈕設計很反人類，第一次找一直沒看到。
+
 
 ![](/assets/d414bdbdb8c9/1*6zlooS-cMr5LEVX2TW5I_w.jpeg)
 
@@ -84,23 +96,29 @@ tags: [ios-app-development,google-apps-script,cicd,slack,workflow-automation]
 ### 取得 Incoming WebHooks App URL
 
 首先我們要加入 Incoming WebHooks App 到 Slack Channel，我們會透過此媒介來傳送訊息。
+
 ![](/assets/d414bdbdb8c9/1*AgGLiLsyvenK-LRWI9rlKg.png)
 . Slack 左下角「Apps」->「Add apps」
 . 右邊搜尋匡搜尋「incoming」
 . 點擊「Incoming WebHooks」->「Add」
 
+
 ![](/assets/d414bdbdb8c9/1*DUcwdLTKt33Fa-jNlW8MkA.png)
+
 ![](/assets/d414bdbdb8c9/1*v8Z-5vEM043F82TMiZk2lw.png)
 
 選擇訊息想要傳到的 Channel。
+
 ![](/assets/d414bdbdb8c9/1*SRciom_ygU0JDKK9ATY1FQ.png)
 
 記下最上方的「Webhook URL」
+
 ![](/assets/d414bdbdb8c9/1*kp1QDIEwzQtmfzUwZIDTSg.png)
 
 往下滑可設定傳送訊息時，傳送 Bot 顯示的名稱及大頭貼；改完記得按「Save Settings」。
 > **_備註_**
 > _請注意官方建議使用新的 Slack APP Bot API 的 [chat.postMessage](https://api.slack.com/methods/chat.postMessage) 來傳送訊息，Incoming Webhook 簡便的這個方式之後會棄用，這邊偷懶沒有使用，可搭配下一章「匯入員工名單」會需要 Slack App API 一起調整成新方法。_
+
 
 ![](/assets/d414bdbdb8c9/1*QfgJL_Xb9JhgQnPGjU2CXg.png)
 ### 撰寫 Apps Script 程式
@@ -171,6 +189,7 @@ function forwardEmailsToSlack() {
 信件標題：Your app XXX has been approved for beta testing.
 
 信件內容：
+
 ![](/assets/d414bdbdb8c9/1*aZkQGA3N1cquMLt1wyDGFg.jpeg)
 
 我們想得到 **Bundle Version Short String 還有 Build Number 後面的值** 。
@@ -195,28 +214,36 @@ build = 2
 - 回到 Gmail 隨便找一封信，手動幫他加上 Label — 「forward-to-slack」
 - 在 Apps Script 程式碼編輯器上選擇「forwardEmailsToSlack」然後點擊「執行」按鈕
 
+
 ![](/assets/d414bdbdb8c9/1*JHHTQCWNUI-aNPBB6y4iAA.jpeg)
+
 ![](/assets/d414bdbdb8c9/1*ltXGtEVxkdde1qHGxy3wMw.png)
 
 若出現 「Authorization Required」則點選「Continue」完成驗證
+
 ![](/assets/d414bdbdb8c9/1*hIgRtqKEFs0tsXDxfNTaOg.png)
 
 在身份驗證的過程中會出現「Google hasn’t verified this app」這是正常的，因為我們寫的 App Script 沒有經過 Google 驗證，不過沒關係這是寫給自己用的。
 
 可點選左下角「Advanced」->「Go to ForwardEmailsToSlack (unsafe)」
+
 ![](/assets/d414bdbdb8c9/1*QUkmTD1WlEzw7cqW97ll6Q.png)
 
 點擊「Allow」
+
 ![](/assets/d414bdbdb8c9/1*TInHsY7Fwb9jHuKJkMJIsw.jpeg)
 
 轉發成功！！！
 ### 設置觸發器(排程)自動檢查＆轉發
+
 ![](/assets/d414bdbdb8c9/1*2Ok6gD5E7F1uqyzgVpoJ8A.jpeg)
 
 在 Apps Script 左方選單列，選擇「觸發條件」。
+
 ![](/assets/d414bdbdb8c9/1*1xb9xGGkgx6PkhWlWc7HiQ.jpeg)
 
 左下角「+ 新增觸發條件」。
+
 ![](/assets/d414bdbdb8c9/1*ujCxCH3f8HTvSOP5o4xvmA.jpeg)
 - 錯誤通知設定：可設定當腳本執行遇到錯誤時，該如何通知你
 - 選擇您要執行的功能：選擇 Main Function `sendMessageToSlack`
@@ -225,6 +252,7 @@ build = 2
 - 選取分/時/日/週/月間隔：EX: 每分鐘、每 15 分鐘…
 
 > _這邊為了示範設定成每分鐘執行一次，我覺得信件的即時程度可以設每小時檢查一次就好。_
+
 
 ![](/assets/d414bdbdb8c9/1*LBAlTvz46NJCYgVv1DrfYQ.png)
 - 再次回到 Gmail 隨便找一封信，手動幫他加上 Label — 「forward-to-slack」
@@ -237,3 +265,5 @@ build = 2
 藉由此功能便能達成客製化信件轉發處理，甚至是再當成觸發器使用，例如：收到 XXX 信時自動執行某腳本。
 
 回到第一章起源，我們便可以使用此機制，完善 CI/CD 流程；不需要呆呆等待蘋果完成處理，又能串上自動化流程！
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/%E9%81%8B%E7%94%A8-google-apps-script-%E8%BD%89%E7%99%BC-gmail-%E4%BF%A1%E4%BB%B6%E5%88%B0-slack-d414bdbdb8c9)

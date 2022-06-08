@@ -19,7 +19,9 @@ iOS 3D TOUCH 應用
 
 這個早在 **iOS 9/iPhone 7之後** 就開始支援的功能，直到我自己從iPhone 6換到iPhone 8 後才體會到它的好用之處！
 #### 3D Touch能在APP中實做兩個項目，如下：
+
 ![1. Preview ViewController 預覽功能 — [結婚吧APP](https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E4%B8%8D%E6%89%BE%E6%9C%80%E8%B2%B4-%E5%8F%AA%E6%89%BE%E6%9C%80%E5%B0%8D/id1356057329?ls=1&mt=8)](/assets/1ca246e27273/1*Nl6uz_dA2h13g7PtqSi6aw.gif "1. Preview ViewController 預覽功能 — [結婚吧APP](https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E4%B8%8D%E6%89%BE%E6%9C%80%E8%B2%B4-%E5%8F%AA%E6%89%BE%E6%9C%80%E5%B0%8D/id1356057329?ls=1&mt=8)")
+
 ![2. 3D Touch Shortcut APP 捷徑啟動功能](/assets/1ca246e27273/1*VcIEwZxiW26eVqCk4kUEZw.gif "2. 3D Touch Shortcut APP 捷徑啟動功能")
 
 其中第一項是應用最廣且效果最好的 (Facebook:動態消息內容預覽、Line:偷看訊息)，第二項 APP 捷徑啟動 目前看數據是鮮少人使用所以放最後在講。
@@ -105,9 +107,11 @@ extension AViewController: UIViewControllerPreviewingDelegate {
 > **請注意！其中的註冊能3D Touch 的 View 這塊要放在 traitCollectionDidChange 之中而非 “viewDidLoad” ( [請參考此篇內容](https://stackoverflow.com/questions/30007701/view-traitcollection-horizontalsizeclass-returning-undefined-0-in-viewdidload) )**
 > 關於要加放在哪裡這塊我踩了許多雷，網路有些資料寫viewDidLoad、有的寫在cellforItem中，但這兩個地方都會出現偶爾失效或部分cell失效的問題。
 
+
 ![附圖1 背景虛化保留區示意圖](/assets/1ca246e27273/1*AAFevro2x7s9J6yRshAGtg.png "附圖1 背景虛化保留區示意圖")
 
 如果您需要上滑後在下方加入選項選單請在 **B** 之中加入，是B 是B 是B哦！
+
 ![](/assets/1ca246e27273/1*L7VwD_lyG86eXzTzgIuELQ.png)
 ```swift
 override var previewActionItems: [UIPreviewActionItem] {
@@ -131,12 +135,15 @@ override var previewActionItems: [UIPreviewActionItem] {
 - [必填] UIApplicationShortcutItemTitle : 選項標題
 - UIApplicationShortcutItemSubtitle : 選項子標題
 
+
 ![](/assets/1ca246e27273/1*PlbW5bVYGkN2olZC9WAvHw.png)
 - UIApplicationShortcutItemIconType : 使用系統圖標
+
 
 ![參考自 [此篇文章](https://qiita.com/kusumotoa/items/f33c89f150cd0937d003)](/assets/1ca246e27273/1*S3dbMWNnTvhdt-NlxAQ2Tw.png "參考自 [此篇文章](https://qiita.com/kusumotoa/items/f33c89f150cd0937d003)")
 - UIApplicationShortcutItemIconFile : 使用自定義圖標(size:35x35,單色)，與UIApplicationShortcutItemIconType擇ㄧ使用
 - UIApplicationShortcutItemUserInfo : 更多附加資訊EX: [id:1]
+
 
 ![我的設定如上圖](/assets/1ca246e27273/1*cIIVrNDdziBVJn4z_QsLJg.png "我的設定如上圖")
 #### 第二步
@@ -167,5 +174,7 @@ func application(_ application: UIApplication, performActionFor shortcutItem: UI
 
 在APP中加入 3D Touch的功能並不難，對使用者來說也會覺得很貼心❤；可以搭配設計操作增加使用者體驗；但目前就只有上述兩個功能可做在加上iPhone 6s以下/iPad/iPhone XR都不支援3D Touch所以實際能做的功能又更少了，只能以輔助、增加體驗為主。
 #### p.s.
+
 ![如果你測的夠細會發現以上效果，在CollectionView滑動中圖有部分已經滑出畫面這時按壓就會出現以上情況😅](/assets/1ca246e27273/1*LBgSqm8CTdBPycGnuYNMkA.png "如果你測的夠細會發現以上效果，在CollectionView滑動中圖有部分已經滑出畫面這時按壓就會出現以上情況😅")
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/zrealm-ios-dev/%E6%8F%90%E5%8D%87%E4%BD%BF%E7%94%A8%E8%80%85%E9%AB%94%E9%A9%97-%E7%8F%BE%E5%9C%A8%E5%B0%B1%E7%82%BA%E6%82%A8%E7%9A%84-ios-app-%E5%8A%A0%E4%B8%8A-3d-touch-%E5%8A%9F%E8%83%BD-swift-1ca246e27273)

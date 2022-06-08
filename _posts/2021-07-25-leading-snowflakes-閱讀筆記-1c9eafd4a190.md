@@ -9,6 +9,7 @@ tags: [management,leadership,engineering,管理學,工程師]
 ### Leading Snowflakes — 閱讀筆記
 
 “Leading Snowflakes The Engineering Manager Handbook” — Oren Ellenbogen
+
 ![](/assets/1c9eafd4a190/1*yJCwDuo9tMhDD_sSoCSNqA.png)
 
 管理職，初來乍到，一切都很迷茫；對於管理的知識只有彙整之前的工作經驗、觀察或與其他同事閒聊時獲得，知道主管做了什麼事底下的人是正面的、什麼事是負面的；也就大概只有這些經驗想法，知識是破碎的，沒有一個有系統理念，於是我開始看書，開始記錄一下每個作者的經驗；如果遇到相同的事物，有了「知識底氣」之後就不會在手忙腳亂了。
@@ -41,6 +42,7 @@ _- 部分內容直接摘錄原文。_
 #### 但我們同時需要身兼工程師和管理者，那該如何是好？
 
 作者建議建立兩個 Calendar ，一個是 as Maker (工程師)、一個是 as Manager (管理者)，然後每日一大早給自己 15 – 30 分鐘整理思緒，安排本日行事曆，該做什麼事、有什麼會、有哪些空檔的連續時間點可以拿來解決任務(as Maker)。
+
 ![作者的行事曆範本](/assets/1c9eafd4a190/1*7772qy7BVUCPa4LbvLGv6g.png "作者的行事曆範本")
 #### 我們也需要專心的時間
 
@@ -84,6 +86,7 @@ _- 部分內容直接摘錄原文。_
 我想也是，如果不是進退兩難的問題應該也不會問你；如果問你就代表隊友不知道該如何決定。
 
 我們可以列出選項並提供決定給隊友，但與此同時也要記下所做的決定。
+
 ![作者提供的紀錄 Sheet 範本](/assets/1c9eafd4a190/1*ckCF-uBpxAjNzbUTdvMhBA.png "作者提供的紀錄 Sheet 範本")
 
 養成紀錄的習慣，並且要確保內容是之後能回憶的。
@@ -114,7 +117,7 @@ _- 部分內容直接摘錄原文。_
 
 分享真實想法對雙方都很難，但這是身為管理者的責任。
 
-[![同理心(Empathy) vs 同情心(Sympathy)](assets/1c9eafd4a190/b618_hqdefault.jpg "同理心(Empathy) vs 同情心(Sympathy)")](https://www.youtube.com/watch?v=3kgKanOYSsU)
+[![同理心(Empathy) vs 同情心(Sympathy)](/assets/1c9eafd4a190/b618_hqdefault.jpg "同理心(Empathy) vs 同情心(Sympathy)")](https://www.youtube.com/watch?v=3kgKanOYSsU)
 
 我們要展現同理心而不是同情心，為了讓他們的工作真正出類拔萃，他們需要我們客觀的意見。
 
@@ -168,6 +171,7 @@ _- 部分內容直接摘錄原文。_
 身為管理者必須做好任務委派，作者認為委派就該設定好期待並相信被指派的隊友有能力執行並是有機會學到東西及保有發生錯誤的空間，管理者另一方面也要保護隊友來自公司的壓力。
 
 作者使用以下表格進行記錄：
+
 ![](/assets/1c9eafd4a190/1*7trny5YJAnmgr6AMxqsduw.png)
 
 這邊主要紀錄的是對團隊目標重要的任務，日常工作不用紀錄。
@@ -360,4 +364,5 @@ EX: 作者的團隊是做爬蟲的，他的團隊願景就是「To build the lar
 
 我們是團隊，團隊成員有自己的責任跟要交付的成果，同時也要與其他人協作，幫助他人，互相成長；定義期待像是種契約，在原本的同事關係變成管理者關係之下，能更好更有目的的領導；定義這些項目不容易，需要時間、耐心去迭代。
 > 「You can’t empower people by approving their actions. You empower by designing the need for your approval out of the system.」
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
+
+[Medium 原文](https://medium.com/%E8%8F%9C%E9%B3%A5%E5%AD%B8%E7%AE%A1%E7%90%86/leading-snowflakes-%E9%96%B1%E8%AE%80%E7%AD%86%E8%A8%98-1c9eafd4a190)
