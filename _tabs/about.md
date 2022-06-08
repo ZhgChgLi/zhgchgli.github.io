@@ -4,28 +4,37 @@ icon: fas fa-info-circle
 order: 4
 ---
 
+## Harry Li (ZhgChg Li)
+![](/assets/images/zhgchgli.jpg){: width="250" }
+
+iOS Developer @ Pinkoi Taipei / Taiwan 🇹🇼
+
 ## Education
-
-Bachelor's degree, Information Management.
-
-**National Taiwan University of Science and Technology 2012 ~ 2016**
+### National Taiwan University of Science and Technology
+- [2012 ~ 2016] Bachelor's degree, Information Management.
 
 ## Experience
 
-### Enginner Lead
-- **[2022/01 ~ Present]** [Pinkoi](https://pinkoi.com/) - App Platform Team
+### [Pinkoi | 亞洲領先設計購物網站| Design the way you are](https://www.pinkoi.com/)
+- [2022/01 ~ Present] App Platform Team **Enginner Lead**
+- [2021/03 ~ Present] **iOS Developer**
+- [2021/07 ~ 2021/12] **iOS Team Lead**
 
-### iOS Team Lead
-- **[2021/07 ~ 2021/12]** [Pinkoi](https://pinkoi.com/)
+### [StreetVoice 街聲- 最潮音樂社群](https://streetvoice.com/)
+- [2019/12 ~ 2021/02] **iOS Developer**
 
-### iOS Developer
-- **[2021/03 ~ Present]** [Pinkoi](https://pinkoi.com/)
-- **[2019/12 ~ 2021/02]** [StreetVoice](https://streetvoice.com/)
-- **[2017/10 ~ 2019/10]** [Addcn](https://addcn.com.tw/about-info.html) - [Marry.com.tw](https://www.marry.com.tw/)
+### [結婚吧一站式婚禮服務平台 - 線上準備婚禮最安心](https://www.marry.com.tw/)
 
-### Backend Developer
-- **[2017/02 ~ 2017/10]** [Addcn](https://addcn.com.tw/about-info.html) - [Marry.com.tw](https://www.marry.com.tw/)
-- **[2015/07 ~ 2016/06]** [Starwing Technology Co](https://digitimes.com.tw/iot/startupteam_detail.asp?sid=S2019050010) - Intern
+- [2017/10 ~ 2019/10] **iOS Developer**
+- [2017/02 ~ 2017/10] **Backend Developer**
 
-### Accomplishments
-- **The 42nd National Skills Competition** - Web Design - Gold
+### [Starwing Technology Co](https://digitimes.com.tw/iot/startupteam_detail.asp?sid=S2019050010)
+- [2015/07 ~ 2016/06] **FullStack Developer**
+
+
+## Accomplishments
+### [第 42 屆國際技能競賽](https://worldskills.org/index.php)
+- [2012] 網頁設計 **備取國手**
+
+### [第 41 屆全國技能競賽](https://worldskills.org/index.php)
+- [2011] 網頁設計 **冠軍🇹🇼**
