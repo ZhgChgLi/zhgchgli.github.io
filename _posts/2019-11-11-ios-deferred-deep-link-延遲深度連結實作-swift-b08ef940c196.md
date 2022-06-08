@@ -10,7 +10,7 @@ tags: [deeplink,ios-app-development,swift,universal-links,app-store]
 
 動手打造適應所有場景、不中斷的App轉跳流程
 ### [2020/07/02] 更新
-- [因應 iOS 14 更新，讀取剪貼簿時會提示使用者，如要實作請一併參考此篇文章。](https://medium.com/@zhgchgli/ios-14-%E5%89%AA%E8%B2%BC%E7%B0%BF%E7%AB%8A%E8%B3%87%E6%81%90%E6%85%8C-%E9%9A%B1%E7%A7%81%E8%88%87%E4%BE%BF%E5%88%A9%E7%9A%84%E5%85%A9%E9%9B%A3-8a04443024e2)
+- [因應 iOS 14 更新，讀取剪貼簿時會提示使用者，如要實作請一併參考此篇文章。](../ios-14-%E5%89%AA%E8%B2%BC%E7%B0%BF%E7%AB%8A%E8%B3%87%E6%81%90%E6%85%8C-%E9%9A%B1%E7%A7%81%E8%88%87%E4%BE%BF%E5%88%A9%E7%9A%84%E5%85%A9%E9%9B%A3-8a04443024e2)
 
 #### 無關
 
@@ -332,13 +332,3 @@ override func viewDidLoad() {
 
 iOS=9 的用戶已經非常稀少，不是很必要的話可以直接忽略；使用剪貼簿的方法快又有效率，而且用剪貼簿就不用局限連結一定要用 Safari 開啟！
 [Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
-
-有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact) 。
-
-
-
-+-----------------------------------------------------------------------------------+
-
-| **[View original post on Medium](https://medium.com/zrealm-ios-dev/ios-deferred-deep-link-%E5%BB%B6%E9%81%B2%E6%B7%B1%E5%BA%A6%E9%80%A3%E7%B5%90%E5%AF%A6%E4%BD%9C-swift-b08ef940c196) - Converted by [ZhgChgLi](https://blog.zhgchg.li)/[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)** |
-
-+-----------------------------------------------------------------------------------+

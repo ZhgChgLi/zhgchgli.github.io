@@ -1,11 +1,13 @@
 #  The contact options.
 
 -
-  type: github
-  icon: 'fab fa-github'
+  type: medium
+  icon: 'fab fa-medium'
+  url: 'https://medium.com/@zhgchgli'
 -
-  type: twitter
-  icon: 'fab fa-twitter'
+   type: linkedin
+   icon: 'fab fa-linkedin'
+   url:  'https://www.linkedin.com/in/zhgchgli'
 -
   type: email
   icon: 'fas fa-envelope'

@@ -10,9 +10,9 @@ tags: [ios-app-development,ios,swift,push-notification,ios-12]
 
 除了從系統關閉通知，讓使用者還有其他選擇
 #### 緊接著前三篇文章：
-- [iOS ≥ 10 Notification Service Extension 應用 (Swift)](https://medium.com/@zhgchgli/ios-10-notification-service-extension-%E6%87%89%E7%94%A8-swift-cb6eba52a342)
-- [什麼？iOS 12 不需使用者授權就能傳送推播通知(Swift)](https://medium.com/@zhgchgli/%E4%BB%80%E9%BA%BC-ios-12-%E4%B8%8D%E9%9C%80%E4%BD%BF%E7%94%A8%E8%80%85%E6%8E%88%E6%AC%8A%E5%B0%B1%E8%83%BD%E6%94%B6%E5%88%B0%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5-swift-ade9e745a4bf)
-- [從 iOS 9 到 iOS 12 推播通知權限狀態處理(Swift)](https://medium.com/@zhgchgli/%E5%BE%9E-ios-9-%E5%88%B0-ios-12-%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5%E6%AC%8A%E9%99%90%E7%8B%80%E6%85%8B%E8%99%95%E7%90%86-swift-fd7f92d52baa)
+- [iOS ≥ 10 Notification Service Extension 應用 (Swift)](../ios-10-notification-service-extension-%E6%87%89%E7%94%A8-swift-cb6eba52a342)
+- [什麼？iOS 12 不需使用者授權就能傳送推播通知(Swift)](../%E4%BB%80%E9%BA%BC-ios-12-%E4%B8%8D%E9%9C%80%E4%BD%BF%E7%94%A8%E8%80%85%E6%8E%88%E6%AC%8A%E5%B0%B1%E8%83%BD%E6%94%B6%E5%88%B0%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5-swift-ade9e745a4bf)
+- [從 iOS 9 到 iOS 12 推播通知權限狀態處理(Swift)](../%E5%BE%9E-ios-9-%E5%88%B0-ios-12-%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5%E6%AC%8A%E9%99%90%E7%8B%80%E6%85%8B%E8%99%95%E7%90%86-swift-fd7f92d52baa)
 
 
 我們繼續針對推播進行改進，不管是原有的技術或是新開放的功能，都來嘗試嘗試！
@@ -74,7 +74,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 完成！相較於前幾篇文章，這個功能實作相較起來非常簡單 🏆
 ### 總結
 
-這個功能跟 [前一篇](https://medium.com/@zhgchgli/%E4%BB%80%E9%BA%BC-ios-12-%E4%B8%8D%E9%9C%80%E4%BD%BF%E7%94%A8%E8%80%85%E6%8E%88%E6%AC%8A%E5%B0%B1%E8%83%BD%E6%94%B6%E5%88%B0%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5-swift-ade9e745a4bf) 提到的先不用使用者授權就發干擾性較低的靜音推播給使用者試試水溫有點類似！
+這個功能跟 [前一篇](../%E4%BB%80%E9%BA%BC-ios-12-%E4%B8%8D%E9%9C%80%E4%BD%BF%E7%94%A8%E8%80%85%E6%8E%88%E6%AC%8A%E5%B0%B1%E8%83%BD%E6%94%B6%E5%88%B0%E6%8E%A8%E6%92%AD%E9%80%9A%E7%9F%A5-swift-ade9e745a4bf) 提到的先不用使用者授權就發干擾性較低的靜音推播給使用者試試水溫有點類似！
 
 都是在開發者與使用者之前架起新的橋樑，以往APP太吵，我們會直接進到設定頁無情地關閉所有通知，但這樣對開發者來說，以後不管好的壞的有用的…任何通知都無法再發給使用者，使用者可能也因此錯過重要消息或限定優惠．
 
@@ -86,13 +86,3 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
 ![](/assets/f644db1bb8bf/1*DEOMdPwDxyHca-GnYr8HIQ.jpeg)
 [Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
-
-有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact) 。
-
-
-
-+-----------------------------------------------------------------------------------+
-
-| **[View original post on Medium](https://medium.com/zrealm-ios-dev/ios-12-%E5%9C%A8%E4%BD%BF%E7%94%A8%E8%80%85%E7%9A%84-%E8%A8%AD%E5%AE%9A-%E4%B8%AD%E5%A2%9E%E5%8A%A0-app%E9%80%9A%E7%9F%A5%E8%A8%AD%E5%AE%9A%E9%A0%81-%E6%8D%B7%E5%BE%91-swift-f644db1bb8bf) - Converted by [ZhgChgLi](https://blog.zhgchg.li)/[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)** |
-
-+-----------------------------------------------------------------------------------+

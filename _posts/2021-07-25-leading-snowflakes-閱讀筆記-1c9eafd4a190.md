@@ -361,13 +361,3 @@ EX: 作者的團隊是做爬蟲的，他的團隊願景就是「To build the lar
 我們是團隊，團隊成員有自己的責任跟要交付的成果，同時也要與其他人協作，幫助他人，互相成長；定義期待像是種契約，在原本的同事關係變成管理者關係之下，能更好更有目的的領導；定義這些項目不容易，需要時間、耐心去迭代。
 > 「You can’t empower people by approving their actions. You empower by designing the need for your approval out of the system.」
 [Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
-
-有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact) 。
-
-
-
-+-----------------------------------------------------------------------------------+
-
-| **[View original post on Medium](https://medium.com/%E8%8F%9C%E9%B3%A5%E5%AD%B8%E7%AE%A1%E7%90%86/leading-snowflakes-%E9%96%B1%E8%AE%80%E7%AD%86%E8%A8%98-1c9eafd4a190) - Converted by [ZhgChgLi](https://blog.zhgchg.li)/[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)** |
-
-+-----------------------------------------------------------------------------------+

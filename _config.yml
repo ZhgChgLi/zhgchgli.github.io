@@ -10,7 +10,7 @@ theme: jekyll-theme-chirpy
 # The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
 # If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
 # otherwise, the layout language will use the default value of 'en'.
-lang: zh-tw
+lang: en
 
 # Additional parameters for datetime localization, optional. › https://github.com/iamkun/dayjs/tree/dev/src/locale
 prefer_datetime_locale:
@@ -26,7 +26,7 @@ title: ZhgChgLi                          # the main title
 tagline: Live a life you will remember.   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  A minimal, responsive, and powerful Jekyll theme forss presenting professional writing.
+    ZhgChgLi iOS Developer 求知若渴 教學相長 更愛電影/美劇/西音/運動/生活
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://zhgchgli.github.io'

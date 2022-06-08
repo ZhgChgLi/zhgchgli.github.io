@@ -60,7 +60,7 @@ player.play()
 ```
 ### **2021–01–05 更新：**
 
-我們退而求其次退回去使用 mp3 檔，這樣就能直接使用 `AVAssetResourceLoaderDelegate` 進行實作，詳細實作可參考「 [AVPlayer 邊播邊 Cache 實戰](https://zhgchgli.medium.com/avplayer-%E9%82%8A%E6%92%AD%E9%82%8A-cache-%E5%AF%A6%E6%88%B0-ee47f8f1e2d2) 」。
+我們退而求其次退回去使用 mp3 檔，這樣就能直接使用 `AVAssetResourceLoaderDelegate` 進行實作，詳細實作可參考「 [AVPlayer 邊播邊 Cache 實戰](../avplayer-%E9%82%8A%E6%92%AD%E9%82%8A-cache-%E5%AF%A6%E6%88%B0-ee47f8f1e2d2) 」。
 ### 實踐方案
 
 針對我們的目標能達成的幾個方案及實踐時遇到的問題。
@@ -70,7 +70,7 @@ player.play()
 
 不過很抱歉，此路不通，因為無法在 Delegate 中攔截到 **`.ts`** 檔案的下載請求資訊，可以在這則 [問答](https://stackoverflow.com/questions/29752028/unknown-error-12881-when-using-avassetresourceloader/30239876#30239876) 和 [官方文件](https://developer.apple.com/library/archive/technotes/tn2232/_index.html#//apple_ref/doc/uid/DTS40012884-CH1-SECHTTPLIVESTREAMING) 上確切此事。
 
-AVAssetResourceLoaderDelegate 實作可參考「 [AVPlayer 邊播邊 Cache 實戰](https://zhgchgli.medium.com/avplayer-%E9%82%8A%E6%92%AD%E9%82%8A-cache-%E5%AF%A6%E6%88%B0-ee47f8f1e2d2) 」。
+AVAssetResourceLoaderDelegate 實作可參考「 [AVPlayer 邊播邊 Cache 實戰](../avplayer-%E9%82%8A%E6%92%AD%E9%82%8A-cache-%E5%AF%A6%E6%88%B0-ee47f8f1e2d2) 」。
 #### 方案 2.1 URLProtocol 攔截請求 ❌
 
 URLProtocol 也是最近才學到的方法，所有基於 **`URL Loading System`** 的請求 (URLSession、Call API、下載圖片…) 都可以被我們攔截下來修改 Request、Response 然後再返回，一切就像沒發生一樣，偷偷來；關於 URLProtocol 可以參考 [此篇文章](https://www.jianshu.com/p/fbe57730d3e1) 。
@@ -189,13 +189,3 @@ _`所以說不完美啊…`_
 - [StyleShare/HLSCachingReverseProxyServer](https://github.com/StyleShare/HLSCachingReverseProxyServer)
 
 [Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
-
-有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact) 。
-
-
-
-+-----------------------------------------------------------------------------------+
-
-| **[View original post on Medium](https://medium.com/zrealm-ios-dev/ios-hls-cache-%E5%AF%A6%E8%B8%90%E6%96%B9%E6%B3%95%E6%8E%A2%E7%A9%B6%E4%B9%8B%E6%97%85-d796bf8e661e) - Converted by [ZhgChgLi](https://blog.zhgchg.li)/[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)** |
-
-+-----------------------------------------------------------------------------------+

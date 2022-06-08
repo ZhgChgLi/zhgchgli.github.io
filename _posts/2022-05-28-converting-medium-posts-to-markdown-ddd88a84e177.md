@@ -84,7 +84,7 @@ Medium 提供的 [API](https://github.com/Medium/medium-api-docs) 沒什麼在�
 **如何透過輸入使用者名稱得到文章列表？**
 
 1.取得 UserID：檢視使用者主頁(https://medium.com/@#{username}) 原始碼可以找到 `Username` 對應的 `UserID` 
-[這邊要注意因為 Meidum 重新開放自訂網域](https://medium.com/zrealm-life/medium-%E8%87%AA%E8%A8%82%E7%B6%B2%E5%9F%9F%E5%8A%9F%E8%83%BD%E5%9B%9E%E6%AD%B8-d9a95d4224ea) 所以要多處理 30X 轉址
+[這邊要注意因為 Meidum 重新開放自訂網域](../medium-%E8%87%AA%E8%A8%82%E7%B6%B2%E5%9F%9F%E5%8A%9F%E8%83%BD%E5%9B%9E%E6%AD%B8-d9a95d4224ea) 所以要多處理 30X 轉址
 
 2.嗅探網路請求可以發現 Medium 使用 GraphQL 去取得主頁的文章列表資訊
 
@@ -172,15 +172,5 @@ code `in` text, and [ink](http://zhgchg.li) in text, and ZhgChgLi, and **bold,_ 
 
 ### 成果
 
-[原文](https://medium.com/pinkoi-engineering/%E5%AF%A6%E6%88%B0%E7%B4%80%E9%8C%84-4-%E5%80%8B%E5%A0%B4%E6%99%AF-7-%E5%80%8B-design-patterns-78507a8de6a5) -> [轉換後的 Markdown 結果](https://github.com/ZhgChgLi/ZMediumToMarkdown/blob/main/example/%E5%AF%A6%E6%88%B0%E7%B4%80%E9%8C%84-4-%E5%80%8B%E5%A0%B4%E6%99%AF-7-%E5%80%8B-design-patterns-78507a8de6a5.md)
+[原文](../%E5%AF%A6%E6%88%B0%E7%B4%80%E9%8C%84-4-%E5%80%8B%E5%A0%B4%E6%99%AF-7-%E5%80%8B-design-patterns-78507a8de6a5) -> [轉換後的 Markdown 結果](https://github.com/ZhgChgLi/ZMediumToMarkdown/blob/main/example/%E5%AF%A6%E6%88%B0%E7%B4%80%E9%8C%84-4-%E5%80%8B%E5%A0%B4%E6%99%AF-7-%E5%80%8B-design-patterns-78507a8de6a5.md)
 [Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
-
-有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact) 。
-
-
-
-+-----------------------------------------------------------------------------------+
-
-| **[View original post on Medium](https://medium.com/zrealm-ios-dev/converting-medium-posts-to-markdown-ddd88a84e177) - Converted by [ZhgChgLi](https://blog.zhgchg.li)/[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)** |
-
-+-----------------------------------------------------------------------------------+

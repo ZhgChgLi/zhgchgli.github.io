@@ -19,7 +19,7 @@ tags: [apple-watch,watchos,apple-watch-apps,生活,開箱]
 . 續航力、便攜性、Retina顯示器
 
 
-[2019–05–02更新]：蘋果全家桶的設備再添一項， [AirPods 2 (開箱及上手體驗請點此)](https://medium.com/@zhgchgli/airpods-2-%E9%96%8B%E7%AE%B1%E5%8F%8A%E4%B8%8A%E6%89%8B%E9%AB%94%E9%A9%97%E5%BF%83%E5%BE%97-33afa0ae557d)
+[2019–05–02更新]：蘋果全家桶的設備再添一項， [AirPods 2 (開箱及上手體驗請點此)](../airpods-2-%E9%96%8B%E7%AE%B1%E5%8F%8A%E4%B8%8A%E6%89%8B%E9%AB%94%E9%A9%97%E5%BF%83%E5%BE%97-33afa0ae557d)
 #### 為何想買Apple Watch?
 . 記錄運動情況、心率狀況
 . 跑步不想帶手機
@@ -190,7 +190,7 @@ p.s Apple Pay預設卡片修改請打開「iPhone」上的「Watch」 APP ->「�
 只要抬起手腕，螢幕點亮後，可以直接說話使用Siri!，不用說「Hey! Siri」(EX： 抬手後直接說 **“明天天氣”** )。
 在手機離你有一段距離時也能使用Siri(EX：曬衣服的時候)。
 
-[2019–05–02更新]：更上一層的Siri體驗？請參考 [AirPods 2 開箱及上手體驗心得](https://medium.com/@zhgchgli/airpods-2-%E9%96%8B%E7%AE%B1%E5%8F%8A%E4%B8%8A%E6%89%8B%E9%AB%94%E9%A9%97%E5%BF%83%E5%BE%97-33afa0ae557d) 中的 Siri部分，AirPods 2 的 Siri 有戴耳機就能直接使用，連抬手腕都不用了。
+[2019–05–02更新]：更上一層的Siri體驗？請參考 [AirPods 2 開箱及上手體驗心得](../airpods-2-%E9%96%8B%E7%AE%B1%E5%8F%8A%E4%B8%8A%E6%89%8B%E9%AB%94%E9%A9%97%E5%BF%83%E5%BE%97-33afa0ae557d) 中的 Siri部分，AirPods 2 的 Siri 有戴耳機就能直接使用，連抬手腕都不用了。
 #### AQI空氣品質無法顯示?
 
 內建的AQI似乎不支援台灣地區，要去「App Store」搜尋「在意空氣」下載安裝+開啟後，再到錶盤設計複雜功能的地方改選擇「在意空氣」即可
@@ -317,28 +317,18 @@ Line,Spotify….e.t.c
 #### [[最新] Apple Watch Series 6 開箱＆使用兩年體驗心得 >>>點我前往](https://medium.com/@zhgchgli/apple-watch-series-6-%E9%96%8B%E7%AE%B1-%E5%85%A9%E5%B9%B4%E4%BD%BF%E7%94%A8%E9%AB%94%E9%A9%97-eab0e984043)
 ### 手錶都買了，不考慮AirPods 2耳機嗎？
 
-請看下一篇>> [AirPods 2 開箱及上手體驗心得](https://medium.com/@zhgchgli/airpods-2-%E9%96%8B%E7%AE%B1%E5%8F%8A%E4%B8%8A%E6%89%8B%E9%AB%94%E9%A9%97%E5%BF%83%E5%BE%97-33afa0ae557d)
+請看下一篇>> [AirPods 2 開箱及上手體驗心得](../airpods-2-%E9%96%8B%E7%AE%B1%E5%8F%8A%E4%B8%8A%E6%89%8B%E9%AB%94%E9%A9%97%E5%BF%83%E5%BE%97-33afa0ae557d)
 ### 自己的Apple Watch App 自己開發：
 
-請看 [動手做一支 Apple Watch App 吧！(Swift)](https://medium.com/zrealm-ios-dev/%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061)
+請看 [動手做一支 Apple Watch App 吧！(Swift)](../%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061)
 ### 想在手錶控制智慧家電？
 
-請看 [智慧家居初體驗 — Apple HomeKit & 小米米家](https://medium.com/zrealm-life/%E6%99%BA%E6%85%A7%E5%AE%B6%E5%B1%85%E5%88%9D%E9%AB%94%E9%A9%97-apple-homekit-%E5%B0%8F%E7%B1%B3%E7%B1%B3%E5%AE%B6-c3150cdc85dd)
+請看 [智慧家居初體驗 — Apple HomeKit & 小米米家](../%E6%99%BA%E6%85%A7%E5%AE%B6%E5%B1%85%E5%88%9D%E9%AB%94%E9%A9%97-apple-homekit-%E5%B0%8F%E7%B1%B3%E7%B1%B3%E5%AE%B6-c3150cdc85dd)
 ### 使用三個月後心得:
 
-詳細請看 [這篇](https://medium.com/zrealm-ios-dev/%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061)
+詳細請看 [這篇](../%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061)
 
 1.滿版貼做家事時撞到破了換了一次(吐血)
 2.增購了一副皮製錶帶：
 ![nomad Apple Watch 錶帶](/assets/a2920e33e73e/1*LEAth534v_Yr3xwRESEVkg.jpeg "nomad Apple Watch 錶帶")
 [Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
-
-有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact) 。
-
-
-
-+-----------------------------------------------------------------------------------+
-
-| **[View original post on Medium](https://medium.com/zrealm-life/apple-watch-series-4-%E5%BE%9E%E5%85%A5%E6%89%8B%E5%88%B0%E4%B8%8A%E6%89%8B%E5%85%A8%E6%96%B9%E4%BD%8D%E5%BF%83%E5%BE%97-a2920e33e73e) - Converted by [ZhgChgLi](https://blog.zhgchg.li)/[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)** |
-
-+-----------------------------------------------------------------------------------+

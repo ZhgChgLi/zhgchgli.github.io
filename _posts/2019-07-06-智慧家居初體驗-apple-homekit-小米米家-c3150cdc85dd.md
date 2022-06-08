@@ -10,8 +10,8 @@ tags: [生活,開箱,3c,米家,homekit]
 
 米家智慧攝影機及米家智慧檯燈、Homekit設定教學
 
-**[2020/04/20]** [**進階篇已發**](https://medium.com/zrealm-life/%E6%89%93%E9%80%A0%E8%88%92%E9%81%A9%E7%9A%84-wfh-%E6%99%BA%E6%85%A7%E5%B1%85%E5%AE%B6%E7%92%B0%E5%A2%83-%E6%8E%A7%E5%88%B6%E5%AE%B6%E9%9B%BB%E7%9B%A1%E5%9C%A8%E6%8C%87%E5%B0%96-99db2a1fbfe5) **：** 
-**[有經驗的朋友請直接左轉前往>>](https://medium.com/zrealm-life/%E6%89%93%E9%80%A0%E8%88%92%E9%81%A9%E7%9A%84-wfh-%E6%99%BA%E6%85%A7%E5%B1%85%E5%AE%B6%E7%92%B0%E5%A2%83-%E6%8E%A7%E5%88%B6%E5%AE%B6%E9%9B%BB%E7%9B%A1%E5%9C%A8%E6%8C%87%E5%B0%96-99db2a1fbfe5)** [**示範使用樹莓派當 HomeBridge 主機，將所有米家家電串上 HomeKit**](https://medium.com/zrealm-life/%E6%89%93%E9%80%A0%E8%88%92%E9%81%A9%E7%9A%84-wfh-%E6%99%BA%E6%85%A7%E5%B1%85%E5%AE%B6%E7%92%B0%E5%A2%83-%E6%8E%A7%E5%88%B6%E5%AE%B6%E9%9B%BB%E7%9B%A1%E5%9C%A8%E6%8C%87%E5%B0%96-99db2a1fbfe5)
+**[2020/04/20]** [**進階篇已發**](../%E6%89%93%E9%80%A0%E8%88%92%E9%81%A9%E7%9A%84-wfh-%E6%99%BA%E6%85%A7%E5%B1%85%E5%AE%B6%E7%92%B0%E5%A2%83-%E6%8E%A7%E5%88%B6%E5%AE%B6%E9%9B%BB%E7%9B%A1%E5%9C%A8%E6%8C%87%E5%B0%96-99db2a1fbfe5) **：** 
+**[有經驗的朋友請直接左轉前往>>](../%E6%89%93%E9%80%A0%E8%88%92%E9%81%A9%E7%9A%84-wfh-%E6%99%BA%E6%85%A7%E5%B1%85%E5%AE%B6%E7%92%B0%E5%A2%83-%E6%8E%A7%E5%88%B6%E5%AE%B6%E9%9B%BB%E7%9B%A1%E5%9C%A8%E6%8C%87%E5%B0%96-99db2a1fbfe5)** [**示範使用樹莓派當 HomeBridge 主機，將所有米家家電串上 HomeKit**](../%E6%89%93%E9%80%A0%E8%88%92%E9%81%A9%E7%9A%84-wfh-%E6%99%BA%E6%85%A7%E5%B1%85%E5%AE%B6%E7%92%B0%E5%A2%83-%E6%8E%A7%E5%88%B6%E5%AE%B6%E9%9B%BB%E7%9B%A1%E5%9C%A8%E6%8C%87%E5%B0%96-99db2a1fbfe5)
 ### 雜談：
 
 最近剛搬完家；有別於原本住的地方，天花板是辦公室輕鋼架燈，亮到要拔掉幾根燈管眼睛才比較舒適；現在住的地方則是裝潢反射燈，使用電腦、看書亮度稍嫌不足，兩週下來眼睛覺得更容易乾澀不舒服；本想直接去IKEA採購，但考量到光色、護眼，最後比較一下CP值，於是還是選擇了小米檯燈(加上之前已有買小米智慧攝影機，都是米家系列產品)。
@@ -354,7 +354,7 @@ HomeKit的設定介紹就到這邊了，再來講解米家原生智慧家庭的�
 這樣就能從通知中心快速執行場境、裝置囉！
 ![](/assets/c3150cdc85dd/1*DMmicpzKUIr2xtN8JtP3wQ.png)
 
-也可從 [Apple Watch](https://medium.com/zrealm-life/apple-watch-series-4-%E5%BE%9E%E5%85%A5%E6%89%8B%E5%88%B0%E4%B8%8A%E6%89%8B%E5%85%A8%E6%96%B9%E4%BD%8D%E5%BF%83%E5%BE%97-a2920e33e73e) 上控制元件！
+也可從 [Apple Watch](../apple-watch-series-4-%E5%BE%9E%E5%85%A5%E6%89%8B%E5%88%B0%E4%B8%8A%E6%89%8B%E5%85%A8%E6%96%B9%E4%BD%8D%E5%BF%83%E5%BE%97-a2920e33e73e) 上控制元件！
 _*如果手錶APP一直出現空白請刪除重裝手錶或手機APP，這個APP真的蠻多BUG的_
 #### 智慧有了，那怎麼自動化呢？
 
@@ -363,7 +363,7 @@ _*如果手錶APP一直出現空白請刪除重裝手錶或手機APP，這個APP
 *****
 #### [2019/09/26] 更新 iOS ≥ 13 只使用內建 捷徑 APP 達成自動化 :
 
-[iOS ≥ 13.1 使用「捷徑」自動化功能搭配米家智慧家居，點擊前往查看>>](https://medium.com/@zhgchgli/ios-13-1-%E4%BD%BF%E7%94%A8-%E6%8D%B7%E5%BE%91-%E8%87%AA%E5%8B%95%E5%8C%96%E5%8A%9F%E8%83%BD%E6%90%AD%E9%85%8D%E7%B1%B3%E5%AE%B6%E6%99%BA%E6%85%A7%E5%AE%B6%E5%B1%85-21119db777dd)
+[iOS ≥ 13.1 使用「捷徑」自動化功能搭配米家智慧家居，點擊前往查看>>](../ios-13-1-%E4%BD%BF%E7%94%A8-%E6%8D%B7%E5%BE%91-%E8%87%AA%E5%8B%95%E5%8C%96%E5%8A%9F%E8%83%BD%E6%90%AD%E9%85%8D%E7%B1%B3%E5%AE%B6%E6%99%BA%E6%85%A7%E5%AE%B6%E5%B1%85-21119db777dd)
 
 *****
 > _iOS ≥ 12，iOS < 13 Only :_ 
@@ -431,20 +431,4 @@ Link URL 請輸入：shortcuts://run-shortcut?name= **_捷徑名稱_**
 目前體驗雖沒達到目標理想，但已經離 **“智慧家庭”** 更進一步了！
 ### 進階篇
 
-[**示範使用樹莓派當 HomeBridge 主機，將所有米家家電串上 HomeKit**](https://medium.com/zrealm-life/%E6%89%93%E9%80%A0%E8%88%92%E9%81%A9%E7%9A%84-wfh-%E6%99%BA%E6%85%A7%E5%B1%85%E5%AE%B6%E7%92%B0%E5%A2%83-%E6%8E%A7%E5%88%B6%E5%AE%B6%E9%9B%BB%E7%9B%A1%E5%9C%A8%E6%8C%87%E5%B0%96-99db2a1fbfe5)
-### 延伸閱讀
-. [小米智慧家居新添購（AI音箱、溫濕度感應器、體重計2、直流變頻電風扇）](https://medium.com/zrealm-life/%E5%B0%8F%E7%B1%B3%E6%99%BA%E6%85%A7%E5%AE%B6%E5%B1%85%E6%96%B0%E6%B7%BB%E8%B3%BC-bcff7c157941)
-. [iOS ≥ 13.1 使用「捷徑」自動化功能搭配米家智慧家居（直接使用 iOS ≥ 13.1 內建的捷徑APP完成自動化操作）](https://medium.com/@zhgchgli/ios-13-1-%E4%BD%BF%E7%94%A8-%E6%8D%B7%E5%BE%91-%E8%87%AA%E5%8B%95%E5%8C%96%E5%8A%9F%E8%83%BD%E6%90%AD%E9%85%8D%E7%B1%B3%E5%AE%B6%E6%99%BA%E6%85%A7%E5%AE%B6%E5%B1%85-21119db777dd)
-. [米家 APP / 小愛音箱地區問題](https://medium.com/@zhgchgli/%E7%B1%B3%E5%AE%B6-app-%E5%B0%8F%E6%84%9B%E9%9F%B3%E7%AE%B1%E5%9C%B0%E5%8D%80%E5%95%8F%E9%A1%8C-94a4020edb82)
-
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
-
-有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact) 。
-
-
-
-+-----------------------------------------------------------------------------------+
-
-| **[View original post on Medium](https://medium.com/zrealm-life/%E6%99%BA%E6%85%A7%E5%AE%B6%E5%B1%85%E5%88%9D%E9%AB%94%E9%A9%97-apple-homekit-%E5%B0%8F%E7%B1%B3%E7%B1%B3%E5%AE%B6-c3150cdc85dd) - Converted by [ZhgChgLi](https://blog.zhgchg.li)/[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)** |
-
-+-----------------------------------------------------------------------------------+
+[**示範使用樹莓派當 HomeBridge 主機，將所有米家家電串上 HomeKit**](../%E6%89%93%E9%80%A0%E8%88%92%E9%81%A9%E7%9A%84-wfh-%E6%99%BA%E6%85%A7%E5%B1%85%E5%AE%B6%E7%92%B0%E5%A2%83-%E6%8E%A7%E5%88%B6%E5%AE%B6%E9%9B%BB%E7%9B%A1%E5%9C%A8%E6%8C%87%E5%B0%96-99db2a1fbfe5)

@@ -38,7 +38,7 @@ tags: [google-cloud-platform,cloud-functions,cloud-scheduler,ios-app-development
 
 ### 1.使用 Proxyman 進行 Man in the middle attack API 嗅探
 
-之前有發過一篇「 [APP有用HTTPS傳輸，但資料還是被偷了。](https://medium.com/zrealm-ios-dev/app%E6%9C%89%E7%94%A8https%E5%82%B3%E8%BC%B8-%E4%BD%86%E8%B3%87%E6%96%99%E9%82%84%E6%98%AF%E8%A2%AB%E5%81%B7%E4%BA%86-46410aaada00) 」的文章，道理類似，不過這次改用 Proxyman 取代 mitmproxy；同樣免費，但更好用。
+之前有發過一篇「 [APP有用HTTPS傳輸，但資料還是被偷了。](../app%E6%9C%89%E7%94%A8https%E5%82%B3%E8%BC%B8-%E4%BD%86%E8%B3%87%E6%96%99%E9%82%84%E6%98%AF%E8%A2%AB%E5%81%B7%E4%BA%86-46410aaada00) 」的文章，道理類似，不過這次改用 Proxyman 取代 mitmproxy；同樣免費，但更好用。
 - 到官網 [https://proxyman.io/](https://proxyman.io/) 下載 Proxyman 工具
 - 下載完後啟動 Proxyman，安裝 Root 憑證（為了做 Man in the middle attack 解包 https 流量內容）
 
@@ -63,7 +63,7 @@ tags: [google-cloud-platform,cloud-functions,cloud-scheduler,ios-app-development
 > _我們使用此方法嗅探 APP 上操作簽到時打了哪隻 API EndPoint 及帶了哪些資料，將這些資訊記錄下來，等下使用 Python 直接模擬請求。_
 > _⚠️要注意有的 APP token 資訊可能會換，導致日後 Python 模擬請求失效，還要多了解 APP token 交換的方式。_
 > _⚠️如果確定 Proxyman 有正常運作，但在掛 Proxyman 的情況下 APP 無法發出請求，代表 APP 可能有做 SSL Pining；目前無解，只能放棄。_
-> _⚠️APP 開發者想知道怎麼防範嗅探可參考 [之前的文章](https://medium.com/zrealm-ios-dev/app%E6%9C%89%E7%94%A8https%E5%82%B3%E8%BC%B8-%E4%BD%86%E8%B3%87%E6%96%99%E9%82%84%E6%98%AF%E8%A2%AB%E5%81%B7%E4%BA%86-46410aaada00) 。_
+> _⚠️APP 開發者想知道怎麼防範嗅探可參考 [之前的文章](../app%E6%9C%89%E7%94%A8https%E5%82%B3%E8%BC%B8-%E4%BD%86%E8%B3%87%E6%96%99%E9%82%84%E6%98%AF%E8%A2%AB%E5%81%B7%E4%BA%86-46410aaada00) 。_
 
 #### **這邊假設我們得到的資訊如下：**
 ```
@@ -490,25 +490,3 @@ just in case…假設真的有狀況超出免費用量開始計價，我希望�
 ### 總結
 
 人的精力是有限的，現今科技資訊洪流，每個平台每個服務都想要榨取我們有限的精力；如果能透過一些自動化腳本分擔我們的日常生活，聚沙成塔，讓我們省下更多精力專心在重要的事情之上！
-### 延伸閱讀
-- [Slack 打造全自動 WFH 員工健康狀況回報系統](https://blog.zhgchg.li/slack-%E6%89%93%E9%80%A0%E5%85%A8%E8%87%AA%E5%8B%95-wfh-%E5%93%A1%E5%B7%A5%E5%81%A5%E5%BA%B7%E7%8B%80%E6%B3%81%E5%9B%9E%E5%A0%B1%E7%B3%BB%E7%B5%B1-d61062833c1a)
-- [Crashlytics + Big Query 打造更即時便利的 Crash 追蹤工具](https://medium.com/zrealm-ios-dev/crashlytics-big-query-%E6%89%93%E9%80%A0%E6%9B%B4%E5%8D%B3%E6%99%82%E4%BE%BF%E5%88%A9%E7%9A%84-crash-%E8%BF%BD%E8%B9%A4%E5%B7%A5%E5%85%B7-e77b80cc6f89)
-- [Crashlytics + Google Analytics 自動查詢 App Crash-Free Users Rate](https://blog.zhgchg.li/crashlytics-google-analytics-%E8%87%AA%E5%8B%95%E6%9F%A5%E8%A9%A2-app-crash-free-users-rate-793cb8f89b72)
-- [APP有用HTTPS傳輸，但資料還是被偷了。](https://medium.com/zrealm-ios-dev/app%E6%9C%89%E7%94%A8https%E5%82%B3%E8%BC%B8-%E4%BD%86%E8%B3%87%E6%96%99%E9%82%84%E6%98%AF%E8%A2%AB%E5%81%B7%E4%BA%86-46410aaada00)
-- [如何打造一場有趣的工程CTF競賽](https://medium.com/zrealm-ios-dev/%E5%A6%82%E4%BD%95%E6%89%93%E9%80%A0%E4%B8%80%E5%A0%B4%E6%9C%89%E8%B6%A3%E7%9A%84%E5%B7%A5%E7%A8%8Bctf%E7%AB%B6%E8%B3%BD-729d7b6817a4)
-- [iOS 14 剪貼簿竊資恐慌，隱私與便利的兩難](https://medium.com/zrealm-ios-dev/ios-14-%E5%89%AA%E8%B2%BC%E7%B0%BF%E7%AB%8A%E8%B3%87%E6%81%90%E6%85%8C-%E9%9A%B1%E7%A7%81%E8%88%87%E4%BE%BF%E5%88%A9%E7%9A%84%E5%85%A9%E9%9B%A3-8a04443024e2)
-- [運用 Google Apps Script 轉發 Gmail 信件到 Slack](https://medium.com/zrealm-ios-dev/%E9%81%8B%E7%94%A8-google-apps-script-%E8%BD%89%E7%99%BC-gmail-%E4%BF%A1%E4%BB%B6%E5%88%B0-slack-d414bdbdb8c9)
-
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
-
-有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact) 。
-
-有自動化相關優化需求也歡迎 [發案給我](https://www.zhgchg.li/contact) ，謝謝。
-
-
-
-+-----------------------------------------------------------------------------------+
-
-| **[View original post on Medium](https://medium.com/zrealm-ios-dev/%E4%BD%BF%E7%94%A8-python-google-cloud-platform-line-bot-%E8%87%AA%E5%8B%95%E5%9F%B7%E8%A1%8C%E4%BE%8B%E8%A1%8C%E7%91%A3%E4%BA%8B-70a1409b149a) - Converted by [ZhgChgLi](https://blog.zhgchg.li)/[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)** |
-
-+-----------------------------------------------------------------------------------+

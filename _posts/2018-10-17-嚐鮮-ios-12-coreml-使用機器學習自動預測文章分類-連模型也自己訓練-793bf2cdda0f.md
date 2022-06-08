@@ -10,7 +10,7 @@ tags: [swift,ios,machine-learning,natural-language-process,ios-app-development]
 
 探索CoreML 2.0，如何轉換或訓練模型及將其應用在實際產品上
 
-接續 [上一篇](https://medium.com/@zhgchgli/vision-%E5%88%9D%E6%8E%A2-app-%E9%A0%AD%E5%83%8F%E4%B8%8A%E5%82%B3-%E8%87%AA%E5%8B%95%E8%AD%98%E5%88%A5%E4%BA%BA%E8%87%89%E8%A3%81%E5%9C%96-swift-9a9aa892f9a9) 針對在 iOS上使用機器學習的研究，本篇正式切入使用CoreML
+接續 [上一篇](../vision-%E5%88%9D%E6%8E%A2-app-%E9%A0%AD%E5%83%8F%E4%B8%8A%E5%82%B3-%E8%87%AA%E5%8B%95%E8%AD%98%E5%88%A5%E4%BA%BA%E8%87%89%E8%A3%81%E5%9C%96-swift-9a9aa892f9a9) 針對在 iOS上使用機器學習的研究，本篇正式切入使用CoreML
 
 首先簡述一下歷史，蘋果在2017年發布了CoreML(包含上篇文章介紹的Vision) 機器學習框架；2018緊接著推出CoreML 2.0，除 [效能提升](https://www.appcoda.com.tw/core-ml-2/) 外還支援 **自訂客製化CoreML模型** 。
 #### 前言
@@ -140,13 +140,3 @@ if #available(iOS 12.0, *),let prediction = try? textClassifier().prediction(tex
 
 參考資料： [WWDC2018之Create ML(二)](https://www.jianshu.com/p/205ee896663f)
 [Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
-
-有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact) 。
-
-
-
-+-----------------------------------------------------------------------------------+
-
-| **[View original post on Medium](https://medium.com/zrealm-ios-dev/%E5%9A%90%E9%AE%AE-ios-12-coreml-%E4%BD%BF%E7%94%A8%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E8%87%AA%E5%8B%95%E9%A0%90%E6%B8%AC%E6%96%87%E7%AB%A0%E5%88%86%E9%A1%9E-%E9%80%A3%E6%A8%A1%E5%9E%8B%E4%B9%9F%E8%87%AA%E5%B7%B1%E8%A8%93%E7%B7%B4-793bf2cdda0f) - Converted by [ZhgChgLi](https://blog.zhgchg.li)/[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)** |
-
-+-----------------------------------------------------------------------------------+

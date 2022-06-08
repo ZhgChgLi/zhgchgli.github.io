@@ -10,8 +10,8 @@ tags: [生活,開箱,3c,apple-watch,catalyst]
 
 Catalyst Apple Watch 超輕薄防水保護殼 & Muvit Apple Watch 保護套
 ### [最新更新]
-- [**Apple Watch Series 6 開箱＆使用兩年體驗心得 >>>點我前往**](https://medium.com/@zhgchgli/apple-watch-series-6-%E9%96%8B%E7%AE%B1-%E5%85%A9%E5%B9%B4%E4%BD%BF%E7%94%A8%E9%AB%94%E9%A9%97-eab0e984043)
-- [**Apple Watch 原廠不鏽鋼米蘭錶帶開箱>>點我前往**](https://zhgchgli.medium.com/apple-watch-%E5%8E%9F%E5%BB%A0%E4%B8%8D%E9%8F%BD%E9%8B%BC%E7%B1%B3%E8%98%AD%E9%8C%B6%E5%B8%B6%E9%96%8B%E7%AE%B1-c0f99f987d9c)
+- [**Apple Watch Series 6 開箱＆使用兩年體驗心得 >>>點我前往**](../apple-watch-series-6-%E9%96%8B%E7%AE%B1-%E5%85%A9%E5%B9%B4%E4%BD%BF%E7%94%A8%E9%AB%94%E9%A9%97-eab0e984043)
+- [**Apple Watch 原廠不鏽鋼米蘭錶帶開箱>>點我前往**](../apple-watch-%E5%8E%9F%E5%BB%A0%E4%B8%8D%E9%8F%BD%E9%8B%BC%E7%B1%B3%E8%98%AD%E9%8C%B6%E5%B8%B6%E9%96%8B%E7%AE%B1-c0f99f987d9c)
 
 > _感謝 [Men’s Game 玩物誌](https://www.facebook.com/mensgametw/) 提供 Apple Watch Series 4 保護殼試用。_
 
@@ -126,7 +126,7 @@ Apple Watch 4 滿版螢幕無遮蔽，沒問題✅
 
 整體外觀狂野粗獷，從事戶外活動、登山、攀岩、潛水時很搭風格，也正是這款錶帶能發會最大保護功效的場景！
 ![下次記得帶墨鏡，太陽超大](/assets/a66ce3dc8bb9/1*8nCnuuG43EBtD82WJVSTzA.jpeg "下次記得帶墨鏡，太陽超大")
-![Catalyst 家族合照 ( [AirPods保護套](https://medium.com/zrealm-life/airpods-2-%E9%96%8B%E7%AE%B1%E5%8F%8A%E4%B8%8A%E6%89%8B%E9%AB%94%E9%A9%97%E5%BF%83%E5%BE%97-33afa0ae557d) )](/assets/a66ce3dc8bb9/1*r2gy2OdPEGRhRAPfqgALPQ.jpeg "Catalyst 家族合照 ( [AirPods保護套](https://medium.com/zrealm-life/airpods-2-%E9%96%8B%E7%AE%B1%E5%8F%8A%E4%B8%8A%E6%89%8B%E9%AB%94%E9%A9%97%E5%BF%83%E5%BE%97-33afa0ae557d) )")
+![Catalyst 家族合照 ( [AirPods保護套](../airpods-2-%E9%96%8B%E7%AE%B1%E5%8F%8A%E4%B8%8A%E6%89%8B%E9%AB%94%E9%A9%97%E5%BF%83%E5%BE%97-33afa0ae557d) )](/assets/a66ce3dc8bb9/1*r2gy2OdPEGRhRAPfqgALPQ.jpeg "Catalyst 家族合照 ( [AirPods保護套](../airpods-2-%E9%96%8B%E7%AE%B1%E5%8F%8A%E4%B8%8A%E6%89%8B%E9%AB%94%E9%A9%97%E5%BF%83%E5%BE%97-33afa0ae557d) )")
 ### Muvit Apple Watch 保護套
 
 試用的第二款是 Muvit Apple Watch 保護套，相較於Catalyst的專業保護性，這款比較簡潔、便利，適用於各種日常生活場景；雖說如此，Muvit 依然通過美國軍規MIL-STD 810G 3米摔落測試，安全保護不馬乎！
@@ -185,7 +185,7 @@ Digital Crown：
 ![](/assets/a66ce3dc8bb9/1*ajB7DIbAKPIb-9RGJe6A3w.jpeg)
 ### 閒聊：
 
-從 [第一篇完整的開箱](https://medium.com/zrealm-life/apple-watch-series-4-%E5%BE%9E%E5%85%A5%E6%89%8B%E5%88%B0%E4%B8%8A%E6%89%8B%E5%85%A8%E6%96%B9%E4%BD%8D%E5%BF%83%E5%BE%97-a2920e33e73e) 到 [使用三個月後](https://medium.com/zrealm-ios-dev/%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061) ，算一算手上的 Apple Watch S4 已經戴快一年了；使用上已無太大的變化，第三方APP依然很少，最常用的功能依然是Apple Pay、解鎖MAC、看通知，Apple Watch已然融入到我的日常生活之中，習慣了它的便利．
+從 [第一篇完整的開箱](../apple-watch-series-4-%E5%BE%9E%E5%85%A5%E6%89%8B%E5%88%B0%E4%B8%8A%E6%89%8B%E5%85%A8%E6%96%B9%E4%BD%8D%E5%BF%83%E5%BE%97-a2920e33e73e) 到 [使用三個月後](../%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061) ，算一算手上的 Apple Watch S4 已經戴快一年了；使用上已無太大的變化，第三方APP依然很少，最常用的功能依然是Apple Pay、解鎖MAC、看通知，Apple Watch已然融入到我的日常生活之中，習慣了它的便利．
 > _by the way 讓我們一起期待 Watch OS 6 吧 :)_
 
 
@@ -193,22 +193,3 @@ Digital Crown：
 ![獎章,競賽,運動路線,運動狀況](/assets/a66ce3dc8bb9/1*U0ipo2jgOoSgMY49z4kJmw.jpeg "獎章,競賽,運動路線,運動狀況")
 > _本篇感謝 [Men’s Game 玩物誌](https://www.facebook.com/mensgametw/) 提供 Apple Watch Series 4 保護殼試用。_
 
-### 延伸閱讀
-### [最新更新]
-- [**Apple Watch Series 6 開箱＆使用兩年體驗心得 >>>點我前往**](https://medium.com/@zhgchgli/apple-watch-series-6-%E9%96%8B%E7%AE%B1-%E5%85%A9%E5%B9%B4%E4%BD%BF%E7%94%A8%E9%AB%94%E9%A9%97-eab0e984043)
-- [**Apple Watch 原廠不鏽鋼米蘭錶帶開箱>>點我前往**](https://zhgchgli.medium.com/apple-watch-%E5%8E%9F%E5%BB%A0%E4%B8%8D%E9%8F%BD%E9%8B%BC%E7%B1%B3%E8%98%AD%E9%8C%B6%E5%B8%B6%E9%96%8B%E7%AE%B1-c0f99f987d9c)
-
-### 手錶都買了，不考慮AirPods 2耳機嗎？
-
-請看>> [AirPods 2 開箱及上手體驗心得](https://medium.com/@zhgchgli/airpods-2-%E9%96%8B%E7%AE%B1%E5%8F%8A%E4%B8%8A%E6%89%8B%E9%AB%94%E9%A9%97%E5%BF%83%E5%BE%97-33afa0ae557d)
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
-
-有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact) 。
-
-
-
-+-----------------------------------------------------------------------------------+
-
-| **[View original post on Medium](https://medium.com/zrealm-life/apple-watch-%E4%BF%9D%E8%AD%B7%E6%AE%BC%E9%96%8B%E7%AE%B1%E9%AB%94%E9%A9%97-catalyst-muvit-a66ce3dc8bb9) - Converted by [ZhgChgLi](https://blog.zhgchg.li)/[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)** |
-
-+-----------------------------------------------------------------------------------+

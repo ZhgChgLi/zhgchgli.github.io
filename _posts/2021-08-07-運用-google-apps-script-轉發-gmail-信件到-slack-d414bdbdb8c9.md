@@ -237,21 +237,3 @@ build = 2
 藉由此功能便能達成客製化信件轉發處理，甚至是再當成觸發器使用，例如：收到 XXX 信時自動執行某腳本。
 
 回到第一章起源，我們便可以使用此機制，完善 CI/CD 流程；不需要呆呆等待蘋果完成處理，又能串上自動化流程！
-### 延伸閱讀
-- [Crashlytics + Big Query 打造更即時便利的 Crash 追蹤工具](https://medium.com/zrealm-ios-dev/crashlytics-big-query-%E6%89%93%E9%80%A0%E6%9B%B4%E5%8D%B3%E6%99%82%E4%BE%BF%E5%88%A9%E7%9A%84-crash-%E8%BF%BD%E8%B9%A4%E5%B7%A5%E5%85%B7-e77b80cc6f89)
-- [Crashlytics + Google Analytics 自動查詢 App Crash-Free Users Rate](https://blog.zhgchg.li/crashlytics-google-analytics-%E8%87%AA%E5%8B%95%E6%9F%A5%E8%A9%A2-app-crash-free-users-rate-793cb8f89b72)
-- [使用 Python+Google Cloud Platform+Line Bot 自動執行例行瑣事](https://medium.com/zrealm-ios-dev/%E4%BD%BF%E7%94%A8-python-google-cloud-platform-line-bot-%E8%87%AA%E5%8B%95%E5%9F%B7%E8%A1%8C%E4%BE%8B%E8%A1%8C%E7%91%A3%E4%BA%8B-70a1409b149a)
-- [Slack 打造全自動 WFH 員工健康狀況回報系統](https://blog.zhgchg.li/slack-%E6%89%93%E9%80%A0%E5%85%A8%E8%87%AA%E5%8B%95-wfh-%E5%93%A1%E5%B7%A5%E5%81%A5%E5%BA%B7%E7%8B%80%E6%B3%81%E5%9B%9E%E5%A0%B1%E7%B3%BB%E7%B5%B1-d61062833c1a)
-- [APP有用HTTPS傳輸，但資料還是被偷了。](https://medium.com/zrealm-ios-dev/app%E6%9C%89%E7%94%A8https%E5%82%B3%E8%BC%B8-%E4%BD%86%E8%B3%87%E6%96%99%E9%82%84%E6%98%AF%E8%A2%AB%E5%81%B7%E4%BA%86-46410aaada00)
-
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
-
-有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact) 。
-
-
-
-+-----------------------------------------------------------------------------------+
-
-| **[View original post on Medium](https://medium.com/zrealm-ios-dev/%E9%81%8B%E7%94%A8-google-apps-script-%E8%BD%89%E7%99%BC-gmail-%E4%BF%A1%E4%BB%B6%E5%88%B0-slack-d414bdbdb8c9) - Converted by [ZhgChgLi](https://blog.zhgchg.li)/[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)** |
-
-+-----------------------------------------------------------------------------------+

@@ -11,14 +11,14 @@ tags: [apple,apple-watch-series-6,apple-watch,生活,開箱]
 Apple Watch Series 6 開箱及選購指南＆兩年使用心得體驗彙整
 ### 前言
 
-時光飛逝，距離 [上一篇開箱 Apple Watch Series 4 的文章](https://medium.com/zrealm-life/apple-watch-series-4-%E5%BE%9E%E5%85%A5%E6%89%8B%E5%88%B0%E4%B8%8A%E6%89%8B%E5%85%A8%E6%96%B9%E4%BD%8D%E5%BF%83%E5%BE%97-a2920e33e73e) 也已經過了兩年了；以功能來說 Series 4 綽綽有餘沒有升級的必要，Series 5/Series 6 沒有什麼核心的突破功能，都是有會更好、沒有也沒關係的更新。
+時光飛逝，距離 [上一篇開箱 Apple Watch Series 4 的文章](../apple-watch-series-4-%E5%BE%9E%E5%85%A5%E6%89%8B%E5%88%B0%E4%B8%8A%E6%89%8B%E5%85%A8%E6%96%B9%E4%BD%8D%E5%BF%83%E5%BE%97-a2920e33e73e) 也已經過了兩年了；以功能來說 Series 4 綽綽有餘沒有升級的必要，Series 5/Series 6 沒有什麼核心的突破功能，都是有會更好、沒有也沒關係的更新。
 
 但因 [小鬼的新聞](https://tw.appledaily.com/gadget/20200917/WPQMTKQVPFFUPH6LE3R7SEXYAQ/) ，所幸將原有的 Series 4 LTE 版先給家人配戴使用了；LTE 版遇到狀況可以不受手機有沒有在身邊的限制，都能撥出緊急電話，相較 GPS 版更加安全。
 
 個人的使用習慣是出門配戴，回家就拔下來充電，睡覺不會配戴，所以少了睡眠體驗的部分。
 
 我 Series 4 買的是 LTE 版，但由於手機都會帶在身邊實在沒必要每個月多付 $199 月費開通，而且在手錶上回訊息很麻煩、接電話也要有 AirPods 才方便，再加上手錶上的 Spotify 純粹是播放控制器，無法離開 iPhone 獨立播放（只有 Apple Music/KKBOX 可）
-> _and… 本人是 [iOS APP](http://zhgchg.li) / [watchOS APP 開發者](https://medium.com/zrealm-ios-dev/%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061)_
+> _and… 本人是 [iOS APP](http://zhgchg.li) / [watchOS APP 開發者](../%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061)_
 
 
 **[2020–10–24 更新]** ：Spotify 已支援獨立播放，在手錶 Spotify APP 中選擇播放裝置->Apple Watch->連線藍牙耳機->即可播放！（依然還不支援離線下載播放，需再有網路環境下才可使用）。
@@ -131,7 +131,7 @@ Google Map 最近重回 Apple Watch ，但沒辦法直接查看路線地圖，�
 
 #### 推薦安裝的 APP
 
-有看過 [前一篇開箱](https://medium.com/zrealm-life/apple-watch-series-4-%E5%BE%9E%E5%85%A5%E6%89%8B%E5%88%B0%E4%B8%8A%E6%89%8B%E5%85%A8%E6%96%B9%E4%BD%8D%E5%BF%83%E5%BE%97-a2920e33e73e) 的朋友，那篇文章除了開箱、使用教學，還有一些 APP 推薦；老實說後來我都刪了，只留內建的 APP 跟一些常用的通訊軟體；因為只有一開始新奇會裝一堆 APP，後來也都沒在用。
+有看過 [前一篇開箱](../apple-watch-series-4-%E5%BE%9E%E5%85%A5%E6%89%8B%E5%88%B0%E4%B8%8A%E6%89%8B%E5%85%A8%E6%96%B9%E4%BD%8D%E5%BF%83%E5%BE%97-a2920e33e73e) 的朋友，那篇文章除了開箱、使用教學，還有一些 APP 推薦；老實說後來我都刪了，只留內建的 APP 跟一些常用的通訊軟體；因為只有一開始新奇會裝一堆 APP，後來也都沒在用。
 
 說實話需要複雜操作的時候你會用手機，手錶真的只需要快速而已。
 ### Apple Watch 這兩年的發展
@@ -140,7 +140,7 @@ Google Map 最近重回 Apple Watch ，但沒辦法直接查看路線地圖，�
 
 第三方 APP 方面兩年來沒新增多少，但有越來越多的趨勢；Line、Goolge Map 最近更新也都加強了 Apple Watch APP 部分，沒有被遺忘。
 
-之前寫過一篇文章分享 [自己動手做 Apple Watch APP](https://medium.com/zrealm-ios-dev/%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061) 的經驗，基於 watchOS 5 開發，可以發現官方開放的功能很少（目前也差不多），所以第三方能發揮的空間有限以至於 APP 很少。
+之前寫過一篇文章分享 [自己動手做 Apple Watch APP](../%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061) 的經驗，基於 watchOS 5 開發，可以發現官方開放的功能很少（目前也差不多），所以第三方能發揮的空間有限以至於 APP 很少。
 #### watchOS
 
 目前已更新到 watchOS 7，同 iOS 一年一更。
@@ -217,9 +217,9 @@ watchOS 7 的 [家庭共享功能](https://www.apple.com/tw/newsroom/2020/09/app
 
 
 且蘋果表示保證錶帶尺寸都不會更改（不然誰買 Hermès 版ＸＤ）至少目前 1~6 代錶帶都能共通。
-- [**Apple Watch 原廠不鏽鋼米蘭錶帶開箱**](https://zhgchgli.medium.com/apple-watch-%E5%8E%9F%E5%BB%A0%E4%B8%8D%E9%8F%BD%E9%8B%BC%E7%B1%B3%E8%98%AD%E9%8C%B6%E5%B8%B6%E9%96%8B%E7%AE%B1-c0f99f987d9c) ：
+- [**Apple Watch 原廠不鏽鋼米蘭錶帶開箱**](../apple-watch-%E5%8E%9F%E5%BB%A0%E4%B8%8D%E9%8F%BD%E9%8B%BC%E7%B1%B3%E8%98%AD%E9%8C%B6%E5%B8%B6%E9%96%8B%E7%AE%B1-c0f99f987d9c) ：
 
-![[**Apple Watch 原廠不鏽鋼米蘭錶帶開箱**](https://zhgchgli.medium.com/apple-watch-%E5%8E%9F%E5%BB%A0%E4%B8%8D%E9%8F%BD%E9%8B%BC%E7%B1%B3%E8%98%AD%E9%8C%B6%E5%B8%B6%E9%96%8B%E7%AE%B1-c0f99f987d9c)](/assets/eab0e984043/1*5-cOehnnwZhtNeRxMUfTqg.jpeg "[**Apple Watch 原廠不鏽鋼米蘭錶帶開箱**](https://zhgchgli.medium.com/apple-watch-%E5%8E%9F%E5%BB%A0%E4%B8%8D%E9%8F%BD%E9%8B%BC%E7%B1%B3%E8%98%AD%E9%8C%B6%E5%B8%B6%E9%96%8B%E7%AE%B1-c0f99f987d9c)")
+![[**Apple Watch 原廠不鏽鋼米蘭錶帶開箱**](../apple-watch-%E5%8E%9F%E5%BB%A0%E4%B8%8D%E9%8F%BD%E9%8B%BC%E7%B1%B3%E8%98%AD%E9%8C%B6%E5%B8%B6%E9%96%8B%E7%AE%B1-c0f99f987d9c)](/assets/eab0e984043/1*5-cOehnnwZhtNeRxMUfTqg.jpeg "[**Apple Watch 原廠不鏽鋼米蘭錶帶開箱**](../apple-watch-%E5%8E%9F%E5%BB%A0%E4%B8%8D%E9%8F%BD%E9%8B%BC%E7%B1%B3%E8%98%AD%E9%8C%B6%E5%B8%B6%E9%96%8B%E7%AE%B1-c0f99f987d9c)")
 #### 一般版 / Nike 版 / Hermès 版
 
 Nike 版只多 Nike 版專屬錶面，Hermès 版除了有Hermès 版專屬錶面還是Hermès 錶帶配不銹鋼版本。
@@ -234,21 +234,3 @@ Series 4 可升可不升，畢竟主要只差在隨時顯示螢幕及血氧計�
 詳細比較可參考官網「 [比較所有錶款](https://www.apple.com/tw/watch/compare/) 」，還有些細節功能的差異，例如：高度計、指南針…等等
 ![](/assets/eab0e984043/1*gyL7eSDOCpsaY20IzI-fmA.png)
 ![[Apple 官網](https://www.apple.com/tw/watch/compare/)](/assets/eab0e984043/1*qB9bFtHAvsgeuT0sRIwpOg.png "[Apple 官網](https://www.apple.com/tw/watch/compare/)")
-#### 延伸閱讀
-- [**Apple Watch 原廠不鏽鋼米蘭錶帶開箱**](https://zhgchgli.medium.com/apple-watch-%E5%8E%9F%E5%BB%A0%E4%B8%8D%E9%8F%BD%E9%8B%BC%E7%B1%B3%E8%98%AD%E9%8C%B6%E5%B8%B6%E9%96%8B%E7%AE%B1-c0f99f987d9c)
-- [看更多 Apple Watch 基礎使用教學、APP 推薦](https://medium.com/zrealm-life/apple-watch-series-4-%E5%BE%9E%E5%85%A5%E6%89%8B%E5%88%B0%E4%B8%8A%E6%89%8B%E5%85%A8%E6%96%B9%E4%BD%8D%E5%BF%83%E5%BE%97-a2920e33e73e)
-- [AirPods 2 開箱及上手體驗心得](https://medium.com/@zhgchgli/airpods-2-%E9%96%8B%E7%AE%B1%E5%8F%8A%E4%B8%8A%E6%89%8B%E9%AB%94%E9%A9%97%E5%BF%83%E5%BE%97-33afa0ae557d)
-- [智慧家居初體驗 — Apple HomeKit & 小米米家](https://medium.com/zrealm-life/%E6%99%BA%E6%85%A7%E5%AE%B6%E5%B1%85%E5%88%9D%E9%AB%94%E9%A9%97-apple-homekit-%E5%B0%8F%E7%B1%B3%E7%B1%B3%E5%AE%B6-c3150cdc85dd)
-- [動手做一支 Apple Watch App 吧！(Swift)](https://medium.com/zrealm-ios-dev/%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061)
-
-[Like Z Realm's work](https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fbutton.like.co%2Fin%2Fembed%2Fzhgchgli%2Fbutton&display_name=LikeCoin&url=https%3A%2F%2Fbutton.like.co%2Fzhgchgli&image=https%3A%2F%2Fstorage.googleapis.com%2Flikecoin-foundation.appspot.com%2Flikecoin_store_user_zhgchgli_main%3FGoogleAccessId%3Dfirebase-adminsdk-eyzut%2540likecoin-foundation.iam.gserviceaccount.com%26Expires%3D2430432000%26Signature%3DgFRSNto%252BjjxXpRoYyuEMD5Ecm7mLK2uVo1vGz4NinmwLnAK0BGjcfKnItFpt%252BcYurx3wiwKTvrxvU019ruiCeNav7s7QUs5lgDDBc7c6zSVRbgcWhnJoKgReRkRu6Gd93WvGf%252BOdm4FPPgvpaJV9UE7h2MySR6%252B%252F4a%252B4kJCspzCTmLgIewm8W99pSbkX%252BQSlZ4t5Pw22SANS%252BlGl1nBCX48fGg%252Btg0vTghBGrAD2%252FMEXpGNJCdTPx8Gd9urOpqtwV4L1I2e2kYSC4YPDBD6pof1O6fKX%252BI8lGLEYiYP1sthjgf8Y4ZbgQr4Kt%252BRYIicx%252Bg6w3YWTg5zgHxAYhOINXw%253D%253D&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=like)
-
-有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact) 。
-
-
-
-+-----------------------------------------------------------------------------------+
-
-| **[View original post on Medium](https://medium.com/zrealm-life/apple-watch-series-6-%E9%96%8B%E7%AE%B1-%E5%85%A9%E5%B9%B4%E4%BD%BF%E7%94%A8%E9%AB%94%E9%A9%97-eab0e984043) - Converted by [ZhgChgLi](https://blog.zhgchg.li)/[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)** |
-
-+-----------------------------------------------------------------------------------+
