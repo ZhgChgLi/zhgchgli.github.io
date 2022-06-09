@@ -8,7 +8,7 @@ order: 5
 - [Buymeacoffee](https://www.buymeacoffee.com/zhgchgli)
 
 ## Email
-- [zhgchgli@gmail.com](zhgchgli@gmail.com)
+- [zhgchgli@gmail.com](mailto:zhgchgli@gmail.com)
 
 ## Social
 - [Linkedin](https://www.linkedin.com/in/zhgchgli/)
