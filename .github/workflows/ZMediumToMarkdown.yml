@@ -12,3 +12,5 @@ jobs:
       uses: ZhgChgLi/ZMediumToMarkdown@main
       with:
         command: '-j zhgchgli'
+    - name: Deploy
+      run: bash tools/deploy.sh
