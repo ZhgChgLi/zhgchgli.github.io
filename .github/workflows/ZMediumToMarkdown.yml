@@ -12,21 +12,6 @@ jobs:
       uses: ZhgChgLi/ZMediumToMarkdown@main
       with:
         command: '-j zhgchgli'
-  continuous-delivery:
-    needs: ZMediumToMarkdown
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # for posts's lastmod
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7
-          bundler-cache: true
-
-      - name: Deploy
-        run: bash tools/deploy.sh
+        
+    - name: Deploy
+      run: bash tools/deploy.sh
