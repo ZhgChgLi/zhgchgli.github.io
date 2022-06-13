@@ -13,6 +13,7 @@ jobs:
       with:
         command: '-j zhgchgli'
   continuous-delivery:
+    needs: ZMediumToMarkdown
     runs-on: ubuntu-latest
 
     steps:
