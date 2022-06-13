@@ -4,6 +4,7 @@ class Main
     def run()
         files = Dir['_posts/*.md']
         files.each do |file|
+            puts "#{file} Optimze Done!"
             lines = File.readlines(file)
             File.open(file, 'w+') do |markdownFile|
                 lines.each do |line|
