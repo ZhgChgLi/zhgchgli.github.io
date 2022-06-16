@@ -1,6 +1,6 @@
 class Main
     def run()
-        files = Dir['_posts/*.md']
+        files = Dir['_posts/zmediumtomarkdown/*.md']
         files.each do |file|
             
             lines = File.readlines(file)
