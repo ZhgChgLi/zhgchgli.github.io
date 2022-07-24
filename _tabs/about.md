@@ -16,26 +16,30 @@ iOS/Web Developer @ Taipei / Taiwan 🇹🇼
 - Web (PHP/Laravel/MySQL/JavaScript/Jquery/HTML/CSS3/Bootstrap)
 - Tools (Ruby/Python/Git)
 
+## Resume
+- [2020 Resume \(Out Of Date\)](https://www.cakeresume.com/zhgchgli-2020){:target="_blank"}
+
+
 ## Education
 ### National Taiwan University of Science and Technology
 - [2012 ~ 2016] Bachelor's degree, Information Management.
 
 ## Experience
 
-### [Pinkoi | 亞洲領先設計購物網站| Design the way you are](https://www.pinkoi.com/)
+### [Pinkoi | 亞洲領先設計購物網站| Design the way you are](https://www.pinkoi.com/){:target="_blank"}
 - [2022/01 ~ Present] App Platform Team **Enginner Lead**
 - [2021/03 ~ Present] **iOS Developer**
 - [2021/07 ~ 2021/12] **iOS Team Lead**
 
-### [StreetVoice 街聲- 最潮音樂社群](https://streetvoice.com/)
+### [StreetVoice 街聲- 最潮音樂社群](https://streetvoice.com/){:target="_blank"}
 - [2019/12 ~ 2021/02] **iOS Developer**
 
-### [結婚吧一站式婚禮服務平台 - 線上準備婚禮最安心](https://www.marry.com.tw/)
+### [結婚吧一站式婚禮服務平台 - 線上準備婚禮最安心](https://www.marry.com.tw/){:target="_blank"}
 
 - [2017/10 ~ 2019/10] **iOS Developer**
 - [2017/02 ~ 2017/10] **Backend Developer**
 
-### [Starwing Technology Co](https://digitimes.com.tw/iot/startupteam_detail.asp?sid=S2019050010)
+### [Starwing Technology Co](https://digitimes.com.tw/iot/startupteam_detail.asp?sid=S2019050010){:target="_blank"}
 - [2015/07 ~ 2016/06] **FullStack Developer**
 
 ## Speeches
@@ -44,8 +48,8 @@ iOS/Web Developer @ Taipei / Taiwan 🇹🇼
 - [2021 iOS 隱私與便利的前世今生 @ Mopcon](/posts/9a05f632eba0/)
 
 ## Accomplishments
-### [第 42 屆國際技能競賽](https://worldskills.org/index.php)
+### [第 42 屆國際技能競賽](https://worldskills.org/index.php){:target="_blank"}
 - [2012] 網頁設計 **備取國手**
 
-### [第 41 屆全國技能競賽](https://worldskills.org/index.php)
+### [第 41 屆全國技能競賽](https://worldskills.org/index.php){:target="_blank"}
 - [2011] 網頁設計 **冠軍🇹🇼**
