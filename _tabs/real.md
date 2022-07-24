@@ -13,7 +13,7 @@ From Changhua, Lives in Taipei / Taiwan 🇹🇼
 ## Motto
 
 > One day you’ll leave this world behind, so live a life you will remember.
-> > `ΛVICII - The Nights.` ◢ ◤
+> > [ΛVICII ◢ ◤ - The Nights.](https://www.youtube.com/watch?v=UtF6Jej8yb4){:target="_blank"}
 
 ## Photography
 [![Saṃghāta](/assets/images/samghata.jpg)](https://www.instagram.com/samghata/){:target="_blank"}
