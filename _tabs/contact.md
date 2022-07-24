@@ -1,5 +1,5 @@
 ---
-title: Contact Me
+title: Contact
 icon: fa fa-envelope-open
 order: 6
 ---

@@ -4,7 +4,7 @@ icon: fa fa-camera-retro
 order: 5
 ---
 
-[About Me](/about/) | [Contact Me](/contactme/)
+[About Me](/about/) | [Contact Me](/contact/)
 
 1994, ♋️
 

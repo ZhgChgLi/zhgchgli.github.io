@@ -9,7 +9,7 @@ order: 4
 
 iOS/Web Developer @ Taipei / Taiwan 🇹🇼
 
-[My Real Life](/real/) | [Contact Me](/contactme/)
+[My Real Life](/real/) | [Contact Me](/contact/)
 
 ## Skills
 - iOS (Swift/Obj-C)
@@ -39,9 +39,9 @@ iOS/Web Developer @ Taipei / Taiwan 🇹🇼
 - [2015/07 ~ 2016/06] **FullStack Developer**
 
 ## Speeches
-- [2019 CTF @ Addcn](/729d7b6817a4/)
-- [2021 2021 Pinkoi Tech Career Talk —  高效率工程團隊大解密 @ Pinkoi](/11f6c8568154/)
-- [2021 iOS 隱私與便利的前世今生 @ Mopcon](/9a05f632eba0/)
+- [2019 CTF @ Addcn](/posts/729d7b6817a4/)
+- [2021 2021 Pinkoi Tech Career Talk —  高效率工程團隊大解密 @ Pinkoi](/posts/11f6c8568154/)
+- [2021 iOS 隱私與便利的前世今生 @ Mopcon](/posts/9a05f632eba0/)
 
 ## Accomplishments
 ### [第 42 屆國際技能競賽](https://worldskills.org/index.php)
