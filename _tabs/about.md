@@ -7,7 +7,14 @@ order: 4
 ## Harry Li (ZhgChg Li)
 ![](/assets/images/zhgchgli.jpg){: width="250" }
 
-iOS Developer @ Pinkoi Taipei / Taiwan 🇹🇼
+iOS/Web Developer @ Taipei / Taiwan 🇹🇼
+
+[My Real Life](/real/) | [Contact Me](/contactme/)
+
+## Skills
+- iOS (Swift/Obj-C)
+- Web (PHP/Laravel/MySQL/JavaScript/Jquery/HTML/CSS3/Bootstrap)
+- Tools (Ruby/Python/Git)
 
 ## Education
 ### National Taiwan University of Science and Technology
