@@ -32,7 +32,7 @@ redirect_from:
 
 <script type="text/javascript">
   window.onload = function(){
-    var pid = window.location.pathname.split("/").filter((val) => val != "").slice(-1)[0].match(/-([a-zA-Z0-9]+)$/)[1]
-    location.replace("/posts/"+pid)
-  }
+    var pid = window.location.pathname.split("/").filter((val) => val != "").slice(-1)[0].match(/-([a-zA-Z0-9]+)$/)[1];
+    location.replace("/posts/"+pid);
+  };
 </script>
