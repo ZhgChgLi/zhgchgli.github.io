@@ -61,14 +61,12 @@ iOS/Web Developer @ Taipei / Taiwan 🇹🇼
 ZMediumToMarkdown lets you download Medium post and convert it to markdown format easily.
 
 [![ZMediumToMarkdown](https://badge.fury.io/rb/ZMediumToMarkdown.svg)](https://rubygems.org/gems/ZMediumToMarkdown)
-[![ZMediumToMarkdown](https://ruby-gem-downloads-badge.herokuapp.com/ZMediumToMarkdown?color=green&type=total&total_label=Total-downloads&label=ZMediumToMarkdown@RubyGem)](https://rubygems.org/gems/ZMediumToMarkdown)
 
 ### [ZReviewTender](https://github.com/ZhgChgLi/ZReviewTender)
 [![](/assets/images/zreviewtender.jpeg)](https://github.com/ZhgChgLi/ZReviewTender){:target="_blank"}
 ZReviewTender uses brand new App Store & Google Play API to fetch App reviews and integration your workflow.
 
 [![ZReviewTender](https://badge.fury.io/rb/ZReviewTender.svg)](https://rubygems.org/gems/ZReviewTender)
-[![ZReviewTender](https://ruby-gem-downloads-badge.herokuapp.com/ZReviewTender?color=green&type=total&total_label=Total-downloads&label=ZReviewTender@RubyGem)](https://rubygems.org/gems/ZReviewTender)
 
 
 - More tools: [ZRealm](https://github.com/ZhgChgLi)
