@@ -9,7 +9,7 @@ order: 4
 
 iOS/Web Developer @ Taipei / Taiwan 🇹🇼
 
-[My Real Life](/real/) | [Contact Me](/contact/)
+[My Real Life](/real/) | [Contact Me](/contact/) | [Google 搜尋出現與本人李仲澄無關之負面新聞聲明](/posts/declaration_for_google_search_result/)
 
 ## Skills
 - iOS (Swift/Obj-C)
