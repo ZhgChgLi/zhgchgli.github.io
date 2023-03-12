@@ -54,17 +54,23 @@ iOS/Web Developer @ Taipei / Taiwan 🇹🇼
 ### [第 41 屆全國技能競賽](https://worldskills.org/index.php){:target="_blank"}
 - [2011] 網頁設計 **冠軍🇹🇼**
 
-## Tools that I created
+## My works (side project)
+
+### [ZMarkupParser](https://github.com/ZhgChgLi/ZMarkupParser)
+[![](/assets/images/zmarkupparser.jpeg)](https://github.com/ZhgChgLi/ZMarkupParser){:target="_blank"}
+ZMarkupParser is a pure-Swift library that helps you convert HTML strings into NSAttributedString with customized styles and tags.
+
+[![ZMarkupParser](https://codecov.io/gh/ZhgChgLi/ZMarkupParser/branch/main/graph/badge.svg?token=MPzgO1tnr9)](https://codecov.io/gh/ZhgChgLi/ZMarkupParser)
 
 ### [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown)
 [![](/assets/images/zmediumtomarkdown.jpeg)](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target="_blank"}
-ZMediumToMarkdown lets you download Medium post and convert it to markdown format easily.
+ZMediumToMarkdown is a powerful tool that allows you to effortlessly download and convert your Medium posts to Markdown format.
 
 [![ZMediumToMarkdown](https://badge.fury.io/rb/ZMediumToMarkdown.svg)](https://rubygems.org/gems/ZMediumToMarkdown)
 
 ### [ZReviewTender](https://github.com/ZhgChgLi/ZReviewTender)
 [![](/assets/images/zreviewtender.jpeg)](https://github.com/ZhgChgLi/ZReviewTender){:target="_blank"}
-ZReviewTender uses brand new App Store & Google Play API to fetch App reviews and integration your workflow.
+ZReviewTender is a tool for fetching app reviews from the App Store and Google Play Console and integrating them into your workflow.
 
 [![ZReviewTender](https://badge.fury.io/rb/ZReviewTender.svg)](https://rubygems.org/gems/ZReviewTender)
 
