@@ -13,7 +13,7 @@ class Main
                     break
                 end
                 line = line.gsub(/([^\\]|^)(<)([^>]*[^\\])(>)/, '\1\<\3\>')
-                line = line.gsub(/\[\!.*\((?:https:\/\/(?:www)?\.youtube\.com\/watch\?v=)(\w+)\)(?:{:target=\"_blank\"})?/, "{% include embed/{Platform}.html id='{#{\1}}' %}")
+                line = line.gsub(/\[\!.*\((?:https:\/\/(?:www)?\.youtube\.com\/watch\?v=)(\w+)\)(?:{:target=\"_blank\"})?/, "{% include embed/{Platform}.html id='{\1}' %}")
                 newLines.append(line)
             end
 
