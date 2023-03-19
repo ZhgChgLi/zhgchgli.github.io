@@ -7,8 +7,9 @@ categories: ZRealm Life.
 tags: [blog,blogger,developer,生活,medium]
 description: 「這位金牌冠軍名叫李仲澄，在就讀彰師附工三年期間獲獎無數，曾獲得全國技能競賽網頁設計第五名、金牌，以及預備國手的資格。李仲澄更透過四技二專技優(技藝技能優良)保送管道錄取國立臺灣科技大學，現為應用科技學院大四學生，主修資訊管理。」Google 搜尋節錄聲明
 image:
-  path: assets/images/declaration_for_google_search_result.png
+  path: /assets/images/declaration_for_google_search_result.png
 render_with_liquid: false
+pin: true
 ---
 
 # 聲明
