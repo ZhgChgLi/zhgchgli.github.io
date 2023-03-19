@@ -12,6 +12,8 @@ class Main
                     newLines.append("\r\n\r\n===\r\n\r\n 本文首次發表於 Medium ➡️ [**前往查看**](https://medium.com/p/#{id}){:target=\"_blank\"}\r\n")
                     break
                 end
+                line = line.gsub(/([^\\]|^)(<)([^>]*[^\\])(>)/, '\1\<\3\>')
+                line = line.gsub(/\[\!.*\((?:https:\/\/(?:www)?\.youtube\.com\/watch\?v=)(\w+)\)(?:{:target=\"_blank\"})?/, "{% include embed/{Platform}.html id='{#{\1}}' %}")
                 newLines.append(line)
             end
 
