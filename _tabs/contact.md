@@ -1,6 +1,7 @@
 ---
 title: Contact
 icon: fa fa-envelope-open
+comments: true
 order: 6
 ---
 
@@ -15,19 +16,3 @@ order: 6
 ## Social
 - [Linkedin](https://www.linkedin.com/in/zhgchgli/){:target="_blank"}
 - [Twitter](https://twitter.com/zhgchgli){:target="_blank"}
-
-
-## Comment
-<div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
-        this.page.url = "https://zhgchg.li/contact/";
-        this.page.identifier = "contact";
-    };
-    (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://zhgchgli.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>

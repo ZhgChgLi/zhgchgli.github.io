@@ -1,6 +1,7 @@
 ---
 title: Real Life
 icon: fa fa-camera-retro
+comments: true
 order: 5
 ---
 

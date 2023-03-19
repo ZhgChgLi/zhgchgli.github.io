@@ -1,6 +1,7 @@
 ---
 title: About
 icon: fas fa-info-circle
+comments: true
 order: 4
 ---
 
