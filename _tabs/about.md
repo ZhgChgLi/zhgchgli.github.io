@@ -18,7 +18,7 @@ iOS/Web Developer @ Taipei / Taiwan 🇹🇼
 - Tools (Ruby/Python/Git)
 
 ## Resume
-- [2020 Resume \(Out Of Date\)](https://www.cakeresume.com/zhgchgli-2020){:target="_blank"}
+- [Resume](https://resume.zhgchg.li){:target="_blank"}
 
 
 ## Education
