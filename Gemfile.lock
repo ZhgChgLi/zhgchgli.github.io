@@ -53,7 +53,7 @@ GEM
       jekyll (>= 3.8, < 5.0)
     jekyll-sitemap (1.4.0)
       jekyll (>= 3.7, < 5.0)
-    jekyll-theme-chirpy (5.6.0)
+    jekyll-theme-chirpy (5.6.1)
       jekyll (~> 4.3)
       jekyll-archives (~> 2.2)
       jekyll-paginate (~> 1.1)
@@ -113,7 +113,7 @@ PLATFORMS
 
 DEPENDENCIES
   html-proofer (~> 3.18)
-  jekyll-theme-chirpy (~> 5.6, >= 5.6.0)
+  jekyll-theme-chirpy (~> 5.6, >= 5.6.1)
   tzinfo (~> 1.2)
   tzinfo-data
   wdm (~> 0.1.1)
