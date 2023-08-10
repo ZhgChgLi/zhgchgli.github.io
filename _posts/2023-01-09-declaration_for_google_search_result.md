@@ -9,7 +9,6 @@ description: 「這位金牌冠軍名叫李仲澄，在就讀彰師附工三年�
 image:
   path: /assets/images/declaration_for_google_search_result.png
 render_with_liquid: false
-pin: true
 ---
 
 # 聲明
