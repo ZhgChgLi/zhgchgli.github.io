@@ -28,8 +28,8 @@ iOS/Web Developer @ Taipei / Taiwan 🇹🇼
 ## Experience
 
 ### [Pinkoi | 亞洲領先設計購物網站| Design the way you are](https://www.pinkoi.com/){:target="_blank"}
-- [2022/01 ~ Present] App Platform Team **Enginner Lead**
-- [2021/03 ~ Present] **iOS Developer**
+- [2022/01 ~ 2023/08] App Platform Team **Enginner Lead**
+- [2021/03 ~ 2023/08] **iOS Developer**
 - [2021/07 ~ 2021/12] **iOS Team Lead**
 
 ### [StreetVoice 街聲- 最潮音樂社群](https://streetvoice.com/){:target="_blank"}
