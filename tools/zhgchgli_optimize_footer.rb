@@ -12,15 +12,17 @@ class Main
 
             en_url = "https://en.zhgchg.li/posts/#{id}/"
             en_url_exists = url_exists(en_url)
-            en_text = "[View the English version of this article here.](#{en_url}){:target=\"_blank\"}\r\n"
+            en_text = "\r\n[View the English version of this article here.](#{en_url}){:target=\"_blank\"}\r\n"
 
             lines.each do |line|
                 if line.include? "延伸閱讀" or line.include? "本文同步發表於" or line.include? "Like Z Realm" or line.include? "有任何問題及指教歡迎與我聯絡。" or line.include? "converted from Medium by [ZMediumToMarkdown]"
-                    
-                    newLines.append("\r\n\r\n===\r\n\r\n 本文首次發表於 Medium ➡️ [**前往查看**](https://medium.com/p/#{id}){:target=\"_blank\"}\r\n")
+
+                    newLines.append("\r\n\r\n===")
                     if en_url_exists
-                        newLines.append(en_text)
+                        newLines.append("\r\n\r\n#{en_text}")
                     end
+                    newLines.append("\r\n\r\n本文首次發表於 Medium ➡️ [**前往查看**](https://medium.com/p/#{id}){:target=\"_blank\"}\r\n")
+
                     
                     break
                 end
