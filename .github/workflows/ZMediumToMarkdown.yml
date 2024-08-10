@@ -11,4 +11,4 @@ jobs:
     - name: ZMediumToMarkdown Automatic Bot
       uses: ZhgChgLi/ZMediumToMarkdown@main
       with:
-        command: '-j zhgchgli'
+        command: "--cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli"
