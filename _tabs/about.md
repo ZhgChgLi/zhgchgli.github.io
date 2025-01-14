@@ -1,9 +1,9 @@
 ---
-title: About
+# the default layout is 'page'
 icon: fas fa-info-circle
-comments: true
 order: 4
 ---
+
 
 ## Harry Li (ZhgChg Li)
 ![](/assets/images/zhgchgli.jpg){: width="250" }
@@ -77,3 +77,4 @@ ZReviewTender is a tool for fetching app reviews from the App Store and Google P
 
 
 - More tools: [ZRealm](https://github.com/ZhgChgLi)
+

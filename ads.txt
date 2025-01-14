@@ -1,5 +1,0 @@
----
-layout: null
-sitemap: false
----
-google.com, pub-3184248473087645, DIRECT, f08c47fec0942fa0
