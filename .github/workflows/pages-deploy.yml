@@ -58,8 +58,8 @@ jobs:
         run: |
           bundle exec htmlproofer _site \
             \-\-disable-external \
-            \-\-enforce_https "false"\
-            \-\-ignore_empty_alt "false"\
+            \-\-no-enforce-https \
+            \-\-disable-external \
             \-\-ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
 
       - name: Upload site artifact
