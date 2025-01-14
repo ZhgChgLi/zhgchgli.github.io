@@ -8,18 +8,17 @@ order: 4
 ## Harry Li (ZhgChg Li)
 ![](/assets/images/zhgchgli.jpg){: width="250" }
 
-iOS/Web Developer @ Taipei / Taiwan 🇹🇼
+iOS/Web/Automation Developer and Engineer Manager @ Taipei / Taiwan 🇹🇼
 
-[My Real Life](/real/) | [Contact Me](/contact/) | [Google 搜尋出現與本人李仲澄無關之負面新聞聲明](/posts/declaration_for_google_search_result/)
+[All Links](https://link.zhgchg.li/){:target="_blank"} | [Contact Me](/contact/) | [Google 搜尋出現與本人李仲澄無關之負面新聞聲明](/posts/declaration_for_google_search_result/)
 
 ## Skills
 - iOS (Swift/Obj-C)
 - Web (PHP/Laravel/MySQL/JavaScript/Jquery/HTML/CSS3/Bootstrap)
-- Tools (Ruby/Python/Git)
+- Automation (Ruby/Python/Google Apps Scrtips)
 
 ## Resume
-- [Resume](https://resume.zhgchg.li){:target="_blank"}
-
+- [Resume 2024/05](https://www.cakeresume.com/zhgchgli){:target="_blank"}
 
 ## Education
 ### National Taiwan University of Science and Technology
@@ -27,16 +26,23 @@ iOS/Web Developer @ Taipei / Taiwan 🇹🇼
 
 ## Experience
 
+### [KKday | 全球旅遊神隊友，提供當地體驗、機加酒、團體旅遊](https://www.kkday.com/){:target="_blank"}
+- [2024/06 ~ Present] **iOS Staff Engineer**
+
+### [Addcn 數字科技股份有限公司](https://www.addcn.com.tw/){:target="_blank"}
+- [2023/12 ~ 2024/05] **Engineer Manager (Consulting)**
+- [2023/12 ~ 2024/05] **Senior iOS Developer (Consulting)**
+- [2023/12 ~ 2024/05] **Software Developer (Consulting)**
+
 ### [Pinkoi | 亞洲領先設計購物網站| Design the way you are](https://www.pinkoi.com/){:target="_blank"}
-- [2022/01 ~ 2023/08] App Platform Team **Enginner Lead**
-- [2021/03 ~ 2023/08] **iOS Developer**
+- [2022/01 ~ 2023/08] Platform Team - App **Enginner Manager**
+- [2021/03 ~ 2023/08] **Senior iOS Developer**
 - [2021/07 ~ 2021/12] **iOS Team Lead**
 
 ### [StreetVoice 街聲- 最潮音樂社群](https://streetvoice.com/){:target="_blank"}
 - [2019/12 ~ 2021/02] **iOS Developer**
 
-### [結婚吧一站式婚禮服務平台 - 線上準備婚禮最安心](https://www.marry.com.tw/){:target="_blank"}
-
+### [結婚吧一站式婚禮服務平台 | Addcn 數字科技股份有限公司](https://www.addcn.com.tw/){:target="_blank"}
 - [2017/10 ~ 2019/10] **iOS Developer**
 - [2017/02 ~ 2017/10] **Backend Developer**
 
