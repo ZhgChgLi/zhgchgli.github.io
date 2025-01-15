@@ -3,7 +3,24 @@
 require 'net/http'
 require 'nokogiri'
 require 'uri'
+require 'json'
+require 'date'
 
+def load_stats_count(url)
+  uri = URI(url);
+  response = Net::HTTP.get_response(uri);
+
+  case response
+  when Net::HTTPSuccess then
+      data = JSON.parse(response.body)
+      return data
+  when Net::HTTPFound then
+    newURL = response['location'];
+    return load_stats_count(newURL);
+  else
+      return {}
+  end
+end
 
 def load_medium_followers(url, limit = 10)
   return 0 if limit.zero?
@@ -28,12 +45,19 @@ end
 
 $medium_url = "https://medium.com/@zhgchgli"
 $medium_followers = load_medium_followers($medium_url)
+$stats_data = load_stats_count("https://script.google.com/macros/s/AKfycbx7p5jak9qelxQOrl90ZXgJAu38_Ss4OJD-jJ2g_Dc4eCPbsvWsYrWsD3pDOc3m_J947w/exec")
 
 $medium_followers = 1000 if $medium_followers == 0
 $medium_followers = $medium_followers.to_s.reverse.scan(/\d{1,3}/).join(',').reverse
 
 Jekyll::Hooks.register :posts, :pre_render do |post|
-  slug = post.data['slug']
+  slug = post.data['slug'];
+  
+  today = Date.today.to_s
+  mediumCount = $stats_data.fetch(slug, {}).fetch("meidum", 0);
+  zhgchgliCount = $stats_data.fetch(slug, {}).fetch("zhgchgli", 0);
+  totalCount = mediumCount + zhgchgliCount;
+
   post.content = post.content.gsub(/(_\[Post\])(.*)(converted from Medium by \[ZMediumToMarkdown\])(.*)(\._)/, '')
 
   headerHTML = <<-HTML
@@ -60,6 +84,14 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   <div onclick="this.style.position='';" style="text-align: center; position: -webkit-sticky; position: sticky; bottom: 0; z-index: 1; margin: 0 -1rem; padding: 5px; background: var(--main-bg); border-bottom: 1px solid var(--main-border-color);transition: all .2s ease-in-out;"><a href="#{$medium_url}" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:10px 20px;font-size:16px;font-weight:bold;color:#ffffff;background-color:#00ab6c;border-radius:5px;text-decoration:none;box-shadow:0 4px 6px rgba(0,0,0,0.1);transition:all 0.3s ease;cursor:pointer;" onmouseover="this.style.backgroundColor='#008f5a';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 10px rgba(0,0,0,0.15)';" onmouseout="this.style.backgroundColor='#00ab6c';this.style.transform='translateY(0)';this.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';">Follow Me on Medium <span style="font-size:14px;color:rgba(255,255,255,0.9);font-weight:normal;opacity:0.9;">#{$medium_followers}+ Followers</span></a></div>
   HTML
 
+  if totalCount > 0
+  footerHTML += <<-HTML
+  <div style="font-size: 0.8em; cursor:default; text-align: right;">
+    #{(totalCount).to_s.reverse.scan(/\d{1,3}/).join(',').reverse} <span style="font-size: 0.9em;">Total Views</span><br/>
+    <span style="font-size: 0.8em;">Last Statistics Date: #{today}, #{mediumCount.to_s.reverse.scan(/\d{1,3}/).join(',').reverse} Views on <a href="https://medium.com/p/#{slug}" target="_blank">Medium.</a></span>
+  </div>
+  HTML
+  end
 
   post.content = headerHTML + post.content + footerHTML
 end
