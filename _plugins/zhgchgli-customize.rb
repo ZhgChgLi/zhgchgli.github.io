@@ -53,7 +53,7 @@ $medium_followers = $medium_followers.to_s.reverse.scan(/\d{1,3}/).join(',').rev
 Jekyll::Hooks.register :posts, :pre_render do |post|
   slug = post.data['slug'];
   
-  today = Date.today.to_s
+  yesterday = (Date.today - 1).to_s
   mediumCount = $stats_data.fetch(slug, {}).fetch("meidum", 0);
   zhgchgliCount = $stats_data.fetch(slug, {}).fetch("zhgchgli", 0);
   totalCount = mediumCount + zhgchgliCount;
@@ -88,7 +88,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   footerHTML += <<-HTML
   <div style="font-size: 0.8em; cursor:default; text-align: right;">
     #{(totalCount).to_s.reverse.scan(/\d{1,3}/).join(',').reverse} <span style="font-size: 0.9em;">Total Views</span><br/>
-    <span style="font-size: 0.8em;">Last Statistics Date: #{today}, #{mediumCount.to_s.reverse.scan(/\d{1,3}/).join(',').reverse} Views on <a href="https://medium.com/p/#{slug}" target="_blank">Medium.</a></span>
+    <span style="font-size: 0.8em;">Last Statistics Date: #{yesterday}, #{mediumCount.to_s.reverse.scan(/\d{1,3}/).join(',').reverse} Views on <a href="https://medium.com/p/#{slug}" target="_blank">Medium.</a></span>
   </div>
   HTML
   end
@@ -104,6 +104,14 @@ Jekyll::Hooks.register :site, :pre_render do |site|
   <a href="https://medium.com/@zhgchgli" target="_blank" style="display: block;text-align: center;font-style: normal;/* text-decoration: underline; */font-size: 1.2em;color: var(--heading-color);">#{$medium_followers}+ Followers on Medium</a>
   HTML
 
-  site.config['tagline'] = "#{followMe}"
-  site.config['tagline'] += tagline
+  site.config['tagline'] = "#{followMe}";
+  site.config['tagline'] += tagline;
+
+  meta_data = site.data.dig('locales', 'en', 'meta');
+
+  if meta_data
+    gmt_plus_8 = Time.now.getlocal("+08:00")
+    formatted_time = gmt_plus_8.strftime("%Y-%m-%d %H:%M:%S")
+    site.data['locales']['en']['meta'] += "<br/>Last updated: #{formatted_time} +08:00"
+  end
 end
