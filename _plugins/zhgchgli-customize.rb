@@ -88,7 +88,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   footerHTML += <<-HTML
   <div style="font-size: 0.8em; cursor:default; text-align: right;">
     #{(totalCount).to_s.reverse.scan(/\d{1,3}/).join(',').reverse} <span style="font-size: 0.9em;">Total Views</span><br/>
-    <span style="font-size: 0.8em;">Last Statistics Date: #{yesterday}, #{mediumCount.to_s.reverse.scan(/\d{1,3}/).join(',').reverse} Views on <a href="https://medium.com/p/#{slug}" target="_blank">Medium.</a></span>
+    <span style="font-size: 0.8em;">Last Statistics Date: #{yesterday} | #{mediumCount.to_s.reverse.scan(/\d{1,3}/).join(',').reverse} Views on <a href="https://medium.com/p/#{slug}" target="_blank">Medium.</a></span>
   </div>
   HTML
   end
