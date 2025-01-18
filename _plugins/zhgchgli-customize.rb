@@ -56,7 +56,11 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   yesterday = (Date.today - 1).to_s
   mediumCount = $stats_data.fetch(slug, {}).fetch("meidum", 0);
   zhgchgliCount = $stats_data.fetch(slug, {}).fetch("zhgchgli", 0);
-  totalCount = mediumCount + zhgchgliCount;
+  totalCount = 0;
+
+  if !mediumCount.nil? && !zhgchgliCount.nil?
+    totalCount = mediumCount + zhgchgliCount;
+  end
 
   post.content = post.content.gsub(/(_\[Post\])(.*)(converted from Medium by \[ZMediumToMarkdown\])(.*)(\._)/, '')
 
