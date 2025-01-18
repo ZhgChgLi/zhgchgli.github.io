@@ -22,7 +22,9 @@ It’s user-friendly, stable, completely free, and requires a one-time setup for
 
 ## Usage
 
-Check out the [docs](https://zhgchg.li/posts/en-medium-to-jekyll/).
+- Check out the [docs](https://zhgchg.li/posts/en-medium-to-jekyll/).
+- [\[Traditional Chinese\] Behind the scenes story](https://medium.com/zrealm-ios-dev/%E8%87%AA%E5%8B%95%E5%82%99%E4%BB%BD-medium-%E6%96%87%E7%AB%A0%E5%88%B0-github-pages-jekyll-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B-5bb7d3a4954f)
+
 
 ## Buy me a coffee ❤️❤️❤️
 
