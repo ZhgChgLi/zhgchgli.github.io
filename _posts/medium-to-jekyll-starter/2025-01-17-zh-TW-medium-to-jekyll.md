@@ -5,7 +5,7 @@ date: 2025-01-17T00:00:00.000+0000
 last_modified_at: 2025-01-17T00:00:00.000+0000
 categories: ["tools"]
 tags: [meidum,github,jekyll,ruby]
-description: ZMediumToJekyll 安裝設定教學
+description: Meidum to Jekyll 安裝設定教學
 hidden: true
 image:
   path: /assets/images/zmediumtomarkdown.jpeg
