@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "10 1 15 * *" # At 01:10 on day-of-month 15.
 
+permissions:
+  contents: write
+
 jobs:
   ZMediumToMarkdown:
     runs-on: ubuntu-latest
