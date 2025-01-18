@@ -89,6 +89,7 @@ jobs:
 ### Paywall posts require a Medium account with access permissions and cookies. (Author or Medium Member)
 
 #### Steps to obtain Medium account cookies MEDIUM_COOKIE_UID & MEDIUM_COOKIE_SID:
+![](/assets/medium-to-jekyll-starter/github-4.png)
 
 1. Log in to a Medium account with access permissions and go to the [Medium Dashboard](https://medium.com/me/stats)
 2. Right-click in a blank area
@@ -100,11 +101,14 @@ jobs:
 
 #### Safely store Medium account cookies in GitHub Repo Secrets
 ##### 1. Go to GitHub Repo Settings -> Secrets and variables -> Actions -> New repository secret
+![](/assets/medium-to-jekyll-starter/github-5.png)
 > https://github.com/{ORG}/{REPO_NAME}/settings/secrets/actions/new
 ##### 2. New secret - MEDIUM_COOKIE_SID
+![](/assets/medium-to-jekyll-starter/github-6.png)
 - Name: `MEDIUM_COOKIE_SID`
 - Secret: Paste the `sid` value copied from the previous step
 ##### 3. New secret - MEDIUM_COOKIE_UID
+![](/assets/medium-to-jekyll-starter/github-7.png)
 - Name: `MEDIUM_COOKIE_UID`
 - Secret: Paste the `uid` value copied from the previous step
 
@@ -118,6 +122,7 @@ This post is behind Medium's paywall. You must provide valid Medium Member login
 It means the cookies have expired; please reset them by following the steps above.
 
 ## 4. First manual synchronization, Repo -> GitHub Actions -> Click "ZMediumToMarkdown" -> Click "Enable workflow"
+![](/assets/medium-to-jekyll-starter/github-9.png)
 On the first run, we can manually synchronize once to check if the settings are correct.
 
 ## 5. Wait for the synchronization of articles and website deployment to complete.
