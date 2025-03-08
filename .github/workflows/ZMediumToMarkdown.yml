@@ -11,20 +11,7 @@ jobs:
   ZMediumToMarkdown:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7.5
-      - run: gem install ZMediumToMarkdown
-        shell: bash
-      - run: ZMediumToMarkdown --cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli
-        shell: bash
-      - name: Run translator script
-        run: ./translator.sh ${{ secrets.OPENAI_API_KEY }} ${{ secrets.OPENAI_API_MODEL }}
-        shell: bash
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "Update fetched posts."
-          commit_user_name: "ZMediumToMarkdown"
-          commit_user_email: "zhgchgli@gmail.com"
-          commit_author: ZMediumToMarkdown <zhgchgli@gmail.com>
+    - name: ZMediumToMarkdown Automatic Bot
+      uses: ZhgChgLi/ZMediumToMarkdown@main
+      with:
+        command: "--cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli"
