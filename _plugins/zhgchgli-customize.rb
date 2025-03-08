@@ -75,7 +75,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   end
 
   post.content = post.content.gsub(/(_\[Post\])(.*)(converted from Medium by \[ZMediumToMarkdown\])(.*)(\._)/, '')
-
+  
   headerHTML = <<-HTML
   <widgetic id="64ce7263ecb2a197598b4567" resize="fill-width" height="50" autoscale="on"></widgetic><script async src="https://widgetic.com/sdk/sdk.js"></script>
   HTML
