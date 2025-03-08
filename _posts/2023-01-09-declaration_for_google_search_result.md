@@ -1,5 +1,5 @@
 ---
-title: Google 搜尋出現與本人李仲澄無關之負面新聞聲明
+title: Google 出現與本人李仲澄無關之搜尋結果聲明
 author: ZhgChgLi
 date: 2023-01-09T00:00:00.000+0000
 last_modified_at: 2023-01-09T00:00:00.000+0000

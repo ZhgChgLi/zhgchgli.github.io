@@ -5,12 +5,12 @@ order: 4
 ---
 
 
-## Harry Li (ZhgChg Li)
+## Harry Li (ZhgChg Li) 李仲澄
 ![](/assets/images/zhgchgli.jpg){: width="250" }
 
 iOS/Web/Automation Developer and Engineer Manager @ Taipei / Taiwan 🇹🇼
 
-[All Links](https://link.zhgchg.li/){:target="_blank"} | [Contact Me](/contact/) | [Google 搜尋出現與本人李仲澄無關之負面新聞聲明](/posts/declaration_for_google_search_result/)
+[All Links](https://link.zhgchg.li/){:target="_blank"} | [Contact Me](/contact/) | [Google 出現與本人李仲澄無關之搜尋結果聲明](/posts/declaration_for_google_search_result/)
 
 ## Skills
 - iOS (Swift/Obj-C)
