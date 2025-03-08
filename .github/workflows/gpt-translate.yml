@@ -20,3 +20,4 @@ jobs:
         with:
           apikey: ${{ secrets.OPENAI_API_KEY }}
           model: ${{ secrets.OPENAI_API_MODEL }}
+          prompt: "Please translate the given text into naturalistic English and MUST keep origin markdown image src."
