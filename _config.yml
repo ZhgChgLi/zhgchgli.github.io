@@ -171,7 +171,7 @@ collections:
 
 defaults:
   - scope:
-      path: "_posts/zh-tw" # An empty string here means all files in the project
+      path: "" # An empty string here means all files in the project
       type: posts
     values:
       layout: post
