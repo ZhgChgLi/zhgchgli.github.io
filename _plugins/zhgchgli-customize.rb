@@ -58,28 +58,75 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   zhgchgliCount = $stats_data.fetch(slug, {}).fetch("zhgchgli", 0);
   totalCount = 0;
 
+  # if file path is in /en/posts/ then it's an English post
+  isEnglishPost = post.path.include?('_posts/en/')
+  englishPath = nil
+  if post.path.include?('_posts/zh-tw/')
+    englishPath = post.path.gsub("_posts/zh-tw/", "_posts/en/")
+  end
+
+  if isEnglishPost
+    post.data['pin'] = false
+    post.data['hidden'] = true
+  end
+
   if !mediumCount.nil? && !zhgchgliCount.nil?
     totalCount = mediumCount + zhgchgliCount;
   end
 
   post.content = post.content.gsub(/(_\[Post\])(.*)(converted from Medium by \[ZMediumToMarkdown\])(.*)(\._)/, '')
-
+  
   headerHTML = <<-HTML
   <widgetic id="64ce7263ecb2a197598b4567" resize="fill-width" height="50" autoscale="on"></widgetic><script async src="https://widgetic.com/sdk/sdk.js"></script>
   HTML
 
+  if isEnglishPost
+  headerHTML += <<-HTML
+  \n\n---\n\n
+### ℹ️ℹ️ℹ️ The following content is translated by OpenAI.\n
+#### [Click here](/posts/#{slug}/) to view the original Chinese version. | [點此查看本文中文版](/posts/#{slug}/)\n
+  \n\n---\n\n
+  HTML
+  elsif !englishPath.nil? && File.exist?(englishPath)
+  headerHTML += <<-HTML
+  \n\n---\n\n
+### ℹ️ℹ️ℹ️ [Click here](/posts/en/#{slug}/) to view the English version of this article, translated by OpenAI.\n
+  \n\n---\n\n
+  HTML
+  end
+
+  footerHTML = ""
+
+  if isEnglishPost
   footerHTML = <<-HTML
-  \r\n\r\n===
-  \r\n\r\n本文首次發表於 Medium ➡️ [**前往查看**](https://medium.com/p/#{slug}){:target=\"_blank\"}\r\n
+  \n\n---\n\n
+  This article was first published on Medium ➡️ [**Click Here**](https://medium.com/p/#{slug}){:target=\"_blank\"}\r\n
 
   HTML
+  else
+  footerHTML = <<-HTML
+  \n\n---\n\n
+  本文首次發表於 Medium ➡️ [**前往查看**](https://medium.com/p/#{slug}){:target=\"_blank\"}\r\n
+
+  HTML
+  end
+
 
   if post.data['categories'].any? { |category| category.match(/遊記/) }
+    if isEnglishPost
+  footerHTML += <<-HTML
+  <a href="https://www.kkday.com/zh-tw?cid=19365" target="_blank">If you found this article helpful, feel free to use my referral link to purchase KKday products and tours. I’ll receive a small commission to support more travel content. Thank you!</a>
+  <ins class="kkday-product-media" data-oid="870" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
+  <script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+  HTML
+    else
   footerHTML += <<-HTML
   <a href="https://www.kkday.com/zh-tw?cid=19365" target="_blank">如果這篇文章對您有幫助，歡迎使用我的 推廣連結 選購 KKday 商品、行程，我將獲得部分收益，持續更多旅遊創作，謝謝：</a>
   <ins class="kkday-product-media" data-oid="870" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
   <script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
   HTML
+    end
+
   end
 
   footerHTML += <<-HTML

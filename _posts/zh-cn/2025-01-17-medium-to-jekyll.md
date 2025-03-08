@@ -1,18 +1,18 @@
 ---
-title: "[正體中文] Medium to Jekyll 安裝設定教學"
+title: "[简体中文] Medium to Jekyll 安装设定教学"
 author: ZhgChgLi
 date: 2025-01-17T00:00:00.000+0000
 last_modified_at: 2025-01-17T00:00:00.000+0000
 categories: ["tools"]
 tags: [meidum,github,jekyll,ruby]
-description: Meidum to Jekyll 安裝設定教學
+description: Medium to Jekyll 安装设定教学
 hidden: true
 image:
   path: /assets/images/zmediumtomarkdown.jpeg
 render_with_liquid: false
 ---
 
-[简体中文](../zh-CN-medium-to-jekyll/) | [正體中文](../zh-TW-medium-to-jekyll/) | [English](../en-medium-to-jekyll/)
+[正體中文](/posts/medium-to-jekyll/) | [English](/posts/en/medium-to-jekyll/)
 
 # Start!
 [![](https://opengraph.githubassets.com/91a5dd913bf4d51e6b76fbcc7442c845023bdf93cb1a0ce1ac1c8a40d554f781/ZhgChgLi/medium-to-jekyll-starter.github.io)](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io)
@@ -21,25 +21,25 @@ render_with_liquid: false
 
 ![](/assets/medium-to-jekyll-starter/start-6.png)
 
-點擊右上角「Use this template」->「Create a new repository」
+点击右上角「Use this template」->「Create a new repository」
 
 ## 2. Create a new repository
 
 ![](/assets/medium-to-jekyll-starter/start-2.png)
 
-- Repository name: 通常為 `帳號或組織名稱.github.io`，必須以 `*.github.io` 為結尾。
-- 必須為 `Public` Repo 才能使用 Github Pages
+- Repository name: 通常为 `帐号或组织名称.github.io`，必须以 `*.github.io` 为结尾。
+- 必须为 `Public` Repo 才能使用 Github Pages
 
 ## 3. Create gh-pages branch if needed
 ![](/assets/medium-to-jekyll-starter/start-3.png)
 
-- 在 Repo 主頁點擊「`main`」分支選單，輸入「`gh-pages`」，若無則選擇「Create branch `gh-pages` from `main`」
-- 若 `gh-pages` 分支已存在、或建立時出現「Sorry, that branch already exists.」則可跳過此步驟
+- 在 Repo 主页点击「`main`」分支选单，输入「`gh-pages`」，若无则选择「Create branch `gh-pages` from `main`」
+- 若 `gh-pages` 分支已存在、或建立时出现「Sorry, that branch already exists.」则可跳过此步骤
 
 ## 4. Enable Github Pages，前往 Settings -> Pages -> Build and deployment
 ![](/assets/medium-to-jekyll-starter/start-4.png)
 
-- 選擇「`gh-pages`」分支，點擊「`Save`」儲存設定
+- 选择「`gh-pages`」分支，点击「`Save`」储存设定
 
 ## 5. 等待所有部署工作完成
 ![](/assets/medium-to-jekyll-starter/start-5.png)
@@ -47,21 +47,21 @@ render_with_liquid: false
 - 🟢 pages build and deployment
 - 🟢 Build and Deploy
 
-## 6. 前往網站查看結果
-> https://`帳號或組織名稱.github.io`
+## 6. 前往网站查看结果
+> https://`帐号或组织名称.github.io`
 
 ![](/assets/medium-to-jekyll-starter/done.png)
 
 成功！🎉🎉🎉
 
-# Github Repo (Github Actions) 設定
-## 1. 前往所屬 Github Repo 的 Github Actions 頁面 -> 點擊「ZMediumToMarkdown」-> 點擊「ZMediumToMarkdown.yml」
+# Github Repo (Github Actions) 设定
+## 1. 前往所属 Github Repo 的 Github Actions 页面 -> 点击「ZMediumToMarkdown」-> 点击「ZMediumToMarkdown.yml」
 ![](/assets/medium-to-jekyll-starter/github-1.png)
 > https://github.com/{ORG}/{REPO_NAME}/blob/main/.github/workflows/ZMediumToMarkdown.yml
-## 2. 點擊右方編輯按鈕
+## 2. 点击右方编辑按钮
 ![](/assets/medium-to-jekyll-starter/github-2.png)
 
-## 3. 設定 Medium 文章自動同步參數
+## 3. 设定 Medium 文章自动同步参数
 ![](/assets/medium-to-jekyll-starter/github-3.png)
 
 ```yaml
@@ -70,7 +70,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "10 1 15 * *" # Runs at 01:10(UTC), everyday.
-    # 設定排程多久自動同步一次
+    # 设定排程多久自动同步一次
     # ref: https://crontab.guru/
 
 jobs:
@@ -81,89 +81,89 @@ jobs:
       uses: ZhgChgLi/ZMediumToMarkdown@main
       with:
         command: "--cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli_test"
-        # zhgchgli_test 替換成你的 Meidum 使用者
+        # zhgchgli_test 替换成你的 Meidum 使用者
         # 例如 https://medium.com/@zhgchgli -> zhgchgli
         # ref: https://github.com/ZhgChgLi/ZMediumToMarkdown?tab=readme-ov-file#usage
 ```
 
-### 有付費牆文章，需提供有存取權限的 Medium 帳號 Cookies。 (作者本人 or Medium Member)
+### 有付费墙文章，需提供有存取权限的 Medium 帐号 Cookies。 (作者本人 or Medium Member)
 
-#### 取得 Meidum 帳號 Cookies MEDIUM_COOKIE_UID & MEDIUM_COOKIE_SID 步驟：
+#### 取得 Meidum 帐号 Cookies MEDIUM_COOKIE_UID & MEDIUM_COOKIE_SID 步骤：
 
 ![](/assets/medium-to-jekyll-starter/github-4.png)
-1. 登入擁有存取權限的 Medium 帳號，進入 [Medium 後台](https://medium.com/me/stats)
-2. 在空白處點擊右鍵
-3. 選擇「Inspect」
-4. 出現 Developer Console 後選擇「Application」
-5. 選擇「Cookies」->「https://medium.com」
-6. 往下滾動找到「`sid`」「`uid`」
-7. 點兩下複製這兩個欄位的值
+1. 登入拥有存取权限的 Medium 帐号，进入 [Medium 后台](https://medium.com/me/stats)
+2. 在空白处点击右键
+3. 选择「Inspect」
+4. 出现 Developer Console 后选择「Application」
+5. 选择「Cookies」->「https://medium.com」
+6. 往下滚动找到「`sid`」「`uid`」
+7. 点两下复制这两个栏位的值
 
-#### 將 Meidum 帳號 Cookies 安全存放在 Github Repo Secrets
+#### 将 Meidum 帐号 Cookies 安全存放在 Github Repo Secrets
 ##### 1. 前往 Github Repo Settings -> Secrets and variables -> Actions -> New repository secret
 ![](/assets/medium-to-jekyll-starter/github-5.png)
 > https://github.com/{ORG}/{REPO_NAME}/settings/secrets/actions/new
 ##### 2. New secret - MEDIUM_COOKIE_SID
 ![](/assets/medium-to-jekyll-starter/github-6.png)
 - Name: `MEDIUM_COOKIE_SID`
-- Secret: 貼上上一步複製的 Medium 帳號 `sid` 值
+- Secret: 贴上上一步复制的 Medium 帐号 `sid` 值
 ##### 3. New secret - MEDIUM_COOKIE_UID
 ![](/assets/medium-to-jekyll-starter/github-7.png)
 - Name: `MEDIUM_COOKIE_UID`
-- Secret: 貼上上一步複製的 Medium 帳號 `uid` 值
+- Secret: 贴上上一步复制的 Medium 帐号 `uid` 值
 
 ##### 完成
-帳號無特別登出或遇到問題，Cookies 不會失效。
+帐号无特别登出或遇到问题，Cookies 不会失效。
 
-如果在同步中出現以下訊息並且同步的文章不完整：
+如果在同步中出现以下讯息并且同步的文章不完整：
 ```
 This post is behind Medium's paywall. You must provide valid Medium Member login cookies to download the full post.
 ```
-代表 Cookies 已失效，請重新照上述步驟重新設定。
+代表 Cookies 已失效，请重新照上述步骤重新设定。
 
-## 4. 首次手動同步，Repo -> Github Actions -> 點擊「ZMediumToMarkdown」-> 點擊「Enable workflow」
-初次執行，我們可以自己手動同步一次檢查設定是否正確。
+## 4. 首次手动同步，Repo -> Github Actions -> 点击「ZMediumToMarkdown」-> 点击「Enable workflow」
+初次执行，我们可以自己手动同步一次检查设定是否正确。
 ![](/assets/medium-to-jekyll-starter/github-9.png)
 
-## 5. 等待同步文章與網站部署工作完成
+## 5. 等待同步文章与网站部署工作完成
 ![](/assets/medium-to-jekyll-starter/github-10.png)
 
-等待以下三個 Actions 工作執行完成並且沒有錯誤：
+等待以下三个 Actions 工作执行完成并且没有错误：
 - 🟢 ZMediumToMarkdown
 - 🟢 pages build and deployment
 - 🟢 Build and Deploy
 
-## 6. 重整網頁查看結果，Enjoy!
+## 6. 重整网页查看结果，Enjoy!
 
-> ⚠️ 請注意！所有檔案變更都會觸發：
+> ⚠️ 请注意！所有档案变更都会触发：
 >
 > - 🟢 pages build and deployment
 > - 🟢 Build and Deploy
 >
-> 需等待以上兩個部署工作完成，網站更改才會生效。
+> 需等待以上两个部署工作完成，网站更改才会生效。
 
 ---
 
-# Jekyll 網站設定
+# Jekyll 网站设定
 
-## 網站基本設定
+## 网站基本设定
 - `./_config.yml`
-- 分享功能設定：`./_data/share.yml`
-- 定義文章作者資訊：`./_data/authors.yml`
+- 分享功能设定：`./_data/share.yml`
+- 定义文章作者资讯：`./_data/authors.yml`
 
-## 左側 Sidebar 設定
+## 左侧 Sidebar 设定
 - `./tabs`
-- 底部連結按鈕：`./_data/contact.yml`
+- 底部连结按钮：`./_data/contact.yml`
 
-## 網站底部及其他文字內容設定
+## 网站底部及其他文字内容设定
 - `./locales/{Lang}.yml` default is `/locales/en.yml`
 
-## 本地測試
-1. 確定你的環境有安裝並使用 Ruby >= 3.1 版本
+## 本地测试
+1. 确定你的环境有安装并使用 Ruby >= 3.1 版本
 2. `cd ./`
 3. `bundle install`
 4. `bundle exec jekyll s`
-5. Go to [http://127.0.0.1:4000/](http://127.0.0.1:4000/) 查看結果
+5. Go to [http://127.0.0.1:4000/](http://127.0.0.1:4000/) 查看结果
 6. Press `Ctrl-c` to stop.
 
-*網站基本設定檔案有調整需要重新執行才會生效。
+*网站基本设定档案有调整需要重新执行才会生效。
