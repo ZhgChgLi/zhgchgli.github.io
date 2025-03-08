@@ -135,3 +135,145 @@ for file in $changes; do
 done
 
 echo "Translation completed successfully."
+
+// ruby
+
+require "kramdown"
+require "openai"
+require 'yaml'
+require 'psych'
+require 'concurrent-ruby'
+
+inputFile = ARGV[0]
+apiKey = ARGV[1]
+$apiModel = ARGV[2]
+
+if inputFile.nil? || apiKey.nil? || $apiModel.nil?
+    puts "Usage: ruby translator.rb <inputFile> <apiKey> <apiModel>"
+    exit
+end
+
+$client = OpenAI::Client.new(
+  access_token: apiKey,
+  log_errors: false
+)
+
+content = File.read(inputFile)
+$tasks = []
+
+$global_messages = [
+    {"role": "system", "content": "You are a professional translator specializing in the tech industry."},
+    {"role": "system", "content": "Here are some additional guidelines to follow:"},
+    {"role": "system", "content": "- Must translate all Chinese content into natural, fluent, and professional English. If all the content is already in English, do not translate it."},
+    {"role": "system", "content": "- Ensure that technical terms are translated accurately."},
+    {"role": "system", "content": "- DO NOT SHOW Any fucking Chinese to me."},
+    {"role": "system", "content": "- Never translate url string."},
+    {"role": "system", "content": "- If there is nothing to translate, please return what I gave to you, dont say anything."},
+    {"role": "system", "content": "- Ensure the translation is elegant, natural, and free of machine-translation artifacts."},
+    {"role": "system", "content": "- You must only translate the text content and never interpret or modify its meaning."},
+]
+
+def parse_yaml(text)
+    if text.match(/\A---\s*\n.*?\n---\s*\n/m)
+      yaml_part = text.match(/\A---\s*\n(.*?)\n---\s*\n/m)[1]
+      YAML.safe_load(yaml_part, permitted_classes: [Time])
+    else
+      {}
+    end
+end
+yaml_data = parse_yaml(content)
+
+if yaml_data["hidden"]
+    hidden = "\nhidden: #{yaml_data["hidden"]}"
+else
+    hidden = ""
+end
+
+if yaml_data["pin"]
+    pin = "\npin: #{yaml_data["pin"]}"
+else
+    pin = ""
+end
+
+response = $client.chat(
+    parameters: {
+        model: $apiModel,
+        messages: $global_messages + [
+            {"role": "user", "content": "Please translate the following text:\n#{yaml_data["title"]}"}
+        ],
+        temperature: 0.7,
+    }
+)
+
+title = response.dig("choices", 0, "message", "content").to_s.gsub(/\s+/, ' ')
+
+response = $client.chat(
+    parameters: {
+        model: $apiModel,
+        messages: $global_messages + [
+            {"role": "user", "content": "Please translate the following text:\n#{yaml_data["description"]}"}
+        ],
+        temperature: 0.7,
+    }
+)
+
+description = response.dig("choices", 0, "message", "content").to_s.gsub(/\s+/, ' ')
+
+header = <<-HEADER
+---
+title: "#{title}"
+author: "#{yaml_data["author"]}"
+date: #{yaml_data["date"].strftime("%Y-%m-%dT%H:%M:%S.%L%z")}
+last_modified_at: #{yaml_data["last_modified_at"].strftime("%Y-%m-%dT%H:%M:%S.%L%z")}
+categories: [#{"\"" + yaml_data["categories"].join("\", \"") + "\""}]
+tags: [#{"\"" + yaml_data["tags"].join("\", \"") + "\""}]
+description: "#{description}"#{hidden}#{pin}
+image:
+  path: "#{yaml_data["image"]["path"]}"
+render_with_liquid: #{yaml_data["render_with_liquid"]}
+---
+HEADER
+
+
+content = content.gsub(/---\s*\n.*?\n---\s*\n/m, "")
+content = content.gsub(/(```)/m, "~~~")
+markdown = Kramdown::Document.new(content)
+
+
+def enumerate_children(children)
+    if !children.children.empty?
+        children.children.each do |child|
+            $tasks << Concurrent::Promise.execute { enumerate_children(child) }
+        end
+    else
+        puts "Translating text: #{children.inspect} - #{children.value}"
+        if !children.value.nil? && children.value.strip != ""
+            if children.type == :text || children.type == :heading
+                puts "Translating text: #{children.value}"
+                # $tasks << Concurrent::Promise.execute do
+                #     response = $client.chat(
+                #         parameters: {
+                #             model: $apiModel,
+                #             messages: $global_messages + [
+                #                 {"role": "user", "content": "Please translate the following text:\n#{children.value}"}
+                #             ],
+                #             temperature: 0.7,
+                #         }
+                #     )
+                #     children.value = response.dig("choices", 0, "message", "content")
+                # end
+            end
+        end
+    end
+end
+
+enumerate_children(markdown.root)
+
+$tasks.each(&:wait)
+
+result = header + markdown.to_kramdown
+
+puts markdown.to_kramdown
+#File.open(inputFile, "w") { |file| file.puts result }
+
+puts "Translation complete!"
