@@ -53,21 +53,23 @@ $medium_followers = $medium_followers.to_s.reverse.scan(/\d{1,3}/).join(',').rev
 Jekyll::Hooks.register :posts, :pre_render do |post|
   slug = post.data['slug'];
   
+  postPath = post.relative_path
   yesterday = (Date.today - 1).to_s
   mediumCount = $stats_data.fetch(slug, {}).fetch("meidum", 0);
   zhgchgliCount = $stats_data.fetch(slug, {}).fetch("zhgchgli", 0);
   totalCount = 0;
 
-  # if file path is in /en/posts/ then it's an English post
-  isEnglishPost = post.path.include?('_posts/en/')
-  englishPath = nil
-  if post.path.include?('_posts/zh-tw/')
-    englishPath = post.path.gsub("_posts/zh-tw/", "_posts/en/")
+  isChinesePost = postPath.start_with?('_posts/zh-tw/')
+  isEnglishPost = postPath.start_with?('_posts/en/')
+
+  englishPostPath = postPath.gsub(/^_posts\/(en|zh\-tw|zh\-cn)\//, "_posts/en/")
+  if !File.exist?(englishPostPath)
+    englishPostPath = nil
   end
 
-  if isEnglishPost
-    post.data['pin'] = false
-    post.data['hidden'] = true
+  chinesePostPath = postPath.gsub(/^_posts\/(en|zh\-tw|zh\-cn)\//, "_posts/zh-tw/")
+  if !File.exist?(chinesePostPath)
+    chinesePostPath = nil
   end
 
   if !mediumCount.nil? && !zhgchgliCount.nil?
@@ -80,14 +82,17 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   <widgetic id="64ce7263ecb2a197598b4567" resize="fill-width" height="50" autoscale="on"></widgetic><script async src="https://widgetic.com/sdk/sdk.js"></script>
   HTML
 
-  if isEnglishPost
+  if isEnglishPost && chinesePostPath
   headerHTML += <<-HTML
   \n\n---\n\n
 ### ℹ️ℹ️ℹ️ The following content is translated by OpenAI.\n
 #### [Click here](/posts/#{slug}/) to view the original Chinese version. | [點此查看本文中文版](/posts/#{slug}/)\n
   \n\n---\n\n
   HTML
-  elsif !englishPath.nil? && File.exist?(englishPath)
+  end
+
+
+  if isChinesePost && englishPostPath
   headerHTML += <<-HTML
   \n\n---\n\n
 ### ℹ️ℹ️ℹ️ [Click here](/posts/en/#{slug}/) to view the English version of this article, translated by OpenAI.\n
@@ -101,16 +106,19 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   footerHTML = <<-HTML
   \n\n---\n\n
   This article was first published on Medium ➡️ [**Click Here**](https://medium.com/p/#{slug}){:target=\"_blank\"}\r\n
-
+  Automatically converted and synchronized using [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target="_blank"} and [Medium-to-jekyll-starter](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io){:target="_blank"}.\r\n
   HTML
   else
   footerHTML = <<-HTML
   \n\n---\n\n
   本文首次發表於 Medium ➡️ [**前往查看**](https://medium.com/p/#{slug}){:target=\"_blank\"}\r\n
-
+  由 [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"} 與 [Medium-to-jekyll-starter](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io){:target=\"_blank\"} 自動轉換與同步技術。\r\n
   HTML
   end
 
+  footerHTML += <<-HTML
+  [Improve this page on Github.](https://github.com/ZhgChgLi/zhgchgli.github.io/blob/main/#{postPath}){:target=\"_blank\"}\r\n
+  HTML
 
   if post.data['categories'].any? { |category| category.match(/遊記/) }
     if isEnglishPost

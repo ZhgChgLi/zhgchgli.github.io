@@ -6,7 +6,6 @@ last_modified_at: 2025-01-17T00:00:00.000+0000
 categories: ["tools"]
 tags: [meidum,github,jekyll,ruby]
 description: Medium to Jekyll 安装设定教学
-hidden: true
 image:
   path: /assets/images/zmediumtomarkdown.jpeg
 render_with_liquid: false

@@ -6,9 +6,8 @@ last_modified_at: 2025-01-17T00:00:00.000+0000
 categories: ["tools"]
 tags: [medium, github, jekyll, ruby]
 description: Medium to Jekyll Installation and Configuration Guide
-hidden: true
 image:
-path: /assets/images/zmediumtomarkdown.jpeg
+  path: /assets/images/zmediumtomarkdown.jpeg
 render_with_liquid: false
 ---
 
