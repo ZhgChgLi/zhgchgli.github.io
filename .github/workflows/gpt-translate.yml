@@ -21,4 +21,4 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           apikey: ${{ secrets.OPENAI_API_KEY }}
           model: ${{ secrets.OPENAI_API_MODEL }}
-          prompt: "Please translate the given text into naturalistic English and MUST keep origin markdown image src, and MUST do not translate or change URL link."
+          prompt: "Please translate the given text into naturalistic English and MUST keep origin markdown image src, and MUST do not translate or change URL link, and MUST make sure the content is valid markdown format, use backslack to escape any possible of break out markdown format char."
