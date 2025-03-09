@@ -18,7 +18,9 @@ jobs:
       - run: gem install ZMediumToMarkdown
         shell: bash
       - name: MV posts to root
-        run: mv ./_posts/zh-tw/zmediumtomarkdown/* ./_posts/zmediumtomarkdown/
+        run: |
+          mkdir -p ./_posts/zmediumtomarkdown/
+          mv ./_posts/zh-tw/zmediumtomarkdown/* ./_posts/zmediumtomarkdown/
       - run: ZMediumToMarkdown --cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli
         shell: bash
       - name: MV posts to zh-tw
