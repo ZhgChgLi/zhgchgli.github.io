@@ -2,6 +2,8 @@ name: "Test-Site"
 
 on:
   pull_request:
+    branches:
+      - main
     types:
       - opened
       - synchronize
@@ -9,6 +11,10 @@ on:
 
 permissions:
   contents: write
+
+concurrency:
+  group: site-build-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
