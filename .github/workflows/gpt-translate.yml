@@ -21,4 +21,4 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           apikey: ${{ secrets.OPENAI_API_KEY }}
           model: ${{ secrets.OPENAI_API_MODEL }}
-          prompt: "Translate the given text into natural-sounding English while preserving the original Markdown format.\nEnsure the following rules:\n- Retain all Markdown image sources (`![]()`).\n- Do not translate or modify any URL links.\n- Escape special characters with backslashes to prevent Markdown formatting issues.\n- Maintain valid Markdown syntax."
+          prompt: "Translate the given text into natural-sounding English while preserving the original Markdown format.\nEnsure the following rules:\n- Retain all Markdown image sources (`![]()`).\n- Do not translate or modify any URL links.\n- Escape special characters with backslashes to prevent Markdown formatting issues.\n- Maintain valid Front Matter or Markdown syntax."
