@@ -57,8 +57,8 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   yesterday = (Date.today - 1).to_s
   mediumCount = $stats_data.fetch(slug, {}).fetch("meidum", 0);
   zhgchgliCount = $stats_data.fetch(slug, {}).fetch("zhgchgli", 0);
-  totalCount = 0;
 
+  isMediumPost = postPath.match?(/^_posts\/(en|zh-tw|zh-cn)\/zmediumtomarkdown/)
   isChinesePost = postPath.start_with?('_posts/zh-tw/')
   isEnglishPost = postPath.start_with?('_posts/en/')
 
@@ -70,10 +70,6 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   chinesePostPath = postPath.gsub(/^_posts\/(en|zh\-tw|zh\-cn)\//, "_posts/zh-tw/")
   if !File.exist?(chinesePostPath)
     chinesePostPath = nil
-  end
-
-  if !mediumCount.nil? && !zhgchgliCount.nil?
-    totalCount = mediumCount + zhgchgliCount;
   end
 
   post.content = post.content.gsub(/(_\[Post\])(.*)(converted from Medium by \[ZMediumToMarkdown\])(.*)(\._)/, '')
@@ -100,27 +96,27 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   HTML
   end
 
-  footerHTML = ""
+  footerHTML = "\n\n---\n\n"
 
-  if isEnglishPost
-  footerHTML = <<-HTML
-  \n\n---\n\n
+  if isMediumPost
+    if isEnglishPost
+  footerHTML += <<-HTML
   This article was first published on Medium ➡️ [**Click Here**](https://medium.com/p/#{slug}){:target=\"_blank\"}\r\n
   Automatically converted and synchronized using [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target="_blank"} and [Medium-to-jekyll-starter](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io){:target="_blank"}.\r\n
   HTML
-  else
-  footerHTML = <<-HTML
-  \n\n---\n\n
+    else
+  footerHTML += <<-HTML
   本文首次發表於 Medium ➡️ [**前往查看**](https://medium.com/p/#{slug}){:target=\"_blank\"}\r\n
-  由 [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"} 與 [Medium-to-jekyll-starter](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io){:target=\"_blank\"} 自動轉換與同步技術。\r\n
+  由 [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"} 與 [Medium-to-jekyll-starter](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io){:target=\"_blank\"} 提供自動轉換與同步技術。\r\n
   HTML
+    end
   end
 
   footerHTML += <<-HTML
   [Improve this page on Github.](https://github.com/ZhgChgLi/zhgchgli.github.io/blob/main/#{postPath}){:target=\"_blank\"}\r\n
   HTML
 
-  if post.data['categories'].any? { |category| category.match(/遊記/) }
+  if post.data['categories'].any? { |category| category.match(/(遊記|travel)/) }
     if isEnglishPost
   footerHTML += <<-HTML
   <a href="https://www.kkday.com/zh-tw?cid=19365" target="_blank">If you found this article helpful, feel free to use my referral link to purchase KKday products and tours. I’ll receive a small commission to support more travel content. Thank you!</a>
@@ -143,11 +139,20 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   <div onclick="this.style.position='';" style="text-align: center; position: -webkit-sticky; position: sticky; bottom: 0; z-index: 1; margin: 0 -1rem; padding: 5px; background: var(--main-bg); border-bottom: 1px solid var(--main-border-color);transition: all .2s ease-in-out;"><a href="#{$medium_url}" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:10px 20px;font-size:16px;font-weight:bold;color:#ffffff;background-color:#00ab6c;border-radius:5px;text-decoration:none;box-shadow:0 4px 6px rgba(0,0,0,0.1);transition:all 0.3s ease;cursor:pointer;" onmouseover="this.style.backgroundColor='#008f5a';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 10px rgba(0,0,0,0.15)';" onmouseout="this.style.backgroundColor='#00ab6c';this.style.transform='translateY(0)';this.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';">Follow Me on Medium <span style="font-size:14px;color:rgba(255,255,255,0.9);font-weight:normal;opacity:0.9;">#{$medium_followers}+ Followers</span></a></div>
   HTML
 
-  if totalCount > 0
+  if mediumCount > 0 || zhgchgliCount > 0
+    totalCount = mediumCount + zhgchgliCount
   footerHTML += <<-HTML
   <div style="font-size: 0.8em; cursor:default; text-align: right;">
     #{(totalCount).to_s.reverse.scan(/\d{1,3}/).join(',').reverse} <span style="font-size: 0.9em;">Total Views</span><br/>
+  HTML
+
+  if mediumCount > 0
+    footerHTML += <<-HTML
     <span style="font-size: 0.8em;">Last Statistics Date: #{yesterday} | #{mediumCount.to_s.reverse.scan(/\d{1,3}/).join(',').reverse} Views on <a href="https://medium.com/p/#{slug}" target="_blank">Medium.</a></span>
+  HTML
+  end
+  
+  footerHTML += <<-HTML
   </div>
   HTML
   end
