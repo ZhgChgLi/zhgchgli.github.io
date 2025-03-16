@@ -153,6 +153,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   end
   
   footerHTML += <<-HTML
+  <div class="powr-popup" id="d5772535_1742138795"></div><script src="https://www.powr.io/powr.js?platform=html"></script>
   </div>
   HTML
   end
