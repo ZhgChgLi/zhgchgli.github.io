@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.5
+          ruby-version: 3.4.2
       - run: gem install ZMediumToMarkdown
         shell: bash
       - name: MV posts to root
