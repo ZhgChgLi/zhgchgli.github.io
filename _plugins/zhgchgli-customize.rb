@@ -47,8 +47,8 @@ $medium_url = "https://medium.com/@zhgchgli"
 $medium_followers = load_medium_followers($medium_url)
 $stats_data = load_stats_count("https://script.google.com/macros/s/AKfycbx7p5jak9qelxQOrl90ZXgJAu38_Ss4OJD-jJ2g_Dc4eCPbsvWsYrWsD3pDOc3m_J947w/exec")
 
-$medium_followers = 1000 if $medium_followers == 0
-$medium_followers = $medium_followers.to_s.reverse.scan(/\d{1,3}/).join(',').reverse
+# $medium_followers = 1000 if $medium_followers == 0
+# $medium_followers = $medium_followers.to_s.reverse.scan(/\d{1,3}/).join(',').reverse
 
 Jekyll::Hooks.register :posts, :pre_render do |post|
   slug = post.data['slug'];
