@@ -29,6 +29,10 @@ Click "Use this template" in the upper right corner -> "Create a new repository"
 - Repository name: Usually `account or organization name.github.io`, must end with `*.github.io`.
 - Must be a `Public` Repo to use Github Pages
 
+### Enable Github Actions permissions
+![](/assets/medium-to-jekyll-starter/github-action-permissions.png)
+- After the Repo is created, due to Github security settings, you need to go to Repo Settings to allow Github Actions to execute.
+
 ## 3. Create gh-pages branch if needed
 ![](/assets/medium-to-jekyll-starter/start-3.png)
 

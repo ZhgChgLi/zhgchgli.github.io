@@ -29,6 +29,10 @@ render_with_liquid: false
 - Repository name: 通常為 `帳號或組織名稱.github.io`，必須以 `*.github.io` 為結尾。
 - 必須為 `Public` Repo 才能使用 Github Pages
 
+### Enable Github Actions permissions
+![](/assets/medium-to-jekyll-starter/github-action-permissions.png)
+- 建立後，由於 GitHub 的安全性設定，您需要前往儲存庫設定中啟用 GitHub Actions 的執行權限。
+
 ## 3. Create gh-pages branch if needed
 ![](/assets/medium-to-jekyll-starter/start-3.png)
 
