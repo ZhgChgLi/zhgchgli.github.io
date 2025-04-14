@@ -35,3 +35,9 @@ jobs:
         run: chmod +x TranslatorTrigger.sh
       - name: Run TranslatorTrigger.sh
         run: sh ./TranslatorTrigger.sh ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update fetched posts."
+          commit_user_name: "ZMediumToMarkdown"
+          commit_user_email: "zhgchgli@gmail.com"
+          commit_author: ZMediumToMarkdown <zhgchgli@gmail.com>
