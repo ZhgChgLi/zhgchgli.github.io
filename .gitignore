@@ -27,3 +27,4 @@ _sass/vendors
 assets/js/dist
 
 .DS_Store
+**/.DS_Store
