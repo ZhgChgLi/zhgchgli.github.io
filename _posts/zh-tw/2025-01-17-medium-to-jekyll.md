@@ -29,8 +29,9 @@ render_with_liquid: false
 - Repository name: 通常為 `帳號或組織名稱.github.io`，必須以 `*.github.io` 為結尾。
 - 必須為 `Public` Repo 才能使用 Github Pages
 
-### Enable Github Actions permissions
+### 調整 GitHub Actions 執行權限
 ![](/assets/medium-to-jekyll-starter/github-action-permissions.png)
+
 - 建立後，由於 GitHub 的安全性設定，您需要前往儲存庫設定中啟用 GitHub Actions 的執行權限。
 
 ## 3. Create gh-pages branch if needed
@@ -44,6 +45,11 @@ render_with_liquid: false
 
 - 選擇「`gh-pages`」分支，點擊「`Save`」儲存設定
 
+### 執行首次部署
+![](/assets/medium-to-jekyll-starter/first-deploy.png)
+
+- Repo -> 「Actions」->「Build and Deploy」->「Run workflow」->「Branch: main, Run workflow」
+
 ## 5. 等待所有部署工作完成
 ![](/assets/medium-to-jekyll-starter/start-5.png)
 
@@ -55,7 +61,16 @@ render_with_liquid: false
 
 ![](/assets/medium-to-jekyll-starter/done.png)
 
-成功！🎉🎉🎉
+### Troubleshooting
+如果頁面只顯示：
+```
+--- layout: home # Index page ---
+```
+代表 Github Pages 設定錯誤或還在部署中、或是之前的頁面 Cache，請使用強制刷新貨無痕瀏覽器重新打開一次網頁。
+
+> 首次部署成功！🎉🎉🎉請繼續設定成同步您的 Medium 帳號。
+
+---
 
 # Github Repo (Github Actions) 設定
 ## 1. 前往所屬 Github Repo 的 Github Actions 頁面 -> 點擊「ZMediumToMarkdown」-> 點擊「ZMediumToMarkdown.yml」

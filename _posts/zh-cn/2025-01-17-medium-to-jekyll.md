@@ -29,8 +29,9 @@ render_with_liquid: false
 - Repository name: 通常为 `帐号或组织名称.github.io`，必须以 `*.github.io` 为结尾。
 - 必须为 `Public` Repo 才能使用 Github Pages
 
-### Enable Github Actions permissions
+### 调整 GitHub Actions 执行权限
 ![](/assets/medium-to-jekyll-starter/github-action-permissions.png)
+
 - 建立后，由于 GitHub 的安全性设定，您需要前往储存库设定中启用 GitHub Actions 的执行权限。
 
 ## 3. Create gh-pages branch if needed
@@ -44,6 +45,11 @@ render_with_liquid: false
 
 - 选择「`gh-pages`」分支，点击「`Save`」储存设定
 
+### 执行首次部署
+![](/assets/medium-to-jekyll-starter/first-deploy.png)
+
+- Repo -> 「Actions」->「Build and Deploy」->「Run workflow」->「Branch: main, Run workflow」
+
 ## 5. 等待所有部署工作完成
 ![](/assets/medium-to-jekyll-starter/start-5.png)
 
@@ -55,7 +61,16 @@ render_with_liquid: false
 
 ![](/assets/medium-to-jekyll-starter/done.png)
 
-成功！🎉🎉🎉
+### Troubleshooting
+如果页面只显示：
+```
+--- layout: home # Index page ---
+```
+代表 Github Pages 设定错误或还在部署中、或是之前的页面 Cache，请使用强制刷新货无痕浏览器重新打开一次网页。
+
+> 首次部署成功！🎉🎉🎉请继续设定成同步您的 Medium 帐号。
+
+---
 
 # Github Repo (Github Actions) 设定
 ## 1. 前往所属 Github Repo 的 Github Actions 页面 -> 点击「ZMediumToMarkdown」-> 点击「ZMediumToMarkdown.yml」
@@ -70,23 +85,23 @@ render_with_liquid: false
 ```yaml
 name: ZMediumToMarkdown
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: "10 1 15 * *" # Runs at 01:10(UTC), everyday.
-    # 设定排程多久自动同步一次
-    # ref: https://crontab.guru/
+workflow_dispatch:
+schedule:
+- cron: "10 1 15 * *"# Runs at 01:10(UTC), everyday.
+# 设定排程多久自动同步一次
+# ref: https://crontab.guru/
 
 jobs:
-  ZMediumToMarkdown:
-    runs-on: ubuntu-latest
-    steps:
-    - name: ZMediumToMarkdown Automatic Bot
-      uses: ZhgChgLi/ZMediumToMarkdown@main
-      with:
-        command: "--cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli_test"
-        # zhgchgli_test 替换成你的 Meidum 使用者
-        # 例如 https://medium.com/@zhgchgli -> zhgchgli
-        # ref: https://github.com/ZhgChgLi/ZMediumToMarkdown?tab=readme-ov-file#usage
+ZMediumToMarkdown:
+runs-on: ubuntu-latest
+steps:
+- name: ZMediumToMarkdown Automatic Bot
+uses: ZhgChgLi/ZMediumToMarkdown@main
+with:
+command: "--cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli_test"
+# zhgchgli_test 替换成你的 Meidum 使用者
+# 例如 https://medium.com/@zhgchgli -> zhgchgli
+# ref: https://github.com/ZhgChgLi/ZMediumToMarkdown?tab=readme-ov-file#usage
 ```
 
 ### 有付费墙文章，需提供有存取权限的 Medium 帐号 Cookies。 (作者本人 or Medium Member)
@@ -140,8 +155,8 @@ This post is behind Medium's paywall. You must provide valid Medium Member login
 
 > ⚠️ 请注意！所有档案变更都会触发：
 >
-> - 🟢 pages build and deployment
-> - 🟢 Build and Deploy
+>- 🟢 pages build and deployment
+>- 🟢 Build and Deploy
 >
 > 需等待以上两个部署工作完成，网站更改才会生效。
 
@@ -150,22 +165,22 @@ This post is behind Medium's paywall. You must provide valid Medium Member login
 # Jekyll 网站设定
 
 ## 网站基本设定
-- `./_config.yml`
+-`./_config.yml`
 - 分享功能设定：`./_data/share.yml`
 - 定义文章作者资讯：`./_data/authors.yml`
 
 ## 左侧 Sidebar 设定
-- `./tabs`
+-`./tabs`
 - 底部连结按钮：`./_data/contact.yml`
 
 ## 网站底部及其他文字内容设定
-- `./locales/{Lang}.yml` default is `/locales/en.yml`
+-`./locales/{Lang}.yml` default is `/locales/en.yml`
 
 ## 本地测试
 1. 确定你的环境有安装并使用 Ruby >= 3.1 版本
-2. `cd ./`
-3. `bundle install`
-4. `bundle exec jekyll s`
+2.`cd ./`
+3.`bundle install`
+4.`bundle exec jekyll s`
 5. Go to [http://127.0.0.1:4000/](http://127.0.0.1:4000/) 查看结果
 6. Press `Ctrl-c` to stop.
 
