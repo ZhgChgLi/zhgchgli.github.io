@@ -168,6 +168,9 @@ This post is behind Medium's paywall. You must provide valid Medium Member login
 
 ## 網站基本設定
 - `./_config.yml`
+
+  **請務必調整** 其中的 `url:` 改成您的 Github Pages 網址以及其他網站資料設定。
+
 - 分享功能設定：`./_data/share.yml`
 - 定義文章作者資訊：`./_data/authors.yml`
 

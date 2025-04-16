@@ -168,6 +168,9 @@ Wait for the following three Actions to complete without errors:
 
 ## Basic Website Settings
 - `./_config.yml`
+
+  **Be sure to update** the `url:` to match your GitHub Pages URL and other website settings.
+
 - Sharing feature settings: `./_data/share.yml`
 - Define article author information: `./_data/authors.yml`
 
