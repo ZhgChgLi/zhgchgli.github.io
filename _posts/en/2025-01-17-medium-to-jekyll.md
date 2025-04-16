@@ -104,7 +104,9 @@ jobs:
         # ref: https://github.com/ZhgChgLi/ZMediumToMarkdown?tab=readme-ov-file#usage
 ```
 
-### For articles behind a paywall, you need to provide cookies from a Medium account with access. (Author or Medium Member)
+### Provide a Medium account with access permissions (Cookies).
+- If the article is behind a paywall, you must provide it.
+- If you find that Medium articles are not fully synced (some are missing), it means they were blocked by Medium's firewall during syncing, and you must also provide it.
 
 #### Steps to obtain Medium account cookies MEDIUM_COOKIE_UID & MEDIUM_COOKIE_SID:
 

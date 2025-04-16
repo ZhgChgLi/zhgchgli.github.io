@@ -104,7 +104,9 @@ jobs:
         # ref: https://github.com/ZhgChgLi/ZMediumToMarkdown?tab=readme-ov-file#usage
 ```
 
-### 有付費牆文章，需提供有存取權限的 Medium 帳號 Cookies。 (作者本人 or Medium Member)
+### 提供有存取權限的 Medium 帳號 Cookies。 
+- 若您有在 Paywall 的文章則必須提供
+- 若發現 Medium 文章同步不完整 (缺漏文章)，代表同步時被 Medium 防火牆阻擋，也必須提供
 
 #### 取得 Meidum 帳號 Cookies MEDIUM_COOKIE_UID & MEDIUM_COOKIE_SID 步驟：
 

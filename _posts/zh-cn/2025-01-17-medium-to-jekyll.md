@@ -104,7 +104,9 @@ command: "--cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets
 # ref: https://github.com/ZhgChgLi/ZMediumToMarkdown?tab=readme-ov-file#usage
 ```
 
-### 有付费墙文章，需提供有存取权限的 Medium 帐号 Cookies。 (作者本人 or Medium Member)
+### 提供有存取权限的 Medium 帐号 Cookies。 
+- 若您有在 Paywall 的文章则必须提供
+- 若发现 Medium 文章同步不完整 (缺漏文章)，代表同步时被 Medium 防火墙阻挡，也必须提供
 
 #### 取得 Meidum 帐号 Cookies MEDIUM_COOKIE_UID & MEDIUM_COOKIE_SID 步骤：
 
