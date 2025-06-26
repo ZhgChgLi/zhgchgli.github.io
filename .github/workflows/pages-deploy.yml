@@ -13,8 +13,8 @@ on:
     workflows: [ZMediumToMarkdown]
     types:
       - completed
-  schedule:
-    - cron: "10 1 * * *" 
+  # schedule:
+  #   - cron: "10 1 * * *" 
 
 concurrency:
   group: "pages"
