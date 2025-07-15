@@ -230,7 +230,10 @@ compress_html:
   blanklines: false
   ignore:
     envs: [development]
-
+    
+include:
+  - ads.txt
+  
 exclude:
   - "*.gem"
   - "*.gemspec"
