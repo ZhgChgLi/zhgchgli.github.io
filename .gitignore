@@ -29,5 +29,3 @@ assets/js/dist
 .DS_Store
 **/.DS_Store
 .DS_Store
-
-api/*
