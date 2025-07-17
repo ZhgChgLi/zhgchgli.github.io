@@ -233,6 +233,7 @@ compress_html:
     
 include:
   - ads.txt
+  - "api/json/*.json"
   
 exclude:
   - "*.gem"
