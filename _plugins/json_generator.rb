@@ -20,7 +20,7 @@ module Jekyll
             grouped[slug][permalink] = {
                 id: slug,
                 title: post.title,
-                image: post.image&.[]('path') || nil,
+                image: post.data['image']&.dig('path') || nil,
                 url: "#{site_url}#{post.url}",
                 date: post.date.iso8601,
                 categories: post.categories || [],
