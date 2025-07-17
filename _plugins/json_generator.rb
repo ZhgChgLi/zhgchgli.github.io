@@ -20,6 +20,7 @@ module Jekyll
             grouped[slug][permalink] = {
                 id: slug,
                 title: post.title,
+                image: post.image&.[]('path') || nil,
                 url: "#{site_url}#{post.url}",
                 date: post.date.iso8601,
                 categories: post.categories || [],
@@ -39,7 +40,7 @@ module Jekyll
 
             filename = "#{dir_path}/posts-#{index}.json"
             File.open(File.join(filename), 'w') do |f|
-                f.write(JSON.pretty_generate(partial_group))
+                f.write(JSON.pretty_generate({"posts":partial_group}))
             end
             posts_group << "#{site_url}/#{filename}"
             puts "[jekyll-json] #{filename} created."
@@ -47,7 +48,9 @@ module Jekyll
         
         filename = "#{dir_path}/posts.json"
         File.open(File.join(filename), 'w') do |f|
-            f.write(JSON.pretty_generate(posts_group))
+            f.write(JSON.pretty_generate({
+                "posts": posts_group
+            }))
         end
     end
   end
