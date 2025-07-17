@@ -15,12 +15,16 @@ module Jekyll
         posts_data = site.posts.docs.reverse.each_with_object({}) do |post, grouped|
             slug = post.slug
             permalink = post.permalink
+            image = post.data['image']&.dig('path') || nil
+            if image
+                image = "#{site_url}#{image}"
+            end
 
             grouped[slug] ||= {}
             grouped[slug][permalink] = {
                 id: slug,
                 title: post.title,
-                image: post.data['image']&.dig('path') || nil,
+                image: image,
                 url: "#{site_url}#{post.url}",
                 date: post.date.iso8601,
                 categories: post.categories || [],
