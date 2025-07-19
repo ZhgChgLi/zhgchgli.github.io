@@ -11,6 +11,12 @@ module Jekyll
         puts "[jekyll-json] Generating posts.json..."
 
         site_url = site.config['url']
+        permalinkMap = {
+            "/posts/en/:title/" => "en",
+            "/posts/cn/:title/" => "cn",
+            "/posts/:title/" => "tw"
+        }
+        
 
         posts_data = site.posts.docs.reverse.each_with_object({}) do |post, grouped|
             slug = post.slug
@@ -21,8 +27,8 @@ module Jekyll
             end
 
             grouped[slug] ||= {}
-            grouped[slug][permalink] = {
-                id: slug,
+            grouped[slug]["id"] = slug
+            grouped[slug][permalinkMap[permalink]] = {
                 title: post.title,
                 image: image,
                 url: "#{site_url}#{post.url}",
@@ -40,7 +46,7 @@ module Jekyll
         posts_group = []
         posts_data.to_a.each_slice(50).with_index(1) do |slice, index|
             # slice 是 [slug, {permalink => data}] 的陣列
-            partial_group = slice.to_h
+            partial_group = slice.to_h.values
 
             filename = "#{dir_path}/posts-#{index}.json"
             File.open(File.join(filename), 'w') do |f|
@@ -53,7 +59,7 @@ module Jekyll
         filename = "#{dir_path}/posts.json"
         File.open(File.join(filename), 'w') do |f|
             f.write(JSON.pretty_generate({
-                "posts": posts_group
+                "files": posts_group
             }))
         end
     end
