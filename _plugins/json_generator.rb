@@ -52,7 +52,7 @@ module Jekyll
             File.open(File.join(filename), 'w') do |f|
                 f.write(JSON.pretty_generate({"posts":partial_group}))
             end
-            posts_group << "#{site_url}/#{filename}"
+            posts_group << "#{filename}"
             puts "[jekyll-json] #{filename} created."
         end
         
