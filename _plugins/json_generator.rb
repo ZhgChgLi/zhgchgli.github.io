@@ -48,8 +48,8 @@ module Jekyll
             # slice 是 [slug, {permalink => data}] 的陣列
             partial_group = slice.to_h.values
 
-            filename = "#{dir_path}/posts-#{index}.json"
-            File.open(File.join(filename), 'w') do |f|
+            filename = "posts-#{index}.json"
+            File.open(File.join("#{dir_path}/#{filename}"), 'w') do |f|
                 f.write(JSON.pretty_generate({"posts":partial_group}))
             end
             posts_group << "#{filename}"
