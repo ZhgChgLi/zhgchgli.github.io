@@ -47,7 +47,13 @@ $medium_url = "https://medium.com/@zhgchgli"
 $medium_followers = load_medium_followers($medium_url)
 $stats_data = load_stats_count("https://script.google.com/macros/s/AKfycbx7p5jak9qelxQOrl90ZXgJAu38_Ss4OJD-jJ2g_Dc4eCPbsvWsYrWsD3pDOc3m_J947w/exec")
 
-puts $stats_data.inspect
+mediumCount = $stats_data.fetch("5033090c18ba", {}).fetch("meidum", 0);
+zhgchgliCount = $stats_data.fetch("5033090c18ba", {}).fetch("zhgchgli", 0);
+if mediumCount > 0 || zhgchgliCount > 0
+  puts "WTF"
+end
+
+puts mediumCount
 exist
 
 # $medium_followers = 1000 if $medium_followers == 0
