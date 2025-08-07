@@ -31,10 +31,26 @@ jobs:
           commit_author: ZMediumToMarkdown <zhgchgli@gmail.com>
       - name: MV posts to zh-tw
         run: mv ./_posts/zmediumtomarkdown/* ./_posts/zh-tw/zmediumtomarkdown/
-      - name: Make TranslatorTrigger.sh Executable
-        run: chmod +x TranslatorTrigger.sh
-      - name: Run TranslatorTrigger.sh
-        run: sh ./TranslatorTrigger.sh ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      # - name: Make TranslatorTrigger.sh Executable
+      #   run: chmod +x TranslatorTrigger.sh
+      # - name: Run TranslatorTrigger.sh
+      #   run: sh ./TranslatorTrigger.sh ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Install Poetry
+        uses: abatilo/actions-poetry@v3
+        with:
+          poetry-version: 1.8.2
+
+      - name: 🔧 Install dependencies
+        run: poetry install --no-interaction --no-root
+
+      - name: 🖼️ Generate LQIP
+        run: poetry run lqip-gen
+
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Update fetched posts."
