@@ -46,9 +46,11 @@ jobs:
           poetry-version: 1.8.2
 
       - name: 🔧 Install dependencies
+        working-directory: ./tools/lqip_generator
         run: poetry install --no-interaction --no-root
 
       - name: 🖼️ Generate LQIP
+        working-directory: ./tools/lqip_generator
         run: poetry run lqip-gen
 
       - uses: stefanzweifel/git-auto-commit-action@v4
