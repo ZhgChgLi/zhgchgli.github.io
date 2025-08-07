@@ -4,14 +4,13 @@ from PIL import Image, ImageFilter
 def generate_lqip_images(root_dir='../../assets', output_subdir='lqip', blur_radius=8, jpeg_quality=10):
     output_path_root = os.path.abspath(os.path.join(root_dir, output_subdir))
     img_path_root = os.path.abspath(os.path.join(root_dir, 'img'))
-    images_path_root = os.path.abspath(os.path.join(root_dir, 'images'))
     lib_path_root = os.path.abspath(os.path.join(root_dir, 'lib'))
 
     for dirpath, _, filenames in os.walk(root_dir):
         abs_dirpath = os.path.abspath(dirpath)
         if (
             abs_dirpath.startswith(output_path_root) or
-            abs_dirpath.startswith(images_path_root) or
+            abs_dirpath.startswith(img_path_root) or
             abs_dirpath.startswith(lib_path_root)
         ):
             continue
