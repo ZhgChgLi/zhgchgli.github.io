@@ -47,7 +47,7 @@ jobs:
 
       - name: 🔧 Install dependencies
         working-directory: ./tools/lqip_generator
-        run: poetry install --no-interaction --no-root
+        run: poetry install
 
       - name: 🖼️ Generate LQIP
         working-directory: ./tools/lqip_generator
