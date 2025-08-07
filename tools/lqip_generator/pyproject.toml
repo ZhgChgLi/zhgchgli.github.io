@@ -1,0 +1,23 @@
+[project]
+name = "lqip-generator"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "zhgchgli",email = "zhgchgli@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pillow (>=11.3.0,<12.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "lqip_generator", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+lqip-gen = "lqip_generator.__main__:generate_lqip_images"
