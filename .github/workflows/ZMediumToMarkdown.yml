@@ -43,7 +43,7 @@ jobs:
       - name: 📦 Install Poetry
         uses: abatilo/actions-poetry@v3
         with:
-          poetry-version: 1.8.2
+          poetry-version: 2.1.4
 
       - name: 🔧 Install dependencies
         working-directory: ./tools/lqip_generator
