@@ -27,6 +27,7 @@ Jekyll::Hooks.register :posts, :post_init do |post|
 
   post.data['slug'] = "#{post_title}-#{post_id}"
   post.data['redirect_from'] = [
-    "#{pre_url}/#{post_id}/"
+    "#{pre_url}/#{post_id}/",
+    "#{pre_url}/#{post_category}/#{post_id}/"
   ]
 end
