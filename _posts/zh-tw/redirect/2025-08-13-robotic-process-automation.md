@@ -7,7 +7,7 @@ categories: []
 tags: []
 description: The URL has been moved. Click here to view it if you are not redirected
 image:
-  path: /assets/images/zhgchgli.jpeg
+  path: /assets/images/zhgchgli.jpg
 render_with_liquid: false
 robots: noindex, nofollow
 sitemap: false
