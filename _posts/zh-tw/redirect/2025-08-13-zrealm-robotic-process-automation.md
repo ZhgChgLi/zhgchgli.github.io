@@ -15,8 +15,8 @@ feed: false
 search: false
 ---
 
-# [➡️➡️➡️ The URL has been moved. Click here to view it if you are not redirected.](/categories/robotic-process-automation/)
+# [➡️➡️➡️ The URL has been moved. Click here to view it if you are not redirected.](/categories/zrealm-robotic-process-automation/)
 
 <script>
-  window.location.replace("/categories/robotic-process-automation/");
+  window.location.replace("/categories/zrealm-robotic-process-automation/");
 </script>
