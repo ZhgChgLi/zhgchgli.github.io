@@ -34,10 +34,9 @@ end
 
 Jekyll::Hooks.register :documents, :pre_render do |doc|
     next unless doc.extname == '.md'
-    doc.content = doc.content.gsub(/\[([^\]]+)\]\((\.\.\/[^\)]+)\)/) do
+    doc.content = doc.content.gsub(/\[((?>[^\[\]]+|\[[^\[\]]*\])*)\]\((\.\.\/[^)]+)\)/) do
     link_text = Regexp.last_match(1)  # 方括號內的文字
     link_path = Regexp.last_match(2)  # 小括號內的路徑
-
 
     pre_url = "/posts"
     if doc.path =~ %r{/_posts/en/}
