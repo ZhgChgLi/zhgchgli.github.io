@@ -51,7 +51,8 @@ $stats_data = load_stats_count("https://script.google.com/macros/s/AKfycbx7p5jak
 # $medium_followers = $medium_followers.to_s.reverse.scan(/\d{1,3}/).join(',').reverse
 
 Jekyll::Hooks.register :posts, :pre_render do |post|
-  slug = post.data['slug'];
+  slug = post.basename_without_ext.sub(/^\d{4}-\d{2}-\d{2}-/, '');
+  #slug = post.data['slug'];
   
   postPath = post.relative_path
   yesterday = (Date.today - 1).to_s
