@@ -38,10 +38,18 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
     link_text = Regexp.last_match(1)  # 方括號內的文字
     link_path = Regexp.last_match(2)  # 小括號內的路徑
 
+
+    pre_url = "/posts"
+    if doc.path =~ %r{/_posts/en/}
+        pre_url = "/posts/en"
+    elsif doc.path =~ %r{/_posts/zh-cn/}
+        pre_url = "/posts/cn"
+    end
+
     # 只處理 ../ 開頭
     next Regexp.last_match(0) unless link_path.start_with?('../')
 
-    new_path = link_path.sub(%r{^\.\./}, '../../')
+    new_path = link_path.sub(%r{^\.\./}, "#{pre_url}/")
 
     "[#{link_text}](#{new_path})"
     end
