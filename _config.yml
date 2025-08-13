@@ -253,4 +253,4 @@ jekyll-archives:
     tag: tag
   permalinks:
     tag: /tags/:name/
-    category: /posts/:name/
+    category: /categories/:name/
