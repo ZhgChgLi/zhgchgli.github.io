@@ -22,10 +22,12 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
     next Regexp.last_match(0) if img_path.include?('/lqip/') # 排除已是 lqip 圖片
 
     filename = File.basename(img_path)
-    
     basename = File.basename(img_path, ".*")
-    if File.exist?(File.expand_path("../assets/lqip/#{basename}.webp", __dir__)) && !img_path.end_with?(".gif")
-        img_path = "assets/lqip/#{basename}.webp"
+    dirname = File.dirname(img_path)
+
+    webp_path = File.expand_path("..#{dirname}/#{basename}.webp", __dir__)
+    if File.exist?(webp_path)
+        img_path = "#{dirname}/#{basename}.webp"
     end
 
     info = LQIP_IMAGE_INFO[filename]
@@ -45,8 +47,12 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
   if doc.data['image'] && doc.data['image']['path']
     filename = File.basename(doc.data['image']['path'])
     basename = File.basename(doc.data['image']['path'], ".*")
-    if File.exist?(File.expand_path("../assets/lqip/#{basename}.webp", __dir__))
-        img_path = "./assets/lqip/#{basename}.webp"
+    dirname = File.dirname(doc.data['image']['path'])
+
+    webp_path = File.expand_path("..#{dirname}/#{basename}.webp", __dir__)
+
+    if File.exist?(webp_path)
+        img_path = "#{dirname}/#{basename}.webp"
         doc.data['image']['path'] = img_path
     end
     info = LQIP_IMAGE_INFO[filename]
