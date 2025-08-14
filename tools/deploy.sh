@@ -106,41 +106,8 @@ deploy() {
   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
   git update-ref -d HEAD
-  git add -N .
-
-  BATCH_SIZE=20
-  COUNT=0
-  FILES=()
-
-  while IFS= read -r file; do
-    [ -e "$file" ] || continue
-
-    FILES+=("$file")
-    ((COUNT++))
-
-    if (( COUNT >= BATCH_SIZE )); then
-      for f in "${FILES[@]}"; do
-        git add "$f"
-      done
-
-      if ! git diff --cached --quiet; then
-        git commit -m "[Automation] Site update No.${GITHUB_RUN_NUMBER} - Batch commit of $COUNT files"
-      fi
-
-      FILES=()
-      COUNT=0
-    fi
-  done < <(git diff --name-only)
-
-  if (( COUNT > 0 )); then
-    for f in "${FILES[@]}"; do
-      git add "$f"
-    done
-
-    if ! git diff --cached --quiet; then
-      git commit -m "[Automation] Site update No.${GITHUB_RUN_NUMBER} - Final batch commit of $COUNT files"
-    fi
-  fi
+  git add -A
+  git commit -m "[Automation] Site update No.${GITHUB_RUN_NUMBER}"
 
   if $_no_pages_branch; then
     git push -u origin "$PAGES_BRANCH"
