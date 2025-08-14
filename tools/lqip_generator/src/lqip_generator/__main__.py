@@ -5,7 +5,7 @@ from PIL import Image
 def generate_lqip_images(root_dir='../../assets', output_subdir='lqip', blur_radius=8, jpeg_quality=10):
     output_path_root = os.path.abspath(os.path.join(root_dir, output_subdir))
     img_path_root = os.path.abspath(os.path.join(root_dir, 'img'))
-    images_path_root = os.path.abspath(os.path.join(root_dir, 'imgages'))
+    images_path_root = os.path.abspath(os.path.join(root_dir, 'images'))
     lib_path_root = os.path.abspath(os.path.join(root_dir, 'lib'))
     medium_to_jekyll_starter_path_root = os.path.abspath(os.path.join(root_dir, 'medium-to-jekyll-starter'))
 
