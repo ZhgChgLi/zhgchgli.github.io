@@ -44,7 +44,7 @@ def makeImageIfNeeded(height, output_path_root):
 
     if os.path.exists(output_path):
         print(f"✅ 已存在: {output_path}")
-        #return
+        return
 
     svg_content = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}"><rect width="100%" height="100%" fill="grey"/></svg>'''
 
