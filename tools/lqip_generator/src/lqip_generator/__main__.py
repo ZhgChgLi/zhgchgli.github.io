@@ -30,8 +30,8 @@ def generate_lqip_images(root_dir='../../assets', output_subdir='lqip', blur_rad
 
             try:
                 with Image.open(input_path) as img:
-                    
-                    webp_path = os.path.join(dirpath, os.path.splitext(filename)[0] + ".webp")
+                    basename = os.path.splitext(filename)[0]
+                    webp_path = os.path.join(dirpath, basename + ".webp")
                     if os.path.exists(webp_path):
                         print(f"✅ [{dirpath}][{index + 1}/{len(filenames)}] 已存在: {webp_path}")
                     elif filename.lower().endswith(('.gif')):
@@ -44,7 +44,7 @@ def generate_lqip_images(root_dir='../../assets', output_subdir='lqip', blur_rad
 
                     width, height = img.size
 
-                    records[filename] = {
+                    records[basename] = {
                         "width": width,
                         "height": height
                     }

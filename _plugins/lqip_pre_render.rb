@@ -30,7 +30,7 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
         img_path = "#{dirname}/#{basename}.webp"
     end
 
-    info = LQIP_IMAGE_INFO[filename]
+    info = LQIP_IMAGE_INFO[basename]
     if info
         height = info['height']
         width = info['width']
@@ -55,7 +55,7 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
         img_path = "#{dirname}/#{basename}.webp"
         doc.data['image']['path'] = img_path
     end
-    info = LQIP_IMAGE_INFO[filename]
+    info = LQIP_IMAGE_INFO[basename]
     if info
         height = info['height']
         width = info['width']
