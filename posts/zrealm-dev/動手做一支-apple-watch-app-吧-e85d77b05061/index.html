@@ -1,0 +1,621 @@
+<!doctype html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.3.4" /><meta property="og:title" content="動手做一支 Apple Watch App 吧！" /><meta name="author" content="ZhgChgLi" /><meta property="og:locale" content="en" /><meta name="description" content="watchOS 5 手把手開發Apple Watch App 從無到有" /><meta property="og:description" content="watchOS 5 手把手開發Apple Watch App 從無到有" /><link rel="canonical" href="https://zhgchg.li/posts/zrealm-dev/%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061/" /><meta property="og:url" content="https://zhgchg.li/posts/zrealm-dev/%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061/" /><meta property="og:site_name" content="ZhgChgLi (Harry Li)" /><meta property="og:image" content="https://zhgchg.li/assets/e85d77b05061/1*aNqsa7aR3Vi3NIIvaUFZLA.webp" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2019-02-06T00:23:30+08:00" /><meta name="twitter:card" content="summary_large_image" /><meta property="twitter:image" content="https://zhgchg.li/assets/e85d77b05061/1*aNqsa7aR3Vi3NIIvaUFZLA.webp" /><meta property="twitter:title" content="動手做一支 Apple Watch App 吧！" /><meta name="twitter:site" content="@zhgchgli" /><meta name="twitter:creator" content="@zhgchgli" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"ZhgChgLi","url":"https://medium.com/@zhgchgli/"},"dateModified":"2024-04-13T15:37:01+08:00","datePublished":"2019-02-06T00:23:30+08:00","description":"watchOS 5 手把手開發Apple Watch App 從無到有","headline":"動手做一支 Apple Watch App 吧！","image":{"lqip":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjU0OCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg==","url":"https://zhgchg.li/assets/e85d77b05061/1*aNqsa7aR3Vi3NIIvaUFZLA.webp","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zhgchg.li/posts/zrealm-dev/%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061/"},"url":"https://zhgchg.li/posts/zrealm-dev/%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF-apple-watch-app-%E5%90%A7-e85d77b05061/"}</script><title>動手做一支 Apple Watch App 吧！ | ZhgChgLi (Harry Li)</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="ZhgChgLi (Harry Li)"><meta name="application-name" content="ZhgChgLi (Harry Li)"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/en.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.32.2/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script> <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6WZJENT8WR"></script> <script> document.addEventListener('DOMContentLoaded', () => { window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-6WZJENT8WR'); }); </script> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3184248473087645" crossorigin="anonymous"></script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="/assets/images/zhgchgli.jpg" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">ZhgChgLi (Harry Li)</a><p class="site-subtitle fst-italic mb-0"> <a href="https://medium.com/@zhgchgli" target="_blank" style="display: block;text-align: center;font-style: normal;/* text-decoration: underline; */font-size: 1.2em;color: var(--heading-color);">1K+ Followers on Medium</a> An iOS, web, and automation developer from Taiwan 🇹🇼 who also loves sharing, traveling, and writing.</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>ABOUT</span> </a><li class="nav-item"> <a href="/contact/" class="nav-link"> <i class="fa-fw fa fa-envelope-open"></i> <span>CONTACT</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"> <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://link.zhgchg.li" aria-label="link" target="_blank" rel="noopener noreferrer" > <i class="fas fa-link"></i> </a> <a href="https://www.linkedin.com/in/zhgchgli" aria-label="linkedin" target="_blank" rel="noopener noreferrer" > <i class="fab fa-linkedin"></i> </a> <a href="javascript:location.href = 'mailto:' + ['zhgchgli','gmail.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">Home</a> </span> <span>動手做一支 Apple Watch App 吧！</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> Post</div><button type="button" id="search-trigger" class="btn btn-link"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>動手做一支 Apple Watch App 吧！</h1><p class="post-desc fw-light mb-4">watchOS 5 手把手開發Apple Watch App 從無到有</p><div class="post-meta text-muted"> <span> Posted <time data-ts="1549383810" data-df="ll" data-bs-toggle="tooltip" data-bs-placement="bottom" > Feb 6, 2019 </time> </span> <span> Updated <time data-ts="1712993821" data-df="ll" data-bs-toggle="tooltip" data-bs-placement="bottom" > Apr 13, 2024 </time> </span><div class="mt-3 mb-3"> <a href="/assets/e85d77b05061/1*aNqsa7aR3Vi3NIIvaUFZLA.webp" class="popup img-link preview-img blur"><img data-src="/assets/e85d77b05061/1*aNqsa7aR3Vi3NIIvaUFZLA.webp" alt="Preview Image" width="1200" height="630" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjU0OCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></div><div class="d-flex justify-content-between"> <span> By <em> <a href="https://medium.com/@zhgchgli/">ZhgChgLi</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="4997 words" > <em>27 min</em> read</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">動手做一支 Apple Watch App 吧！</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">Contents</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">動手做一支 Apple Watch App 吧！</div><button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75"> <i class="fas fa-close"></i> </button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"> <widgetic id="64ce7263ecb2a197598b4567" resize="fill-width" height="50" autoscale="on"></widgetic> <script async="" src="https://widgetic.com/sdk/sdk.js"></script><h3 id="動手做一支-apple-watch-app-吧swift"><span class="me-2">動手做一支 Apple Watch App 吧！(Swift)</span><a href="#動手做一支-apple-watch-app-吧swift" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>watchOS 5 手把手開發Apple Watch App 從無到有</p><h4 id="最新-apple-watch-series-6-開箱使用兩年體驗心得-點我前往"><span class="me-2"><a href="/posts/eab0e984043/">[最新] Apple Watch Series 6 開箱＆使用兩年體驗心得 &gt;&gt;&gt;點我前往</a></span><a href="#最新-apple-watch-series-6-開箱使用兩年體驗心得-點我前往" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><h3 id="前言"><span class="me-2">前言:</span><a href="#前言" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>暨上一篇 <a href="/posts/a2920e33e73e/">Apple Watch 入手開箱文</a> 後已經過了快三個月，最近終於找到機會研究開發Apple Watch App啦。</p><p><a href="/assets/e85d77b05061/1*aNqsa7aR3Vi3NIIvaUFZLA.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*aNqsa7aR3Vi3NIIvaUFZLA.webp" alt="[結婚吧 — 最大婚禮籌備App](https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E4%B8%8D%E6%89%BE%E6%9C%80%E8%B2%B4-%E5%8F%AA%E6%89%BE%E6%9C%80%E5%B0%8D/id1356057329#?platform=appleWatch){:target=&quot;_blank&quot;}" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjU0OCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p><a href="https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E4%B8%8D%E6%89%BE%E6%9C%80%E8%B2%B4-%E5%8F%AA%E6%89%BE%E6%9C%80%E5%B0%8D/id1356057329#?platform=appleWatch" target="_blank">結婚吧 — 最大婚禮籌備App</a></p><p>補一下使用三個月後的心得： 1. e-sim(LTE)依然還想不到什麼時候會用到，所以也還沒申請沒用過 2.常用功能：靠近解鎖Mac電腦、舉手查看通知、Apple Pay 3.健康提醒：過了三個月已開始懶了，通知提醒都看看，沒達成圓圈也無感 4.第三方App支援度依然很差 5.錶面可依照心情任意更換增加新鮮感 6.更詳細的運動紀錄：例如走遠一點路去買晚餐，手錶會自動偵測詢問是否要記錄運動</p><p>使用三個月後整體來說，還是如原開箱文所寫就像是多個生活小助手，幫你解決瑣碎的事．</p><h3 id="第三方app支援度依然很差"><span class="me-2">第三方App支援度依然很差</span><a href="#第三方app支援度依然很差" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>在我實際開發過Apple Watch App之前還很納悶，為何Apple Watch上的App都很陽春甚至就只是「堪用」罷了，包括LINE(訊息不同步而且從未更新)、Messenger(就是堪用)；直到我實際開發過Apple Watch App之後才知道這些開發者的苦衷….</p><h3 id="首先了解apple-watch-app的定位化繁為簡"><span class="me-2">首先，了解Apple Watch App的定位，化繁為簡</span><a href="#首先了解apple-watch-app的定位化繁為簡" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>Apple Watch的定位 <strong>「不是取代iPhone，而是輔助」</strong> 不論是官方介紹、官方App、watchOS API都是這個走向；所以才會覺得第三方APP很陽春、功能很少(抱歉，我太貪心了Orz)</p><p>以 <a href="https://itunes.apple.com/tw/app/%E7%B5%90%E5%A9%9A%E5%90%A7-%E6%9C%80%E5%A4%A7%E5%A9%9A%E7%A6%AE%E7%B1%8C%E5%82%99app/id1356057329?mt=8" target="_blank">我們的A</a> pp為例，有搜尋商家、查看專欄、討論區、線上詢問…等等功能；線上詢問就是有價值搬上Apple Watch的項目，因為他需要即時性而且更快速的回覆代表更有機會獲得訂單；搜尋商家、查看專欄、討論區這些功能相對複雜，在手錶上就算做的到也意義不大(螢幕能呈現的資訊太少、也不需要即時性)</p><p>核心概念還是「以輔助為主」，所以並不是什麼功能都需要搬上Apple Watch；畢竟使用者很少很少時間會是只有戴手錶沒帶手機，而遇到這種情況時，使用者的需求也只有重要的功能(像查看專欄文章這種沒有重要到一定要立刻馬上用手錶看)</p><h3 id="讓我們開始吧"><span class="me-2">讓我們開始吧！</span><a href="#讓我們開始吧" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><blockquote><p><strong><em>這也是我第一次開發Apple Watch App，文章內容可能不夠深入，敬請大家指教！！</em></strong></p></blockquote><blockquote><p><strong><em>本篇只適合有開發過iOS App/UIKit基礎的讀者閱讀</em></strong></p></blockquote><blockquote><p><strong><em>本篇使用：iOS ≥ 9、watchOS ≥ 5</em></strong></p></blockquote><h4 id="為ios專案新建-watchos-target"><span class="me-2">為iOS專案新建 watchOS Target:</span><a href="#為ios專案新建-watchos-target" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><a href="/assets/e85d77b05061/1*yxwki7mCbfJbEfsTDM683A.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*yxwki7mCbfJbEfsTDM683A.webp" alt="File -&gt; New -&gt; Target -&gt; watchOS -&gt; WatchKit App" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9Ijg2NyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>File -&gt; New -&gt; Target -&gt; watchOS -&gt; WatchKit App</p><p><em>*Apple Watch App無法獨立安裝，一定要依附在 iOS App 之下</em></p><p>新建好之後目錄會長這樣：</p><p><a href="/assets/e85d77b05061/1*WIjSrYl5Hch0mGIjlNbyFQ.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*WIjSrYl5Hch0mGIjlNbyFQ.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OTYiIGhlaWdodD0iNDM4Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>你會發現有兩個Target項目，缺一不可：</p><ol><li>WatchKit App: 負責存放資源、UI顯示 /Interface.storyboard：同 iOS，裡面有系統預設建立的視圖控制器 /Assets.xcassets：同 iOS，存放用到的資源項目 /info.plist：同 iOS，WatchKit App 相關設定<li>WatchKit Extension: 負責程式呼叫、邏輯處理( * .swift) /InterfaceController.swift：預設的視圖控制器程式 /ExtensionDelegate.swift：類似Swift的AppDelegate，Apple Watch App 啟動入口 /NotificationController.swift：用於處理Apple Watch App上的推播顯示 /Assets.xcassets：這裡不使用，我統一放在WatchKit App的Assets.xcassets下 /info.plist：同 iOS，WatchKit Extension 相關設定 /PushNotificationPayload.apns：推播資料，可用在模擬器上測試推播功能</ol><p>細節會在後面做介紹，先大概了解一下目錄及文件內容功能即可。</p><h4 id="視圖控制器"><span class="me-2">視圖控制器：</span><a href="#視圖控制器" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><strong>在AppleWatch中視圖控制器不叫ViewController而是InterfaceController</strong> ，你可以在WatchKit App/Interface.storyboard中找到Interface Controller Scence，控制它的程式就放在WatchKit Extension/InterfaceController.swift中(同iOS概念)</p><p><a href="/assets/e85d77b05061/1*2ibd9b4yaRGxwSpgKMdyUw.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*2ibd9b4yaRGxwSpgKMdyUw.webp" alt="Scene預設會和Notification Controller Scene擠在一起 (我會把它拉上面一點分開)" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjYwOSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>Scene預設會和Notification Controller Scene擠在一起 (我會把它拉上面一點分開)</p><p>可在右方設定InterfaceController的標題顯示文字．</p><p>標題顏色部分吃的是Interface Builder Document/Global hint設定，整個App的風格顏色會是統一的．</p><p><a href="/assets/e85d77b05061/1*ZcS9q4gNSBo6MZLp1eITeA.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*ZcS9q4gNSBo6MZLp1eITeA.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NzkiIGhlaWdodD0iNzIxIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><h4 id="元件庫"><span class="me-2">元件庫：</span><a href="#元件庫" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><a href="/assets/e85d77b05061/1*Armv40CxLqJ1wlbMI_o1oQ.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*Armv40CxLqJ1wlbMI_o1oQ.webp" alt="沒有太多複雜的元件，元件功能也都簡單明瞭" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjEwMDQiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9ImdyZXkiLz48L3N2Zz4="></a></p><p>沒有太多複雜的元件，元件功能也都簡單明瞭</p><h4 id="ui-排版"><span class="me-2">UI 排版：</span><a href="#ui-排版" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>萬丈高樓從View起，排版的部分沒有 UIKit(iOS) 中的Auto Layout、約束、圖層，全都使用參數進行排版設置，更簡單有力(排起來有點像 UIKit 中的 UIStackView)</p><blockquote><p><strong>一切排版由Group組成，類似UIKit中的 UIStackView 但能設置更多排版參數</strong></p></blockquote><p><a href="/assets/e85d77b05061/1*aoHxAFjEGgH3ZLQx9GhH_Q.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*aoHxAFjEGgH3ZLQx9GhH_Q.webp" alt="Group的參數設置" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NzQiIGhlaWdodD0iMTExOCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>Group的參數設置</p><ol><li>Layout：設置被包在裡面的子View排版方式（水平、垂直、圖層堆疊）<li>Insets：設置Group的上下左右間距<li>Spacing：設置被包在裡面的子View之間的間距<li>Radius：設置Group的圓角，沒錯！WatchKit自帶圓角設置參數<li>Alignment/Horizontal：設置水平對齊方式（左、中、右）與鄰居、外層包覆的View設置會有所連動<li>Alignment/Vertical：設置垂直對齊方式（上、中、下）與鄰居、外層包覆的View設置會有所連動<li>Size/Width：設置Group的大小，有三種模式可選「Fixed：指定寬度」、「Size To Fit Content：依照內容子View大小決定寬度」、「Relative to Container：參照外層包覆的View大小為寬度(可設%/+ -修正值)」<li>Size/Height：同Size/Width，此項是設置高度</ol><h4 id="字型字體大小設置"><span class="me-2">字型/字體大小設置：</span><a href="#字型字體大小設置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><a href="/assets/e85d77b05061/1*8NfJeD4FsUw-SpAx_VFDCQ.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*8NfJeD4FsUw-SpAx_VFDCQ.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NjQiIGhlaWdodD0iNjI4Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>可直接套用系統的Text Styles，或使用Custom（但這邊我測試使用Custom無法設定字體大小）；所以 <strong>我是使用System</strong> 自訂各顯示Label的字體大小</p><h4 id="做中學以line排版為例"><span class="me-2"><strong>做中學：以Line排版為例</strong></span><a href="#做中學以line排版為例" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><a href="/assets/e85d77b05061/1*oY9kLcnASy9j1WXxV4FGPA.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*oY9kLcnASy9j1WXxV4FGPA.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNjgiIGhlaWdodD0iNDQ4Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>排版部分不像 iOS 那麼複雜，所以我直接透過範例示範給大家看，就能直接上手；以 Line 的主頁排版為例子：</p><p><em>在WatchKit App/Interface.storyboard中找到Interface Controller Scence:</em></p><p>1.整個頁面，相當於 iOS App 開發中會使用到的 UITableView，在Apple Watch App 中簡化了操作，名字也改叫做「WKInterfaceTable」 首先就先拉一個Table到Interface Controller Scence中</p><p><a href="/assets/e85d77b05061/1*bui2UXp9QwBYSYC-mwyK6g.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*bui2UXp9QwBYSYC-mwyK6g.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDc2IiBoZWlnaHQ9IjY3OCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>同UIKit UITableView，有Table本體、有Cell(Apple Watch中叫做Row)；使用起來簡化許多， <strong>你可以直接在此介面上進行Cell的設計排版！</strong></p><p>2. 分析排版架構，設計Row顯示樣式：</p><p><a href="/assets/e85d77b05061/1*2bsyQ9Szfptugtg_KKxcgg.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*2bsyQ9Szfptugtg_KKxcgg.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MzQiIGhlaWdodD0iMjEyIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>要排出一個左邊有圓角滿版的Image且堆疊一個Label，右邊平均分配上下兩個區塊，上方放Label，下方也放Label的區塊</p><p>2–1: 拉出左右兩區塊的架構</p><p><a href="/assets/e85d77b05061/1*ez1NpEq3fgAMEqNjwTvWdw.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*ez1NpEq3fgAMEqNjwTvWdw.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjM5NCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>拉兩個Group到Group中，並對Size參數分別設定：</p><p>左邊綠色部分：</p><p><a href="/assets/e85d77b05061/1*axrBV1EHrPtOHvTnLtB79w.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*axrBV1EHrPtOHvTnLtB79w.webp" alt="Layout設定Overlap，裡面子View要做未讀訊息Label的圖層堆疊顯示" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NjQiIGhlaWdodD0iODgiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9ImdyZXkiLz48L3N2Zz4="></a></p><p>Layout設定Overlap，裡面子View要做未讀訊息Label的圖層堆疊顯示</p><p><a href="/assets/e85d77b05061/1*Ti346bLg8AM2FInO6PNwLw.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*Ti346bLg8AM2FInO6PNwLw.webp" alt="設固定長寬40的正方形" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NTQiIGhlaWdodD0iMjM2Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>設固定長寬40的正方形</p><p>右邊紅色部分：</p><p><a href="/assets/e85d77b05061/1*5aq_TTFEp3kq6RusiTkYcw.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*5aq_TTFEp3kq6RusiTkYcw.webp" alt="Layout設定Vertical，裡面子View要做上下兩個顯示" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NjYiIGhlaWdodD0iODQiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9ImdyZXkiLz48L3N2Zz4="></a></p><p>Layout設定Vertical，裡面子View要做上下兩個顯示</p><p><a href="/assets/e85d77b05061/1*aXH2d1kDRLNl4XsizV9P_g.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*aXH2d1kDRLNl4XsizV9P_g.webp" alt="寬度設定參照外層，比例100%，扣掉左邊綠色部分40" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NjIiIGhlaWdodD0iMjM2Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>寬度設定參照外層，比例100%，扣掉左邊綠色部分40</p><p>左右容器內排版：</p><p><a href="/assets/e85d77b05061/1*NR2vAZ3mqPMjCLqBCJ6ZxQ.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*NR2vAZ3mqPMjCLqBCJ6ZxQ.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjQwMyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>左邊部分：拉入一個Image，再拉入一個包覆Lable的Group對齊設右下(Group設底色再設間距及圓角)</p><p>右邊部分：拉入兩個Label，一個對齊設左上，一個對齊設左下即可</p><h4 id="為row命名同uikit-uitableview為cell設定identifier"><span class="me-2">為Row命名(同UIKit UITableView為Cell設定identifier)：</span><a href="#為row命名同uikit-uitableview為cell設定identifier" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><a href="/assets/e85d77b05061/1*VTCVIJRAG-sGdBLjC26TKg.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*VTCVIJRAG-sGdBLjC26TKg.webp" alt="選定Row-&gt;Identifier-&gt;輸入自訂名稱" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjQ1NyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>選定Row-&gt;Identifier-&gt;輸入自訂名稱</p><h4 id="row的呈現樣式不只一種呢"><span class="me-2">Row的呈現樣式不只一種呢？</span><a href="#row的呈現樣式不只一種呢" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>非常簡單，只要在拉一個Row放在Table裡(實際要顯示哪個樣式的ROW由程式控制)並輸入Identifier命名即可</p><p><a href="/assets/e85d77b05061/1*kQOKjxqmtI7M8BwYQ0yY0A.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*kQOKjxqmtI7M8BwYQ0yY0A.webp" alt="這邊我再拉一個Row用於呈現無資料時的提示" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjQ2MyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>這邊我再拉一個Row用於呈現無資料時的提示</p><h4 id="排版相關資訊"><span class="me-2">排版相關資訊</span><a href="#排版相關資訊" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>watchKit的hidden不會佔位，可拿來做交互應用（有登入才顯示Table；沒登入顯示提示Label）</p><p><a href="/assets/e85d77b05061/1*RiCY7mH4_MyocNPN1GDuvA.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*RiCY7mH4_MyocNPN1GDuvA.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjU5MCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>排版到此告一段落，可依照個人設計做修改；上手容易，多排個幾次、玩玩對齊參數，就能熟悉！</p><h4 id="程式控制部分"><span class="me-2">程式控制部分：</span><a href="#程式控制部分" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>接續Row，我們需要建立一個Class對Row進行參照操作：</p><div class="language-swift highlighter-rouge"><div class="code-header"> <span data-label-text="Swift"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="kd">class</span> <span class="kt">ContactRow</span><span class="p">:</span><span class="kt">NSObject</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p><a href="/assets/e85d77b05061/1*-AnyG0_PLubAX7f-579BMw.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*-AnyG0_PLubAX7f-579BMw.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjI3MyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><div class="language-swift highlighter-rouge"><div class="code-header"> <span data-label-text="Swift"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="kd">class</span> <span class="kt">ContactRow</span><span class="p">:</span><span class="kt">NSObject</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">id</span><span class="p">:</span><span class="kt">String</span><span class="p">?</span>
+    <span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">unReadGroup</span><span class="p">:</span> <span class="kt">WKInterfaceGroup</span><span class="o">!</span>
+    <span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">unReadLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span>
+    <span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">imageView</span><span class="p">:</span> <span class="kt">WKInterfaceImage</span><span class="o">!</span>
+    <span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">nameLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span>
+    <span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">timeLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>拉outlet、儲存變數</p><p>Table部分ㄧ樣拉Outlet到Controller中：</p><div class="language-swift highlighter-rouge"><div class="code-header"> <span data-label-text="Swift"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+</pre><td class="rouge-code"><pre><span class="kd">class</span> <span class="kt">InterfaceController</span><span class="p">:</span> <span class="kt">WKInterfaceController</span> <span class="p">{</span>
+
+    <span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">Table</span><span class="p">:</span> <span class="kt">WKInterfaceTable</span><span class="o">!</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">awake</span><span class="p">(</span><span class="n">withContext</span> <span class="nv">context</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">awake</span><span class="p">(</span><span class="nv">withContext</span><span class="p">:</span> <span class="n">context</span><span class="p">)</span>
+        
+        <span class="c1">// Configure interface objects here.</span>
+    <span class="p">}</span>
+    
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">willActivate</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// This method is called when watch view controller is about to be visible to user</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">willActivate</span><span class="p">()</span>
+    <span class="p">}</span>
+    
+    <span class="kd">struct</span> <span class="kt">ContactStruct</span> <span class="p">{</span>
+        <span class="k">var</span> <span class="nv">name</span><span class="p">:</span><span class="kt">String</span>
+        <span class="k">var</span> <span class="nv">image</span><span class="p">:</span><span class="kt">String</span>
+        <span class="k">var</span> <span class="nv">time</span><span class="p">:</span><span class="kt">String</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">loadData</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">//Get API Call Back...</span>
+        <span class="c1">//postData {</span>
+        <span class="k">let</span> <span class="nv">data</span><span class="p">:[</span><span class="kt">ContactStruct</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">//api returned data...</span>
+        
+        <span class="k">self</span><span class="o">.</span><span class="kt">Table</span><span class="o">.</span><span class="nf">setNumberOfRows</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="nv">withRowType</span><span class="p">:</span> <span class="s">"ContactRow"</span><span class="p">)</span>
+        <span class="c1">//如果你有多種ROW需要呈現則用：</span>
+            <span class="c1">//self.Table.setRowTypes(["ContactRow","ContactRow2","ContactRow3"])</span>
+        <span class="c1">//</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="k">in</span> <span class="n">data</span><span class="o">.</span><span class="nf">enumerated</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="k">let</span> <span class="nv">row</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="kt">Table</span><span class="o">.</span><span class="nf">rowController</span><span class="p">(</span><span class="nv">at</span><span class="p">:</span> <span class="n">item</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span> <span class="k">as?</span> <span class="kt">ContactRow</span> <span class="p">{</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">nameLabel</span><span class="o">.</span><span class="nf">setText</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="c1">//assign value to lable/image......</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        
+        <span class="c1">//}</span>
+    <span class="p">}</span>
+    
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">didDeactivate</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// This method is called when watch view controller is no longer visible</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">didDeactivate</span><span class="p">()</span>
+        <span class="nf">loadData</span><span class="p">()</span>
+    <span class="p">}</span>
+    
+    <span class="c1">//處理Row點選時:</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">table</span><span class="p">(</span><span class="n">_</span> <span class="nv">table</span><span class="p">:</span> <span class="kt">WKInterfaceTable</span><span class="p">,</span> <span class="n">didSelectRowAt</span> <span class="nv">rowIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">row</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="nf">rowController</span><span class="p">(</span><span class="nv">at</span><span class="p">:</span> <span class="n">rowIndex</span><span class="p">)</span> <span class="k">as?</span> <span class="kt">ContactRow</span><span class="p">,</span><span class="k">let</span> <span class="nv">id</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">id</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span>
+        <span class="p">}</span>
+        <span class="k">self</span><span class="o">.</span><span class="nf">pushController</span><span class="p">(</span><span class="nv">withName</span><span class="p">:</span> <span class="s">"showDetail"</span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="n">id</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Table的操作簡化許多沒有delegate/datasource，設定資料方式只要呼叫setNumberOfRows/setRowTypes指定Row數量和形態，再使用rowController(at:) 設定每列的資料內容即可！</p><p>Table的Row選擇事件也只需 override func table( _ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) 即可操作！(Table也只有這個事件)</p><h4 id="如何跳頁"><span class="me-2">如何跳頁？</span><a href="#如何跳頁" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><a href="/assets/e85d77b05061/1*1KovG3qshPRsCgUXkbDYFw.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*1KovG3qshPRsCgUXkbDYFw.webp" alt="首先為Interface Controller設定Identifier" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjYyNyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>首先為Interface Controller設定Identifier</p><p>watchKit有兩種跳頁模式：</p><p>1.類似iOS UIKit push self.pushController(withName: <strong>Interface Controller Identifier</strong> , context: <strong>Any?</strong> )</p><p><a href="/assets/e85d77b05061/1*snXj8xFP0MtF3_sVWK1xUw.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*snXj8xFP0MtF3_sVWK1xUw.webp" alt="push方式可左上返回" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNjgiIGhlaWdodD0iNDQ4Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>push方式可左上返回</p><p>返回上一頁同iOS UIKit：self.pop( )</p><p>返回根頁面：self.popToRootController( )</p><p>開新頁面：self.presentController( )</p><p>2. <a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/WatchKitProgrammingGuide/InterfaceStyles.html" target="_blank">頁籤顯示方式</a> WKInterfaceController.reloadRootControllers(withNames: [ <strong>Interface Controller Identifier</strong> ], contexts: [ <strong>Any?</strong> ] )</p><p>亦或是在Storyboard上，在第一頁的Interface Controller上按Control+Click拖曳到第二頁選擇「next page」也可</p><p><a href="/assets/e85d77b05061/1*teUOM4Wql2hexR51g7v1lQ.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*teUOM4Wql2hexR51g7v1lQ.webp" alt="頁籤顯示方式可以左右切換頁面" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNjgiIGhlaWdodD0iNDQ4Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>頁籤顯示方式可以左右切換頁面</p><p>兩種跳頁方式不能混用．</p><h4 id="跳頁參數"><span class="me-2">跳頁參數？</span><a href="#跳頁參數" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>不像iOS需要使用自訂delegate或segue方式傳遞參數，watchKit跳頁帶參數方式就是將參數放入上方方法中的 <strong>contexts</strong> 中即可．</p><p>接收參數在 <strong>InterfaceController</strong> 的 awake(withContext context: Any?)</p><p>例如我在A頁面要跳到B頁面並帶入id:Int時：</p><p>A 頁面:</p><div class="language-swift highlighter-rouge"><div class="code-header"> <span data-label-text="Swift"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="k">self</span><span class="o">.</span><span class="nf">pushController</span><span class="p">(</span><span class="nv">withName</span><span class="p">:</span> <span class="s">"showDetail"</span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="mi">100</span><span class="p">)</span>
+</pre></table></code></div></div><p>B 頁面:</p><div class="language-swift highlighter-rouge"><div class="code-header"> <span data-label-text="Swift"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="k">override</span> <span class="kd">func</span> <span class="nf">awake</span><span class="p">(</span><span class="n">withContext</span> <span class="nv">context</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">awake</span><span class="p">(</span><span class="nv">withContext</span><span class="p">:</span> <span class="n">context</span><span class="p">)</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">id</span> <span class="o">=</span> <span class="n">context</span> <span class="k">as?</span> <span class="kt">Int</span> <span class="k">else</span> <span class="p">{</span>
+           <span class="nf">print</span><span class="p">(</span><span class="s">"參數錯誤！"</span><span class="p">)</span>
+           <span class="k">self</span><span class="o">.</span><span class="nf">popToRootController</span><span class="p">()</span>
+           <span class="k">return</span>
+        <span class="p">}</span>
+        <span class="c1">// Configure interface objects here.</span>
+<span class="p">}</span>
+</pre></table></code></div></div><h4 id="程式控制元件部分"><span class="me-2">程式控制元件部分</span><a href="#程式控制元件部分" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>相比iOS UIKit一樣簡化許多，有開發過iOS的應該上手很快！ 例如label變成setText( ) p.s. 而且居然沒有getText的方法，只能extension變數或放在外部變數儲存</p><h4 id="與iphone之間同步資料傳遞"><span class="me-2">與iPhone之間同步/資料傳遞</span><a href="#與iphone之間同步資料傳遞" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>如果有開發過iOS 相關 Extension 的話；下意識一定是用App Groups共享UserDefaults的方式，當初我也興沖沖的這樣做，然後卡了好久發現資料一直過不去，直到上網一查才發現，watchOS&gt;2之後就不再支援此方法了….</p><p>要使用新的WatchConnectivity方式讓手機跟手錶之間進行通訊(類似socket概念)，iOS手機及手錶watchOS兩端都需要實做，我們寫成singleton模式如下：</p><p><strong>手機端：</strong></p><div class="language-swift highlighter-rouge"><div class="code-header"> <span data-label-text="Swift"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+</pre><td class="rouge-code"><pre><span class="kd">import</span> <span class="kt">WatchConnectivity</span>
+
+<span class="kd">class</span> <span class="kt">WatchSessionManager</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">WCSessionDelegate</span> <span class="p">{</span>
+    <span class="kd">@available</span><span class="p">(</span><span class="n">iOS</span> <span class="mf">9.3</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
+    <span class="kd">func</span> <span class="nf">session</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">,</span> <span class="n">activationDidCompleteWith</span> <span class="nv">activationState</span><span class="p">:</span> <span class="kt">WCSessionActivationState</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="p">{</span>
+        <span class="c1">//手機端session啟用完成</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">session</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">,</span> <span class="n">didReceiveUserInfo</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:])</span> <span class="p">{</span>
+        <span class="c1">//手機端接受到手錶傳回的UserInfo</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">session</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">,</span> <span class="n">didReceiveMessage</span> <span class="nv">message</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">],</span> <span class="nv">replyHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">([</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//手機端接受到手錶回傳的Message</span>
+    <span class="p">}</span>
+    
+    <span class="c1">//另外還有didReceiveMessageData,didReceiveFile同樣都是處理收到手錶回傳的資料</span>
+    <span class="c1">//看你的資料傳遞接收需求決定要用哪個</span>
+    
+    <span class="kd">func</span> <span class="nf">sendUserInfo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">validSession</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">validSession</span><span class="p">,</span><span class="n">validSession</span><span class="o">.</span><span class="n">isReachable</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="n">userDefaultsTransfer</span><span class="p">?</span><span class="o">.</span><span class="n">isTransferring</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
+            <span class="n">userDefaultsTransfer</span><span class="p">?</span><span class="o">.</span><span class="nf">cancel</span><span class="p">()</span>
+        <span class="p">}</span>
+        
+        <span class="k">var</span> <span class="nv">list</span><span class="p">:[</span><span class="kt">String</span><span class="p">:</span><span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:]</span>
+        <span class="c1">//將UserDefaults放入list....</span>
+        
+        <span class="k">self</span><span class="o">.</span><span class="n">userDefaultsTransfer</span> <span class="o">=</span> <span class="n">validSession</span><span class="o">.</span><span class="nf">transferUserInfo</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">sessionReachabilityDidChange</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//與手錶APP連接狀態改變時(手錶開啟APP時/手錶關閉APP時)</span>
+        <span class="nf">sendUserInfo</span><span class="p">()</span>
+        <span class="c1">//我是當狀態改變，如為手錶開啟APP時就同步一次UserDefaults</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">session</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">,</span> <span class="n">didFinish</span> <span class="nv">userInfoTransfer</span><span class="p">:</span> <span class="kt">WCSessionUserInfoTransfer</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="p">{</span>
+        <span class="c1">//完成同步UserDefaults(transferUserInfo)</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">sessionDidBecomeInactive</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">)</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">sessionDidDeactivate</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">)</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+    
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">sharedManager</span> <span class="o">=</span> <span class="kt">WatchSessionManager</span><span class="p">()</span>
+    <span class="kd">private</span> <span class="k">override</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">init</span><span class="p">()</span>
+    <span class="p">}</span>
+    
+    <span class="kd">private</span> <span class="k">let</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">?</span> <span class="o">=</span> <span class="kt">WCSession</span><span class="o">.</span><span class="nf">isSupported</span><span class="p">()</span> <span class="p">?</span> <span class="kt">WCSession</span><span class="o">.</span><span class="k">default</span> <span class="p">:</span> <span class="kc">nil</span>
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">validSession</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">session</span> <span class="o">=</span> <span class="n">session</span><span class="p">,</span> <span class="n">session</span><span class="o">.</span><span class="n">isPaired</span> <span class="o">&amp;&amp;</span> <span class="n">session</span><span class="o">.</span><span class="n">isWatchAppInstalled</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">session</span>
+        <span class="p">}</span>
+        <span class="c1">//回傳有效且連接中且手錶APP開啟中的session</span>
+        <span class="k">return</span> <span class="kc">nil</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">startSession</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">session</span><span class="p">?</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
+        <span class="n">session</span><span class="p">?</span><span class="o">.</span><span class="nf">activate</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>WatchConnectivity 手機端的 Code</p><p>並在iOS/AppDelegate.swift的application( _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)中加入WatchSessionManager.sharedManager.startSession( ) 以在啟動手機APP後連接上session</p><p><strong>手錶端：</strong></p><div class="language-swift highlighter-rouge"><div class="code-header"> <span data-label-text="Swift"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+</pre><td class="rouge-code"><pre><span class="kd">import</span> <span class="kt">WatchConnectivity</span>
+
+<span class="kd">class</span> <span class="kt">WatchSessionManager</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">WCSessionDelegate</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">session</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">,</span> <span class="n">activationDidCompleteWith</span> <span class="nv">activationState</span><span class="p">:</span> <span class="kt">WCSessionActivationState</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="p">{</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">sessionReachabilityDidChange</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">guard</span> <span class="n">session</span><span class="o">.</span><span class="n">isReachable</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span>
+        <span class="p">}</span>
+        
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">session</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">,</span> <span class="n">didFinish</span> <span class="nv">userInfoTransfer</span><span class="p">:</span> <span class="kt">WCSessionUserInfoTransfer</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">session</span><span class="p">(</span><span class="n">_</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">,</span> <span class="n">didReceiveUserInfo</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:])</span> <span class="p">{</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="k">async</span> <span class="p">{</span>
+            <span class="c1">//UserDefaults:</span>
+            <span class="c1">//print(userInfo)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">sharedManager</span> <span class="o">=</span> <span class="kt">WatchSessionManager</span><span class="p">()</span>
+    <span class="kd">private</span> <span class="k">override</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">init</span><span class="p">()</span>
+    <span class="p">}</span>
+    
+    <span class="kd">private</span> <span class="k">let</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">WCSession</span><span class="p">?</span> <span class="o">=</span> <span class="kt">WCSession</span><span class="o">.</span><span class="nf">isSupported</span><span class="p">()</span> <span class="p">?</span> <span class="kt">WCSession</span><span class="o">.</span><span class="k">default</span> <span class="p">:</span> <span class="kc">nil</span>
+    
+    <span class="kd">func</span> <span class="nf">startSession</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">session</span><span class="p">?</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
+        <span class="n">session</span><span class="p">?</span><span class="o">.</span><span class="nf">activate</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</pre></table></code></div></div><p>WatchConnectivity 手錶端的 Code</p><p>並在WatchOS Extension/ExtensionDelegate.swift中的applicationDidFinishLaunching( ) 加入 WatchSessionManager.sharedManager.startSession( ) 以在啟動手錶APP後連接上session</p><h4 id="watchconnectivity-資料傳遞方式"><span class="me-2">WatchConnectivity 資料傳遞方式</span><a href="#watchconnectivity-資料傳遞方式" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>傳資料用：sendMessage,sendMessageData,transferUserInfo,transferFile 收資料用：didReceiveMessageData,didReceive,didReceiveMessage 兩端傳接收方法都ㄧ樣</p><p><a href="/assets/e85d77b05061/1*eVT-62WCBy1ZZC90abJPqA.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*eVT-62WCBy1ZZC90abJPqA.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NzYiIGhlaWdodD0iMTkyIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>可以看到手錶傳資料到手機都通，但手機傳資料到手錶僅限手錶APP開啟中</p><h4 id="watchos推播處理"><span class="me-2">watchOS推播處理</span><a href="#watchos推播處理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>專案目錄底下的PushNotificationPayload.apns這時就派上用場了，這是用來在模擬器上測試推播之用，在模擬器上部署Watch App target，安裝完啟動App就會收到一則以這個檔案內容的推播，讓開發者更容易測試推播功能．</p><p><a href="/assets/e85d77b05061/1*1nlJOqwVqpMP6WtwdRcLPA.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*1nlJOqwVqpMP6WtwdRcLPA.webp" alt="如要修改/啟用/停用 PushNotificationPayload.apns，請選擇Target後Edit Scheme" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3MyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>如要修改/啟用/停用 PushNotificationPayload.apns，請選擇Target後Edit Scheme</p><p><strong>watchOS 推播處理：</strong></p><p>同iOS我們實做UNUserNotificationCenterDelegate，在watchOS中我們也實作一樣的方法，在watchOS Extension/ExtensionDelegate.swift中</p><div class="language-swift highlighter-rouge"><div class="code-header"> <span data-label-text="Swift"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+</pre><td class="rouge-code"><pre><span class="kd">import</span> <span class="kt">WatchKit</span>
+<span class="kd">import</span> <span class="kt">UserNotifications</span>
+<span class="kd">import</span> <span class="kt">WatchConnectivity</span>
+
+<span class="kd">class</span> <span class="kt">ExtensionDelegate</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">WKExtensionDelegate</span><span class="p">,</span> <span class="kt">UNUserNotificationCenterDelegate</span> <span class="p">{</span>
+
+    <span class="kd">func</span> <span class="nf">applicationDidFinishLaunching</span><span class="p">()</span> <span class="p">{</span>
+        
+        <span class="kt">WatchSessionManager</span><span class="o">.</span><span class="n">sharedManager</span><span class="o">.</span><span class="nf">startSession</span><span class="p">()</span> <span class="c1">//前面提到的WatchConnectivity連線</span>
+      
+        <span class="kt">UNUserNotificationCenter</span><span class="o">.</span><span class="nf">current</span><span class="p">()</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span> <span class="c1">//設定UNUserNotificationCenter delegate</span>
+        <span class="c1">// Perform any final initialization of your application.</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">userNotificationCenter</span><span class="p">(</span><span class="n">_</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">UNUserNotificationCenter</span><span class="p">,</span> <span class="n">willPresent</span> <span class="nv">notification</span><span class="p">:</span> <span class="kt">UNNotification</span><span class="p">,</span> <span class="n">withCompletionHandler</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">UNNotificationPresentationOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">completionHandler</span><span class="p">([</span><span class="o">.</span><span class="n">sound</span><span class="p">,</span> <span class="o">.</span><span class="n">alert</span><span class="p">])</span>
+        <span class="c1">//同iOS，此做法可讓推播在APP前景時依然會顯示</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">userNotificationCenter</span><span class="p">(</span><span class="n">_</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">UNUserNotificationCenter</span><span class="p">,</span> <span class="n">didReceive</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">UNNotificationResponse</span><span class="p">,</span> <span class="n">withCompletionHandler</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//點擊推播時</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">info</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">notification</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">userInfo</span><span class="p">[</span><span class="s">"aps"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">NSDictionary</span><span class="p">,</span><span class="k">let</span> <span class="nv">alert</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s">"alert"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">Dictionary</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span><span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s">"data"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">Dictionary</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span><span class="kt">String</span><span class="o">&gt;</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nf">completionHandler</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="p">}</span>
+        
+        <span class="c1">//response.actionIdentifier可得點擊事件Identifier</span>
+        <span class="c1">//預設點擊事件：UNNotificationDefaultActionIdentifier</span>
+        
+        <span class="k">if</span> <span class="n">alert</span><span class="p">[</span><span class="s">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"new_ask"</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">WKExtension</span><span class="o">.</span><span class="nf">shared</span><span class="p">()</span><span class="o">.</span><span class="n">rootInterfaceController</span><span class="p">?</span><span class="o">.</span><span class="nf">pushController</span><span class="p">(</span><span class="nv">withName</span><span class="p">:</span> <span class="s">"showDetail"</span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="mi">100</span><span class="p">)</span>
+            <span class="c1">//取得目前root interface controller 並 push</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+           <span class="c1">//其他處理....</span>
+           <span class="c1">//WKExtension.shared().rootInterfaceController?.presentController(withName: "", context: nil)</span>
+            
+        <span class="p">}</span>
+        
+        <span class="nf">completionHandler</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>ExtensionDelegate.swift</p><p><strong>watchOS 推播顯示，分成三種：</strong></p><ol><li>static： 預設推播顯示方式</ol><p><a href="/assets/e85d77b05061/1*uQN8Km08rio4tylAw48LyQ.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*uQN8Km08rio4tylAw48LyQ.webp" alt="會同手機推播，這邊手機端iOS有實做UNUserNotificationCenter.setNotificationCategories在通知下方增加按鈕；Apple Watch預設亦然會出現" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDgiIGhlaWdodD0iNDcyIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>會同手機推播，這邊手機端iOS有實做UNUserNotificationCenter.setNotificationCategories在通知下方增加按鈕；Apple Watch預設亦然會出現</p><ol><li>dynamic：動態處理推播顯示樣式（重組內容、顯示圖片）<li>interactive：watchOS ≥ 5 後支援，在dynamic的基礎下再增加支援按鈕</ol><p><a href="/assets/e85d77b05061/1*PlYKw5M3XBVDtjOa2tklgg.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*PlYKw5M3XBVDtjOa2tklgg.webp" alt="可在Interface.storyboard中的Static Notification Interface Controller Scene設定推播處理方式" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjczMyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>可在Interface.storyboard中的Static Notification Interface Controller Scene設定推播處理方式</p><p>static沒什麼好說的，就是走預設的顯示方式，這邊先介紹dynamic，勾選「Has Dynamic Interface」後會出現「Dynamic Interface」可在此視圖設計你自訂的推播呈現方式（不能使用Button）：</p><p><a href="/assets/e85d77b05061/1*RYSdWHxgmZX6Ht6m11Qpig.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*RYSdWHxgmZX6Ht6m11Qpig.webp" alt="我的自訂推播呈現設計" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5ODgiIGhlaWdodD0iNzQ0Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>我的自訂推播呈現設計</p><div class="language-swift highlighter-rouge"><div class="code-header"> <span data-label-text="Swift"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+</pre><td class="rouge-code"><pre><span class="kd">import</span> <span class="kt">WatchKit</span>
+<span class="kd">import</span> <span class="kt">Foundation</span>
+<span class="kd">import</span> <span class="kt">UserNotifications</span>
+
+<span class="kd">class</span> <span class="kt">NotificationController</span><span class="p">:</span> <span class="kt">WKUserNotificationInterfaceController</span> <span class="p">{</span>
+
+    <span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">imageView</span><span class="p">:</span> <span class="kt">WKInterfaceImage</span><span class="o">!</span>
+    <span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">titleLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span>
+    <span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">contentLabel</span><span class="p">:</span> <span class="kt">WKInterfaceLabel</span><span class="o">!</span>
+    
+    <span class="k">override</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// Initialize variables here.</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">init</span><span class="p">()</span>
+        <span class="k">self</span><span class="o">.</span><span class="nf">setTitle</span><span class="p">(</span><span class="s">"結婚吧"</span><span class="p">)</span> <span class="c1">//設定右上方標題</span>
+        <span class="c1">// Configure interface objects here.</span>
+    <span class="p">}</span>
+
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">willActivate</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// This method is called when watch view controller is about to be visible to user</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">willActivate</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">didDeactivate</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// This method is called when watch view controller is no longer visible</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">didDeactivate</span><span class="p">()</span>
+    <span class="p">}</span>
+    
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">didReceive</span><span class="p">(</span><span class="n">_</span> <span class="nv">notification</span><span class="p">:</span> <span class="kt">UNNotification</span><span class="p">)</span> <span class="p">{</span>
+        
+        <span class="k">if</span> <span class="k">#available</span><span class="p">(</span><span class="n">watchOSApplicationExtension</span> <span class="mf">5.0</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">notificationActions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="c1">//清除iOS實做的UNUserNotificationCenter.setNotificationCategories在通知下方增加的按鈕</span>
+        <span class="p">}</span>
+        
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">info</span> <span class="o">=</span> <span class="n">notification</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">userInfo</span><span class="p">[</span><span class="s">"aps"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">NSDictionary</span><span class="p">,</span><span class="k">let</span> <span class="nv">alert</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s">"alert"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">Dictionary</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span><span class="kt">String</span><span class="o">&gt;</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span>
+        <span class="p">}</span>
+        <span class="c1">//推播資訊</span>
+        
+        <span class="k">self</span><span class="o">.</span><span class="n">titleLabel</span><span class="o">.</span><span class="nf">setText</span><span class="p">(</span><span class="n">alert</span><span class="p">[</span><span class="s">"title"</span><span class="p">])</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">contentLabel</span><span class="o">.</span><span class="nf">setText</span><span class="p">(</span><span class="n">alert</span><span class="p">[</span><span class="s">"body"</span><span class="p">])</span>
+        
+        <span class="k">if</span> <span class="k">#available</span><span class="p">(</span><span class="n">watchOSApplicationExtension</span> <span class="mf">5.0</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">alert</span><span class="p">[</span><span class="s">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"new_msg"</span> <span class="p">{</span>
+              <span class="c1">//如果是新訊息推播則在通知下方增加回覆按鈕</span>
+              <span class="k">self</span><span class="o">.</span><span class="n">notificationActions</span> <span class="o">=</span> <span class="p">[</span><span class="kt">UNNotificationAction</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="s">"replyAction"</span><span class="p">,</span><span class="nv">title</span><span class="p">:</span> <span class="s">"回覆"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">foreground</span><span class="p">])]</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+              <span class="c1">//其他則增加查看按鈕</span>
+              <span class="k">self</span><span class="o">.</span><span class="n">notificationActions</span> <span class="o">=</span> <span class="p">[</span><span class="kt">UNNotificationAction</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="s">"openAction"</span><span class="p">,</span><span class="nv">title</span><span class="p">:</span> <span class="s">"查看"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">foreground</span><span class="p">])]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        
+        
+        <span class="c1">// This method is called when a notification needs to be presented.</span>
+        <span class="c1">// Implement it if you use a dynamic notification interface.</span>
+        <span class="c1">// Populate your dynamic notification interface as quickly as possible.</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>程式部分，ㄧ樣拉outlet到controller並實做功能</p><p>再來講到interactive，同dynamic，只是能多加Button，能跟dynamic設同個Class控制程式；interactive我沒有使用，因為我的按鈕是用程式self.notificationActions加上去的，差異如下：</p><p><a href="/assets/e85d77b05061/1*_1Crgx61kE6F509Jd2qxPQ.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*_1Crgx61kE6F509Jd2qxPQ.webp" alt="左使用interactive，右使用self.notificationActions" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NTMiIGhlaWdodD0iNDcyIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>左使用interactive，右使用self.notificationActions</p><p>兩個做法都需watchOS ≥ 5 支援．</p><p>使用self.notificationActions增加按鈕則按鈕事件處理由ExtensionDelegate中的 <code class="language-plaintext highlighter-rouge">userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -&gt; Void)</code> 處理，並以identifier識別動作</p><h4 id="選單功能"><span class="me-2">選單功能？</span><a href="#選單功能" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><a href="/assets/e85d77b05061/1*qHUly8lLEa5L7FSPJCrbcw.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*qHUly8lLEa5L7FSPJCrbcw.webp" alt="在元件庫中拉入Menu，再拉入選單項目Menu Item，再拉IBAction到程式控制" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjQwOSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPjwvc3ZnPg=="></a></p><p>在元件庫中拉入Menu，再拉入選單項目Menu Item，再拉IBAction到程式控制</p><p>在頁面重壓就會出現：</p><p><a href="/assets/e85d77b05061/1*9aj7kUPsv9d8XUvgCpqfOg.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*9aj7kUPsv9d8XUvgCpqfOg.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNjgiIGhlaWdodD0iNDQ4Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><h4 id="內容輸入"><span class="me-2">內容輸入？</span><a href="#內容輸入" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>使用內建的presentTextInputController方法即可！</p><div class="language-swift highlighter-rouge"><div class="code-header"> <span data-label-text="Swift"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre><td class="rouge-code"><pre><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">replyBtnClick</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">target</span> <span class="o">=</span> <span class="n">target</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    
+    <span class="k">self</span><span class="o">.</span><span class="nf">presentTextInputController</span><span class="p">(</span><span class="nv">withSuggestions</span><span class="p">:</span> <span class="p">[</span><span class="s">"稍後回覆您"</span><span class="p">,</span><span class="s">"謝謝"</span><span class="p">,</span><span class="s">"歡迎與我聯絡"</span><span class="p">,</span><span class="s">"好的"</span><span class="p">,</span><span class="s">"OK!"</span><span class="p">],</span> <span class="nv">allowedInputMode</span><span class="p">:</span> <span class="kt">WKTextInputMode</span><span class="o">.</span><span class="n">plain</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="k">in</span>
+        
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">results</span> <span class="o">=</span> <span class="n">results</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span>
+        <span class="p">}</span>
+        <span class="c1">//有輸入值時</span>
+        
+        <span class="k">let</span> <span class="nv">txts</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="nf">filter</span><span class="p">({</span> <span class="p">(</span><span class="n">txt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">in</span>
+            <span class="k">if</span> <span class="k">let</span> <span class="nv">txt</span> <span class="o">=</span> <span class="n">txt</span> <span class="k">as?</span> <span class="kt">String</span><span class="p">,</span><span class="n">txt</span> <span class="o">!=</span> <span class="s">""</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">true</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">false</span>
+            <span class="p">}</span>
+        <span class="p">})</span><span class="o">.</span><span class="nf">map</span><span class="p">({</span> <span class="p">(</span><span class="n">txt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="k">in</span>
+            <span class="k">return</span> <span class="n">txt</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">??</span> <span class="s">""</span>
+        <span class="p">})</span>
+        <span class="c1">//預處理輸入</span>
+        
+        
+        <span class="n">txts</span><span class="o">.</span><span class="nf">forEach</span><span class="p">({</span> <span class="p">(</span><span class="n">txt</span><span class="p">)</span> <span class="k">in</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">txt</span><span class="p">)</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p><a href="/assets/e85d77b05061/1*CWr9RIb55Sn-FoMrTmc7sQ.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*CWr9RIb55Sn-FoMrTmc7sQ.webp" alt="" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNjgiIGhlaWdodD0iNDQ4Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><h3 id="總結"><span class="me-2">總結</span><a href="#總結" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><blockquote><p><strong><em>謝謝你看到這！辛苦了！</em></strong></p></blockquote><p>到這裡文章已告一段落，大略提了一下UI排版、程式、推播、介面應用部分，有開發過iOS的上手真的很快，幾乎差不多而且許多方法都做了簡化使用起來更簡潔，但能做的事確實也變少了(像是目前還不知道怎麼針對Table做載入更多)；目前能做的事確實很少，希望官方在未來能開放更多API給開發者使用❤️❤️❤️</p><h4 id="murmur"><span class="me-2">MurMur:</span><a href="#murmur" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><a href="/assets/e85d77b05061/1*-J9qZ846ZysJEhMTSZeE3w.webp" class="popup img-link blur"><img data-src="/assets/e85d77b05061/1*-J9qZ846ZysJEhMTSZeE3w.webp" alt="Apple Watch App Target 部署到手錶真的有夠慢 — [Narcos](https://www.netflix.com/tw/title/80025172){:target=&quot;_blank&quot;}" data-lqip="true" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NjAiIGhlaWdodD0iOTQ1Ij48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJncmV5Ii8+PC9zdmc+"></a></p><p>Apple Watch App Target 部署到手錶真的有夠慢 — <a href="https://www.netflix.com/tw/title/80025172" target="_blank">Narcos</a></p><p>有任何問題及指教歡迎 <a href="https://www.zhgchg.li/contact" target="_blank">與我聯絡</a> 。</p><hr /><p>本文首次發表於 Medium ➡️ <a href="https://medium.com/p/e85d77b05061" target="_blank"><strong>前往查看</strong></a></p><p>由 <a href="https://github.com/ZhgChgLi/ZMediumToMarkdown" target="_blank">ZMediumToMarkdown</a> 與 <a href="https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io" target="_blank">Medium-to-jekyll-starter</a> 提供自動轉換與同步技術。</p><p><a href="https://github.com/ZhgChgLi/zhgchgli.github.io/blob/main/_posts/zh-tw/zmediumtomarkdown/2019-02-05-e85d77b05061.md" target="_blank">Improve this page on Github.</a></p><p><a href="https://www.buymeacoffee.com/zhgchgli" target="_blank" style="display:block !important;" class="img-link shimmer" ><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&amp;emoji=🍺&amp;slug=zhgchgli&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Bree&amp;outline_colour=000000&amp;coffee_colour=ffffff" alt="Buy me a beer" loading="lazy"></a></p><widgetic id="64ce71d5ecb2a165598b4567" resize="fill-width" height="50" autoscale="on"></widgetic> <script async="" src="https://widgetic.com/sdk/sdk.js"></script><div onclick="this.style.position='';" style="text-align: center; position: -webkit-sticky; position: sticky; bottom: 0; z-index: 1; margin: 0 -1rem; padding: 5px; background: var(--main-bg); border-bottom: 1px solid var(--main-border-color);transition: all .2s ease-in-out;"><a href="https://medium.com/@zhgchgli" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:10px 20px;font-size:16px;font-weight:bold;color:#ffffff;background-color:#00ab6c;border-radius:5px;text-decoration:none;box-shadow:0 4px 6px rgba(0,0,0,0.1);transition:all 0.3s ease;cursor:pointer;" onmouseover="this.style.backgroundColor='#008f5a';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 10px rgba(0,0,0,0.15)';" onmouseout="this.style.backgroundColor='#00ab6c';this.style.transform='translateY(0)';this.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';">Follow Me on Medium <span style="font-size:14px;color:rgba(255,255,255,0.9);font-weight:normal;opacity:0.9;">1K+ Followers</span></a></div><div style="font-size: 0.8em; cursor:default; text-align: right;"> 7,887 <span style="font-size: 0.9em;">Total Views</span><br /> <span style="font-size: 0.8em;">Last Statistics Date: 2025-08-14 | 6,942 Views on <a href="https://medium.com/p/e85d77b05061" target="_blank">Medium.</a></span></div></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/zrealm-dev/">ZRealm Dev.</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw me-1"></i> <a href="/tags/ios/" class="post-tag no-text-decoration" >ios</a> <a href="/tags/watchos/" class="post-tag no-text-decoration" >watchos</a> <a href="/tags/apple-watch-apps/" class="post-tag no-text-decoration" >apple-watch-apps</a> <a href="/tags/watchkit/" class="post-tag no-text-decoration" >watchkit</a> <a href="/tags/ios-app-development/" class="post-tag no-text-decoration" >ios-app-development</a></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF%20Apple%20Watch%20App%20%E5%90%A7%EF%BC%81%20-%20ZhgChgLi%20(Harry%20Li)&url=https%3A%2F%2Fzhgchg.li%2Fposts%2Fzrealm-dev%2F%25E5%258B%2595%25E6%2589%258B%25E5%2581%259A%25E4%25B8%2580%25E6%2594%25AF-apple-watch-app-%25E5%2590%25A7-e85d77b05061%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E6%94%AF%20Apple%20Watch%20App%20%E5%90%A7%EF%BC%81%20-%20ZhgChgLi%20(Harry%20Li)&u=https%3A%2F%2Fzhgchg.li%2Fposts%2Fzrealm-dev%2F%25E5%258B%2595%25E6%2589%258B%25E5%2581%259A%25E4%25B8%2580%25E6%2594%25AF-apple-watch-app-%25E5%2590%25A7-e85d77b05061%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fzhgchg.li%2Fposts%2Fzrealm-dev%2F%25E5%258B%2595%25E6%2589%258B%25E5%2581%259A%25E4%25B8%2580%25E6%2594%25AF-apple-watch-app-%25E5%2590%25A7-e85d77b05061%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin" aria-label="Linkedin"> <i class="fa-fw fab fa-linkedin"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy link" data-title-succeed="Link copied successfully!" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">Recently Updated</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/posts/z-travel-diaries/en/travel-diary-8-days-and-7-nights-in-busan-south-korea-2025-8ace34a1a3d8/">Travel Diary: 8 Days and 7 Nights in Busan, South Korea 2025</a><li class="text-truncate lh-lg"> <a href="/posts/z-%E5%BA%A6%E6%97%85%E8%A1%8C%E9%81%8A%E8%A8%98/%E9%81%8A%E8%A8%98-2025-%E9%9F%93%E5%9C%8B%E9%87%9C%E5%B1%B1-8-%E5%A4%A9-7-%E5%A4%9C%E8%87%AA%E7%94%B1%E8%A1%8C-8ace34a1a3d8/">遊記 2025 韓國釜山 8 天 7 夜自由行</a><li class="text-truncate lh-lg"> <a href="/posts/z-%E5%BA%A6%E6%97%85%E8%A1%8C%E9%81%8A%E8%A8%98/%E9%81%8A%E8%A8%98-9-11-%E5%90%8D%E5%8F%A4%E5%B1%8B%E4%B8%80%E6%97%A5%E5%BF%AB%E9%96%83%E8%87%AA%E7%94%B1%E8%A1%8C-7b8a0563c157/">遊記 9/11 名古屋一日快閃自由行</a><li class="text-truncate lh-lg"> <a href="/posts/z-%E5%BA%A6%E6%97%85%E8%A1%8C%E9%81%8A%E8%A8%98/%E9%81%8A%E8%A8%98-2023-%E4%B9%9D%E5%B7%9E-10-%E6%97%A5%E8%87%AA%E7%94%B1%E8%A1%8C%E7%8D%A8%E6%97%85-d78e0b15a08a/">遊記 2023 九州 10 日自由行獨旅</a><li class="text-truncate lh-lg"> <a href="/posts/z-%E5%BA%A6%E6%97%85%E8%A1%8C%E9%81%8A%E8%A8%98/%E9%81%8A%E8%A8%98-2023-%E4%BA%AC%E9%98%AA%E7%A5%9E-8-%E6%97%A5%E8%87%AA%E7%94%B1%E8%A1%8C-76d66c2e34af/">遊記 2023 京阪神 8 日自由行</a></ul></section><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/ios-app-development/">ios-app-development</a> <a class="post-tag btn btn-outline-primary" href="/tags/ios/">ios</a> <a class="post-tag btn btn-outline-primary" href="/tags/swift/">swift</a> <a class="post-tag btn btn-outline-primary" href="/tags/%E7%94%9F%E6%B4%BB/">生活</a> <a class="post-tag btn btn-outline-primary" href="/tags/medium/">medium</a> <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a> <a class="post-tag btn btn-outline-primary" href="/tags/google-apps-script/">google-apps-script</a> <a class="post-tag btn btn-outline-primary" href="/tags/github/">github</a> <a class="post-tag btn btn-outline-primary" href="/tags/jekyll/">jekyll</a> <a class="post-tag btn btn-outline-primary" href="/tags/ruby/">ruby</a></div></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><aside id="related-posts" aria-labelledby="related-label"><h3 class="mb-4" id="related-label">Further Reading</h3><nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4"><article class="col"> <a href="/posts/avplayer-%E9%82%8A%E6%92%AD%E9%82%8A-cache-%E5%AF%A6%E6%88%B0-ee47f8f1e2d2/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1609856872" data-df="ll" > Jan 5, 2021 </time><h4 class="pt-0 my-2">AVPlayer 邊播邊 Cache 實戰</h4><div class="text-muted"><p>AVPlayer/AVQueuePlayer with AVURLAsset 實作 AVAssetResourceLoaderDelegate 達成邊播放音樂/影片邊緩存</p></div></div></a></article><article class="col"> <a href="/posts/en/avplayer-streaming-and-caching-practical-guide-ee47f8f1e2d2/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1609856872" data-df="ll" > Jan 5, 2021 </time><h4 class="pt-0 my-2">AVPlayer Streaming and Caching Practical Guide</h4><div class="text-muted"><p>Implementing AVPlayer/AVQueuePlayer with AVURLAsset and AVAssetResourceLoaderDelegate to achieve music/video streaming while caching.</p></div></div></a></article><article class="col"> <a href="/posts/zrealm-life/apple-watch-series-4-%E5%BE%9E%E5%85%A5%E6%89%8B%E5%88%B0%E4%B8%8A%E6%89%8B%E5%85%A8%E6%96%B9%E4%BD%8D%E5%BF%83%E5%BE%97-a2920e33e73e/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1543241921" data-df="ll" > Nov 26, 2018 </time><h4 class="pt-0 my-2">Apple Watch Series 4 從入手到上手全方位心得</h4><div class="text-muted"><p>為什麼要買？好用嗎？哪裡好用？怎麼用？&amp; WatchOS APP推薦</p></div></div></a></article></nav></aside><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/posts/zrealm-life/apple-watch-series-4-%E5%BE%9E%E5%85%A5%E6%89%8B%E5%88%B0%E4%B8%8A%E6%89%8B%E5%85%A8%E6%96%B9%E4%BD%8D%E5%BF%83%E5%BE%97-a2920e33e73e/" class="btn btn-outline-primary" aria-label="Older" ><p>Apple Watch Series 4 從入手到上手全方位心得</p></a> <a href="/posts/zrealm-dev/ios-tintadjustmentmode-%E5%B1%AC%E6%80%A7-6012b7b4f612/" class="btn btn-outline-primary" aria-label="Newer" ><p>iOS tintAdjustmentMode 屬性</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2025</time> <a href="https://medium.com/@zhgchgli">ZhgChgLi</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author." >All rights reserved.</span></p><p>Using the <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.2.4" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a> theme for <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>. <br/> All Medium articles were converted using <a href="https://github.com/ZhgChgLi/ZMediumToMarkdown" target="_blank">ZMediumToMarkdown.</a><br/>Last updated: 2025-08-15 00:58:04 +08:00</p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/ios-app-development/">ios-app-development</a> <a class="post-tag btn btn-outline-primary" href="/tags/ios/">ios</a> <a class="post-tag btn btn-outline-primary" href="/tags/swift/">swift</a> <a class="post-tag btn btn-outline-primary" href="/tags/%E7%94%9F%E6%B4%BB/">生活</a> <a class="post-tag btn btn-outline-primary" href="/tags/medium/">medium</a> <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a> <a class="post-tag btn btn-outline-primary" href="/tags/google-apps-script/">google-apps-script</a> <a class="post-tag btn btn-outline-primary" href="/tags/github/">github</a> <a class="post-tag btn btn-outline-primary" href="/tags/jekyll/">jekyll</a> <a class="post-tag btn btn-outline-primary" href="/tags/ruby/">ruby</a></div></section></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="toast-header"> <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close" ></button></div><div class="toast-body text-center pt-0"><p class="px-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></aside><script> (function () { const themeMapper = Theme.getThemeMapper('light', 'dark_dimmed'); const initTheme = themeMapper[Theme.visualState]; let lang = 'en';if (lang.length > 2 && !lang.startsWith('zh')) { lang = lang.slice(0, 2); } let giscusAttributes = { src: 'https://giscus.app/client.js', 'data-repo': 'ZhgChgLi/zhgchgli.github.io', 'data-repo-id': 'R_kgDOHdowLw', 'data-category': 'Q&A', 'data-category-id': 'DIC_kwDOHdowL84CU-q6', 'data-mapping': 'url', 'data-strict' : '0', 'data-reactions-enabled': '1', 'data-emit-metadata': '0', 'data-theme': initTheme, 'data-input-position': 'bottom', 'data-lang': lang, 'data-loading': 'lazy', crossorigin: 'anonymous', async: '' }; let giscusNode = document.createElement('script'); Object.entries(giscusAttributes).forEach(([key, value]) => giscusNode.setAttribute(key, value) ); const $footer = document.querySelector('footer'); $footer.insertAdjacentElement("beforebegin", giscusNode); addEventListener('message', (event) => { if (event.source === window && event.data && event.data.id === Theme.ID) { const newTheme = themeMapper[Theme.visualState]; const message = { setConfig: { theme: newTheme } }; const giscus = document.getElementsByClassName('giscus-frame')[0].contentWindow; giscus.postMessage({ giscus: message }, 'https://giscus.app'); } }); })(); </script> <script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{snippet}</p></article>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>
