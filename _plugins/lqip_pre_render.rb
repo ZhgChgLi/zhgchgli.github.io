@@ -30,18 +30,19 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
         img_path = "#{dirname}/#{basename}.webp"
     end
 
+    height = 500
+    width = 500
+
     info = LQIP_IMAGE_INFO[basename]
     if info
         height = info['height']
         width = info['width']
-
-        svg_content = %Q(<svg xmlns="http://www.w3.org/2000/svg" width="#{width}" height="#{height}"><rect width="100%" height="100%" fill="grey"/></svg>)
-        base64_string = Base64.strict_encode64(svg_content.encode("UTF-8"))
-
-        "![#{alt_text}](#{img_path}){: lqip=\"data:image/svg+xml;base64,#{base64_string}\" }"
-    else
-        "![#{alt_text}](#{img_path})"
     end
+
+    svg_content = %Q(<svg xmlns="http://www.w3.org/2000/svg" width="#{width}" height="#{height}"><rect width="100%" height="100%" fill="grey"/></svg>)
+    base64_string = Base64.strict_encode64(svg_content.encode("UTF-8"))
+
+    "![#{alt_text}](#{img_path}){: lqip=\"data:image/svg+xml;base64,#{base64_string}\" }"
   end
 
   if doc.data['image'] && doc.data['image']['path']
@@ -55,15 +56,20 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
         img_path = "#{dirname}/#{basename}.webp"
         doc.data['image']['path'] = img_path
     end
+
+
+    height = 200
+    width = 360
     info = LQIP_IMAGE_INFO[basename]
     if info
         height = info['height']
         width = info['width']
-
-        svg_content = %Q(<svg xmlns="http://www.w3.org/2000/svg" width="#{width}" height="#{height}"><rect width="100%" height="100%" fill="grey"/></svg>)
-        base64_string = Base64.strict_encode64(svg_content.encode("UTF-8"))
-
-        doc.data['image']['lqip'] = "data:image/svg+xml;base64,#{base64_string}"
     end
+
+    svg_content = %Q(<svg xmlns="http://www.w3.org/2000/svg" width="#{width}" height="#{height}"><rect width="100%" height="100%" fill="grey"/></svg>)
+    base64_string = Base64.strict_encode64(svg_content.encode("UTF-8"))
+
+    doc.data['image']['lqip'] = "data:image/svg+xml;base64,#{base64_string}"
+    
   end
 end
