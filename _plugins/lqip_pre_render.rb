@@ -1,22 +1,35 @@
-# Jekyll::Hooks.register :documents, :pre_render do |doc|
-#   next unless doc.extname == '.md'
+require 'json'
 
-#   doc.content = doc.content.gsub(/!\[(.*?)\]\((\/assets\/.*?)\)/) do
-#     alt_text = Regexp.last_match(1)
-#     img_path = Regexp.last_match(2)
+# 預讀 JSON 資料
+LQIP_IMAGE_INFO = begin
+  json_path = File.expand_path("../assets/lqip/lqip_images.json", __dir__)
+  if File.exist?(json_path)
+    JSON.parse(File.read(json_path))
+  else
+    {}
+  end
+end
 
-#     next Regexp.last_match(0) unless img_path =~ /\.(jpg|jpeg|png|gif|webp)$/i
-#     next Regexp.last_match(0) if img_path.include?('/lqip/') # 排除已是 lqip 圖片
+Jekyll::Hooks.register :documents, :pre_render do |doc|
+  next unless doc.extname == '.md'
 
-#     # 將 /assets/ 替換為 /assets/lqip/
-#     lqip_path = img_path.sub(%r{^/assets/}, '/assets/lqip/').sub(/\.(jpg|jpeg|png|gif|webp)$/i, '.jpg')
-    
-#     # 回傳帶有 {: lqip="..." } 的語法
-#     "![#{alt_text}](#{img_path}){: lqip=\"#{lqip_path}\" }"
-#   end
+  doc.content = doc.content.gsub(/!\[(.*?)\]\((\/assets\/.*?)\)/) do
+    alt_text = Regexp.last_match(1)
+    img_path = Regexp.last_match(2)
 
-#   if doc.data['image'] && doc.data['image']['path']
-#     doc_lqip_path = doc.data['image']['path'].sub(%r{^/assets/}, '/assets/lqip/').sub(/\.(jpg|jpeg|png|gif|webp)$/i, '.jpg')
-#     doc.data['image']['lqip'] = doc_lqip_path
-#   end
-# end
+    next Regexp.last_match(0) unless img_path =~ /\.(jpg|jpeg|png|gif|webp)$/i
+    next Regexp.last_match(0) if img_path.include?('/lqip/') # 排除已是 lqip 圖片
+
+    filename = File.basename(img_path)
+    height = LQIP_IMAGE_INFO[filename]
+
+    # 確認對應的 placeimage 存在
+    lqip_path = File.expand_path("../assets/lqip/#{height}.svg", __dir__)
+    if height && File.exist?(lqip_path)
+      puts lqip_path
+      "![#{alt_text}](#{img_path}){: lqip=\"/assets/lqip/#{height}.svg\" }"
+    else
+      "![#{alt_text}](#{img_path})"
+    end
+  end
+end
