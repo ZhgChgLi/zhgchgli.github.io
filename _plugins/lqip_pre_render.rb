@@ -25,7 +25,7 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
     
     basename = File.basename(img_path, ".*")
     if File.exist?(File.expand_path("../assets/lqip/#{basename}.webp", __dir__)) && !img_path.end_with?(".gif")
-        img_path = "./assets/lqip/#{basename}.webp"
+        img_path = "assets/lqip/#{basename}.webp"
     end
 
     info = LQIP_IMAGE_INFO[filename]
