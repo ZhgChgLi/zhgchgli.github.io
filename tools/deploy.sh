@@ -105,14 +105,19 @@ deploy() {
   git config --global user.name "GitHub Actions"
   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
   git update-ref -d HEAD
-  git add -A
-  git commit -m "[Automation] Site update No.${GITHUB_RUN_NUMBER}"
 
-  if $_no_pages_branch; then
-    git push -u origin "$PAGES_BRANCH"
-  else
-    git push -f
-  fi
+
+  git add -N . # 將所有變動標記為已追蹤但未加入 staging
+  for file in $(git diff --name-only); do
+    git add "$file"
+    git commit -m "[Automation] Site update No.${GITHUB_RUN_NUMBER} - Add $file"
+
+    if $_no_pages_branch; then
+      git push -u origin "$PAGES_BRANCH"
+    else
+      git push -f
+    fi
+  done
 }
 
 main() {
