@@ -69,9 +69,6 @@ GEM
       jekyll (>= 3.6, < 5.0)
     jekyll-include-cache (0.2.1)
       jekyll (>= 3.7, < 5.0)
-    jekyll-loading-lazy (0.1.1)
-      jekyll (>= 3.0, < 5.0)
-      nokogiri (>= 1.10, < 2.0)
     jekyll-paginate (1.1.0)
     jekyll-redirect-from (0.16.0)
       jekyll (>= 3.3, < 5.0)
@@ -144,7 +141,6 @@ PLATFORMS
 
 DEPENDENCIES
   html-proofer (~> 5.0)
-  jekyll-loading-lazy (~> 0.1)
   jekyll-redirect-from (~> 0.16)
   jekyll-theme-chirpy (~> 7.2, >= 7.2.4)
   tzinfo (>= 1, < 3)

@@ -256,5 +256,4 @@ jekyll-archives:
     category: /categories/:name/
 
 plugins:
-  - jekyll-loading-lazy
   - jekyll-redirect-from
