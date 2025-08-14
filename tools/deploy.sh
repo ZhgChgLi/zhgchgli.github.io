@@ -106,18 +106,54 @@ deploy() {
   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
   git update-ref -d HEAD
 
+  # git add -A
+  # git commit -m "[Automation] Site update No.${GITHUB_RUN_NUMBER}"
 
-  git add -N . # 將所有變動標記為已追蹤但未加入 staging
-  for file in $(git diff --name-only); do
-    git add "$file"
-    git commit -m "[Automation] Site update No.${GITHUB_RUN_NUMBER} - Add $file"
+  BATCH_SIZE=20
+  COUNT=0
+  FILES=()
 
-    if $_no_pages_branch; then
-      git push -u origin "$PAGES_BRANCH"
-    else
-      git push -f
+  git add -N .  # 標記變動，但不加入 staging
+
+  # 遍歷變動檔案
+  git diff --name-only | while read -r file; do
+    [ -e "$file" ] || continue  # 檔案可能被刪除，略過
+
+    FILES+=("$file")
+    ((COUNT++))
+
+    # 滿一批就 commit
+    if (( COUNT >= BATCH_SIZE )); then
+      for f in "${FILES[@]}"; do
+        git add "$f"
+      done
+
+      if ! git diff --cached --quiet; then
+        git commit -m "[Automation] Site update No.${GITHUB_RUN_NUMBER} - Batch commit of $COUNT files"
+      fi
+
+      FILES=()
+      COUNT=0
     fi
   done
+
+  # 處理最後一批不足 BATCH_SIZE 的
+  if (( COUNT > 0 )); then
+    for f in "${FILES[@]}"; do
+      git add "$f"
+    done
+
+    if ! git diff --cached --quiet; then
+      git commit -m "Final batch commit of $COUNT files"
+    fi
+  fi
+
+
+  if $_no_pages_branch; then
+    git push -u origin "$PAGES_BRANCH"
+  else
+    git push -f
+  fi
 }
 
 main() {
