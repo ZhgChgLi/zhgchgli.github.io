@@ -105,7 +105,7 @@ deploy() {
   git config --global user.name "GitHub Actions"
   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-  git update-ref -d HEAD
+  # git update-ref -d HEAD
   git add -A
   git commit -m "[Automation] Site update No.${GITHUB_RUN_NUMBER}"
 
