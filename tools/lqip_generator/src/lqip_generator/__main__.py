@@ -37,6 +37,7 @@ def generate_lqip_images(root_dir='../../assets', output_subdir='lqip', blur_rad
                     elif filename.lower().endswith(('.gif')):
                         print(f"✅ [{dirpath}][{index + 1}/{len(filenames)}] Skip GIF: {webp_path}")
                     else:
+                        os.remove(input_path)
                         img.thumbnail((1200, 1200), Image.LANCZOS)
                         img.save(webp_path, format="WEBP", quality=80, method=6, optimize=True)
                         print(f"✅ [{dirpath}]{index + 1}/{len(filenames)}] 已轉換: {webp_path}")
