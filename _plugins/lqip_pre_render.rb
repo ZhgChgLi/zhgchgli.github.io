@@ -1,4 +1,5 @@
 require 'json'
+require "base64"
 
 # 預讀 JSON 資料
 LQIP_IMAGE_INFO = begin
@@ -21,15 +22,42 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
     next Regexp.last_match(0) if img_path.include?('/lqip/') # 排除已是 lqip 圖片
 
     filename = File.basename(img_path)
-    height = LQIP_IMAGE_INFO[filename]
+    
+    basename = File.basename(img_path, ".*")
+    if File.exist?(File.expand_path("../assets/lqip/#{basename}.webp", __dir__)) && !img_path.end_with?(".gif")
+        img_path = "./assets/lqip/#{basename}.webp"
+    end
 
-    # 確認對應的 placeimage 存在
-    lqip_path = File.expand_path("../assets/lqip/#{height}.svg", __dir__)
-    if height && File.exist?(lqip_path)
-      puts lqip_path
-      "![#{alt_text}](#{img_path}){: lqip=\"/assets/lqip/#{height}.svg\" }"
+    info = LQIP_IMAGE_INFO[filename]
+    if info
+        height = info['height']
+        width = info['width']
+
+        svg_content = %Q(<svg xmlns="http://www.w3.org/2000/svg" width="#{width}" height="#{height}"><rect width="100%" height="100%" fill="grey"/></svg>)
+        base64_string = Base64.strict_encode64(svg_content.encode("UTF-8"))
+
+        "![#{alt_text}](#{img_path}){: lqip=\"data:image/svg+xml;base64,#{base64_string}\" }"
     else
-      "![#{alt_text}](#{img_path})"
+        "![#{alt_text}](#{img_path})"
+    end
+  end
+
+  if doc.data['image'] && doc.data['image']['path']
+    filename = File.basename(doc.data['image']['path'])
+    basename = File.basename(doc.data['image']['path'], ".*")
+    if File.exist?(File.expand_path("../assets/lqip/#{basename}.webp", __dir__))
+        img_path = "./assets/lqip/#{basename}.webp"
+        doc.data['image']['path'] = img_path
+    end
+    info = LQIP_IMAGE_INFO[filename]
+    if info
+        height = info['height']
+        width = info['width']
+
+        svg_content = %Q(<svg xmlns="http://www.w3.org/2000/svg" width="#{width}" height="#{height}"><rect width="100%" height="100%" fill="grey"/></svg>)
+        base64_string = Base64.strict_encode64(svg_content.encode("UTF-8"))
+
+        doc.data['image']['lqip'] = "data:image/svg+xml;base64,#{base64_string}"
     end
   end
 end

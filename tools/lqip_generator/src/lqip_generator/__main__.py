@@ -1,6 +1,6 @@
 import os
 import json
-from PIL import Image, ImageDraw
+from PIL import Image
 
 def generate_lqip_images(root_dir='../../assets', output_subdir='lqip', blur_radius=8, jpeg_quality=10):
     output_path_root = os.path.abspath(os.path.join(root_dir, output_subdir))
@@ -18,40 +18,39 @@ def generate_lqip_images(root_dir='../../assets', output_subdir='lqip', blur_rad
         ):
             continue
 
-        for filename in filenames:
-            if not filename.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.webp')):
+        for index, filename in enumerate(filenames):
+            if not filename.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
                 continue
             
             input_path = os.path.join(dirpath, filename)
+
             try:
                 with Image.open(input_path) as img:
+                    output_file_path = os.path.join(output_path_root, os.path.splitext(filename)[0] + ".webp")
+                    if os.path.exists(output_file_path):
+                        print(f"✅ [{dirpath}][{index + 1}/{len(filenames)}] 已存在: {output_file_path}")
+                    elif filename.lower().endswith(('.gif')):
+                        print(f"✅ [{dirpath}][{index + 1}/{len(filenames)}] Skip GIF: {output_file_path}")
+                    else:
+                        img.thumbnail((1200, 1200), Image.LANCZOS)
+                        img.save(output_file_path, format="WEBP", quality=80, method=6, optimize=True)
+                        print(f"✅ [{dirpath}]{index + 1}/{len(filenames)}] 已轉換: {output_file_path}")
+
                     width, height = img.size
-                    records[filename] = height
-                    makeImageIfNeeded(height, output_path_root)
+
+                    records[filename] = {
+                        "width": width,
+                        "height": height
+                    }
 
             except Exception as e:
                 print(f"❌ Failed: {input_path} - {e}")
 
     json_output_path = os.path.join(output_path_root, "lqip_images.json")
     with open(json_output_path, "w", encoding="utf-8") as f:
-        json.dump(records, f, indent=2, ensure_ascii=False)
+        json.dump(records, f, ensure_ascii=False, separators=(',', ':'))
 
     print(f"📄 已寫入 JSON 記錄: {json_output_path}")
-
-def makeImageIfNeeded(height, output_path_root):
-    width = 600  # 預設寬度
-    output_path = os.path.join(output_path_root, str(height) + '.svg')
-
-    if os.path.exists(output_path):
-        print(f"✅ 已存在: {output_path}")
-        return
-
-    svg_content = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}"><rect width="100%" height="100%" fill="grey"/></svg>'''
-
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write(svg_content)
-
-    print(f"✅ 圖片產生成功: {output_path}")
 
 if __name__ == '__main__':
     generate_lqip_images()
