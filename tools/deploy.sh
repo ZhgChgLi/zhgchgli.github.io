@@ -116,7 +116,7 @@ deploy() {
   git add -N .  # 標記變動，但不加入 staging
 
   # 遍歷變動檔案
-  git diff --name-only | while read -r file; do
+  while read -r file; do
     [ -e "$file" ] || continue  # 檔案可能被刪除，略過
 
     FILES+=("$file")
@@ -135,7 +135,7 @@ deploy() {
       FILES=()
       COUNT=0
     fi
-  done
+  done < <(git diff --name-only)
 
   # 處理最後一批不足 BATCH_SIZE 的
   if (( COUNT > 0 )); then
