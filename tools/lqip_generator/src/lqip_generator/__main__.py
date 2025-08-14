@@ -23,7 +23,7 @@ def generate_lqip_images(root_dir='../../assets', output_subdir='lqip', blur_rad
             continue
 
         for index, filename in enumerate(filenames):
-            if not filename.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
+            if not filename.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.webp')):
                 continue
             
             input_path = os.path.join(dirpath, filename)
@@ -33,7 +33,6 @@ def generate_lqip_images(root_dir='../../assets', output_subdir='lqip', blur_rad
                     
                     webp_path = os.path.join(dirpath, os.path.splitext(filename)[0] + ".webp")
                     if os.path.exists(webp_path):
-                        os.remove(input_path)
                         print(f"✅ [{dirpath}][{index + 1}/{len(filenames)}] 已存在: {webp_path}")
                     elif filename.lower().endswith(('.gif')):
                         print(f"✅ [{dirpath}][{index + 1}/{len(filenames)}] Skip GIF: {webp_path}")
