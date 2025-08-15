@@ -117,7 +117,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   [Improve this page on Github.](https://github.com/ZhgChgLi/zhgchgli.github.io/blob/main/#{postPath}){:target=\"_blank\"}\r\n
   HTML
 
-  if post.data['categories'].any? { |category| category.match(/(遊記|travel)/) }
+  if post.data['categories'].any? { |category| category.match(/(遊記|travel)/i) }
     if isEnglishPost
   footerHTML += <<-HTML
   <a href="https://www.kkday.com/zh-tw?cid=19365" target="_blank">If you found this article helpful, feel free to use my referral link to purchase KKday products and tours. I’ll receive a small commission to support more travel content. Thank you!</a>
@@ -137,8 +137,17 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   footerHTML += <<-HTML
   <a href="https://www.buymeacoffee.com/zhgchgli" target="_blank" style="display:block !important;"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&emoji=🍺&slug=zhgchgli&button_colour=FFDD00&font_colour=000000&font_family=Bree&outline_colour=000000&coffee_colour=ffffff" alt="Buy me a beer"/></a>
   <widgetic id="64ce71d5ecb2a165598b4567" resize="fill-width" height="50" autoscale="on"></widgetic><script async src="https://widgetic.com/sdk/sdk.js"></script>
+  HTML
+
+  unless post.data['categories'].any? { |category| category.match(/(遊記|travel|life)/i) }
+  footerHTML += <<-HTML
   <div onclick="this.style.position='';" style="text-align: center; position: -webkit-sticky; position: sticky; bottom: 0; z-index: 1; margin: 0 -1rem; padding: 5px; background: var(--main-bg); border-bottom: 1px solid var(--main-border-color);transition: all .2s ease-in-out;"><a href="#{$medium_url}" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:10px 20px;font-size:16px;font-weight:bold;color:#ffffff;background-color:#00ab6c;border-radius:5px;text-decoration:none;box-shadow:0 4px 6px rgba(0,0,0,0.1);transition:all 0.3s ease;cursor:pointer;" onmouseover="this.style.backgroundColor='#008f5a';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 10px rgba(0,0,0,0.15)';" onmouseout="this.style.backgroundColor='#00ab6c';this.style.transform='translateY(0)';this.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';">Follow Me on Medium <span style="font-size:14px;color:rgba(255,255,255,0.9);font-weight:normal;opacity:0.9;">#{$medium_followers}+ Followers</span></a></div>
   HTML
+  else
+  footerHTML += <<-HTML
+  <div style="text-align: center; margin: 0 -1rem; padding: 5px; background: var(--main-bg); border-bottom: 1px solid var(--main-border-color);transition: all .2s ease-in-out;"><a href="#{$medium_url}" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:10px 20px;font-size:16px;font-weight:bold;color:#ffffff;background-color:#00ab6c;border-radius:5px;text-decoration:none;box-shadow:0 4px 6px rgba(0,0,0,0.1);transition:all 0.3s ease;cursor:pointer;" onmouseover="this.style.backgroundColor='#008f5a';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 10px rgba(0,0,0,0.15)';" onmouseout="this.style.backgroundColor='#00ab6c';this.style.transform='translateY(0)';this.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';">Follow Me on Medium <span style="font-size:14px;color:rgba(255,255,255,0.9);font-weight:normal;opacity:0.9;">#{$medium_followers}+ Followers</span></a></div>
+  HTML
+  end
 
   if mediumCount > 0 || zhgchgliCount > 0
     totalCount = mediumCount + zhgchgliCount
