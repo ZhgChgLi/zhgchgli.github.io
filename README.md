@@ -1,4 +1,4 @@
-# [Medium To Jekyll Starter](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io) (based on Chirpy Starter and ZMediumToMarkdown)
+# [Medium To Jekyll Starter](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io) (based on Chirpy Starter and ZMediumToMarkdown)!
 
 This project enables you to effortlessly and quickly create a mirrored content site for your Medium blog.
 
