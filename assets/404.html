@@ -13,7 +13,7 @@ const segments = window.location.pathname.split('/').filter(Boolean);
 if (segments.length >= 2) {
     const lastSegment = segments.pop();
     const lastPath = lastSegment.split("-").filter(Boolean).pop();
-    if (segments[0] == "posts" && lastPath != lastSegment && lastPath.match(/([a-f0-9]+)$/i)) {
+    if (segments[0] == "posts" && lastPath != lastSegment && lastPath.match(/^([a-f0-9]+)$/i)) {
         const isEn = segments.includes("en");
         if(isEn) {
             location.replace("/posts/en/"+lastPath);
