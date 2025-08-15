@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Run SEO Content AI Generator
-        uses: AlphaGit/jekyll-seo-ai-action@v1
+        uses: AlphaGit/jekyll-seo-ai-action@v1.0
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
