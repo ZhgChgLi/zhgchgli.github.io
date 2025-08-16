@@ -38,18 +38,38 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
     link_text = Regexp.last_match(1)  # 方括號內的文字
     link_path = Regexp.last_match(2)  # 小括號內的路徑
 
-    pre_url = "/posts"
+    lang_url = ""
+    lang = "zh-tw"
     if doc.path =~ %r{/_posts/en/}
-        pre_url = "/posts/en"
+        lang_url = "/en"
+        lang = "en"
     elsif doc.path =~ %r{/_posts/zh-cn/}
-        pre_url = "/posts/cn"
+        lang_url = "/cn"
+        lang = "zh-cn"
     end
 
     # 只處理 ../ 開頭
     next Regexp.last_match(0) unless link_path.start_with?('../')
 
-    new_path = link_path.sub(%r{^\.\./}, "#{pre_url}/")
+    result = "[#{link_text}](#{link_path.sub(%r{^\.\./}, "/posts#{lang_url}/")})"
 
-    "[#{link_text}](#{new_path})"
+    post_id = link_path.gsub(%r{\A\.*\/|\/\z}, '')
+    matched = Dir.glob("./_posts/#{lang}/**/*-#{post_id}.md").first
+    if matched
+      raw = File.read(matched, encoding: "UTF-8")
+
+      if raw =~ /\A---\s*\n(.*?)\n---\s*\n/m
+        other_data = YAML.safe_load($1, permitted_classes: [Time, Date, DateTime]) || {}
+        post_title = Jekyll::Utils.slugify(other_data['title'])
+        post_category = Jekyll::Utils.slugify(Array(other_data['categories']).first)
+
+        # /posts/:slugified_categories/en/:slug/
+        result = "[#{link_text}](/posts/#{post_category}#{lang_url}/#{post_title}-#{post_id}/)"
+      end
+    end
+
+    puts result
+
+    result
     end
 end
