@@ -67,9 +67,6 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
         result = "[#{link_text}](/posts/#{post_category}#{lang_url}/#{post_title}-#{post_id}/)"
       end
     end
-
-    puts result
-
     result
     end
 end
