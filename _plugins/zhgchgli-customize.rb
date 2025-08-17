@@ -81,9 +81,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
 
   if isEnglishPost && chinesePostPath
   headerHTML += <<-HTML
-  \n\n---\n\n
-### ℹ️ℹ️ℹ️ The following content is translated by OpenAI.\n
-#### [Click here](/posts/#{slug}/) to view the original Chinese version. | [點此查看本文中文版](/posts/#{slug}/)\n
+  The following content is translated by OpenAI, [**Click here**](/posts/#{slug}/) to view the original Chinese version. | [**點此查看本文中文版**](/posts/#{slug}/)\n
   \n\n---\n\n
   HTML
   end
@@ -91,8 +89,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
 
   if isChinesePost && englishPostPath
   headerHTML += <<-HTML
-  \n\n---\n\n
-### ℹ️ℹ️ℹ️ [Click here](/posts/en/#{slug}/) to view the English version of this article, translated by OpenAI.\n
+  [**Click here**](/posts/en/#{slug}/) to view the English version of this article, translated by OpenAI.\n
   \n\n---\n\n
   HTML
   end

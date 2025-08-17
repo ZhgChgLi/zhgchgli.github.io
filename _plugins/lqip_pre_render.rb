@@ -11,8 +11,25 @@ LQIP_IMAGE_INFO = begin
   end
 end
 
+SEO_INFO = begin
+  json_path = File.expand_path("../assets/seo_results.json", __dir__)
+  if File.exist?(json_path)
+    JSON.parse(File.read(json_path))
+  else
+    {}
+  end
+end
+
+
 Jekyll::Hooks.register :documents, :pre_render do |doc|
   next unless doc.extname == '.md'
+
+  mdname = File.basename(doc.path, ".*")
+  seo = SEO_INFO[mdname]
+  if seo
+    doc.data['title'] = seo['title'] if seo['title']
+    doc.data['description'] = seo['description'] if seo['description']
+  end
 
   doc.content = doc.content.gsub(/!\[(.*?)\]\((\/assets\/.*?)\)/) do
     alt_text = Regexp.last_match(1)

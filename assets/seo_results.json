@@ -1,0 +1,466 @@
+{
+  "2024-06-20-cb65fd5ab770": {
+    "title": "2024九州自由行攻略：釜山郵輪入境、九州必訪景點與實用行程技巧",
+    "description": "深入介紹2024九州11日自由行，包括釜山郵輪入境、福岡、由布院、大分、別府、唐津等熱門景點，提供詳細交通、住宿、預訂攻略與旅遊心得，助你輕鬆規劃完美行程。"
+  },
+  "2021-01-31-6ce488898003": {
+    "title": "iOS AVPlayer本地Cache實作全攻略：資源管理與範圍請求技巧",
+    "description": "深入介紹AVPlayer結合AVAssetResourceLoaderDelegate實現本地音訊緩存策略，涵蓋HTTP Range請求、資源管理、Cache清理及自訂Scheme，提升播放效率與流量節省，適用iOS音樂串流應用開發。"
+  },
+  "2024-08-20-7584f643c0aa": {
+    "title": "iOS模擬器黑屏卡死問題暫時解決方案：使用自動重啟腳本避免黑屏Bug",
+    "description": "本文提供iOS模擬器在多次啟動後出現黑屏卡死的臨時解決方案，包括使用Shell腳本自動重啟模擬器，提升Xcode Build & Run效率，適用於Xcode 14及以上版本，幫助開發者快速排除黑屏問題。"
+  },
+  "2021-11-21-793cb8f89b72": {
+    "title": "利用Crashlytics與Google Analytics自動追蹤App Crash-Free Users Rate提升數據準確性",
+    "description": "本文介紹如何結合Crashlytics、Google Analytics與Google Apps Script，實現App Crash-Free Users Rate的自動查詢與資料填入Google Sheets，提升追蹤效率並避免人工錯誤，適用於iOS與Android平台。"
+  },
+  "2024-07-28-5033090c18ba": {
+    "title": "iOS WKWebView 頁面預載與緩存策略全面解析：提升載入速度與效能",
+    "description": "深入探討iOS WKWebView的預載與緩存技術，包括HTTP Cache優化、預載資源策略及實務應用，幫助開發者提升WebView載入速度並改善用戶體驗，符合SEO最佳實踐。"
+  },
+  "2025-01-18-5bb7d3a4954f": {
+    "title": "自動備份 Medium 文章到 Github Pages (Jekyll) 完整攻略與實作技巧",
+    "description": "深入介紹如何利用自訂工具將 Medium 文章自動轉存至 Github Pages 靜態網站，包含備份流程、Jekyll 客製化、升級策略與常見問題解決方案，打造永久數位記錄。"
+  },
+  "2024-08-10-cefdf4d41746": {
+    "title": "Medium Partner Program 全球開放，台灣寫作者也能加入獲利",
+    "description": "2024年8月，Medium正式對全球（含台灣）寫作者開放Partner Program，讓所有創作者都能透過文章獲取收益。了解申請流程、政策更新及加入條件，掌握最新內容創作趨勢。"
+  },
+  "2018-10-06-b7a3fb3d5531": {
+    "title": "重新啟動個人Blog：從經驗分享到生活紀錄的SEO策略分析",
+    "description": "本文分享作者從經營Blog的歷程、技術轉型，到內容策略的調整，如何透過SEO優化提升網站流量。深入探討內容規劃、關鍵字布局與技術應用，幫助站長打造高效能的個人品牌與內容平台。"
+  },
+  "2019-04-29-c5e7e580c341": {
+    "title": "iOS DeviceCheck API實作指南：一次性優惠與試用功能完整教學（Swift）",
+    "description": "深入介紹iOS DeviceCheck API的應用方法，教你如何利用2 bits儲存裝置狀態，實現一次性優惠或試用限制。包含完整流程、範例程式碼與後端整合技巧，提升App安全性與用戶體驗。"
+  },
+  "2019-09-20-46410aaada00": {
+    "title": "iOS與MacOS應用API安全：HTTPS傳輸仍被嗅探與防範策略解析",
+    "description": "本文深入探討如何利用mitmproxy進行中間人攻擊嗅探iOS與MacOS應用的API傳輸資料，並提供有效的安全防範措施，包括SSL Pinning與資料加密，幫助開發者提升應用資料安全性。"
+  },
+  "2020-02-01-a8c2d7ed144b": {
+    "title": "iOS擴大按鈕點擊範圍：自訂點擊區域的實用技巧與範例",
+    "description": "學會在iOS開發中重寫pointInside方法，透過擴展UIButton點擊範圍，提高UI互動體驗。本文提供Swift範例、擴充技巧，讓按鈕反應範圍更靈活，適用於Storyboard與程式碼。"
+  },
+  "2022-08-10-e36e48bb9265": {
+    "title": "ZReviewTender：免費開源App評價監控機器人，提升團隊協作與用戶滿意度",
+    "description": "ZReviewTender是一款免費開源的App評價監控工具，支持實時追蹤App Store與Google Play評價，整合Slack、Google Sheets等，提升評價管理效率，適合開發團隊自動化監控與回覆。"
+  },
+  "2025-04-03-6fd11e9704f2": {
+    "title": "經營Medium七年達成1,000追蹤者：自學成長與內容分享經驗分享",
+    "description": "本文分享作者在Medium經營七年的心路歷程，從自學到達成1,000追蹤者的里程碑，探討內容創作、SEO變化與持續成長的策略，適合內容創作者與開發者參考。"
+  },
+  "2020-12-17-c4d7c2ce5a8d": {
+    "title": "iOS APP版本號規範與比較技術解析｜語意化版本與實作範例指南",
+    "description": "深入探討iOS APP版本號規則、語意化版本標準、版本比較方法及實作範例，幫助開發者有效管理版本控制與升級策略，提升軟體版本管理效率。"
+  },
+  "2019-02-05-e85d77b05061": {
+    "title": "完整教學：從零開始開發 watchOS 5 Apple Watch App，UI設計與資料傳輸技巧",
+    "description": "掌握 watchOS 5 Apple Watch App 開發，涵蓋界面排版、Table操作、跳頁與資料傳遞，適合有iOS開發經驗的讀者，提供實用範例與進階技巧，提升你的Apple Watch應用開發能力！"
+  },
+  "2023-08-28-5a5c4b25a83d": {
+    "title": "POC應用：利用本地快照API模擬伺服器實現iOS App端到端測試",
+    "description": "本文探討如何透過建立本地快照API模擬伺服器，實現iOS應用的端到端測試，降低API資料依賴，提升測試穩定性，並介紹MITMProxy工具的實作範例，適用於持續整合與自動化測試策略。"
+  },
+  "2024-08-24-b7e7c0938985": {
+    "title": "2024曼谷五日自由行攻略：景點、美食、交通與安全須知",
+    "description": "詳細介紹2024年曼谷五日自由行行程安排、景點推薦、交通方式、網路準備與安全提醒，幫助旅客輕鬆規劃泰國曼谷之旅，享受安全又精彩的旅行體驗。"
+  },
+  "2020-01-12-94a4020edb82": {
+    "title": "米家APP與小愛音箱地區設定影響智慧家庭功能與設備連接問題解析",
+    "description": "探討米家APP與小愛音箱地區設定對智慧家庭連動、設備加入及場景控制的影響，提供解決方案與實用建議，助你優化小米智慧家庭體驗。"
+  },
+  "2025-07-02-404bd5c70040": {
+    "title": "GitHub Actions與Self-hosted Runner完整實戰指南：架設、配置與最佳應用技巧",
+    "description": "深入介紹GitHub Actions與Self-hosted Runner的架設、配置與應用，包含自動化流程建立、觸發事件設定、跨Repo共享與最佳實務，幫助開發團隊打造高效CI/CD自動化環境，提升開發效率與流程穩定性。"
+  },
+  "2025-07-10-4273e57e7148": {
+    "title": "利用 Google Apps Script Web App 搭建免費跨團隊CI/CD打包平台，串接 GitHub Actions與多API整合",
+    "description": "本文詳細介紹如何使用 Google Apps Script Web App 建立低成本的跨團隊CI/CD打包平台，串接GitHub Actions、Firebase、Slack、Jira等API，實現自動化流程、用戶友好界面與權限控管，提升團隊效率與資安安全。"
+  },
+  "2024-01-09-31b9b3a63abc": {
+    "title": "2023山陽廣島岡山6日自由行攻略：景點、美食與交通全攻略",
+    "description": "詳盡介紹2023年山陽地區廣島、岡山6日自由行行程規劃，包括必訪景點如嚴島神社、岡山城、倉敷美觀地區，交通、住宿、特色美食及購物推薦，讓你輕鬆規劃完美旅程。"
+  },
+  "2021-08-07-118e924a1477": {
+    "title": "Sidekick瀏覽器全面評測：支援擴充功能、提升生產力的Chromium核心新選擇",
+    "description": "深入介紹Sidekick瀏覽器的特色功能、轉移流程與隱私保護，助你無痛從Chrome轉換，提升工作效率。了解其無痛轉移、應用管理、分割視窗及同步方案，打造專屬高效瀏覽體驗。"
+  },
+  "2019-09-22-4079036c85c2": {
+    "title": "iPlayground 2019 精彩回顧：場地升級、國際講者、技術研習與人脈拓展",
+    "description": "深入分析iPlayground 2019活動內容，包括場地升級、國外專家演講、SwiftUI應用、APP安全議題及技術收穫，並分享參與者的人脈交流與軟性收穫，助你掌握最新iOS開發趨勢與實戰經驗。"
+  },
+  "2023-09-28-7b8a0563c157": {
+    "title": "名古屋一日快閃自由行攻略：搭乘樂桃航空、景點推薦與實用貼士",
+    "description": "深入了解2023年名古屋一日快閃自由行的完整攻略，包含樂桃航空優惠、行程安排、景點推薦如名古屋城、熱田神宮及大須商店街，並提供實用旅行貼士，助你輕鬆規劃短暫但精彩的日本旅行體驗。"
+  },
+  "2024-05-25-9d0f23784359": {
+    "title": "Plane.so：支援自架的開源專案管理工具，類似Asana/Jira的完整解決方案",
+    "description": "了解Plane.so這款免費開源且支援Self-Hosted的專案管理工具，涵蓋功能介紹、操作教學與Scrum工作流程範例，提升團隊協作效率，適合內部部署與敏捷開發需求。"
+  },
+  "2018-10-15-cb6eba52a342": {
+    "title": "iOS 10以上推播通知擴展（Swift實作圖片推播與統計功能）",
+    "description": "深入介紹iOS ≥ 10 Notification Service Extension的應用技巧，包括圖片推播、推播顯示統計及內容前處理，提供完整範例程式碼與實戰操作流程，提升推播效果與用戶體驗。"
+  },
+  "2020-06-25-cb00b1977537": {
+    "title": "深入解析Swift Codable解码困难场景：Null值处理与优化技巧",
+    "description": "本文详解Swift Codable在实际开发中遇到的解码问题，特别是Response Null值处理、区分未传递与null值的方法，以及避免重写init decoder的实用方案，提升数据同步与Core Data存取效率。"
+  },
+  "2018-10-18-1ca246e27273": {
+    "title": "iOS 3D Touch 功能完整教學：提升APP使用者體驗的實作技巧（Swift版）",
+    "description": "學習如何在iOS APP中加入3D Touch預覽與捷徑功能，提升用戶互動與操作效率。本文詳細介紹Swift實作範例，涵蓋預覽視窗、選單設置與iOS版本限制，幫助開發者打造更貼心的應用體驗。"
+  },
+  "2023-03-11-2724f02f6e7": {
+    "title": "深入剖析手工打造HTML解析器：轉換、標準化與渲染技術實錄",
+    "description": "本文詳解自製HTML解析器的技術架構，包括Tokenization、Normalization、抽象樹轉換與NSAttributedString渲染，提供高效、客製化的HTML轉換方案，適用iOS開發者提升文本渲染性能與擴展能力。"
+  },
+  "2023-08-01-382218e15697": {
+    "title": "打造免費 Github Repo Star Notifier：Google Apps Script 三步驟實現即時通知",
+    "description": "學會使用 Google Apps Script 搭配 Github Webhook，輕鬆建立自訂的 Github Repo Star 通知系統，支持 Line Notify，讓你即時掌握專案被點讚的動態，提升開源專案管理效率。"
+  },
+  "2018-10-17-793bf2cdda0f": {
+    "title": "iOS 12 CoreML應用指南：自訂模型訓練與文章分類預測實作技巧",
+    "description": "深入介紹iOS 12 CoreML 2.0，如何自我訓練文字分類模型，並將其應用於實務專案中，包括資料準備、模型轉換與程式範例，提升iOS機器學習開發效率。"
+  },
+  "2020-05-10-2e4429f410d6": {
+    "title": "用iPhone與iMovie輕鬆製作「偽」透視透明手機桌布教程",
+    "description": "學會利用iMovie綠幕摳圖功能，搭配簡單器材，在iPhone上快速打造逼真的透視透明手機桌布。完整步驟與實用技巧，讓你輕鬆創作個性化手機壁紙，提升生活趣味與創意。"
+  },
+  "2025-06-30-c008a9e8ceca": {
+    "title": "CI/CD實戰指南：打造高效穩定的iOS開發團隊與工具選擇策略",
+    "description": "深入解析CI/CD的核心概念與實務應用，透過GitHub Actions與自建Runner提升開發效率，並介紹Google Apps Script Web App打造跨團隊打包平台，幫助團隊實現自動化與流程優化，提升產品品質與團隊協作效率。"
+  },
+  "2021-06-13-d61062833c1a": {
+    "title": "利用Slack Workflow與Google Sheets打造全自動員工健康回報系統",
+    "description": "本文詳細介紹如何結合Slack Workflow、Google Sheets與Apps Script，實現員工每日健康狀況自動回報、未填提醒與資料管理，提升WFH環境的效率與準確性，適合企業自動化需求。"
+  },
+  "2022-07-16-a0c08d579ab1": {
+    "title": "如何無痛將 Medium 內容轉移至自架 Jekyll 靜態網站，提升控制與瀏覽體驗",
+    "description": "本文詳細介紹使用 GitHub Pages、Jekyll 和 Markdown 工具，無痛將 Medium 文章搬遷到自架網站，支援自訂樣式、域名與自動同步，打造掌控的個人博客平台。"
+  },
+  "2024-09-22-483af5d93297": {
+    "title": "Github Pages自訂網域完整教學：購買域名、設定流程與實戰技巧",
+    "description": "學會使用Namecheap購買並設定自訂網域，將Github Pages網站升級為專屬域名。本文詳細介紹域名購買、DNS設定、CNAME配置與部署步驟，讓你輕鬆打造專屬個人網站。"
+  },
+  "2021-02-20-70a1409b149a": {
+    "title": "Python與Google Cloud Platform打造自動簽到Line Bot實現每日任務",
+    "description": "學會利用Python、Google Cloud Functions與Cloud Scheduler，打造自動簽到Line Bot，實現每日任務自動化。本文詳細介紹API嗅探、腳本撰寫、部署到雲端及排程設定，讓你輕鬆掌握雲端自動化技術，提升工作效率。"
+  },
+  "2021-02-02-948ed34efa09": {
+    "title": "iOS跨平台帳號密碼整合技術：提升登入體驗與安全性",
+    "description": "本文詳細介紹iOS跨平台帳號密碼整合方案，包括Password AutoFill、Shared Web Credentials設定與實作，幫助開發者優化用戶登入流程，提升安全性與便利性，並提供完整範例與實務建議。"
+  },
+  "2019-07-24-729d7b6817a4": {
+    "title": "打造趣味工程CTF競賽：系統搭建與題目發想策略",
+    "description": "本文詳細介紹如何設計有趣的工程CTF競賽，包括系統架構、規則設定及題目發想，適合提升工程師技術交流與探索熱情。從系統搭建到題目範例，提供完整實作與創意題目策略，助你輕鬆舉辦初階趣味CTF活動。"
+  },
+  "2021-03-23-9659db1357e4": {
+    "title": "Firebase Firestore + Functions 快速建立測試用 API 服務與推播統計方案",
+    "description": "探索如何利用 Firebase Firestore 與 Cloud Functions 快速搭建測試API，實現推播通知精確統計，涵蓋安裝設定、範例程式碼與效能測試，適合開發者快速驗證概念。"
+  },
+  "2018-10-13-e37d66ea1146": {
+    "title": "iOS UITextView 文繞圖編輯器實作指南（Swift）|圖片插入、上傳與記憶體優化技巧",
+    "description": "深入探討使用Swift在iOS開發中打造支持多圖插入、文繞圖、圖片上傳與記憶體管理的UITextView編輯器，涵蓋XLYTextKitExtension應用、圖片重用與性能優化，提升文字與圖像混排效果。"
+  },
+  "2018-10-16-9a9aa892f9a9": {
+    "title": "iOS Vision框架人臉識別與自動裁剪實戰（Swift範例解析）",
+    "description": "深入介紹如何利用iOS Vision框架進行人臉偵測與裁圖，提供完整Swift範例，提升APP頭像上傳的智能化與裁剪準確度，適合iOS開發者學習應用。"
+  },
+  "2021-06-15-ba5773a7bfea": {
+    "title": "深入解析 iOS Swift 中的 Visitor 設計模式應用與實務範例",
+    "description": "本文詳細介紹 Visitor 模式在 iOS Swift 開發中的應用場景，透過分享功能範例展示如何降低耦合、提升擴展性，並提供實務架構優化方案，適合想掌握高效設計模式的開發者。"
+  },
+  "2020-07-02-8a04443024e2": {
+    "title": "iOS 14剪貼簿讀取隱私疑慮解析：原因、影響與解決方案",
+    "description": "深入探討iOS 14剪貼簿讀取的背景、影響範圍及用戶隱私保護措施，提供開發者應對策略與未來API改進方向，保障用戶隱私與提升App安全性。"
+  },
+  "2024-09-20-9e43897d99fc": {
+    "title": "iOS 18 NSAttributedString範圍合併行為變更：多了對Equatable的參考影響",
+    "description": "深入解析iOS 18對NSAttributedString範圍合併行為的調整，特別是新增對Equatable的參考，導致範圍合併差異與潛在閃退問題，揭示底層實作與開發者應對策略。"
+  },
+  "2020-06-17-724a7fb9a364": {
+    "title": "Google Site 個人網站建置指南：優缺點分析與實用設定技巧",
+    "description": "本文詳細介紹2020年Google Site建站經驗，分析其優缺點，涵蓋域名綁定、SEO結構、內容嵌入等實用技巧，幫助用戶打造輕量、易用且支持自訂域名的個人網站，適合學校社團、小活動或個人履歷使用。"
+  },
+  "2025-07-07-4b001d2e8440": {
+    "title": "GitHub Actions 完整實作 iOS App CI/CD流程：自動建置、測試與部署到Firebase與Testflight",
+    "description": "深入教學如何利用 GitHub Actions 建立完整的 iOS App CI/CD流程，包括自動化建置、測試、簽署與部署到Firebase App Distribution與Testflight，提升團隊開發效率與產品品質。"
+  },
+  "2023-07-09-9da2c51fa4f2": {
+    "title": "2023東京五日自由行完整攻略：景點、美食與住宿推薦",
+    "description": "詳細分享2023東京五日自由行行程攻略，包括景點安排、必玩景點、特色美食與便捷住宿選擇，適合規劃東京旅遊的旅客，提供實用資訊與貼心建議，讓你的日本東京之旅更加順利愉快。"
+  },
+  "2018-11-26-a2920e33e73e": {
+    "title": "Apple Watch Series 4 完整開箱與使用心得：尺寸選擇、材質比較與實用APP推薦",
+    "description": "深入分析Apple Watch Series 4的尺寸、材質、功能與實用APP，提供購買建議與使用心得，幫助你了解這款智能手錶的優缺點，提升生活與健康管理效率。"
+  },
+  "2024-09-06-f4b02ee342a4": {
+    "title": "深入探討WKWebView的設計模式應用：Builder、策略與責任鏈實戰範例",
+    "description": "本文詳細解析在iOS WKWebView封裝中運用Builder、策略(Strategy)與責任鏈(Chain of Responsibility)模式的實務經驗，提供優化流程與擴展性的最佳實踐方案，適合開發者提升WebView管理效率。"
+  },
+  "2024-10-12-6922e90ba90c": {
+    "title": "快速教學：將Line Notify通知無縫轉換為Telegram Bot，提升通知彈性與互動性",
+    "description": "本篇文章詳細介紹如何在10分鐘內將Line Notify通知服務遷移到功能更豐富的Telegram Bot，包括設定流程、Google Apps Script整合範例，以及多頻道通知與指令交互實作，讓通知系統更靈活、互動性更強，適合開發者與自動化愛好者。"
+  },
+  "2022-07-15-48a8526c1300": {
+    "title": "iOS 多語系字串檢查與管理：使用 SwiftGen 和 UnitTest確保Localizable.strings安全",
+    "description": "本文介紹如何利用 Xcode 13 內建檢查、SwiftGen 以及單元測試，確保iOS多語系字串檔格式正確、Key一致且無重複，提升多語系管理效率與專案穩定性。"
+  },
+  "2021-03-14-99a6cef90190": {
+    "title": "簡訊驗證碼安全性分析：暴力破解風險與防範策略",
+    "description": "本文分析簡訊驗證碼的安全風險，展示暴力破解的實例，並提出加強驗證碼長度、限制錯誤次數及縮短有效期限等防護措施，以提升密碼重設流程的安全性，避免資安漏洞。"
+  },
+  "2024-06-01-2981dc0fcd58": {
+    "title": "iOS NSAttributedString列表縮排完整解析：NSTextList與NSTextTab實現技巧",
+    "description": "深入探討iOS Swift中利用NSAttributedString的NSTextList與NSTextTab實現HTML列表縮排的方法，包括巢狀結構、樣式客製化與排版控制，提升列表呈現品質與彈性。"
+  },
+  "2018-11-03-8d863bcd1c55": {
+    "title": "探索新事物的熱忱：從資訊領域轉戰iOS APP開發的心路歷程",
+    "description": "本文分享作者從資訊領域轉型到iOS APP開發的經驗與心路歷程，強調保持探索精神的重要性。內容涵蓋轉職契機、技術學習、撞牆經驗與成就感，適合想轉職或進入移動應用開發的工程師參考，提升職涯競爭力。"
+  },
+  "2018-11-02-fd7f92d52baa": {
+    "title": "iOS 9到iOS 12推播通知權限完整處理指南（Swift實作範例）",
+    "description": "本文詳解如何在iOS 9至iOS 12版本中，使用Swift語言處理推播通知權限，包括狀態檢查、請求授權、動態變更及用戶引導，確保多版本兼容與用戶體驗。"
+  },
+  "2024-08-19-309d0302877b": {
+    "title": "iOS捷徑自動化應用：簡訊轉發與提醒待辦事項設定指南",
+    "description": "學會利用iOS捷徑自動轉發簡訊、建立提醒，提升生活效率。本文詳解三大實用場景，包括簡訊轉Line、包裹提醒與信用卡帳單通知自動化，讓你輕鬆實現手機自動化管理。"
+  },
+  "2022-04-07-78507a8de6a5": {
+    "title": "Socket.IO 封裝實戰：七大設計模式提升即時通訊架構的穩定性與擴展性",
+    "description": "深入探討在 iOS 專案中，如何運用 Singleton、Flyweight、Factory、Command、State、Chain of Responsibility 及 Builder Pattern，解決 Socket.IO 封裝的常見問題，提升系統穩定性與維護效率。"
+  },
+  "2021-10-24-9a05f632eba0": {
+    "title": "iOS 隱私保護演進：從歷史功能調整到最新iOS 17安全措施",
+    "description": "深入分析Apple在iOS平台的隱私原則與功能演進，包括iOS 17新加入的網址追蹤保護、隱私宣告及追蹤域名管理，幫助開發者理解最新隱私策略與技術應用，提升App安全與用戶信任。"
+  },
+  "2021-01-05-ee47f8f1e2d2": {
+    "title": "AVPlayer邊播邊緩存實戰技巧與完整範例解析",
+    "description": "深入介紹AVPlayer搭配AVURLAsset實現邊播放邊緩存的技術方案，包含AVAssetResourceLoaderDelegate應用，適用iOS音影片播放開發者提升播放體驗與緩存效率。"
+  },
+  "2023-02-26-a5643de271e4": {
+    "title": "ZMarkupParser：純Swift HTML轉NSAttributedString工具，支援樣式擴充與效能提升",
+    "description": "ZMarkupParser是一款純Swift開發的HTML轉NSAttributedString工具，支援HTML樣式、標籤擴充與自動修正，提供高效能轉換，適用iOS/macOS開發，支援圖片、列表、表格等多種HTML元素，優化字串渲染體驗。"
+  },
+  "2024-10-27-70aeddb1fd9b": {
+    "title": "使用 GitHub Pages 快速建立免費客製化 LinkTree 連結頁面指南",
+    "description": "學會如何利用 GitHub Pages 免費快速部署個人 LinkTree 連結頁面，支援自訂域名、動態變數，簡單步驟打造專屬連結集，提升個人品牌與網站流量。"
+  },
+  "2019-07-08-a66ce3dc8bb9": {
+    "title": "Apple Watch 保護殼開箱推薦：Catalyst與Muvit全面比較與使用心得",
+    "description": "深入分析Catalyst與Muvit兩款Apple Watch保護殼，涵蓋防水、防摔、外觀設計與適用場景，提供實用選購建議，讓你有效保護Apple Watch，避免碎邊與損壞，提升使用體驗。"
+  },
+  "2022-05-28-ddd88a84e177": {
+    "title": "如何使用ZMediumToMarkdown工具將Medium文章批次備份並轉換成Markdown格式",
+    "description": "本文介紹ZMediumToMarkdown工具，支援批次下載Medium文章及圖片，轉換成Markdown格式，並支援Gist、Twitter、YouTube內容解析，適合自動備份與同步。"
+  },
+  "2018-11-12-f644db1bb8bf": {
+    "title": "iOS 12+ 增加APP通知設定捷徑：Swift實作指南與最佳實踐",
+    "description": "學習如何在iOS 12及以上版本中，利用Swift在設定中加入APP通知快捷方式，提升用戶通知管理體驗。本文詳解實作步驟、程式碼範例與應用技巧，幫助開發者優化推播通知設定流程。"
+  },
+  "2021-02-04-12c5026da33d": {
+    "title": "iOS Universal Links 最新指南：設定、測試與本地模擬環境建置技巧",
+    "description": "深入解析iOS 13、14 Universal Links的設定細節、Apple CDN更新機制、Debug技巧及本地測試環境建置方法，提升Web與App無縫連結的開發效率與用戶體驗。"
+  },
+  "2020-01-11-14cee137c565": {
+    "title": "iOS UIViewController轉場效果全解：自訂下拉關閉、漸入動畫與全頁返回技巧",
+    "description": "深入介紹iOS UIViewController轉場技巧，包括系統內建卡片樣式、取消下拉關閉、手勢返回、動畫控制與交互實作，提供完整範例與封裝方案，提升移動應用使用體驗。"
+  },
+  "2021-04-21-cb0c68c33994": {
+    "title": "打造免費開源App Store評論監控Slack Bot：完整技術與實作指南",
+    "description": "學習如何使用Ruby、Fastlane與API技術，建立專屬App Store評論通知Slack機器人。本文詳細介紹API原理、資料擷取、自動化流程，助你輕鬆追蹤App評價，提升管理效率。"
+  },
+  "2024-05-25-9903c9783a97": {
+    "title": "Plane.so Docker自架完整教學：安裝、備份、還原與反向代理設定指南",
+    "description": "本文章詳細介紹Plane.so自架流程，包括Docker安裝、備份還原、Nginx反向代理設定，適合想自行部署專案管理工具的開發者，提供完整操作步驟與最佳實踐。"
+  },
+  "2024-12-02-aacd5f5cacd1": {
+    "title": "2024山陰關西7日自由行攻略｜島根鳥取姬路大阪神戶深度遊記",
+    "description": "詳細規劃2024山陰關西地區7日自由行，包括出雲大社、松江、鳥取沙丘、姬路城、大阪神戶等景點，交通、住宿、票券、行程安排全攻略，助你輕鬆玩轉日本山陰山陽地區。"
+  },
+  "2025-08-13-8ace34a1a3d8": {
+    "title": "2025釜山8天自由行攻略：景點、美食、交通與省錢技巧全攻略",
+    "description": "詳細介紹2025年韓國釜山8天旅遊行程，包括必訪景點、美食推薦、交通卡使用、門票預訂與省錢秘訣，助你輕鬆規劃完美釜山之旅，享受美景與人情味。"
+  },
+  "2019-07-05-c3150cdc85dd": {
+    "title": "智慧家居入門指南：Apple HomeKit與小米米家完整設定教學",
+    "description": "本文詳細介紹Apple HomeKit與米家智慧設備的設定流程，包括支援與不支援HomeKit裝置的串接方法，並提供自動化與語音控制技巧，幫助打造智慧家庭新體驗。"
+  },
+  "2019-05-01-33afa0ae557d": {
+    "title": "AirPods 2 開箱體驗與選購指南：完整評測與實用技巧",
+    "description": "深入分析AirPods 2的開箱、使用心得與購買建議，涵蓋無線與有線版本差異、電池管理、配件推薦及辨識真假技巧，幫助你做出明智的選擇，享受蘋果高品質的無線聽音體驗。"
+  },
+  "2024-10-20-1e85b8df2348": {
+    "title": "打造免費GA4自動數據通知機器人：3步驟串接Google Apps Script、Telegram Bot與GA4 API",
+    "description": "學會利用Google Apps Script與GA4 API，快速建立自動數據通知Telegram Bot，實現網站流量、用戶行為等重要指標的即時提醒，提升數據監控效率。"
+  },
+  "2019-11-11-b08ef940c196": {
+    "title": "iOS 延遲深度連結實作指南(Swift)｜支援所有場景的完整流程解析",
+    "description": "深入介紹iOS Deferred Deep Link的實作技術，涵蓋Swift範例、剪貼簿與Cookie共享方案，助你打造不中斷的App轉跳流程，提升用戶體驗與推廣效果。"
+  },
+  "2020-03-28-7498e1ff93ce": {
+    "title": "iOS逆向工程入門：越獄、提取IPA、反編譯與UI分析工具指南",
+    "description": "深入探討iOS逆向工程技術，包括越獄、提取IPA、砸殼、反編譯及UI分析工具，提升APP安全與破解能力。本文涵蓋環境設置、工具使用與實戰操作，適合安全研究與逆向工程初學者。"
+  },
+  "2021-02-23-d9a95d4224ea": {
+    "title": "Medium自訂網域功能回歸：完整設定指南與最新更新",
+    "description": "2024年Medium重新開放自訂網域功能，支援創作者綁定個人或出版物專屬域名。本文詳述功能歷史、設定步驟與官方資源，助你打造專屬品牌網域，提升網站權威與曝光。"
+  },
+  "2025-01-11-4cb4437818f2": {
+    "title": "Google Apps Script Web App整合GitHub Actions實現CI/CD流程自動化",
+    "description": "本文介紹如何利用Google Apps Script Web App建立自訂表單，串接GitHub API觸發CI/CD工作，提升開發流程效率，並整合Slack、Jira等工具實現完整自動化管理。"
+  },
+  "2021-05-05-33f6aabb744f": {
+    "title": "ZReviewsBot：免費開源的Slack App評價通知機器人，支援iOS與Android平台",
+    "description": "ZReviewsBot是一款免費開源的Slack App通知機器人，能自動追蹤iOS與Android App的最新評價，並透過Slack即時通知，提升團隊監控效率，支援自訂設定與自動化部署。"
+  },
+  "2025-03-20-71400d408dc8": {
+    "title": "Google Apps Script與Google APIs快速串接實戰指南：Firebase App Distribution範例解析",
+    "description": "掌握Google Apps Script與Google APIs進階串接技巧，透過Firebase App Distribution API實現自動化下載連結，提升CI/CD流程效率，完整步驟與範例程式碼解析，適合開發者快速入門。"
+  },
+  "2023-10-04-d78e0b15a08a": {
+    "title": "2023九州10日自由行攻略：福岡、長崎、熊本深度遊記與實用建議",
+    "description": "詳細分享九州10日自由行經驗，包括福岡、長崎、熊本景點攻略、交通、住宿、必吃美食與實用貼士，助你輕鬆規劃完美日本旅遊行程，提升搜尋排名與讀者體驗。"
+  },
+  "2021-02-22-142244e5f07a": {
+    "title": "網站漏洞揭露：多重設計缺陷導致密碼重設攻擊的白帽經驗分享",
+    "description": "本文詳述一個多年來的網站漏洞，涵蓋密碼重設流程的安全缺陷、驗證機制漏洞及加解密濫用問題，揭示多重因素如何合併造成資安風險，並提供修復建議，適合安全工程師與開發者參考。"
+  },
+  "2019-04-27-ac557047d206": {
+    "title": "iOS Call Directory Extension 開發指南：實現電話辨識與標記功能",
+    "description": "深入介紹如何在iOS使用Swift開發Call Directory Extension，實現來電辨識、黑名單管理及資料庫同步，提升來電識別效率與使用者體驗，適合開發者參考的完整實作流程與技巧。"
+  },
+  "2022-06-09-a8c2d26cc734": {
+    "title": "iOS自訂NSAttributedString HTML渲染方案：提升效能與穩定性解決閃退問題",
+    "description": "深入探討iOS NSAttributedString HTML渲染的替代方案，透過自訂解析器提升效能，解決iOS 15閃退問題，並實現擴充性高的HTML渲染機制，適用於高效穩定的App開發。"
+  },
+  "2019-02-06-6012b7b4f612": {
+    "title": "解決iOS tintAdjustmentMode屬性在UIAlertController中的顏色失效問題",
+    "description": "本文詳細解析iOS中tintAdjustmentMode屬性在Present UIAlertController時導致tintColor失效的原因，並提供設定tintAdjustmentMode為.normal的實用範例，有效保持ICON顏色一致，提升UI設計品質。"
+  },
+  "2024-04-14-f6713ba3fee3": {
+    "title": "Google Apps Script實現每日數據報表自動化RPA流程優化",
+    "description": "本文詳細介紹如何利用Google Apps Script打造Google Workspace的數據自動化RPA流程，包括自動撈取Google Analytics數據、填充Google Sheets、建立Web Dashboard，提升工作效率並降低人為錯誤，適合企業數據自動化需求。"
+  },
+  "2020-01-12-d01252331b53": {
+    "title": "Medium 一年經營總結：內容成長、社群互動與品牌建立",
+    "description": "深入回顧作者在Medium平台一年的創作經驗，包括內容成長、讀者反饋、社群互動及品牌建立策略。了解如何透過持續寫作提升專業影響力、擴展人脈，並分享實用的經營心得與數據分析，助你打造成功的內容創作之路。"
+  },
+  "2022-12-02-4b9d09cea5f0": {
+    "title": "Pinkoi 2022 Open House：15分鐘職涯分享助你了解工程師在新創公司的角色與成長",
+    "description": "參加Pinkoi 2022開放日，了解工程師如何在新創環境中推動商業目標、應用多平台技術、體驗團隊文化，為資訊科系學生提供職涯與技術成長的寶貴建議。"
+  },
+  "2018-10-25-a4bc3bce7513": {
+    "title": "iOS UUID 全解析：Swift實作與替代方案指南（iOS 6 以上版本）",
+    "description": "深入探討iOS UUID的取得方法與替代方案，涵蓋IDFV、Key-Chain存取技巧，適用Swift/iOS ≥ 6版本。了解UUID的應用限制與隱私保護，提升APP裝置辨識的安全性與合規性。"
+  },
+  "2018-11-01-ade9e745a4bf": {
+    "title": "iOS 12 靜音推播通知新特性：免授權傳送靜音通知的實作與應用",
+    "description": "本文介紹iOS 12的Provisional Authorization臨時權限，讓開發者在不跳出通知詢問窗口的情況下傳送靜音推播通知，提升用戶體驗與推播點擊率，詳細程式碼範例與設定方法一應俱全。"
+  },
+  "2021-02-24-5ea3311119d8": {
+    "title": "2020 Medium經營回顧：技術文章成長與未來規劃",
+    "description": "本文回顧2020年在Medium平台的內容創作經歷，分享技術文章成長、網站備份策略、SEO優化與個人品牌建設，並展望2021年目標與改進方向，適合想提升Medium流量與內容品質的創作者參考。"
+  },
+  "2021-09-09-11f6c8568154": {
+    "title": "Pinkoi 2021工程團隊高效運作揭秘：溝通、自動化與流程優化策略",
+    "description": "深入Pinkoi工程團隊的高效率運作秘訣，包括溝通介面、團隊協作、流程自動化與文化支持，提升團隊產能，降低溝通成本，實現敏捷開發與持續改進，適用各類科技團隊管理與協作。"
+  },
+  "2020-04-08-d796bf8e661e": {
+    "title": "iOS HLS串流緩存實作全攻略：AVPlayer邊播邊Cache技術解析",
+    "description": "深入探討iOS HLS串流影音的緩存策略，涵蓋AVPlayer邊播邊Cache的實作方案、反向代理伺服器應用，以及遇到的技術挑戰與解決方案，提升串流播放效率與用戶體驗。"
+  },
+  "2019-09-26-21119db777dd": {
+    "title": "iOS 13.1以上利用捷徑自動化米家智慧家居設定指南",
+    "description": "掌握iOS 13.1以上捷徑應用，輕鬆自動化米家智慧家居設備，實現進出區域通知、Siri語音控制，免第三方APP，提升智慧生活便利性。"
+  },
+  "2023-07-07-76d66c2e34af": {
+    "title": "2023京阪神8日自由行攻略：行程規劃、交通、住宿與必吃美食指南",
+    "description": "詳細介紹2023年京阪神8日自由行行程安排、交通工具、住宿推薦、入境流程及實用攻略，讓你輕鬆玩轉京都、大阪、神戶，掌握最新景點與購物資訊，規劃完美旅程。"
+  },
+  "2021-10-19-e77b80cc6f89": {
+    "title": "打造即時Crash追蹤工具：Crashlytics與BigQuery整合實戰指南",
+    "description": "學會如何串接Crashlytics與BigQuery，透過自動查詢與Slack通知，提升Crash問題追蹤效率，確保App穩定性。本文詳細步驟與範例SQL，助你打造高效Crash監控系統。"
+  },
+  "2024-02-16-bd94cc88f9c9": {
+    "title": "打造自訂版 Slack 與 ChatGPT 整合方案：Google Cloud Functions 與 Python實作指南",
+    "description": "學習如何自行開發 Slack 與 ChatGPT API整合方案，運用 Google Cloud Functions 和 Python，實現團隊協作AI助手，提升工作效率，並掌握安全設定與進階功能。"
+  },
+  "2019-09-26-bcff7c157941": {
+    "title": "小米智慧家居新品開箱：AI音箱、溫濕度感應器、體重計與電風扇評測",
+    "description": "深入介紹小米智慧家居新品，包括AI音箱、溫濕度感應器、體重計與直流變頻電風扇的使用心得與功能分析，幫助你打造智慧生活。"
+  },
+  "2024-05-14-b04f4fba3cf2": {
+    "title": "利用 mitmproxy 與 Apple Configurator 保留下架前 App 記憶與資料備份技巧",
+    "description": "本文詳述如何運用 mitmproxy、Apple Configurator 及 API Response 監控，技術性備份已下架的 iOS App，並分享錄影、API Response 備份等多元方法，助你珍惜產品最後時光，完整保存寶貴記憶與資料。"
+  },
+  "2020-06-13-1aa2f8445642": {
+    "title": "Swift Codable 解码实战场景全攻略：解决常见与复杂Decode问题",
+    "description": "深入探讨Swift Codable的Decode技巧，从基础到进阶，涵盖多样场景如动态类型判别、数组解码失败处理、日期解析策略，提升JSON转模型的稳定性与灵活性，满足复杂项目需求。"
+  },
+  "2025-01-01-a8925ad9ed01": {
+    "title": "Swift 原生類型擴展最佳實踐：利用 Namespace 提升模組化與命名安全",
+    "description": "本文介紹如何運用 Swift 協議、泛型與計算屬性，封裝原生類型擴展，實現具有 Namespace 的結構，有效避免命名衝突，提升專案模組化與擴展性。包含 UIColor、URL 等範例，並結合 Builder Pattern 實現靈活操作。"
+  },
+  "2022-07-20-f1365e51902c": {
+    "title": "App Store Connect API 2.0+ 全面支援Customer Reviews管理與整合技術",
+    "description": "了解如何利用App Store Connect API 2.0+讀取與管理Customer Reviews，提升App評價分析效率，並掌握JWT簽名產生與API存取技巧，優化iOS應用商業流程與自動化管理。"
+  },
+  "2020-10-14-eab0e984043": {
+    "title": "Apple Watch Series 6 開箱與兩年使用心得：全面評測與選購指南",
+    "description": "深入分析Apple Watch Series 6的開箱體驗、功能特色、使用心得與實用技巧。了解不同版本選擇、配件搭配及升級建議，幫助你做出明智購買決策，提升生活品質與健康管理。"
+  },
+  "2025-07-24-ba132457e6a5": {
+    "title": "Google Offerwall廣告：內容創作者的低門檻變現新方案",
+    "description": "探索Google Offerwall廣告的設定與應用，幫助內容創作者快速轉換流量為收益。了解技術要求、優缺點及適用場景，提升網站變現效率，輕鬆整合獎勵牆廣告策略。"
+  },
+  "2020-09-17-41c49a75a743": {
+    "title": "使用 Swift 在 Xcode 中自訂 Run Script 檢查多語系與圖片資源缺漏",
+    "description": "本文介紹如何在 Xcode 中利用 Swift 撰寫自定義 Run Script，實現多語系檔案與圖片資源的自動檢查，提升專案品質與開發效率。詳細步驟與範例程式碼，助你輕鬆客製化開發流程，避免語言與資源錯漏問題。"
+  },
+  "2024-08-13-755509180ca8": {
+    "title": "iOS 18 Vision框架新API與Swift優化，圖像辨識與動作追蹤全面升級",
+    "description": "深入解析WWDC 24 Vision框架的最新功能，包括Swift Concurrency整合、圖像品質評分、身體與手勢偵測，提升iOS圖像分析開發效率，掌握最新API應用技巧。"
+  },
+  "2025-03-02-fd719053b376": {
+    "title": "XCode虛擬目錄轉實體：解決結構混亂與整合工具的最佳開源方案",
+    "description": "深入探討XCode虛擬目錄的長期問題，介紹我開發的XCFolder開源工具，幫助將虛擬目錄轉換為實體目錄，提升專案維護、Code Review與CI/CD整合效率，適用XcodeGen與Tuist。"
+  },
+  "2025-04-11-7508328d8b8d": {
+    "title": "XCode 升級後必測設定：避免 Release 模式閃退與邏輯問題的實用指南",
+    "description": "本文解析XCode升級時在Release設定下常見的閃退與邏輯異常問題，提供調整Optimization Level的實務建議，幫助開發者有效排查並避免在正式版本中遇到的潛在Bug，確保App穩定上線。"
+  },
+  "2020-04-20-99db2a1fbfe5": {
+    "title": "樹莓派搭建HomeBridge，實現米家智慧家電快速串接Apple HomeKit控制",
+    "description": "學會用樹莓派搭建HomeBridge，將米家智能家電接入Apple HomeKit，實現遠端控制與自動化。本文詳細步驟教你設定樹莓派環境、安裝HomeBridge、串接米家裝置，讓智慧家居操作更便捷，提升居家生活品質。"
+  },
+  "2021-02-05-87090f101b9a": {
+    "title": "Laravel Homestead + phpMyAdmin環境建置指南：從零配置MySQL管理工具",
+    "description": "詳細步驟教你在Mac上使用Vagrant與VirtualBox重灌Laravel開發環境，並搭配phpMyAdmin輕鬆管理MySQL資料庫，適合開發者快速上手環境設定與操作。"
+  },
+  "2021-07-25-1c9eafd4a190": {
+    "title": "工程管理必讀《Leading Snowflakes》：從工程師轉型管理者的實用指南",
+    "description": "深入解析Oren Ellenbogen的《Leading Snowflakes》，提供工程師轉管理者的策略，包括任務切換、決策審查、團隊合作與商業學習，幫助工程管理者建立系統思維與提升團隊績效。"
+  },
+  "2022-07-08-60473cb47550": {
+    "title": "使用 Visitor Pattern 優化 iOS TableView 多類型區塊的擴充與維護",
+    "description": "本文介紹如何在 iOS 開發中應用 Visitor Pattern，提升 TableView 多類型區塊的擴充性、測試性與維護效率，適合需要動態組合多種類型內容的開發者參考。"
+  },
+  "2020-11-02-c0f99f987d9c": {
+    "title": "Apple Watch 原廠不鏽鋼米蘭錶帶開箱評測：石墨色設計與磁力調整特色解析",
+    "description": "深入介紹Apple原廠不鏽鋼米蘭錶帶，包含開箱、設計優缺點、尺寸選擇及辨識方法，幫助你了解產品細節與選購技巧，提升Apple Watch搭配體驗。"
+  },
+  "2024-09-26-0095528cf875": {
+    "title": "使用 Github Action 快速部署 ZReviewTender App 商城評價監控機器人，免費安全穩定",
+    "description": "掌握三步驟設定 Github Action 與 Slack，快速部署免費的 App 評價監控機器人。支援 iOS 與 Android 商城，並可自訂過濾與翻譯功能，提升評價追蹤效率。"
+  },
+  "2023-03-17-e7c547a5be22": {
+    "title": "將Medium文章轉移至Jekyll部落格，實現自動同步與備份方案",
+    "description": "本文介紹如何使用ZMediumToJekyll工具將Medium文章轉換並同步至Jekyll部落格，涵蓋設定流程、GitHub Action自動化備份，以及實作技巧，讓內容管理更高效。"
+  },
+  "2021-08-07-d414bdbdb8c9": {
+    "title": "使用 Google Apps Script 自動轉發 Gmail 信件到 Slack，提升工作流程自動化效率",
+    "description": "本文詳細介紹如何運用 Google Apps Script 搭配 Gmail Filter 與 Slack Webhook，實現信件內容客製化轉發，提升團隊協作與自動化管理效率，適合開發者及企業用戶。"
+  }
+}

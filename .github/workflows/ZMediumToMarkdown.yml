@@ -53,6 +53,10 @@ jobs:
         working-directory: ./tools/lqip_generator
         run: poetry run lqip-gen
 
+      - name: 🖼️ Generate SEO
+        working-directory: ./tools/lqip_generator
+        run: poetry run seo --api-key ${{ secrets.OPENAI_API_KEY }}
+
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Update fetched posts."

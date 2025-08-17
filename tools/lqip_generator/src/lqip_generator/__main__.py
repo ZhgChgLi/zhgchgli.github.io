@@ -1,6 +1,11 @@
+from openai import OpenAI
 import os
+import sys
+import textwrap
 import json
 from PIL import Image
+import time
+import argparse
 
 def generate_lqip_images(root_dir='../../assets', output_subdir='lqip', blur_radius=8, jpeg_quality=10):
     output_path_root = os.path.abspath(os.path.join(root_dir, output_subdir))
@@ -58,5 +63,78 @@ def generate_lqip_images(root_dir='../../assets', output_subdir='lqip', blur_rad
 
     print(f"📄 已寫入 JSON 記錄: {json_output_path}")
 
-if __name__ == '__main__':
-    generate_lqip_images()
+
+def split_into_chunks(text, max_tokens=3000):
+    paragraphs = text.split('\n\n')
+    chunks, current = [], ""
+
+    for para in paragraphs:
+        if len(current) + len(para) < max_tokens * 4:
+            current += para + "\n\n"
+        else:
+            chunks.append(current.strip())
+            current = para + "\n\n"
+    if current:
+        chunks.append(current.strip())
+    return chunks
+
+def generate_seo_from_chunks(chunks):
+    content_summary = ""
+
+
+def optimize_seo_from_file():
+    parser = argparse.ArgumentParser(description="SEO 工具")
+    parser.add_argument("--api-key", help="OpenAI API key (optional, 預設讀環境變數 OPENAI_API_KEY)")
+    args = parser.parse_args()
+
+    api_key = args.api_key or os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        print("❌ Error: 請提供 API key (--api-key) 或設 OPENAI_API_KEY 環境變數")
+        sys.exit(1)
+
+    root_dir = "../../_posts/zh-tw/zmediumtomarkdown"
+    client = OpenAI(api_key=api_key)
+    output_path = os.path.join("../../assets", "seo_results.json")
+
+    # 讀取已存在結果
+    if os.path.exists(output_path):
+        with open(output_path, "r", encoding="utf-8") as f:
+            seo_results = json.load(f)
+    else:
+        seo_results = {}
+
+    for filename in os.listdir(root_dir):
+        file_path = os.path.join(root_dir, filename)
+        basename = os.path.splitext(filename)[0]
+
+        if not filename.endswith(".md"):
+            continue
+
+        if basename in seo_results:
+            print(f"⏭ 已存在，跳過：{filename}")
+            continue
+
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+                
+                response = client.chat.completions.create(
+                    model="gpt-4.1-nano",
+                    messages=[
+                        {"role": "system", "content": "你是一位 SEO 內容專家，我將分段貼上我的文章內容，請幫我的文章內容產生最佳的 SEO 標題跟描述，標題控制在 40 到 60 個字以內、描述控制在 140 到 156 個字以內、不要冗詞贅字，你的回應應專注於 SEO 策略、技術和見解。請勿在回覆中提供一般的行銷建議或解釋。請使用正體中文回應。請使用 {\"title\":\"\",\"description\":\"\"} 的 JSON 格式回應，不需要 codeblock，我會直接用 Python 解析你的回應成 json format。"},
+                        {"role": "user", "content": "文章內容:\n====\n" + content + "\n====\n"}
+                    ],
+                    temperature=0.5
+                )
+                result = response.choices[0].message.content.strip()
+                seo_results[basename] = json.loads(result)
+                print(f"✅ 已處理 {filename}")
+
+                with open(output_path, "w", encoding="utf-8") as f:
+                    json.dump(seo_results, f, ensure_ascii=False, indent=2)
+
+                print(f"📄 所有結果已儲存至 {output_path}")
+        except json.JSONDecodeError as e:
+            print(f"❌ JSON 解析失敗：{filename} - {e}")
+        
+        #time.sleep(60)
