@@ -2,8 +2,10 @@
 #
 require 'yaml'
 require 'date'
+require 'json'
 
 Jekyll::Hooks.register :posts, :post_init do |post|
+
   raw = File.read(post.path, encoding: "UTF-8")
   data = {}
   if raw =~ /\A---\s*\n(.*?)\n---\s*\n/m
@@ -14,6 +16,15 @@ Jekyll::Hooks.register :posts, :post_init do |post|
     aliases: true
   ) || {}
   end
+
+  if post.path =~ %r{/_posts/zh-tw/}
+    mdname = File.basename(post.path, ".*")
+    seo = SEO_INFO[mdname]
+    if seo
+      data['title'] = seo['title'] if seo['title']
+    end
+  end
+
   post_id = post.basename_without_ext.sub(/^\d{4}-\d{2}-\d{2}-/, '')
   post_title = Jekyll::Utils.slugify(data['title'])
   post_category = Jekyll::Utils.slugify(data['categories'][0])
@@ -60,6 +71,15 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
 
       if raw =~ /\A---\s*\n(.*?)\n---\s*\n/m
         other_data = YAML.safe_load($1, permitted_classes: [Time, Date, DateTime]) || {}
+        
+        if matched =~ %r{/_posts/zh-tw/}
+          mdname = File.basename(matched, ".*")
+          seo = SEO_INFO[mdname]
+          if seo
+            other_data['title'] = seo['title'] if seo['title']
+          end
+        end
+
         post_title = Jekyll::Utils.slugify(other_data['title'])
         post_category = Jekyll::Utils.slugify(Array(other_data['categories']).first)
 
