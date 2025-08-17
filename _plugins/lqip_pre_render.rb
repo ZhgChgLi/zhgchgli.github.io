@@ -26,7 +26,7 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
 
   mdname = File.basename(doc.path, ".*")
   seo = SEO_INFO[mdname]
-  if seo
+  if seo && doc.path =~ %r{/_posts/zh-tw/}
     doc.data['title'] = seo['title'] if seo['title']
     doc.data['description'] = seo['description'] if seo['description']
   end

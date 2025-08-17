@@ -76,12 +76,13 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   post.content = post.content.gsub(/(_\[Post\])(.*)(converted from Medium by \[ZMediumToMarkdown\])(.*)(\._)/, '')
   
   headerHTML = <<-HTML
-  <widgetic id="64ce7263ecb2a197598b4567" resize="fill-width" height="50" autoscale="on"></widgetic><script async src="https://widgetic.com/sdk/sdk.js"></script>
+  <widgetic id="64ce7263ecb2a197598b4567" resize="fill-width" height="50" autoscale="on"></widgetic><script async src="https://widgetic.com/sdk/sdk.js"></script><br/>
+  - For SEO purposes, **all post titles and descriptions were rewritten by OpenAI**. The original versions are shown below.
   HTML
 
   if isEnglishPost && chinesePostPath
   headerHTML += <<-HTML
-  The following content is translated by OpenAI, [**Click here**](/posts/#{slug}/) to view the original Chinese version. | [**點此查看本文中文版**](/posts/#{slug}/)\n
+  - The following content is translated by OpenAI, [**Click here**](/posts/#{slug}/) to view the original Chinese version. | [**點此查看本文中文版**](/posts/#{slug}/)\n
   \n\n---\n\n
   HTML
   end

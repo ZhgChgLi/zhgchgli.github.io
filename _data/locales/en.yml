@@ -42,7 +42,7 @@ copyright:
 
 meta: >- 
   Using the :THEME theme for :PLATFORM. <br/>
-  All Medium articles were converted using <a href="https://github.com/ZhgChgLi/ZMediumToMarkdown" target="_blank">ZMediumToMarkdown.</a>
+  Medium articles were converted using <a href="https://github.com/ZhgChgLi/ZMediumToMarkdown" target="_blank">ZMediumToMarkdown.</a>
 
 not_found:
   statement: Sorry, we've misplaced that URL or it's pointing to something that doesn't exist.
