@@ -75,22 +75,27 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
 
   post.content = post.content.gsub(/(_\[Post\])(.*)(converted from Medium by \[ZMediumToMarkdown\])(.*)(\._)/, '')
   
-  headerHTML = <<-HTML
-  <widgetic id="64ce7263ecb2a197598b4567" resize="fill-width" height="50" autoscale="on"></widgetic><script async src="https://widgetic.com/sdk/sdk.js"></script>
-  For SEO purposes, **all post titles and descriptions were rewritten by OpenAI**, the original versions are shown below.<br/>
-  HTML
+  headerHTML = '<widgetic id="64ce7263ecb2a197598b4567" resize="fill-width" height="50" autoscale="on"></widgetic><script async src="https://widgetic.com/sdk/sdk.js"></script>'
 
   if isEnglishPost && chinesePostPath
   headerHTML += <<-HTML
-  The following content is translated by OpenAI, [**Click here**](/posts/#{slug}/) to view the original Chinese version. | [**點此查看本文中文版**](/posts/#{slug}/)\n
-  \n\n---\n\n
+  > The following content is translated by OpenAI, [**Click here**](/posts/#{slug}/) to view the original Chinese version. [**點此查看本文中文版**](/posts/#{slug}/)
+  {: .prompt-info }
   HTML
   end
 
 
   if isChinesePost && englishPostPath
   headerHTML += <<-HTML
-  [**Click here**](/posts/en/#{slug}/) to view the English version of this article, translated by OpenAI.\n
+  > [**Click here**](/posts/en/#{slug}/) to view the English version of this article, translated by OpenAI.
+  {: .prompt-info }
+  HTML
+  end
+
+  if isChinesePost
+  headerHTML += <<-HTML
+  > 出於 SEO 考量，本文標題與描述經 GPT 調整，原始版本請參考內文，若有不恰當的用語，敬請指正。
+  {: .prompt-tip }
   \n\n---\n\n
   HTML
   end
@@ -100,19 +105,20 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
   if isMediumPost
     if isEnglishPost
   footerHTML += <<-HTML
-  This article was first published on Medium ➡️ [**Click Here**](https://medium.com/p/#{slug}){:target=\"_blank\"}\r\n
-  Automatically converted and synchronized using [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target="_blank"} and [Medium-to-jekyll-starter](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io){:target="_blank"}.\r\n
+  > This article was first published on Medium ➡️ [**Click Here**](https://medium.com/p/#{slug}){:target=\"_blank\"}, automatically converted and synchronized using [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target="_blank"} and [Medium-to-jekyll-starter](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io){:target="_blank"}.
+  {: .prompt-info }
   HTML
     else
   footerHTML += <<-HTML
-  本文首次發表於 Medium ➡️ [**前往查看**](https://medium.com/p/#{slug}){:target=\"_blank\"}\r\n
-  由 [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"} 與 [Medium-to-jekyll-starter](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io){:target=\"_blank\"} 提供自動轉換與同步技術。\r\n
+  > 本文首次發表於 Medium ➡️ [**前往查看**](https://medium.com/p/#{slug}){:target=\"_blank\"}，由 [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"} 與 [Medium-to-jekyll-starter](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io){:target=\"_blank\"} 提供自動轉換與同步技術。
+  {: .prompt-info }
   HTML
     end
   end
 
   footerHTML += <<-HTML
-  [Improve this page on Github.](https://github.com/ZhgChgLi/zhgchgli.github.io/blob/main/#{postPath}){:target=\"_blank\"}\r\n
+  > [Improve this page on Github.](https://github.com/ZhgChgLi/zhgchgli.github.io/blob/main/#{postPath}){:target=\"_blank\"}
+  {: .prompt-info }
   HTML
 
   if post.data['categories'].any? { |category| category.match(/(遊記|travel)/i) }
