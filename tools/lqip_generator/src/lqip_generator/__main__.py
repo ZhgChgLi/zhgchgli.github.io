@@ -192,7 +192,12 @@ def translate():
 
                 result = response.choices[0].message.content.strip()
                 result = json.loads(result)
-                post['title'] = result['title']
+
+                org_title = get_orginal_english_title(output_file_path)
+                if org_title == "":
+                    post['title'] = result['title']
+                else:
+                    post['title'] = org_title
                 post['description'] = result['description']
 
                 category_mapping = {
@@ -232,6 +237,16 @@ def translate():
     filenames = get_changed_markdown_files()
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
         executor.map(partial(process_file, root_dir=root_dir, api_key=api_key), filenames)
+
+def get_orginal_english_title(file_path):
+    if not os.path.exists(file_path):
+        return ""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            post = frontmatter.load(f)
+            return post.get('title', '').strip()
+    except Exception:
+        return ""
 
 def get_changed_markdown_files():
     result = subprocess.run(
