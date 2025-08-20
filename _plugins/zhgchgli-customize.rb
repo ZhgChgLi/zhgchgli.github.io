@@ -94,7 +94,14 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
 
   if isChinesePost
   headerHTML += <<-HTML
-  > 出於 SEO 考量，本文標題與描述經 GPT 調整，原始版本請參考內文，若有不恰當的用語，敬請指正。
+  > 基於 SEO 考量，本文標題與描述經 GPT 調整，原始版本請參考內文，若有不恰當的用語，敬請指正。
+  {: .prompt-tip }
+  HTML
+  end
+
+  if isEnglishPost
+  headerHTML += <<-HTML
+  > For SEO purposes, the title and description of this article have been adjusted by GPT. Please refer to the main content for the original version, and feel free to point out any inappropriate wording.
   {: .prompt-tip }
   HTML
   end
