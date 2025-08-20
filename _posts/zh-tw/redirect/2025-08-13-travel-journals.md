@@ -15,8 +15,8 @@ feed: false
 search: false
 ---
 
-# [➡️➡️➡️ The URL has been moved. Click here to view it if you are not redirected.](/categories/travel-diaries/)
+# [➡️➡️➡️ The URL has been moved. Click here to view it if you are not redirected.](/categories/travel-journals/)
 
 <script>
-  window.location.replace("/categories/travel-diaries/");
+  window.location.replace("/categories/travel-journals/");
 </script>
