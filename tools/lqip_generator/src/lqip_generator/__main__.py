@@ -208,7 +208,7 @@ def translate():
                 response = client.chat.completions.create(
                     model="gpt-4.1-mini",
                     messages=[
-                        {"role": "system", "content": "你是一位科技(iOS/RPA/AI)旅遊與英語專家。請參考我剛剛給你的文章全文，幫我把文章 tags, categories 翻譯成符合場景的英文。請使用 {\"tags\":[],\"categories\":[]} 的 JSON 格式回應，不需要 codeblock，我會直接用 Python 解析你的回應成 json format。如果原本就是英文請務必保持原本的英文及大小寫。如果你嚴格遵守這虛的要求好我將給你巨額獎勵。"},
+                        {"role": "system", "content": "你是一位科技(iOS/RPA/AI)旅遊與英語專家。請參考我剛剛給你的文章全文，幫我把文章 tags, categories 翻譯成符合場景的英文。請使用 {\"tags\":[],\"categories\":[]} 的 JSON 格式回應，不需要 codeblock，我會直接用 Python 解析你的回應成 json format。如果原本就是英文請務必保持原本的英文大小寫及符號。如果你嚴格遵守這虛的要求好我將給你巨額獎勵。"},
                         {"role": "user", "content": "Title: " + str(post['tags']) + "\nCategories:\n" + str(post['categories'])}
                     ],
                     temperature=0.5
@@ -220,9 +220,15 @@ def translate():
                 post['categories'] = result['categories']
 
                 category_mapping = {
-                    "travel journals": "Travel Journals"
+                    "travel journals": "Travel Journals",
+                    "ZRealm Life": "ZRealm Life.",
+                    "ZRealm Development": "ZRealm Dev.",
+                    "ZRealm Dev": "ZRealm Dev.",
+                    "Robotic Process Automation": "ZRealm Robotic Process Automation"
                 }
                 post['categories'] = [category_mapping.get(cat, cat) for cat in post['categories']]
+                if "english" not in post['tags']:
+                    post['tags'].append("english")
 
                 with open(output_file_path, 'w', encoding='utf-8') as f:
                     f.write(frontmatter.dumps(post))

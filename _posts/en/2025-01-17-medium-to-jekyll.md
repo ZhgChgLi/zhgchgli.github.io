@@ -4,7 +4,7 @@ author: ZhgChgLi
 date: 2025-01-17T00:00:00.000+0000
 last_modified_at: 2025-01-17T00:00:00.000+0000
 categories: ["tools"]
-tags: [medium, github, jekyll, ruby]
+tags: [medium, github, jekyll, ruby, english]
 description: Medium to Jekyll Installation and Configuration Guide
 image:
   path: /assets/images/zmediumtomarkdown.jpeg
