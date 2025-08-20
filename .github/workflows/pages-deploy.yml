@@ -36,15 +36,6 @@ jobs:
           # If using the 'assets' git submodule from Chirpy Starter, uncomment above
           # (See: https://github.com/cotes2020/chirpy-starter/tree/main/assets)
 
-      - run: ./translatorFix.sh
-        shell: bash
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "fix translated posts"
-          commit_user_name: "ZMediumToMarkdown"
-          commit_user_email: "zhgchgli@gmail.com"
-          commit_author: ZMediumToMarkdown <zhgchgli@gmail.com>
-
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4

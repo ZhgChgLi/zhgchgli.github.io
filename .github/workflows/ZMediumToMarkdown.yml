@@ -23,18 +23,9 @@ jobs:
           mv ./_posts/zh-tw/zmediumtomarkdown/* ./_posts/zmediumtomarkdown/
       - run: ZMediumToMarkdown --cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli
         shell: bash
-      # - uses: stefanzweifel/git-auto-commit-action@v4
-      #   with:
-      #     commit_message: "Update fetched posts."
-      #     commit_user_name: "ZMediumToMarkdown"
-      #     commit_user_email: "zhgchgli@gmail.com"
-      #     commit_author: ZMediumToMarkdown <zhgchgli@gmail.com>
       - name: MV posts to zh-tw
         run: mv ./_posts/zmediumtomarkdown/* ./_posts/zh-tw/zmediumtomarkdown/
-      # - name: Make TranslatorTrigger.sh Executable
-      #   run: chmod +x TranslatorTrigger.sh
-      # - name: Run TranslatorTrigger.sh
-      #   run: sh ./TranslatorTrigger.sh ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      
       - name: 🐍 Set up Python
         uses: actions/setup-python@v5
         with:
@@ -56,6 +47,10 @@ jobs:
       - name: 🖼️ Generate SEO
         working-directory: ./tools/lqip_generator
         run: poetry run seo --api-key ${{ secrets.OPENAI_API_KEY }}
+  
+      - name: 🖼️ Translate
+        working-directory: ./tools/lqip_generator
+        run: poetry run translate --api-key ${{ secrets.OPENAI_API_KEY }}
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
