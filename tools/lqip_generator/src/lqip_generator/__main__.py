@@ -6,6 +6,13 @@ import json
 from PIL import Image
 import time
 import argparse
+import mistune
+from mistune.renderers.markdown import MarkdownRenderer
+import frontmatter
+import re
+import concurrent.futures
+from functools import partial
+import subprocess
 
 def generate_lqip_images(root_dir='../../assets', output_subdir='lqip', blur_radius=8, jpeg_quality=10):
     output_path_root = os.path.abspath(os.path.join(root_dir, output_subdir))
@@ -81,6 +88,161 @@ def split_into_chunks(text, max_tokens=3000):
 def generate_seo_from_chunks(chunks):
     content_summary = ""
 
+from mistune.renderers.markdown import MarkdownRenderer
+
+class MyRenderer(MarkdownRenderer):
+    def __init__(self, client=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.client = client
+        
+    def text(self, token, state):
+        result = super().text(token, state)
+        return result
+
+    def block_quote(self, token, state):
+        result = super().block_quote(token, state)
+        result = self.translate(result)
+        return result+"\n\n"
+
+    def list(self, text, ordered, **attrs):
+        result = super().list(text, ordered, **attrs)
+        result = self.translate(result)
+        return result+"\n\n"
+
+    def block_code(self, code, info=None):
+        result = super().block_code(code, info)
+        result = self.translate(result)
+        return result+"\n\n"
+
+    def block_text(self, token, state):
+        result = super().block_text(token, state)
+        result = self.translate(result)
+        return result+"\n\n"
+
+    def paragraph(self, token, state):
+        result = super().paragraph(token, state)
+        result = self.translate(result)
+        return result+"\n\n"
+
+    def heading(self, token, state):
+        result = super().heading(token, state)
+        result = self.translate(result)
+        return result+"\n\n"
+    
+    def translate(self, text):
+        response = self.client.chat.completions.create(
+            model="gpt-4.1-mini",
+            messages=[
+                {"role": "system", "content": "你是一位科技(iOS/RPA/AI)與旅遊專家。請參考我剛剛給你的文章全文，幫我把以下文章 Markdown 段落翻譯成英文。請務必永遠遵守以下原則：1. 務必永遠保持原有的 Markdown 格式和結構。2. 永遠不要翻譯 URL連結 3. 使用簡潔明瞭的英文表達，避免冗長或複雜的句子。4. 確保翻譯後的內容符合英文語法和用詞習慣。5. 不要添加任何額外的解釋或評論。6. 程式碼區塊務必永遠保持原本的程式碼，只能翻譯註解7.永遠不要動到原本的 Markdown 符號。9.永遠遵照原本的 Markdown 格式，原本不是 Quote 或 Code 的區塊，就絕對不要把結果包裝在```給我。如果你嚴格遵守前面的要求的好我將給你巨額獎勵。規則都很清楚你不要耍白痴浪費資源。"},
+                {"role": "user", "content": text}
+            ],
+            temperature=0.5
+        )
+        result = response.choices[0].message.content.strip()
+        print(f"翻譯段落: {text[:50]}...")  # Log the first 50 characters for context
+        print(f"翻譯結果: {result[:50]}...")  # Log the first 50 characters of the result for context
+        return result
+
+def translate():
+    parser = argparse.ArgumentParser(description="Translate Markdown content using OpenAI API")
+    parser.add_argument("--api-key", help="OpenAI API key (optional, 預設讀環境變數 OPENAI_API_KEY)")
+    args = parser.parse_args()
+
+    api_key = args.api_key or os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        print("❌ Error: 請提供 API key (--api-key) 或設 OPENAI_API_KEY 環境變數")
+        sys.exit(1)
+
+    root_dir = "../../_posts/zh-tw/zmediumtomarkdown"
+
+    def process_file(filename, root_dir, api_key):
+        file_path = os.path.join(root_dir, filename)
+        basename = os.path.splitext(filename)[0]
+        output_file_path = os.path.join("../../_posts/en/zmediumtomarkdown", filename)
+
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                post = frontmatter.load(f)
+                content = post.content
+                client = OpenAI(api_key=api_key)
+
+                format_markdown = mistune.create_markdown(renderer=MyRenderer(client=client))
+                print(f"正在處理 {filename}...")
+                response = client.chat.completions.create(
+                    model="gpt-4.1-mini",
+                    messages=[
+                        {"role": "system", "content": "你是一位科技(iOS/RPA/AI)與旅遊專家。以下是我的文章全文，請你先仔細閱讀了解 Context。我將在稍後的請求中請你將我的文章段落翻譯成英文。"},
+                        {"role": "user", "content": "文章內容:\n" + content}
+                    ],
+                    temperature=0.5
+                )
+
+                result = format_markdown(content)
+                result = result.replace("|", r"\\|")
+                post.content = result
+
+                response = client.chat.completions.create(
+                    model="gpt-4.1-mini",
+                    messages=[
+                        {"role": "system", "content": "你是一位科技(iOS/RPA/AI)與旅遊專家。請參考我剛剛給你的文章全文，幫我產生最佳的「英文」 SEO 標題跟描述，標題控制在 40 到 60 個字以內盡量把主關鍵詞靠前、用半形「：｜—」清楚分段。、描述控制在 140 到 156 個字以內、不要冗詞贅字、請已讀者的立場產生，一句話講清楚受眾 + 痛點 + 解法 + 成果。你的回應應專注於 SEO 策略、技術和見解。請勿在回覆中提供一般的行銷建議或解釋。避免高度重複起手式：把動詞換成具體成果或數字（如「載入快 35%」、「3 招」、「腳本一鍵重啟」）。 年份策略：文章不要在標題寫到年份。品牌名與專有名詞：盡量用通用搜尋寫法（如 GitHub Actions、GA4、WKWebView、Cache）並保留大小寫。請使用 {\"title\":\"\",\"description\":\"\"} 的 JSON 格式回應，不需要 codeblock，我會直接用 Python 解析你的回應成 json format。請避免使用常見的內容農場文字。如果你嚴格遵守這些要求好我將給你巨額獎勵。"},
+                        {"role": "user", "content": "Title: " + post["title"] + "\nDescription:\n" + post["description"]}
+                    ],
+                    temperature=0.5
+                )
+
+                result = response.choices[0].message.content.strip()
+                result = json.loads(result)
+                post['title'] = result['title']
+                post['description'] = result['description']
+
+                category_mapping = {
+                    "Z 度旅行遊記": "Travel Journals"
+                }
+                post['categories'] = [category_mapping.get(cat, cat) for cat in post['categories']]
+
+                response = client.chat.completions.create(
+                    model="gpt-4.1-mini",
+                    messages=[
+                        {"role": "system", "content": "你是一位科技(iOS/RPA/AI)旅遊與英語專家。請參考我剛剛給你的文章全文，幫我把文章 tags, categories 翻譯成符合場景的英文。請使用 {\"tags\":[],\"categories\":[]} 的 JSON 格式回應，不需要 codeblock，我會直接用 Python 解析你的回應成 json format。如果你嚴格遵守這虛的要求好我將給你巨額獎勵。"},
+                        {"role": "user", "content": "Title: " + str(post['tags']) + "\nCategories:\n" + str(post['categories'])}
+                    ],
+                    temperature=0.5
+                )
+
+                result = response.choices[0].message.content.strip()
+                result = json.loads(result)
+                post['tags'] = result['tags']
+                post['categories'] = result['categories']
+
+                with open(output_file_path, 'w', encoding='utf-8') as f:
+                    f.write(frontmatter.dumps(post))
+                    print(f"✅ 已處理 {filename}")
+                print(f"📄 已儲存翻譯結果")
+
+        except json.JSONDecodeError as e:
+            print(f"❌ JSON 解析失敗：{filename} - {e}")
+        except Exception as e:
+            print(f"❌ 發生錯誤：{filename} - {e}")
+
+    filenames = get_changed_markdown_files()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        executor.map(partial(process_file, root_dir=root_dir, api_key=api_key), filenames)
+
+def get_changed_markdown_files():
+    result = subprocess.run(
+        ['git', 'diff', '--name-only', 'HEAD'],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        check=True
+    )
+
+    files = result.stdout.strip().split('\n')
+    md_files = [
+        f for f in files
+        if f.startswith('_posts/zh-tw/zmediumtomarkdown/') and f.endswith('.md')
+    ]
+    return [os.path.basename(f) for f in md_files]
 
 def optimize_seo_from_file():
     parser = argparse.ArgumentParser(description="SEO 工具")
@@ -121,7 +283,7 @@ def optimize_seo_from_file():
                 response = client.chat.completions.create(
                     model="gpt-4.1-mini",
                     messages=[
-                        {"role": "system", "content": "你是一位 SEO 內容專家，我將分段貼上我的文章內容，請幫我的文章內容產生最佳的 SEO 標題跟描述，標題控制在 40 到 60 個字以內盡量把主關鍵詞靠前、用半形「：｜—」清楚分段。、描述控制在 140 到 156 個字以內、不要冗詞贅字、請已讀者的立場產生，一句話講清楚受眾 + 痛點 + 解法 + 成果，避免使用「本篇/本文/針對」等套話開頭。你的回應應專注於 SEO 策略、技術和見解。請勿在回覆中提供一般的行銷建議或解釋。請使用正體中文回應。避免高度重複起手式：把動詞換成具體成果或數字（如「載入快 35%」、「3 招」、「腳本一鍵重啟」）。 年份策略：文章不要在標題寫到年份。品牌名與專有名詞：盡量用通用搜尋寫法（如 GitHub Actions、GA4、WKWebView、Cache）並保留大小寫，不用特別翻譯成中文。請使用 {\"title\":\"\",\"description\":\"\"} 的 JSON 格式回應，不需要 codeblock，我會直接用 Python 解析你的回應成 json format。請使用台灣在地化的用詞用語、不要使用中國用語(例如 黑屏、屏幕、緩存)。請避免使用常見的內容農場文字。"},
+                        {"role": "system", "content": "你是一位 SEO 內容專家，我將分段貼上我的文章內容，請幫我的文章內容產生最佳的 SEO 標題跟描述，標題控制在 40 到 60 個字以內盡量把主關鍵詞靠前、用半形「：｜—」清楚分段。、描述控制在 140 到 156 個字以內、不要冗詞贅字、請已讀者的立場產生，一句話講清楚受眾 + 痛點 + 解法 + 成果，避免使用「本篇/本文/針對」等套話開頭。你的回應應專注於 SEO 策略、技術和見解。請勿在回覆中提供一般的行銷建議或解釋。請使用正體中文回應。避免高度重複起手式：把動詞換成具體成果或數字（如「載入快 35%」、「3 招」、「腳本一鍵重啟」）。 年份策略：文章不要在標題寫到年份。品牌名與專有名詞：盡量用通用搜尋寫法（如 GitHub Actions、GA4、WKWebView、Cache）並保留大小寫，不用特別翻譯成中文。請使用 {\"title\":\"\",\"description\":\"\"} 的 JSON 格式回應，不需要 codeblock，我會直接用 Python 解析你的回應成 json format。請使用台灣在地化的用詞用語、不要使用中國用語(例如 黑屏、屏幕、緩存)。請避免使用常見的內容農場文字。如果你嚴格遵守這些的要求好我將給你巨額獎勵。"},
                         {"role": "user", "content": "文章內容:\n====\n" + content + "\n====\n"}
                     ],
                     temperature=0.5

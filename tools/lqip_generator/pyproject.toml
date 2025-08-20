@@ -9,7 +9,9 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "pillow (>=11.3.0,<12.0.0)",
-    "openai>=1.30.1"
+    "openai>=1.30.1",
+    "mistune (>=3.1.3,<4.0.0)",
+    "python-frontmatter (>=1.1.0,<2.0.0)"
 ]
 
 [tool.poetry]
@@ -23,3 +25,4 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 lqip-gen = "lqip_generator.__main__:generate_lqip_images"
 seo = "lqip_generator.__main__:optimize_seo_from_file"
+translate = "lqip_generator.__main__:translate"
