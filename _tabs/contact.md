@@ -9,7 +9,7 @@ order: 6
 
 ## Donate
 
-[![Buymeacoffee](https://img.buymeacoffee.com/button-api/?text=Buy me a beer!&emoji=🍺&slug=zhgchgli&button_colour=FFDD00&font_colour=000000&font_family=Bree&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/zhgchgli){:target="_blank"}
+<a href="https://www.buymeacoffee.com/zhgchgli" target="_blank" style="display:block !important;"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&emoji=🍺&slug=zhgchgli&button_colour=FFDD00&font_colour=000000&font_family=Bree&outline_colour=000000&coffee_colour=ffffff" alt="Buy me a beer"/></a>
 
 - [Buymeacoffee](https://www.buymeacoffee.com/zhgchgli){:target="_blank"}
 
