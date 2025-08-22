@@ -358,9 +358,10 @@ class ZPost
 
     def postURL(lang = @lang)
         postCategoryURLPath = Jekyll::Utils.slugify(self.getPostCategory(lang))
+        postCategoryURLPath = URI.encode_www_form_component(postCategoryURLPath)
         postCategoryURLPath = (postCategoryURLPath == "") ? ("") : ("/#{postCategoryURLPath}")
         langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
-        posURLPath = self.postPath(lang)
+        posURLPath = URI.encode_www_form_component(self.postPath(lang))
         return "/posts#{postCategoryURLPath}#{langURLPath}#{posURLPath}"
     end
 
