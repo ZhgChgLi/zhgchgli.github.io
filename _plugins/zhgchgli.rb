@@ -35,7 +35,13 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
     end
 
     otherLangs = zPost.otherLangs()
-    post.data['otherLangs'] = otherLangs
+
+    langsToHreflang = {
+        "zh-tw" => "zh-Hant",
+        "zh-cn" => "zh-Hans"
+    }
+    post.data['otherLangs'] = otherLangs.transform_keys { |k| langsToHreflang[k.to_s.downcase] || k.to_s }
+
     post.data['currentURL'] = zPost.postURL()
 
     # ===
