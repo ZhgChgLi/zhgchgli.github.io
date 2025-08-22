@@ -344,7 +344,7 @@ class ZPost
     end
 
     def getPostCategory(lang = @lang)
-        return self._getFrontMatter(lang).fetch('categories', []).first || 'Unknown'
+        return self._getFrontMatter(lang).fetch('categories', []).first || ''
     end
 
     def getPostTags(lang = @lang)
@@ -353,9 +353,10 @@ class ZPost
 
     def postURL(lang = @lang)
         postCategoryURLPath = Jekyll::Utils.slugify(self.getPostCategory(lang))
+        postCategoryURLPath = (postCategoryURLPath == "") ? ("") : ("/#{postCategoryURLPath}")
         langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
         posURLPath = self.postPath(lang)
-        return "/posts/#{postCategoryURLPath}#{langURLPath}#{posURLPath}"
+        return "/posts#{postCategoryURLPath}#{langURLPath}#{posURLPath}"
     end
 
     def postPath(lang = @lang)
