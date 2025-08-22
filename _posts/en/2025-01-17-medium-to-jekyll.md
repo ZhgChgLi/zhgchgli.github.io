@@ -17,8 +17,6 @@ tags:
 title: '[English] Medium to Jekyll Installation and Configuration Guide'
 ---
 
-[简体中文](/posts/cn/medium-to-jekyll/) | [正體中文](/posts/medium-to-jekyll/)
-
 # Start!
 [![](https://opengraph.githubassets.com/91a5dd913bf4d51e6b76fbcc7442c845023bdf93cb1a0ce1ac1c8a40d554f781/ZhgChgLi/medium-to-jekyll-starter.github.io)](https://github.com/ZhgChgLi/medium-to-jekyll-starter.github.io)
 

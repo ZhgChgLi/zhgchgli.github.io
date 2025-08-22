@@ -33,8 +33,13 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
     if zPost.isTravelPost()
         post.data['kkdayPromoMessage'] = L10nStrings.makeKKdayPromoMessage(zPost.lang)
     end
-    # ===
 
+    otherLangs = zPost.otherLangs()
+    post.data['otherLangs'] = otherLangs
+    post.data['currentURL'] = zPost.postURL()
+
+    # ===
+    
     post.content = zPlguin.makePostContentHeader(post) + post.content +  zPlguin.makePostContentFooter(post)
 end
 
