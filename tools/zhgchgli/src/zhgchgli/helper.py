@@ -21,7 +21,7 @@ def slugify(string: str, mode: str = None, cased: bool = False) -> str | None:
         string = string.encode("ascii", "ignore").decode("ascii")
 
     # 替換所有非字母數字為 hyphen
-    slug = re.sub(r"[^A-Za-z0-9]+", "-", string)
+    slug = re.sub(r"[\W]+", "-", string)
 
     # 去除頭尾的 -
     slug = slug.strip("-")

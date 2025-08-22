@@ -1,10 +1,12 @@
-{% if include.otherLangs -%}
-  {% for pair in include.otherLangs %}
-    <link rel="alternate" hreflang="{{ pair[0] | downcase }}" href="{{ pair[1] | include.currentURL }}">
-  {% endfor %}
-{% endif %}
+{% if page.path contains '_posts/' %}
+    {% if include.otherLangs -%}
+    {% for pair in include.otherLangs %}
+        <link rel="alternate" hreflang="{{ pair[0] | downcase }}" href="{{ pair[1] | include.currentURL }}">
+    {% endfor %}
+    {% endif %}
 
-<link rel="alternate" hreflang="x-default" href="{{ include.currentURL }}">
+    <link rel="alternate" hreflang="x-default" href="{{ include.currentURL }}">
+{% endif %}
 
 {% unless page.url == '/404.html' %}
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3184248473087645" crossorigin="anonymous"></script>

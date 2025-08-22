@@ -370,7 +370,7 @@ class ZPost
             return @slug
         end
 
-        return "#{postTitleURLPath}-#{@slug}"
+        return "#{postTitleURLPath}-#{Jekyll::Utils.slugify(@slug)}"
     end
 
     def oldPostURL(lang = @lang)

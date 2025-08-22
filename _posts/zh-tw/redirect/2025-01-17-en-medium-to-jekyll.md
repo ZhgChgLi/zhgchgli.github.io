@@ -11,11 +11,7 @@ render_with_liquid: false
 robots: noindex, nofollow
 search: false
 sitemap: false
-tags:
-- medium
-- github
-- jekyll
-- ruby
+tags: []
 title: '[English] Medium to Jekyll Installation and Configuration Guide'
 ---
 
