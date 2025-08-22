@@ -75,7 +75,7 @@ MSG
 > #{L10nStrings.makePostIsTranslatedMessage(zPost.lang)}
 {: .prompt-info }
 MSG
-        else
+        elsif zPost.isMediumPost()
             header += <<-MSG
 > #{L10nStrings.makeSEOMessage(zPost.lang)}
 {: .prompt-info }
