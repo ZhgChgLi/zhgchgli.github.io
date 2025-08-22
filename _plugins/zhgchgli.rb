@@ -82,11 +82,11 @@ MSG
     def makePostContentFooter(post)
         zPost = ZPost.new(post.path)
         footer = ''
-
+        footer += <<-MSG
+<a href="https://www.buymeacoffee.com/zhgchgli" target="_blank" style="display:block !important;"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&emoji=🍺&slug=zhgchgli&button_colour=FFDD00&font_colour=000000&font_family=Bree&outline_colour=000000&coffee_colour=ffffff" alt="Buy me a beer"/></a><br/>
+MSG
         if zPost.isMediumPost() && !zPost.isAITranslatedPost()
             footer += <<-MSG
-<a href="https://www.buymeacoffee.com/zhgchgli" target="_blank" style="display:block !important;"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&emoji=🍺&slug=zhgchgli&button_colour=FFDD00&font_colour=000000&font_family=Bree&outline_colour=000000&coffee_colour=ffffff" alt="Buy me a beer"/></a><br/>
-
 > #{L10nStrings.makePostFromMediumMessage(zPost.slug, zPost.lang)}
 {: .prompt-info }
 MSG
