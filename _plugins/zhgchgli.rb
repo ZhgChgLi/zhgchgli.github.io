@@ -112,7 +112,7 @@ MSG
     def seoURLMaker(post)
         zPost = ZPost.new(post.path)
 
-        post.data['slug'] = URI.encode_www_form_component(zPost.postPath())
+        post.data['slug'] = zPost.postPath()
 
         redirect_from = post.data['redirect_from'] || []
         redirect_from.push(zPost.oldPostURL())
