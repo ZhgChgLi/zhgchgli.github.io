@@ -127,10 +127,10 @@ MSG
             
             postSlug = linkPath.gsub(%r{\A\.*\/|\/\z}, '')
             
-
+            
             zPost = ZPost.initWithSlug(fromZPost.lang, postSlug)
 
-            return "[#{linkText}](#{zPost.postURL()})"
+            "[#{linkText}](#{zPost.postURL()})"
         end
     end
 

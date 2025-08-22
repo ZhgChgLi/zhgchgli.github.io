@@ -1,4 +1,5 @@
 from openai import OpenAI
+from opencc import OpenCC
 import os
 import sys
 import json
@@ -8,6 +9,7 @@ import re
 
 root_dir = "../../_posts/zh-tw/zmediumtomarkdown"
 result_json_file_path="../../assets/data/seo/zh-tw/results.json"
+cn_result_json_file_path="../../assets/data/seo/zh-cn/results.json"
 
 def execute():
     parser = argparse.ArgumentParser(description="SEO 優化工具")
@@ -21,6 +23,7 @@ def execute():
 
     
     client = OpenAI(api_key=api_key)
+    cc = OpenCC("t2s")
 
     # 讀取已存在結果
     if os.path.exists(result_json_file_path):
@@ -36,6 +39,8 @@ def execute():
 
         if not filename.endswith(".md"):
             continue
+
+
 
         if slug in seo_results:
             print(f"⏭ 已存在，跳過：{slug}")
@@ -59,6 +64,13 @@ def execute():
 
                 with open(result_json_file_path, "w", encoding="utf-8") as f:
                     json.dump(seo_results, f, ensure_ascii=False)
+
+                with open(cn_result_json_file_path, "w", encoding="utf-8") as f:
+                    cn_seo_results = seo_results
+                    for slug, item in cn_seo_results.items():
+                        for key, value in item.items():
+                            cn_seo_results[slug][key] = cc.convert(value)
+                    json.dump(cn_seo_results, f, ensure_ascii=False)
 
                 print(f"📄 所有結果已儲存至 {result_json_file_path}")
         except json.JSONDecodeError as e:

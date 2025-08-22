@@ -46,6 +46,7 @@ jobs:
           poetry run optimizePhotos
           poetry run seoMaker --api-key ${{ secrets.OPENAI_API_KEY }}
           poetry run translator --api-key ${{ secrets.OPENAI_API_KEY }}
+          poetry run translator_cn
           poetry run unifyAllTags
 
       - uses: stefanzweifel/git-auto-commit-action@v4

@@ -1,18 +1,14 @@
 from openai import OpenAI
 import os
 import sys
-import textwrap
 import json
-from PIL import Image
-import time
 import argparse
-import mistune
-from mistune.renderers.markdown import MarkdownRenderer
 import frontmatter
-import re
 import concurrent.futures
 from functools import partial
-import subprocess
+import re
+import mistune
+from mistune.renderers.markdown import MarkdownRenderer
 
 root_dir = "../../_posts/zh-tw/zmediumtomarkdown"
 output_root_dir = "../../_posts/en/zmediumtomarkdown"
