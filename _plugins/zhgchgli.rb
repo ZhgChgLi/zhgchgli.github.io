@@ -112,7 +112,7 @@ MSG
     def seoURLMaker(post)
         zPost = ZPost.new(post.path)
 
-        post.data['slug'] = zPost.postPath()
+        post.data['slug'] = URI.encode_www_form_component(zPost.postPath())
 
         redirect_from = post.data['redirect_from'] || []
         redirect_from.push(zPost.oldPostURL())
@@ -361,7 +361,7 @@ class ZPost
         postCategoryURLPath = URI.encode_www_form_component(postCategoryURLPath)
         postCategoryURLPath = (postCategoryURLPath == "") ? ("") : ("/#{postCategoryURLPath}")
         langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
-        posURLPath = self.postPath(lang)
+        posURLPath = URI.encode_www_form_component(self.postPath(lang))
         return "/posts#{postCategoryURLPath}#{langURLPath}#{posURLPath}"
     end
 
@@ -371,7 +371,7 @@ class ZPost
             return @slug
         end
 
-        return URI.encode_www_form_component("#{postTitleURLPath}-#{Jekyll::Utils.slugify(@slug)}")
+        return "#{postTitleURLPath}-#{Jekyll::Utils.slugify(@slug)}"
     end
 
     def oldPostURL(lang = @lang)
