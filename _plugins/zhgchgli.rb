@@ -85,7 +85,7 @@ MSG
         footer += <<-MSG
 <a href="https://www.buymeacoffee.com/zhgchgli" target="_blank" style="display:block !important;"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&emoji=🍺&slug=zhgchgli&button_colour=FFDD00&font_colour=000000&font_family=Bree&outline_colour=000000&coffee_colour=ffffff" alt="Buy me a beer"/></a><br/>
 MSG
-        if zPost.isMediumPost() && !zPost.isAITranslatedPost()
+        if zPost.isMediumPost()
             footer += <<-MSG
 > #{L10nStrings.makePostFromMediumMessage(zPost.slug, zPost.lang)}
 {: .prompt-info }
@@ -229,7 +229,7 @@ class L10nStrings
         allMessages = []
         langs.each do |lang, url|
             messages = {
-                "zh-tw" => "[**點此這裡**](#{url})查看本文章正體中文版本。",
+                "zh-tw" => "[**點擊這裡**](#{url})查看本文章正體中文版本。",
                 "zh-cn" => "[**点击这里**](#{url})查看本文章简体中文版本。",
                 "en" => "[**Click here**](#{url}) to view the English version of this article."
             }

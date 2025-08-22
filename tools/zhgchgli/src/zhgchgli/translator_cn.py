@@ -49,7 +49,10 @@ def execute():
                     post['title'] = org_title
 
                 post['description'] = client.convert(post['description'])
-    
+
+                if "simplified-chinese" not in post['tags']:
+                    post['tags'].append("simplified-chinese")
+
                 with open(output_file_path, 'w', encoding='utf-8') as f:
                     f.write(frontmatter.dumps(post))
                     print(f"✅ 已處理 {filename}")
