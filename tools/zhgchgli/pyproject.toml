@@ -1,0 +1,29 @@
+[project]
+name = "zhgchgli"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "GitHub Actions",email = "41898282+github-actions[bot]@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pillow (>=11.3.0,<12.0.0)",
+    "openai (>=1.101.0,<2.0.0)",
+    "mistune (>=3.1.3,<4.0.0)",
+    "python-frontmatter (>=1.1.0,<2.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "zhgchgli", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+unifyAllTags = "zhgchgli.unifyAllTags:execute"
+optimizePhotos = "zhgchgli.optimizePhotos:execute"
+seoMaker = "zhgchgli.seoMaker:execute"
+translator = "zhgchgli.translator:execute"

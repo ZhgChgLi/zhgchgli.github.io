@@ -37,20 +37,16 @@ jobs:
           poetry-version: 2.1.4
 
       - name: 🔧 Install dependencies
-        working-directory: ./tools/lqip_generator
+        working-directory: ./tools/zhgchgli
         run: poetry install
 
-      - name: 🖼️ Generate LQIP
-        working-directory: ./tools/lqip_generator
-        run: poetry run lqip-gen
-
-      - name: 🖼️ Generate SEO
-        working-directory: ./tools/lqip_generator
-        run: poetry run seo --api-key ${{ secrets.OPENAI_API_KEY }}
-  
-      - name: 🖼️ Translate
-        working-directory: ./tools/lqip_generator
-        run: poetry run translate --api-key ${{ secrets.OPENAI_API_KEY }}
+      - name: Execute
+        working-directory: ./tools/zhgchgli
+        run: |
+          poetry run optimizePhotos
+          poetry run seoMaker --api-key ${{ secrets.OPENAI_API_KEY }}
+          poetry run translator --api-key ${{ secrets.OPENAI_API_KEY }}
+          poetry run unifyAllTags
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:

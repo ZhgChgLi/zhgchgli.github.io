@@ -1,14 +1,19 @@
 ---
-title: "[简体中文] Medium to Jekyll 安装设定教学"
 author: ZhgChgLi
+categories:
+- tools
 date: 2025-01-17T00:00:00.000+0000
-last_modified_at: 2025-01-17T00:00:00.000+0000
-categories: ["tools"]
-tags: [meidum,github,jekyll,ruby]
 description: Medium to Jekyll 安装设定教学
 image:
   path: /assets/images/zmediumtomarkdown.jpeg
+last_modified_at: 2025-01-17T00:00:00.000+0000
 render_with_liquid: false
+tags:
+- meidum
+- github
+- jekyll
+- ruby
+title: '[简体中文] Medium to Jekyll 安装设定教学'
 ---
 
 [正體中文](/posts/medium-to-jekyll/) | [English](/posts/en/medium-to-jekyll/)

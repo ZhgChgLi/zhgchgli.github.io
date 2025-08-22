@@ -1,14 +1,20 @@
 ---
-title: "[English] Medium to Jekyll Installation and Configuration Guide"
 author: ZhgChgLi
+categories:
+- tools
 date: 2025-01-17T00:00:00.000+0000
-last_modified_at: 2025-01-17T00:00:00.000+0000
-categories: ["tools"]
-tags: [medium, github, jekyll, ruby, english]
 description: Medium to Jekyll Installation and Configuration Guide
 image:
   path: /assets/images/zmediumtomarkdown.jpeg
+last_modified_at: 2025-01-17T00:00:00.000+0000
 render_with_liquid: false
+tags:
+- medium
+- github
+- jekyll
+- ruby
+- english
+title: '[English] Medium to Jekyll Installation and Configuration Guide'
 ---
 
 [简体中文](/posts/cn/medium-to-jekyll/) | [正體中文](/posts/medium-to-jekyll/)
