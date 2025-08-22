@@ -361,7 +361,7 @@ class ZPost
         postCategoryURLPath = URI.encode_www_form_component(postCategoryURLPath)
         postCategoryURLPath = (postCategoryURLPath == "") ? ("") : ("/#{postCategoryURLPath}")
         langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
-        posURLPath = URI.encode_www_form_component(self.postPath(lang))
+        posURLPath = self.postPath(lang)
         return "/posts#{postCategoryURLPath}#{langURLPath}#{posURLPath}"
     end
 
@@ -371,7 +371,7 @@ class ZPost
             return @slug
         end
 
-        return "#{postTitleURLPath}-#{Jekyll::Utils.slugify(@slug)}"
+        return URI.encode_www_form_component("#{postTitleURLPath}-#{Jekyll::Utils.slugify(@slug)}")
     end
 
     def oldPostURL(lang = @lang)
