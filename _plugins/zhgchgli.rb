@@ -361,7 +361,7 @@ class ZPost
         postCategoryURLPath = (postCategoryURLPath == "") ? ("") : ("/#{postCategoryURLPath}")
         langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
         posURLPath = ERB::Util.url_encode(self.postPath(lang))
-        return "/posts#{postCategoryURLPath}#{langURLPath}#{posURLPath}"
+        return "/posts#{postCategoryURLPath}#{langURLPath}#{posURLPath}/"
     end
 
     def postPath(lang = @lang)
