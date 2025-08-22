@@ -357,10 +357,10 @@ class ZPost
     end
 
     def postURL(lang = @lang)
-        postCategoryURLPath = Jekyll::Utils.slugify(self.getPostCategory(lang))
+        postCategoryURLPath = ERB::Util.url_encode(Jekyll::Utils.slugify(self.getPostCategory(lang)))
         postCategoryURLPath = (postCategoryURLPath == "") ? ("") : ("/#{postCategoryURLPath}")
         langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
-        posURLPath = self.postPath(lang)
+        posURLPath = ERB::Util.url_encode(self.postPath(lang))
         return Jekyll::URL.escape_path("/posts#{postCategoryURLPath}#{langURLPath}#{posURLPath}")
     end
 
