@@ -30,9 +30,6 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
 
     # ===
     zPost = ZPost.new(post.path)
-    if zPost.isTravelPost()
-        post.data['kkdayPromoMessage'] = L10nStrings.makeKKdayPromoMessage(zPost.lang)
-    end
 
     otherLangs = zPost.otherLangs()
 
@@ -88,6 +85,15 @@ MSG
     def makePostContentFooter(post)
         zPost = ZPost.new(post.path)
         footer = ''
+
+        if zPost.isTravelPost()
+            footer += <<-MSG
+### [#{L10nStrings.makeKKdayPromoMessage(zPost.lang)}](https://www.kkday.com/zh-tw?cid=19365)
+  <ins class="kkday-product-media" data-oid="870" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
+  <script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+        end
+        footer += "\n\n---\n\n"
         footer += <<-MSG
 <a href="https://www.buymeacoffee.com/zhgchgli" target="_blank" style="display:block !important;"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&emoji=🍺&slug=zhgchgli&button_colour=FFDD00&font_colour=000000&font_family=Bree&outline_colour=000000&coffee_colour=ffffff" alt="Buy me a beer"/></a><br/>
 MSG
@@ -102,7 +108,7 @@ MSG
 {: .prompt-info }
 MSG
 
-        return "\n\n---\n\n"+footer
+        return footer
     end
 
     def removeFooterZMediumToMarkdown(post)
