@@ -26,7 +26,7 @@ def execute():
                 en = frontmatter.load(f)
                 with open(file_path, 'r', encoding='utf-8') as zf:
                     zh = frontmatter.load(zf)
-                    if en['date'] == zh['date']:
+                    if en['last_modified_at'] == zh['last_modified_at']:
                         print(f"⏭ 無修改，跳過：{basename}")
                         return
 
