@@ -4,6 +4,7 @@
         <link rel="alternate" hreflang="{{ pair[0] }}" href="{{ pair[1] | include.currentURL }}">
     {% endfor %}
     {% endif %}
+    <link rel="alternate" hreflang="{{ include.currentLang }}" href="{{ include.currentURL }}">
     <link rel="alternate" hreflang="x-default" href="{{ include.currentURL }}">
 {% endif %}
 

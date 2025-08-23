@@ -40,7 +40,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
     post.data['otherLangs'] = otherLangs.transform_keys { |k| langsToHreflang[k.to_s.downcase] || k.to_s }
 
     post.data['currentURL'] = zPost.postURL()
-
+    post.data['currentLang'] = langsToHreflang[zPost.lang.downcase] || zPost.lang
     # ===
     
     post.content = zPlguin.makePostContentHeader(post) + post.content +  zPlguin.makePostContentFooter(post)
