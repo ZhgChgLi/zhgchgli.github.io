@@ -45,17 +45,17 @@ def execute():
                 content = post.content
                 client = OpenAI(api_key=api_key)
 
-                format_markdown = mistune.create_markdown(renderer=MyRenderer(client=client))
                 print(f"正在處理 {filename}...")
                 response = client.chat.completions.create(
                     model="gpt-4.1-mini",
                     messages=[
-                        {"role": "system", "content": "你是一位科技(iOS/RPA/AI)與旅遊專家。以下是我的文章全文，請你先仔細閱讀了解 Context。我將在稍後的請求中請你將我的文章段落翻譯成英文。"},
+                        {"role": "system", "content": "你是一位科技(iOS/RPA/AI)與旅遊專家。以下是我的文章全文，請你仔細閱讀了解。最後產生一段總結文字給我，我會把你的總結帶入之後的翻譯請求。總結內容會給翻譯的 API 做參考。內容只需要講重點不要冗詞贅字。內容不能超過 300 個字。"},
                         {"role": "user", "content": "文章內容:\n" + content}
                     ],
                     temperature=0.5
                 )
-
+                summary = response.choices[0].message.content.strip()
+                format_markdown = mistune.create_markdown(renderer=MyRenderer(client=client,summary=summary))
                 result = format_markdown(content)
                 result = result.replace("|", r"\\|")
                 post.content = result
@@ -150,9 +150,10 @@ def get_orginal_english_title(file_path):
 
 
 class MyRenderer(MarkdownRenderer):
-    def __init__(self, client=None, *args, **kwargs):
+    def __init__(self, client=None, summary="", *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.client = client
+        self.summary = summary
         
     def text(self, token, state):
         result = super().text(token, state)
@@ -192,7 +193,8 @@ class MyRenderer(MarkdownRenderer):
         response = self.client.chat.completions.create(
             model="gpt-4.1-mini",
             messages=[
-                {"role": "system", "content": "你是一位科技(iOS/RPA/AI)與旅遊專家。請參考我剛剛給你的文章全文，幫我把以下文章 Markdown 段落翻譯成英文。請務必永遠遵守以下原則：1. 務必永遠保持原有的 Markdown 格式和結構。2. 永遠不要翻譯 URL連結 3. 使用簡潔明瞭的英文表達，避免冗長或複雜的句子。4. 確保翻譯後的內容符合英文語法和用詞習慣。5. 不要添加任何額外的解釋或評論。6. 程式碼區塊務必永遠保持原本的程式碼，只能翻譯註解7.永遠不要動到原本的 Markdown 符號。9.永遠遵照原本的 Markdown 格式，原本不是 Quote 或 Code 的區塊，就絕對不要把結果包裝在```給我。10.請千萬不要擅自改變任何檔案路徑字串。如果你嚴格遵守前面的要求的好我將給你巨額獎勵。規則都很清楚你不要耍白痴浪費資源。"},
+                {"role": "system", "content": f"本篇文章總結：{self.summary}"},
+                {"role": "system", "content": "你是一位科技(iOS/RPA/AI)與旅遊專家。請參考我剛剛給你的文章總結，了解 Context，然後幫我把以下文章 Markdown 段落翻譯成英文。請務必永遠遵守以下原則：1. 務必永遠保持原有的 Markdown 格式和結構。2. 永遠不要翻譯 URL連結 3. 使用簡潔明瞭的英文表達，避免冗長或複雜的句子。4. 確保翻譯後的內容符合英文語法和用詞習慣。5. 不要添加任何額外的解釋或評論。6. 程式碼區塊務必永遠保持原本的程式碼，只能翻譯註解7.永遠不要動到原本的 Markdown 符號。9.永遠遵照原本的 Markdown 格式，原本不是 Quote 或 Code 的區塊，就絕對不要把結果包裝在```給我。10.請千萬不要擅自改變任何檔案路徑字串。如果你嚴格遵守前面的要求的好我將給你巨額獎勵。規則都很清楚你不要耍白痴浪費資源。"},
                 {"role": "user", "content": text}
             ],
             temperature=0.5
