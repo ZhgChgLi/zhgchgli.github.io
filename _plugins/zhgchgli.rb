@@ -27,7 +27,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
     zPlguin.photoOptizmiation(post)
     zPlguin.postURLRender(post)
     zPlguin.seoTitleRender(post)
-
+    zPlguin.aioFAQRender(post)
     # ===
     zPost = ZPost.new(post.path)
 
@@ -113,6 +113,19 @@ MSG
 
     def removeFooterZMediumToMarkdown(post)
         post.content = post.content.gsub(/^.*(converted from Medium by \[ZMediumToMarkdown\]).*$(\n)*\z/i, '')
+    end
+
+    def aioFAQRender(post)
+        zPost = ZPost.new(post.path)
+
+        if !zPost.aioFaqs().empty?
+            result = {
+                "@context" => "https://schema.org",
+                "@type" => "FAQPage",
+                "mainEntity" => zPost.aioFaqs()
+            }
+            post.data['aioFaqs'] = JSON.generate(result)
+        end
     end
 
     def seoTitleRender(post)
@@ -323,6 +336,7 @@ class ZPost
         # Private
         @_cacheSEOData = {}
         @_frontMatter = {}
+        @_cacheAIOData = {}
     end
 
     def self.initWithSlug(lang, slug)
@@ -397,6 +411,10 @@ class ZPost
         return "/posts/#{postCategoryURLPath}#{langURLPath}#{@slug}/"
     end
 
+    def aioFaqs()
+        self._getAIOData(lang).fetch(@slug, [])
+    end
+
     def otherLangs()
         dirLangs = Dir.glob("./_posts/*/")
         allLangs = []
@@ -444,6 +462,19 @@ class ZPost
         end
 
         return @_cacheSEOData[lang]
+    end
+
+    def _getAIOData(lang)
+        if @_cacheAIOData.fetch(lang, nil).nil?
+            aioPath = "./assets/data/aio/#{lang}/results.json"
+            if File.exist?(aioPath)
+                @_cacheAIOData[lang] = JSON.parse(File.read(aioPath)) rescue {}
+            else
+                @_cacheAIOData[lang] = {}
+            end
+        end
+
+        return @_cacheAIOData[lang]
     end
 end
 
