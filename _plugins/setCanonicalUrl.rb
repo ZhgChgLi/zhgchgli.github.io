@@ -48,5 +48,3 @@ def setCanonicalUrl(slug, url)
     puts response.body
     sleep 5
 end
-
-execute()
