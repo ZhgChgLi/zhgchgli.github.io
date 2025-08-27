@@ -1,5 +1,4 @@
 .zhgchgli-toc {
-  font-size: 0.95rem;
   line-height: 1.5;
   border-left: 3px solid #e0e0e0;
   padding-left: 1rem;
@@ -20,6 +19,7 @@
   margin-left: 1rem;
   border-left: 1px dashed #ccc;
   padding-left: 0.75rem;
+  list-style: none;
 }
 
 /* Collapsible TOC: collapse from 2nd level by default via <details> */
@@ -40,6 +40,11 @@
   font-weight: 600;
 }
 
+.zhgchgli-toc .has-children > details > summary::before {
+  content: "▪ ";
+}
+
+
 .zhgchgli-toc .has-children > details[open] > summary::after {
   content: "▾";
 }
@@ -51,11 +56,8 @@
   padding-left: 0.75rem;
 }
 /* Leaf items: add a symbol to keep indentation consistent with +/− markers */
-.zhgchgli-toc li:not(.has-children) > a::after {
-  content: "";
-  margin-left: 0.4rem;
-  font-weight: 600;
-  opacity: 0.6;
+.zhgchgli-toc li:not(.has-children) > a::before {
+  content: "▪ ";
 }
 
 .zhgchgli-toc-list > li > details > summary {
