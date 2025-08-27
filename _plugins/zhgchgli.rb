@@ -50,7 +50,7 @@ end
 Jekyll::Hooks.register :posts, :post_render do |post|
     zPlguin = ZPlugin.new
     tocHTML = zPlguin.makeTOCHTML(post)
-    post.output = post.output.gsub("<!--ZHGCHGLI_POC-->", tocHTML)
+    post.output = post.output.gsub("<ZHGCHGLI_POC></ZHGCHGLI_POC>", tocHTML)
 end
 
 
@@ -127,7 +127,7 @@ MSG
 MSG
         end
 
-        return header+"\n\n<!--ZHGCHGLI_POC-->\n---\n\n"
+        return header+"\n\n<ZHGCHGLI_POC></ZHGCHGLI_POC>\n---\n\n"
     end
 
     def makePostContentFooter(post)
