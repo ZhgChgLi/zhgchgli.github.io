@@ -1,0 +1,66 @@
+.zhgchgli-toc {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-left: 3px solid #e0e0e0;
+  padding-left: 1rem;
+  margin: 2rem 0;
+}
+
+.zhgchgli-toc .zhgchgli-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.zhgchgli-toc .zhgchgli-toc-list li {
+  margin: 0.25rem 0;
+}
+
+.zhgchgli-toc ul ul {
+  margin-left: 1rem;
+  border-left: 1px dashed #ccc;
+  padding-left: 0.75rem;
+}
+
+/* Collapsible TOC: collapse from 2nd level by default via <details> */
+.zhgchgli-toc .has-children > details {
+  margin: 0.1rem 0;
+}
+
+.zhgchgli-toc .has-children > details > summary {
+  list-style: none; /* remove default marker */
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Custom disclosure marker */
+.zhgchgli-toc .has-children > details > summary::after {
+  content: "▸";
+  margin-left: 0.4rem;
+  font-weight: 600;
+}
+
+.zhgchgli-toc .has-children > details[open] > summary::after {
+  content: "▾";
+}
+
+/* Keep nested list indentation consistent */
+.zhgchgli-toc details > ul {
+  margin-left: 1rem;
+  border-left: 1px dashed #ccc;
+  padding-left: 0.75rem;
+}
+/* Leaf items: add a symbol to keep indentation consistent with +/− markers */
+.zhgchgli-toc li:not(.has-children) > a::after {
+  content: "";
+  margin-left: 0.4rem;
+  font-weight: 600;
+  opacity: 0.6;
+}
+
+/* First-level items bold */
+.zhgchgli-toc > ul > li > a,
+.zhgchgli-toc > .zhgchgli-toc-list > li > a,
+.zhgchgli-toc > ul > li > details > summary > a {
+  font-weight: 700;
+}

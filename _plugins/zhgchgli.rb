@@ -46,6 +46,16 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
     post.content = zPlguin.makePostContentHeader(post) + post.content +  zPlguin.makePostContentFooter(post)
 end
 
+# === On Post Pre Render ===
+Jekyll::Hooks.register :posts, :post_render do |post|
+    zPlguin = ZPlugin.new
+    tocHTML = zPlguin.makeTOCHTML(post)
+    post.output = post.output.gsub("<!--ZHGCHGLI_POC-->", tocHTML)
+end
+
+
+
+
 # === On Site Pre Render ===
 Jekyll::Hooks.register :site, :pre_render do |site|
     gmt_plus_8 = Time.now.getlocal("+08:00")
@@ -56,6 +66,44 @@ end
 # === Plugin ===
 
 class ZPlugin
+    def makeTOCHTML(post)
+        zPost = ZPost.new(post.path)
+        doc = Nokogiri::HTML::DocumentFragment.parse(post.content)
+
+        # 建立階層結構
+        headings = []
+        stack = []
+
+        doc.css("h1,h2,h3,h4,h5,h6").each do |h|
+            level = h.name[1].to_i # 例如 h2 → 2
+            text  = h.text.strip.gsub(/[:：]+\z/, "")
+            id    = h["id"]
+
+            node = { "level" => level, "text" => text, "id" => id, "children" => [] }
+
+            # 往回退，找到父層
+            while stack.any? && stack.last["level"] >= level
+                stack.pop
+            end
+
+            if stack.empty?
+                headings << node
+            else
+                stack.last["children"] << node
+            end
+
+            stack << node
+        end
+
+        html = _make_toc_to_html(headings)
+
+        if html != ""
+            html = '<h4 id="zhgchgli-table-of-contents">'+L10nStrings.makeTOCTitle(zPost.lang)+'</h4>'+html
+        end
+
+        return html
+    end
+
     def makePostContentHeader(post)
         zPost = ZPost.new(post.path)
         header = ""
@@ -79,7 +127,7 @@ MSG
 MSG
         end
 
-        return header+"\n\n---\n\n"
+        return header+"\n\n<!--ZHGCHGLI_POC-->\n---\n\n"
     end
 
     def makePostContentFooter(post)
@@ -208,12 +256,56 @@ MSG
             post.data['pin'] = false
         end
     end
+
+    private
+    def _make_toc_to_html(nodes, isRoot = true)
+        return "" if nodes.nil? || nodes.empty?
+        parts = []
+
+        if isRoot
+          parts << '<nav class="zhgchgli-toc"><ul class="zhgchgli-toc-list">'
+        else
+          parts << "<ul>"
+        end
+
+        nodes.each do |node|
+          text = node['text']
+          id   = node['id'].to_s
+          children = node['children'] || []
+
+          if children.any?
+            # Use <details>/<summary> so nested lists are collapsed by default
+            parts << %Q(<li class="has-children"><details><summary>#{text} <a href="##{id}">#</a></summary>)
+            parts << _make_toc_to_html(children, false)
+            parts << "</details></li>"
+          else
+            parts << %Q(<li><a href="##{id}">#{text}</a></li>)
+          end
+        end
+
+        if isRoot
+          parts << '</ul></nav>'
+        else
+          parts << "</ul>"
+        end
+
+        parts.join
+    end
 end
 
 
 # === Helper ===
 
 class L10nStrings
+    def self.makeTOCTitle(lang)
+        messages = {
+            "zh-tw" => "文章目錄",
+            "zh-cn" => "文章目录",
+            "en" => "Table of Contents"
+        }
+        return messages[lang] || messages["en"]
+    end
+
     def self.makeKKdayPromoMessage(lang)
         messages = {
             "zh-tw" => "如果這篇文章對您有幫助，歡迎使用我的 推廣連結 選購 KKday 商品、行程，我將獲得部分收益，持續更多旅遊創作，謝謝您的支持！。",
@@ -411,7 +503,7 @@ class ZPost
         return "/posts/#{postCategoryURLPath}#{langURLPath}#{@slug}/"
     end
 
-    def aioFaqs()
+    def aioFaqs(lang = @lang)
         self._getAIOData(lang).fetch(@slug, [])
     end
 
