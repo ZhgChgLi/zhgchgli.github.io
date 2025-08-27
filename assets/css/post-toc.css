@@ -58,9 +58,10 @@
   opacity: 0.6;
 }
 
-/* First-level items bold */
-.zhgchgli-toc > ul > li,
-.zhgchgli-toc > .zhgchgli-toc-list > li,
-.zhgchgli-toc > ul > li > details > summary {
-  font-weight: 700;
+.zhgchgli-toc-list > li > details > summary {
+  font-weight: bold;
+}
+
+.zhgchgli-toc-list > li > a {
+  font-weight: bold;
 }
