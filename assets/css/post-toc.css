@@ -59,8 +59,8 @@
 }
 
 /* First-level items bold */
-.zhgchgli-toc > ul > li > a,
-.zhgchgli-toc > .zhgchgli-toc-list > li > a,
-.zhgchgli-toc > ul > li > details > summary > a {
+.zhgchgli-toc > ul > li,
+.zhgchgli-toc > .zhgchgli-toc-list > li,
+.zhgchgli-toc > ul > li > details > summary {
   font-weight: 700;
 }
