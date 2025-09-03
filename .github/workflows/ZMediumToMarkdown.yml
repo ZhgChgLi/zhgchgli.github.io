@@ -28,9 +28,11 @@ jobs:
             exit 1
           fi
           while IFS= read -r line; do
+            echo "▶ ZMediumToMarkdown -k '$line'"
+            
             # 跳過空白行
             [ -z "$line" ] && continue
-            echo "▶ ZMediumToMarkdown -k '$line'"
+            
             ZMediumToMarkdown -k "$line" \
               --cookie_uid "${{ secrets.MEDIUM_COOKIE_UID }}" \
               --cookie_sid "${{ secrets.MEDIUM_COOKIE_SID }}"
