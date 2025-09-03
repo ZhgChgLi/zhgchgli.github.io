@@ -21,7 +21,8 @@ jobs:
         run: |
           mkdir -p ./_posts/zmediumtomarkdown/
           mv ./_posts/zh-tw/zmediumtomarkdown/* ./_posts/zmediumtomarkdown/
-      - run: |
+      - name: update unlisted posts
+        run: |
           if [ ! -f unlist.txt ]; then
             echo "❌ unlist.txt not found in repo root"
             exit 1
