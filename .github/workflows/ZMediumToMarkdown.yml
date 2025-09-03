@@ -23,6 +23,16 @@ jobs:
           mv ./_posts/zh-tw/zmediumtomarkdown/* ./_posts/zmediumtomarkdown/
       - run: ZMediumToMarkdown --cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli
         shell: bash
+      - run: |
+          while IFS= read -r line; do
+            # 跳過空白行
+            [ -z "$line" ] && continue
+
+            ZMediumToMarkdown -k "$line" \
+              --cookie_uid "${{ secrets.MEDIUM_COOKIE_UID }}" \
+              --cookie_sid "${{ secrets.MEDIUM_COOKIE_SID }}"
+          done < unlist.txt
+        shell: bash
       - name: MV posts to zh-tw
         run: mv ./_posts/zmediumtomarkdown/* ./_posts/zh-tw/zmediumtomarkdown/
       
