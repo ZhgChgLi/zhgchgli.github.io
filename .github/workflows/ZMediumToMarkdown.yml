@@ -23,20 +23,38 @@ jobs:
           mv ./_posts/zh-tw/zmediumtomarkdown/* ./_posts/zmediumtomarkdown/
       - name: update unlisted posts
         run: |
-          if [ ! -f unlist.txt ]; then
+          echo "PWD: $(pwd)"
+          echo "Repo root files:"
+          ls -la | sed -n '1,200p'
+
+          if [[ ! -f unlist.txt ]]; then
             echo "❌ unlist.txt not found in repo root"
             exit 1
           fi
-          while IFS= read -r line; do
-            echo "▶ ZMediumToMarkdown -k '$line'"
-            
-            # 跳過空白行
-            [ -z "$line" ] && continue
-            
-            ZMediumToMarkdown -k "$line" \
-              --cookie_uid "${{ secrets.MEDIUM_COOKIE_UID }}" \
-              --cookie_sid "${{ secrets.MEDIUM_COOKIE_SID }}"
-          done < unlist.txt
+
+          echo "---- Preview unlist.txt (show control chars) ----"
+          nl -ba unlist.txt | sed -n '1,200p' | sed 's/\r$//'
+
+          # 確認 CLI 存在
+          command -v ZMediumToMarkdown >/dev/null || { echo "❌ ZMediumToMarkdown not in PATH"; exit 1; }
+          echo "ZMediumToMarkdown path: $(command -v ZMediumToMarkdown)"
+
+          # 過濾：去 CR、修剪空白、跳過空白/註解行
+          count=0
+          sed 's/\r$//' unlist.txt \
+            | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' \
+            | awk 'NF && $0 !~ /^[[:space:]]*#/' \
+            | while IFS= read -r line; do
+                echo "▶ ZMediumToMarkdown -k '$line'"
+                ZMediumToMarkdown -k "$line" \
+                  --cookie_uid "${{ secrets.MEDIUM_COOKIE_UID }}" \
+                  --cookie_sid "${{ secrets.MEDIUM_COOKIE_SID }}" \
+                  -j zhgchgli
+                count=$((count+1))
+              done
+
+          # 上面 while 在 subshell 中執行，若需要在這裡拿到 count，可改用暫存檔或用 xargs 方案（見下）
+          echo "✅ update unlisted posts step finished."
         shell: bash
       - run: ZMediumToMarkdown --cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli
         shell: bash
