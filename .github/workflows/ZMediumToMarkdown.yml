@@ -24,6 +24,10 @@ jobs:
       - run: ZMediumToMarkdown --cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli
         shell: bash
       - run: |
+          if [ ! -f unlist.txt ]; then
+            echo "❌ unlist.txt not found in repo root"
+            exit 1
+          fi
           while IFS= read -r line; do
             # 跳過空白行
             [ -z "$line" ] && continue
