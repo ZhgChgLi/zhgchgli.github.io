@@ -1,6 +1,6 @@
 import os
 import json
-from PIL import Image
+from PIL import Image, ImageDraw, ImageOps
 
 root_dir="../../assets"
 result_json_file_path=root_dir+"/data/photos.json"
@@ -44,9 +44,27 @@ def execute():
                     elif filename.lower().endswith(('.gif')):
                         print(f"✅ [{dirpath}][{index + 1}/{len(filenames)}] Skip GIF: {webp_path}")
                     else:
-                        os.remove(input_path)
                         img.thumbnail((1200, 1200), Image.LANCZOS)
                         img.save(webp_path, format="WEBP", quality=80, method=6, optimize=True)
+
+                        # Reopen the saved webp image to draw the play icon
+                        if basename.lower().endswith('_hqdefault'):
+                            with Image.open(webp_path) as webp_img:
+                                draw = ImageDraw.Draw(webp_img, "RGBA")
+                                width, height = webp_img.size
+                                side_length = int(min(width, height) * 0.2)
+                                # Calculate the points of an equilateral triangle centered
+                                center_x = width // 2
+                                center_y = height // 2
+                                half_height = (side_length * (3 ** 0.5)) / 2
+                                point1 = (center_x - side_length / 2, center_y - half_height / 3)
+                                point2 = (center_x - side_length / 2, center_y + half_height * 2 / 3)
+                                point3 = (center_x + side_length / 2, center_y)
+                                triangle = [point1, point2, point3]
+                                # Draw semi-transparent white triangle
+                                draw.polygon(triangle, fill=(255, 255, 255, 128))
+                                webp_img.save(webp_path, format="WEBP", quality=80, method=6, optimize=True)
+
                         print(f"✅ [{dirpath}]{index + 1}/{len(filenames)}] 已轉換: {webp_path}")
 
                     width, height = img.size

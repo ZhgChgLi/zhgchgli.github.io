@@ -217,19 +217,39 @@ MSG
         zPhoto = ZPhoto.new(zPost.slug)
 
         # Photos in post contetnt
-        post.content = post.content.gsub(/!\[(.*?)\]\((\/assets\/.*?)\)/) do
-            altText = Regexp.last_match(1)
+        # 1) Images wrapped by a link: [![alt](/assets/xxx.jpg "title")] (https://...){:...}
+        post.content = post.content.gsub(/\[\s*!\[(.*?)\]\((\/assets\/[^\s\)]+)(?:\s+"([^"]*)")?\)\s*\]\(([^)]+)\)(\{\:[^}]*\})?/) do
+            altText   = Regexp.last_match(1)
             imagePath = Regexp.last_match(2)
+            title     = Regexp.last_match(3)
+            linkHref  = Regexp.last_match(4)
+            linkTail  = Regexp.last_match(5) || ""
 
             next Regexp.last_match(0) unless imagePath =~ /\.(jpg|jpeg|png|gif|webp)$/i
             next Regexp.last_match(0) if imagePath.include?('/lqip/')
 
             webpImagePath = zPhoto.getWebpImagePathIfExists(imagePath)
-            if webpImagePath
-                imagePath = webpImagePath
-            end
-            
-            "![#{altText}](#{imagePath}){: lqip=\"#{zPhoto.lqipImage(imagePath)}\" }"
+            imagePath = webpImagePath if webpImagePath
+
+            title_part = title.nil? ? "" : " \"#{title}\""
+            inner = "![#{altText}](#{imagePath}#{title_part}){: lqip=\"#{zPhoto.lqipImage(imagePath)}\" }"
+            "[#{inner}](#{linkHref})#{linkTail}"
+        end
+
+        # 2) Standalone images (optionally with title): ![alt](/assets/xxx.jpg "title")
+        post.content = post.content.gsub(/!\[(.*?)\]\((\/assets\/[^\s\)]+)(?:\s+"([^"]*)")?\)/) do
+            altText   = Regexp.last_match(1)
+            imagePath = Regexp.last_match(2)
+            title     = Regexp.last_match(3)
+
+            next Regexp.last_match(0) unless imagePath =~ /\.(jpg|jpeg|png|gif|webp)$/i
+            next Regexp.last_match(0) if imagePath.include?('/lqip/')
+
+            webpImagePath = zPhoto.getWebpImagePathIfExists(imagePath)
+            imagePath = webpImagePath if webpImagePath
+
+            title_part = title.nil? ? "" : " \"#{title}\""
+            "![#{altText}](#{imagePath}#{title_part}){: lqip=\"#{zPhoto.lqipImage(imagePath)}\" }"
         end
 
         # Post Conver Image
