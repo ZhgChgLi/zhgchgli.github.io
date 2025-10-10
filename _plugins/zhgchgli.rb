@@ -160,9 +160,10 @@ MSG
         if zPost.isTravelPost()
             readMoreTravelText = self.makeReadMoreTravelPostsHTML(post, zPost)
             footer += readMoreTravelText
-            
+            footer += "---\n"
+            footer += "\n"
             footer += <<-MSG
-### [#{L10nStrings.makeKKdayPromoMessage(zPost.lang)}](https://www.kkday.com/zh-tw?cid=19365)
+[**#{L10nStrings.makeKKdayPromoMessage(zPost.lang)}**](https://www.kkday.com/zh-tw?cid=19365)
   <ins class="kkday-product-media" data-oid="870" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
   <script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
 MSG
