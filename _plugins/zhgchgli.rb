@@ -43,6 +43,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
     post.data['currentLang'] = langsToHreflang[zPost.lang.downcase] || zPost.lang
     # ===
     
+    zPlguin.removeTravelReadMore(post)
     post.content = zPlguin.makePostContentHeader(post) + post.content +  zPlguin.makePostContentFooter(post)
 end
 
@@ -130,11 +131,36 @@ MSG
         return header+"\n\n<ZHGCHGLI_POC></ZHGCHGLI_POC>\n---\n\n"
     end
 
+    def makeReadMoreTravelPostsHTML(post, zPost)
+        if @_travels.nil?
+            travelsJSONPath = "./assets/data/travels.json"
+            
+            if File.exist?(travelsJSONPath)
+                @_travels = JSON.parse(File.read(travelsJSONPath)) rescue []
+            end
+        end
+
+        readMoreText = "## 更多遊記\n"
+        for travel in @_travels.reverse
+            absTravel = Dir.pwd+travel
+            postTravel = ZPost.new(absTravel)
+            if post.path != absTravel
+                readMoreText += "- [#{postTravel.getPostTitle(zPost.lang)}](#{postTravel.postURL(zPost.lang)})\n"
+            end
+        end
+        readMoreText += "\n"
+
+        return readMoreText
+    end
+
     def makePostContentFooter(post)
         zPost = ZPost.new(post.path)
         footer = ''
 
         if zPost.isTravelPost()
+            readMoreTravelText = self.makeReadMoreTravelPostsHTML(post, zPost)
+            footer += readMoreTravelText
+            
             footer += <<-MSG
 ### [#{L10nStrings.makeKKdayPromoMessage(zPost.lang)}](https://www.kkday.com/zh-tw?cid=19365)
   <ins class="kkday-product-media" data-oid="870" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
@@ -157,6 +183,10 @@ MSG
 MSG
 
         return footer
+    end
+
+    def removeTravelReadMore(post)
+        post.content = post.content.gsub(/^\#{1,6}[ \t]*更多遊記[ \t]*\n(?>^-\s.*\n)+/, '')
     end
 
     def removeFooterZMediumToMarkdown(post)
@@ -449,6 +479,7 @@ class ZPost
         @_cacheSEOData = {}
         @_frontMatter = {}
         @_cacheAIOData = {}
+        @_travels = nil
     end
 
     def self.initWithSlug(lang, slug)
