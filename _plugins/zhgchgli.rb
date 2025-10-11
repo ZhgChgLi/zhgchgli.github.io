@@ -43,7 +43,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
     post.data['currentLang'] = langsToHreflang[zPost.lang.downcase] || zPost.lang
     # ===
     
-    zPlguin.removeTravelReadMore(post)
+    zPlguin.removeTravelReadMore(post, L10nStrings.makeMoreTraveloguesTitle(zPost.lang))
     post.content = zPlguin.makePostContentHeader(post) + post.content +  zPlguin.makePostContentFooter(post)
 end
 
@@ -140,7 +140,7 @@ MSG
             end
         end
 
-        readMoreText = "## 更多遊記\n"
+        readMoreText = "## #{L10nStrings.makeMoreTraveloguesTitle(zPost.lang)}\n"
         for travel in @_travels.reverse
             absTravel = Dir.pwd+travel
             postTravel = ZPost.new(absTravel)
@@ -163,7 +163,7 @@ MSG
             footer += "---\n"
             footer += "\n"
             footer += <<-MSG
-[**#{L10nStrings.makeKKdayPromoMessage(zPost.lang)}**](https://www.kkday.com/zh-tw?cid=19365)
+[**#{L10nStrings.makeKKdayPromoMessage(zPost.lang)}**](https://www.kkday.com/zh-tw?cid=19365){:target="_blank"}
   <ins class="kkday-product-media" data-oid="870" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
   <script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
 MSG
@@ -186,8 +186,8 @@ MSG
         return footer
     end
 
-    def removeTravelReadMore(post)
-        post.content = post.content.gsub(/^\#{1,6}[ \t]*更多遊記[ \t]*\n(?>^-\s.*\n)+/, '')
+    def removeTravelReadMore(post, title)
+        post.content = post.content.gsub(/^\#{1,6}[ \t]*(#{title})[ \t]*\n(?>^-\s.*\n|\n)+/, '')
     end
 
     def removeFooterZMediumToMarkdown(post)
@@ -348,6 +348,15 @@ end
 # === Helper ===
 
 class L10nStrings
+    def self.makeMoreTraveloguesTitle(lang)
+        messages = {
+            "zh-tw" => "更多遊記",
+            "zh-cn" => "更多游记",
+            "en" => "More Travelogues"
+        }
+        return messages[lang] || messages["en"]
+    end
+
     def self.makeTOCTitle(lang)
         messages = {
             "zh-tw" => "文章目錄",
