@@ -56,11 +56,14 @@ jobs:
           # 上面 while 在 subshell 中執行，若需要在這裡拿到 count，可改用暫存檔或用 xargs 方案（見下）
           echo "✅ update unlisted posts step finished."
         shell: bash
+        env:
+          MIRO_MEDIUM_HOST: "${{ secrets.MIRO_MEDIUM_HOST }}"
+          MEDIUM_HOST: "${{ secrets.MEDIUM_HOST }}"
       - run: ZMediumToMarkdown --cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli
         shell: bash
         env:
-          MIRO_MEDIUM_HOST: ${{ secrets.MIRO_MEDIUM_HOST }}
-          MEDIUM_HOST: ${{ secrets.MEDIUM_HOST }}
+          MIRO_MEDIUM_HOST: "${{ secrets.MIRO_MEDIUM_HOST }}"
+          MEDIUM_HOST: "${{ secrets.MEDIUM_HOST }}"
       - name: MV posts to zh-tw
         run: mv ./_posts/zmediumtomarkdown/* ./_posts/zh-tw/zmediumtomarkdown/
       
