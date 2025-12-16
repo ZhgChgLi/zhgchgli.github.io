@@ -26,8 +26,11 @@ iOS/Web/Automation Developer and Engineer Manager @ Taipei / Taiwan 🇹🇼
 
 ## Experience
 
+### [SHOPLINE 全方位零售整合專家｜完整開店功能讓你的生意不斷成長](https://shopline.tw/){:target="_blank"}
+- [2025/09 ~ Present] **Senior Software Engineer**
+
 ### [KKday | 全球旅遊神隊友，提供當地體驗、機加酒、團體旅遊](https://www.kkday.com/){:target="_blank"}
-- [2024/06 ~ Present] **iOS Staff Engineer**
+- [2024/06 ~ 2025/06] **iOS Staff Engineer**
 
 ### [Addcn 數字科技股份有限公司](https://www.addcn.com.tw/){:target="_blank"}
 - [2023/12 ~ 2024/05] **Engineer Manager (Consulting)**

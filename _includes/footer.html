@@ -26,7 +26,9 @@
         {{- site.data.locales[include.lang].copyright.brief -}}
       </span>
     {% endif %}
-     <a href="/">中文</a>|<a href="/tags/simplified-chinese">简中</a>|<a href="/tags/english/">English</a>
+    <!-- ZhgChgLi Customized Start -->
+        {% include zhgchgli/footer-lastUpdated.html %}
+    <!-- ZhgChgLi Customized End -->
   </p>
 
   <p>
@@ -46,8 +48,5 @@
     {%- endcapture -%}
 
     {{ site.data.locales[include.lang].meta | replace: ':PLATFORM', _platform | replace: ':THEME', _theme }}
-    <!-- ZhgChgLi Customized Start -->
-        {% include zhgchgli/footer-lastUpdated.html %}
-    <!-- ZhgChgLi Customized End -->
   </p>
 </footer>

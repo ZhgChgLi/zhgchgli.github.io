@@ -13,16 +13,15 @@
 
     <a class="site-title d-block" href="{{ '/' | relative_url }}">{{ site.title }}</a>
     <p class="site-subtitle fst-italic mb-0">{{ site.tagline }}</p>
-    
-    <!-- ZhgChgLi Customized Start -->
-        {% include zhgchgli/sidebar-follow.html %}
-    <!-- ZhgChgLi Customized End -->
-
   </header>
   <!-- .profile-wrapper -->
 
   <nav class="flex-column flex-grow-1 w-100 ps-0">
     <ul class="nav">
+      <!-- ZhgChgLi Customized Start -->
+          {% include zhgchgli/sidebar-follow.html mediumFollowers=site.data.mediumFollowers %}
+      <!-- ZhgChgLi Customized End -->
+      
       <!-- home -->
       <li class="nav-item{% if page.layout == 'home' %}{{ " active" }}{% endif %}">
         <a href="{{ '/' | relative_url }}" class="nav-link">

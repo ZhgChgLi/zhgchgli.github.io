@@ -6,9 +6,13 @@ require "base64"
 require 'yaml'
 require 'date'
 require 'json'
+require_relative './ZMedium.rb'
 
 require 'jekyll'
 # ====================
+
+zMedium = ZMedium.new
+mediumFollowers = zMedium.getFollowers()
 
 # === On Post init ===
 Jekyll::Hooks.register :posts, :post_init do |post|
@@ -55,13 +59,12 @@ Jekyll::Hooks.register :posts, :post_render do |post|
 end
 
 
-
-
 # === On Site Pre Render ===
 Jekyll::Hooks.register :site, :pre_render do |site|
     gmt_plus_8 = Time.now.getlocal("+08:00")
     formatted_time = gmt_plus_8.strftime("%Y-%m-%d %H:%M:%S")
     site.data['lastUpdated'] = "Last updated: #{formatted_time} +08:00"
+    site.data['mediumFollowers'] = mediumFollowers
 end
 
 # === Plugin ===
@@ -628,74 +631,5 @@ class ZPost
         end
 
         return @_cacheAIOData[lang]
-    end
-end
-
-class ZMedium
-    def initialize()
-        @_postStatusDataURL = "https://script.google.com/macros/s/AKfycbx7p5jak9qelxQOrl90ZXgJAu38_Ss4OJD-jJ2g_Dc4eCPbsvWsYrWsD3pDOc3m_J947w/exec"
-        @_cachePostStatus = {}
-    end
-
-    def getFollowers(username)
-        begin
-            result = self._getFollowers("https://medium.com/@#{username}/followers")
-            if result == 0
-                result = 1000
-            end
-            return result
-        rescue => e
-            return 1000
-        end
-    end
-
-    def getPostStatus(slug)
-        if @_cachePostStatus.empty?
-            @_cachePostStatus = self._getPostStatusData()
-        end
-
-        result = @_cachePostStatus.fetch(slug, {})
-        return {
-            medium: result.fetch("meidum", 0),
-            zhgchgli: result.fetch("zhgchgli", 0),
-        }
-    end
-
-    private
-    def _getFollowers(url, retries = 10)
-        return 0 if retries.zero?
-
-        uri = URI(url)
-        response = Net::HTTP.get_response(uri)
-        case response
-        when Net::HTTPSuccess then
-            document = Nokogiri::HTML(response.body)
-            document.css('h2').each do |h2|
-                if h2.text.strip.downcase.end_with?('followers')
-                    return h2.text.strip.sub(/followers\z/i, '').strip.gsub(',', '').to_i
-                end
-            end
-        when Net::HTTPRedirection then
-            location = response['location']
-            return self._getFollowers(location, retries - 1)
-        else
-            return 0
-        end
-    end
-
-    def _getPostStatusData(url = @_postStatusDataURL)
-        uri = URI(url);
-        response = Net::HTTP.get_response(uri)
-
-        case response
-        when Net::HTTPSuccess then
-            data = JSON.parse(response.body)
-            return data
-        when Net::HTTPFound then
-            newURL = response['location']
-            return self._getPostStatusData(newURL)
-        else
-            return {}
-        end
     end
 end
