@@ -1,25 +1,42 @@
 ---
 layout: page
-title: "404: Page not found"
+title: "Redirecting…"
 permalink: /404.html
 ---
 
-{% include lang.html %}
-
-<p class="lead">{{ site.data.locales[lang].not_found.statement }}</p>
+<div id="not-found-content" style="display:none">
+  {% include lang.html %}
+  <p class="lead">{{ site.data.locales[lang].not_found.statement }}</p>
+</div>
 
 <script>
-const segments = window.location.pathname.split('/').filter(Boolean);
-if (segments.length >= 2) {
-    const lastSegment = segments.pop();
-    const lastPath = lastSegment.split("-").filter(Boolean).pop();
-    if (segments[0] == "posts" && lastPath != lastSegment && lastPath.match(/^([a-f0-9]+)$/i)) {
-        const isEn = segments.includes("en");
-        if(isEn) {
-            location.replace("/posts/en/"+lastPath);
-        } else {
-            location.replace("/posts/"+lastPath);
+(function () {
+    const segments = window.location.pathname.split('/').filter(Boolean);
+    const notFoundContent = document.getElementById('not-found-content');
+
+    if (segments.length >= 2) {
+        const lastSegment = segments.pop();
+        const lastPath = lastSegment.split("-").filter(Boolean).pop();
+
+        if (segments[0] === "posts" &&
+            lastPath !== lastSegment &&
+            lastPath.match(/^([a-f0-9]+)$/i)) {
+
+            const isEn = segments.includes("en");
+            if (isEn) {
+                location.replace("/posts/en/" + lastPath);
+            } else {
+                location.replace("/posts/" + lastPath);
+            }
+            return; // 🔁 有 redirect，不顯示 404 內容
         }
     }
-}
+
+    // ❌ 沒命中轉址條件 → 顯示 404 內容
+    if (notFoundContent) {
+        notFoundContent.style.display = "";
+        document.getElementsByClassName("dynamic-title")[0].innerHTML = "404: Page not found";
+        document.title = "404: Page not found";
+    }
+})();
 </script>
