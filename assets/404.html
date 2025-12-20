@@ -32,6 +32,24 @@ if (segments.length >= 2) {
             notFoundContent.style.display = "";
             document.getElementsByClassName("dynamic-title")[0].innerHTML = "404: Page not found";
             document.title = "404: Page not found";
+            const spans = document.getElementById("breadcrumb").getElementsByTagName("span");
+            for (const span of spans) {
+                if (span.textContent.trim() === "Redirecting…") {
+                    span.textContent = "404: Page not found";
+                }
+            }
+        }
+    }
+} else {
+    if (notFoundContent) {
+        notFoundContent.style.display = "";
+        document.getElementsByClassName("dynamic-title")[0].innerHTML = "404: Page not found";
+        document.title = "404: Page not found";
+        const spans = document.getElementById("breadcrumb").getElementsByTagName("span");
+        for (const span of spans) {
+            if (span.textContent.trim() === "Redirecting…") {
+                span.textContent = "404: Page not found";
+            }
         }
     }
 }
