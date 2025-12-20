@@ -27,11 +27,10 @@ if (segments.length >= 2) {
         } else {
             location.replace("/posts/" + lastPath);
         }
-        return; // 🔁 有 redirect，不顯示 404 內容
+        return;
     }
 }
 
-// ❌ 沒命中轉址條件 → 顯示 404 內容
 if (notFoundContent) {
     notFoundContent.style.display = "";
     document.getElementsByClassName("dynamic-title")[0].innerHTML = "404: Page not found";
