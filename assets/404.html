@@ -27,13 +27,12 @@ if (segments.length >= 2) {
         } else {
             location.replace("/posts/" + lastPath);
         }
-        return;
+    } else {
+        if (notFoundContent) {
+            notFoundContent.style.display = "";
+            document.getElementsByClassName("dynamic-title")[0].innerHTML = "404: Page not found";
+            document.title = "404: Page not found";
+        }
     }
-}
-
-if (notFoundContent) {
-    notFoundContent.style.display = "";
-    document.getElementsByClassName("dynamic-title")[0].innerHTML = "404: Page not found";
-    document.title = "404: Page not found";
 }
 </script>
