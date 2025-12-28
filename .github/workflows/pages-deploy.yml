@@ -9,6 +9,7 @@ on:
       - README.md
       - LICENSE
   workflow_dispatch:
+  workflow_call:
   workflow_run:
     workflows: [ZMediumToMarkdown]
     types:
