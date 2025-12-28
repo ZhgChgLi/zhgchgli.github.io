@@ -503,6 +503,8 @@ class ZPost
     def initialize(path)
         @lang = path[%r{posts/([^/]+)/}, 1]
         path = path.sub(%r{/_posts/}, "/L10N/posts/")
+        puts path
+        puts File.exist?(path)
         return nil unless File.exist?(path)
 
         @defaultLang = "zh-tw"
