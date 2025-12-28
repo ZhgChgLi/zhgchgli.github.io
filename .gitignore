@@ -33,4 +33,4 @@ assets/js/dist
 run-locally.sh
 
 /_posts/**
-./_config.yml
+_config.yml

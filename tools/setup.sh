@@ -17,10 +17,10 @@ fi
 
 if [[ -z "$L10N" ]]; then
     mkdir -p ./_posts/
-    cp -R ./L10n/config/zh-tw/. ./
-    cp -R ./L10n/posts/. ./_posts/
+    cp -Rv ./L10n/config/zh-tw/. ./
+    cp -Rv ./L10n/posts/. ./_posts/
 else
     mkdir -p ./_posts/${L10N}/
-    cp -R ./L10n/config/${L10N}/. ./
-    cp -R ./L10n/posts/${L10N}/. ./_posts/${L10N}/
+    cp -Rv ./L10n/config/${L10N}/. ./
+    cp -Rv ./L10n/posts/${L10N}/. ./_posts/${L10N}/
 fi
