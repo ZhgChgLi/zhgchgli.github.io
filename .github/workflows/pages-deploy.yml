@@ -58,6 +58,8 @@ jobs:
         env:
           JEKYLL_ENV: "production"
           MEDIUM_HOST: "${{ secrets.MEDIUM_HOST }}"
+          MEDIUM_COOKIE_SID: "${{ secrets.MEDIUM_COOKIE_SID }}"
+          MEDIUM_COOKIE_UID: "${{ secrets.MEDIUM_COOKIE_UID }}"
           
       - name: Test site
         run: |
