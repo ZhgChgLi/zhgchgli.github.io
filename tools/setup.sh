@@ -8,21 +8,19 @@
 
 set -eu
 
-L10N="${L10N:-}"
+L10n="${L10n:-}"
 
-echo "L10N: ${L10N}"
+echo "L10n: ${L10n}"
 if [[ -d "./_posts" ]]; then
     rm -rf ./_posts
 fi
 
-if [[ -z "$L10N" ]]; then
+if [[ -z "$L10n" ]]; then
     mkdir -p ./_posts/
     cp -R ./L10n/config/zh-tw/. ./
     cp -R ./L10n/posts/. ./_posts/
 else
-    mkdir -p ./_posts/${L10N}/
-    cp -R ./L10n/config/${L10N}/. ./
-    cp -R ./L10n/posts/${L10N}/. ./_posts/${L10N}/
+    mkdir -p ./_posts/${L10n}/
+    cp -R ./L10n/config/${L10n}/. ./
+    cp -R ./L10n/posts/${L10n}/. ./_posts/${L10n}/
 fi
-
-ls ./L10N/posts/en/

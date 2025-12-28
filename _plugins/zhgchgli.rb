@@ -313,8 +313,8 @@ MSG
     end
 
     def hiddenPostFilter(post)
-        l10N = ENV["L10N"]
-        if l10N.nil?
+        l10n = ENV["L10n"]
+        if l10n.nil?
             if !post.path.include?('/zh-tw/') or post.path.include?('/redirect/')
                 post.data['hidden'] = true
             end
@@ -502,7 +502,7 @@ class ZPost
     attr_accessor :path, :lang, :slug
     def initialize(path)
         @lang = path[%r{posts/([^/]+)/}, 1]
-        path = path.sub(%r{/_posts/}, "/L10N/posts/")
+        path = path.sub(%r{/_posts/}, "/L10n/posts/")
         return nil unless File.exist?(path)
 
         @defaultLang = "zh-tw"
@@ -564,8 +564,8 @@ class ZPost
         postCategoryURLPath = (postCategoryURLPath == "") ? ("") : ("/#{postCategoryURLPath}")
         posURLPath = ERB::Util.url_encode(self.postPath(lang))
 
-        l10N = ENV["L10N"]
-        if !l10N.nil?
+        l10n = ENV["L10n"]
+        if !l10n.nil?
             if lang == "en"
                 return "https://en.zhgchg.li/posts#{postCategoryURLPath}/#{posURLPath}/"
             elsif lang == "zh-cn"
@@ -591,8 +591,8 @@ class ZPost
     def slugPostURL(lang = @lang)
         langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
 
-        l10N = ENV["L10N"]
-        if !l10N.nil?
+        l10n = ENV["L10n"]
+        if !l10n.nil?
             langURLPath = "/"
         end
         
@@ -601,8 +601,8 @@ class ZPost
 
     def shortPostURL(lang = @lang)
         langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
-        l10N = ENV["L10N"]
-        if !l10N.nil?
+        l10n = ENV["L10n"]
+        if !l10n.nil?
             langURLPath = "/"
         end
         postCategoryURLPath = Jekyll::Utils.slugify(self.getPostCategory(lang))
