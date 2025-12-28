@@ -12,10 +12,6 @@ last_modified_at: 2023-01-09T00:00:00.000+0000
 render_with_liquid: false
 tags:
 - blog
-- blogger
-- developer
-- 生活
-- medium
 title: Google 出現與本人李仲澄無關之搜尋結果聲明
 ---
 
