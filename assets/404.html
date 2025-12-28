@@ -22,8 +22,11 @@ if (segments.length >= 2) {
         lastPath.match(/^([a-f0-9]+)$/i)) {
 
         const isEn = segments.includes("en");
+        const isCn = segments.includes("zh-cn");
         if (isEn) {
             location.replace("https://en.zhgchg.li/posts/" + lastPath);
+        } else if (isCn) {
+            location.replace("https://zh-hans.zhgchg.li/posts/" + lastPath);
         } else {
             location.replace("/posts/" + lastPath);
         }
