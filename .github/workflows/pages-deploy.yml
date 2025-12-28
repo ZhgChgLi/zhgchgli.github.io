@@ -66,9 +66,34 @@ jobs:
             \-\-no-enforce-https \
             \-\-ignore-empty-alt \
             \-\-ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
-
+            
       - name: Deploy
         run: bash tools/deploy.sh
+        
+      - name: Trigger en deploy
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/ZhgChgLi/zhgchgli-en.github.io/actions/workflows/deploy.yml/dispatches \
+            -d '{
+              "ref": "main"
+            }'
+            
+      - name: Trigger cn deploy
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/ZhgChgLi/zhgchgli-zh-hans.github.io/actions/workflows/deploy.yml/dispatches \
+            -d '{
+              "ref": "main"
+            }'
+      
       # - name: Upload site artifact
       #   uses: actions/upload-pages-artifact@v3
       #   with:
