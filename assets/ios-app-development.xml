@@ -1,6 +1,6 @@
 ---
 layout: compress
-permalink: /english-ios.xml
+permalink: /ios-app-development.xml
 # Atom Feed, reference: https://validator.w3.org/feed/docs/atom.html
 ---
 
@@ -22,7 +22,7 @@ permalink: /english-ios.xml
   <icon>{{ site.baseurl }}/assets/img/favicons/favicon.ico</icon>
   <logo>{{ site.baseurl }}/assets/img/favicons/favicon-96x96.png</logo>
 
-{% assign filtered_posts = site.posts | where_exp: "p", "p.tags contains 'ios-app-development' and p.tags contains 'english'" %}
+{% assign filtered_posts = site.posts | where_exp: "p", "p.tags contains 'ios-app-development'" %}
 {% for post in filtered_posts limit: 10 %}
   {% assign post_absolute_url = post.url | absolute_url %}
   <entry>
