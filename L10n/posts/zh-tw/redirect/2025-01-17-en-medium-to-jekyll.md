@@ -15,8 +15,8 @@ tags: []
 title: '[English] Medium to Jekyll Installation and Configuration Guide'
 ---
 
-# [➡️➡️➡️ The post has been moved. Click here to view it if you are not redirected.](/posts/tools/en/english-medium-to-jekyll-installation-and-configuration-guide-medium-to-jekyll//)
+# [➡️➡️➡️ The post has been moved. Click here to view it if you are not redirected.](https://en.zhgchg.li/posts/tools/english-medium-to-jekyll-installation-and-configuration-guide-medium-to-jekyll/)
 
 <script>
-  window.location.replace("/posts/tools/en/english-medium-to-jekyll-installation-and-configuration-guide-medium-to-jekyll//");
+  window.location.replace("https://en.zhgchg.li/posts/tools/english-medium-to-jekyll-installation-and-configuration-guide-medium-to-jekyll/");
 </script>

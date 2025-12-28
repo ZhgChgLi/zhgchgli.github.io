@@ -15,8 +15,8 @@ tags: []
 title: The URL has been moved. Click here to view it if you are not redirected
 ---
 
-# [➡️➡️➡️ The URL has been moved. Click here to view it if you are not redirected.](/categories/travel-journals/)
+# [➡️➡️➡️ The URL has been moved. Click here to view it if you are not redirected.](https://en.zhgchg.li/categories/travel-journals/)
 
 <script>
-  window.location.replace("/categories/travel-journals/");
+  window.location.replace("https://en.zhgchg.li/categories/travel-journals/");
 </script>
