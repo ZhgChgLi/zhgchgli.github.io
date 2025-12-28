@@ -1,5 +1,4 @@
 ---
-title: Contact
 icon: fa fa-envelope-open
 comments: true
 order: 6

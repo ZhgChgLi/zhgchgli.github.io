@@ -1,0 +1,96 @@
+# 網站版面文字
+
+# ----- 通用標籤 -----
+
+layout:
+  post: 文章
+  category: 分類
+  tag: 標籤
+
+# 側邊欄分頁
+tabs:
+  # 格式：<不含副檔名的檔名>: <顯示文字>
+  home: 首頁
+  categories: 分類
+  tags: 標籤
+  archives: 歸檔
+  about: 關於我
+  contact: 聯絡我
+
+# 搜尋列與搜尋結果顯示文字
+search:
+  hint: 搜尋
+  cancel: 取消
+  no_results: 找不到符合的結果。
+
+panel:
+  lastmod: 最近更新
+  trending_tags: 熱門標籤
+  toc: 章節目錄 🔖
+
+copyright:
+  # 顯示於文章底部
+  license:
+    template: 本文由作者以 :LICENSE_NAME 授權。
+    name: CC BY 4.0
+    link: https://creativecommons.org/licenses/by/4.0/deed.zh-hant
+
+  # 顯示於頁尾
+  brief: 版權所有。
+  verbose: >-
+    除非另有註明，本網站上的所有文章皆由作者依據
+    創用 CC 姓名標示 4.0 國際授權條款（CC BY 4.0）授權使用。
+
+meta: >-
+  本站使用 :THEME 主題建置於 :PLATFORM。<br/>
+  Medium 文章由
+  <a href="https://github.com/ZhgChgLi/ZMediumToMarkdown" target="_blank">ZMediumToMarkdown</a>
+  轉換而成。
+
+not_found:
+  statement: 抱歉，這個網址不存在，或已被移除。
+
+notification:
+  update_found: 發現有新的內容版本。
+  update: 更新
+
+# ----- 與文章相關的標籤 -----
+
+post:
+  written_by: 作者
+  posted: 發佈於
+  updated: 更新於
+  words: 字
+  pageview_measure: 次瀏覽
+  read_time:
+    unit: 分鐘
+    prompt: 閱讀
+  relate_posts: 延伸閱讀
+  share: 分享
+  button:
+    next: 下一篇
+    previous: 上一篇
+    copy_code:
+      succeed: 已複製！
+    share_link:
+      title: 複製連結
+      succeed: 連結已成功複製！
+
+# 日期時間格式
+# 參考：<http://strftime.net/>, <https://day.js.org/docs/en/display/format>
+df:
+  post:
+    strftime: "%Y 年 %m 月 %d 日"
+    dayjs: "YYYY 年 M 月 D 日"
+  archives:
+    strftime: "%m 月"
+    dayjs: "MMM"
+
+# 分類頁面
+categories:
+  category_measure:
+    singular: 分類
+    plural: 分類
+  post_measure:
+    singular: 文章
+    plural: 文章

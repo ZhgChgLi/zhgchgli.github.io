@@ -1,0 +1,96 @@
+# 网站版面文字
+
+# ----- 通用标签 -----
+
+layout:
+  post: 文章
+  category: 分类
+  tag: 标签
+
+# 侧边栏分页
+tabs:
+  # 格式：<不含副档名的档名>: <显示文字>
+  home: 首页
+  categories: 分类
+  tags: 标签
+  archives: 归档
+  about: 关于我
+  contact: 联络我
+
+# 搜寻列与搜寻结果显示文字
+search:
+  hint: 搜寻
+  cancel: 取消
+  no_results: 找不到符合的结果。
+
+panel:
+  lastmod: 最近更新
+  trending_tags: 热门标签
+  toc: 章节目录 🔖
+
+copyright:
+  # 显示于文章底部
+  license:
+    template: 本文由作者以 :LICENSE_NAME 授权。
+    name: CC BY 4.0
+    link: https://creativecommons.org/licenses/by/4.0/deed.zh-hans
+
+  # 显示于页尾
+  brief: 版权所有。
+  verbose: >-
+    除非另有注明，本网站上的所有文章皆由作者依据
+    创用 CC 姓名标示 4.0 国际授权条款（CC BY 4.0）授权使用。
+
+meta: >-
+  本站使用 :THEME 主题建置于 :PLATFORM。<br/>
+  Medium 文章由
+  <a href="https://github.com/ZhgChgLi/ZMediumToMarkdown" target="_blank">ZMediumToMarkdown</a>
+  转换而成。
+
+not_found:
+  statement: 抱歉，这个网址不存在，或已被移除。
+
+notification:
+  update_found: 发现有新的内容版本。
+  update: 更新
+
+# ----- 与文章相关的标签 -----
+
+post:
+  written_by: 作者
+  posted: 发布于
+  updated: 更新于
+  words: 字
+  pageview_measure: 次浏览
+  read_time:
+    unit: 分钟
+    prompt: 阅读
+  relate_posts: 延伸阅读
+  share: 分享
+  button:
+    next: 下一篇
+    previous: 上一篇
+    copy_code:
+      succeed: 已复制！
+    share_link:
+      title: 复制连结
+      succeed: 连结已成功复制！
+
+# 日期时间格式
+# 参考：<http://strftime.net/>, <https://day.js.org/docs/en/display/format>
+df:
+  post:
+    strftime: "%Y 年 %m 月 %d 日"
+    dayjs: "YYYY 年 M 月 D 日"
+  archives:
+    strftime: "%m 月"
+    dayjs: "MMM"
+
+# 分类页面
+categories:
+  category_measure:
+    singular: 分类
+    plural: 分类
+  post_measure:
+    singular: 文章
+    plural: 文章
