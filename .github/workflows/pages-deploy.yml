@@ -73,12 +73,12 @@ jobs:
       #   uses: actions/upload-pages-artifact@v3
       #   with:
       #     path: "_site${{ steps.pages.outputs.base_path }}"
-  deploy-zh-hans:
-    needs: build
-    uses: ZhgChgLi/zhgchgli-zh-hans.github.io/.github/workflows/deploy.yml@main
-  deploy-en:
-    needs: build
-    uses: ZhgChgLi/zhgchgli-en.github.io/.github/workflows/deploy.yml@main
+  # deploy-zh-hans:
+  #   needs: build
+  #   uses: ZhgChgLi/zhgchgli-zh-hans.github.io/.github/workflows/deploy.yml@main
+  # deploy-en:
+  #   needs: build
+  #   uses: ZhgChgLi/zhgchgli-en.github.io/.github/workflows/deploy.yml@main
   # deploy:
   #   environment:
   #     name: github-pages
