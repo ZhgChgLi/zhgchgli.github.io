@@ -121,7 +121,7 @@ comments:
     repo_id: R_kgDOHdowLw
     category: General
     category_id: DIC_kwDOHdowL84CU-q5
-    mapping: url # optional, default to 'pathname'
+    mapping: pathname # optional, default to 'pathname'
     strict: # optional, default to '0'
     input_position: # optional, default to 'bottom'
     lang: zh-TW # optional, default to the value of `site.lang`

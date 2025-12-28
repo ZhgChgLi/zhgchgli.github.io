@@ -64,7 +64,7 @@ end
 Jekyll::Hooks.register :site, :pre_render do |site|
     gmt_plus_8 = Time.now.getlocal("+08:00")
     formatted_time = gmt_plus_8.strftime("%Y-%m-%d %H:%M:%S")
-    site.data['lastUpdated'] = "Last updated: #{formatted_time} +08:00"
+    site.data['lastUpdated'] = "#{formatted_time} +08:00"
     site.data['mediumFollowers'] = mediumFollowers
 end
 
