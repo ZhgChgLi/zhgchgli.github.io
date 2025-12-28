@@ -5,7 +5,7 @@ import json
 import argparse
 import re
 
-root_dir = "../../_posts/zh-tw/zmediumtomarkdown"
+root_dir = "../../L10n/posts/zh-tw/zmediumtomarkdown"
 result_json_file_path="../../assets/data/aio/zh-tw/results.json"
 
 def execute():

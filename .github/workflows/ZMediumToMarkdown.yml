@@ -20,7 +20,7 @@ jobs:
       - name: MV posts to root
         run: |
           mkdir -p ./_posts/zmediumtomarkdown/
-          mv ./_posts/zh-tw/zmediumtomarkdown/* ./_posts/zmediumtomarkdown/
+          mv ./L10n/posts/zh-tw/zmediumtomarkdown/* ./_posts/zmediumtomarkdown/
       - name: update unlisted posts
         run: |
           echo "PWD: $(pwd)"
@@ -65,7 +65,7 @@ jobs:
           MIRO_MEDIUM_HOST: "${{ secrets.MIRO_MEDIUM_HOST }}"
           MEDIUM_HOST: "${{ secrets.MEDIUM_HOST }}"
       - name: MV posts to zh-tw
-        run: mv ./_posts/zmediumtomarkdown/* ./_posts/zh-tw/zmediumtomarkdown/
+        run: mv ./_posts/zmediumtomarkdown/* ./L10n/posts/zh-tw/zmediumtomarkdown/
       
       - name: 🐍 Set up Python
         uses: actions/setup-python@v5

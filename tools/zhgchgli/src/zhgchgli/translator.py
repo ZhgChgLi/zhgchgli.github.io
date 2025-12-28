@@ -10,8 +10,8 @@ import re
 import mistune
 from mistune.renderers.markdown import MarkdownRenderer
 
-root_dir = "../../_posts/zh-tw/zmediumtomarkdown"
-output_root_dir = "../../_posts/en/zmediumtomarkdown"
+root_dir = "../../L10n/posts/zh-tw/zmediumtomarkdown"
+output_root_dir = "../../L10n/posts/en/zmediumtomarkdown"
 
 def execute():
     parser = argparse.ArgumentParser(description="Translate Markdown content using OpenAI API")

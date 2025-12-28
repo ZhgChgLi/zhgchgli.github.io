@@ -2,7 +2,7 @@ import os
 import frontmatter
 from zhgchgli.helper import slugify
 
-root_dir = "../../_posts/"
+root_dir = "../../L10n/posts/"
 
 def execute():
     for dirpath, _, filenames in os.walk(root_dir):

@@ -10,8 +10,8 @@ import mistune
 from functools import partial
 from mistune.renderers.markdown import MarkdownRenderer
 
-root_dir = "../../_posts/zh-tw/zmediumtomarkdown"
-output_root_dir = "../../_posts/zh-cn/zmediumtomarkdown"
+root_dir = "../../L10n/posts/zh-tw/zmediumtomarkdown"
+output_root_dir = "../../L10n/posts/zh-cn/zmediumtomarkdown"
 
 def execute():
     def process_file(filename, root_dir):

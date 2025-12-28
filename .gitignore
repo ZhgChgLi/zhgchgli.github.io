@@ -31,3 +31,6 @@ assets/js/dist
 .DS_Store
 
 run-locally.sh
+
+/_posts/**
+./_config.yml

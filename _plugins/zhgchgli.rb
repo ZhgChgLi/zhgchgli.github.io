@@ -235,7 +235,6 @@ MSG
         post.data['slug'] = zPost.postPath()
 
         redirect_from = post.data['redirect_from'] || []
-        redirect_from.push(zPost.oldPostURL())
         redirect_from.push(zPost.slugPostURL())
         redirect_from.push(zPost.shortPostURL())
         
@@ -314,8 +313,15 @@ MSG
     end
 
     def hiddenPostFilter(post)
-        if !post.path.include?('/zh-tw/') or post.path.include?('/redirect/')
-            post.data['hidden'] = true
+        l10N = ENV["L10N"]
+        if l10N.nil?
+            if !post.path.include?('/zh-tw/') or post.path.include?('/redirect/')
+                post.data['hidden'] = true
+            end
+        else
+            if post.path.include?('/redirect/')
+                post.data['hidden'] = true
+            end
         end
     end
 
@@ -495,11 +501,12 @@ end
 class ZPost
     attr_accessor :path, :lang, :slug
     def initialize(path)
+        @lang = path[%r{posts/([^/]+)/}, 1]
+        path = path.sub(%r{/_posts/}, "/L10N/posts/")
         return nil unless File.exist?(path)
 
         @defaultLang = "zh-tw"
         @path = path
-        @lang = path[%r{/_posts/([^/]+)/}, 1]
         @slug = File.basename(path, File.extname(path)).sub(/^\d{4}-\d{2}-\d{2}-/, '');
 
         # Private
@@ -510,7 +517,7 @@ class ZPost
     end
 
     def self.initWithSlug(lang, slug)
-        matched = Dir.glob("./_posts/#{lang}/**/*-#{slug}.md").first
+        matched = Dir.glob("./L10n/posts/#{lang}/**/*-#{slug}.md").first
         if matched
             return ZPost.new(matched)
         else
@@ -555,8 +562,20 @@ class ZPost
     def postURL(lang = @lang)
         postCategoryURLPath = ERB::Util.url_encode(Jekyll::Utils.slugify(self.getPostCategory(lang)))
         postCategoryURLPath = (postCategoryURLPath == "") ? ("") : ("/#{postCategoryURLPath}")
-        langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
         posURLPath = ERB::Util.url_encode(self.postPath(lang))
+
+        l10N = ENV["L10N"]
+        if !l10N.nil?
+            if lang == "en"
+                return "https://en.zhgchg.li/posts#{postCategoryURLPath}/#{posURLPath}/"
+            elsif lang == "zh-cn"
+                return "https://zh-hans.zhgchg.li/posts#{postCategoryURLPath}/#{posURLPath}/"
+            elsif lang == "zh-tw"
+                return "https://zhgchg.li/posts#{postCategoryURLPath}/#{posURLPath}/"
+            end
+        end
+        
+        langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
         return "/posts#{postCategoryURLPath}#{langURLPath}#{posURLPath}/"
     end
 
@@ -569,18 +588,23 @@ class ZPost
         return "#{postTitleURLPath}-#{Jekyll::Utils.slugify(@slug)}"
     end
 
-    def oldPostURL(lang = @lang)
-        langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
-        return "/posts/#{langURLPath}#{@slug}/"
-    end
-
     def slugPostURL(lang = @lang)
         langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
+
+        l10N = ENV["L10N"]
+        if !l10N.nil?
+            langURLPath = "/"
+        end
+        
         return "/posts#{langURLPath}#{@slug}/"
     end
 
     def shortPostURL(lang = @lang)
         langURLPath = (lang == @defaultLang) ? ("/") : ("/#{lang}/")
+        l10N = ENV["L10N"]
+        if !l10N.nil?
+            langURLPath = "/"
+        end
         postCategoryURLPath = Jekyll::Utils.slugify(self.getPostCategory(lang))
         
         return "/posts/#{postCategoryURLPath}#{langURLPath}#{@slug}/"
@@ -591,17 +615,17 @@ class ZPost
     end
 
     def otherLangs()
-        dirLangs = Dir.glob("./_posts/*/")
+        dirLangs = Dir.glob("./L10n/posts/*/")
         allLangs = []
         for dir in dirLangs
-            lang = dir[%r{\./_posts/([^/]+)/}, 1]
+            lang = dir[%r{\./L10n/posts/([^/]+)/}, 1]
             next if lang.nil? || lang.empty? || lang == @lang
             allLangs.push(lang)
         end
 
         result = {}
         for lang in allLangs
-            filePath = @path.sub(%r{/_posts/(#{Regexp.escape(@lang)})/}, "/_posts/#{lang}/")
+            filePath = @path.sub(%r{/posts/(#{Regexp.escape(@lang)})/}, "/posts/#{lang}/")
             if File.exist?(filePath)
                 result[lang] = self.postURL(lang)
             end
@@ -614,7 +638,7 @@ class ZPost
 
     def _getFrontMatter(lang)
         if @_frontMatter.fetch(lang, nil).nil?
-            path = @path.sub(/\/_posts\/#{Regexp.escape(@lang)}\//, "/_posts/#{lang}/")
+            path = @path.sub(/\/posts\/#{Regexp.escape(@lang)}\//, "/posts/#{lang}/")
             raw = File.read(path, encoding: "UTF-8") rescue ""
             if raw =~ /\A---\s*\n(.*?)\n---\s*\n/m
                 front = Regexp.last_match(1)

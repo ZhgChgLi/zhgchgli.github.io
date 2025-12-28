@@ -7,7 +7,7 @@ import argparse
 import frontmatter
 import re
 
-root_dir = "../../_posts/zh-tw/zmediumtomarkdown"
+root_dir = "../../L10n/posts/zh-tw/zmediumtomarkdown"
 result_json_file_path="../../assets/data/seo/zh-tw/results.json"
 cn_result_json_file_path="../../assets/data/seo/zh-cn/results.json"
 
