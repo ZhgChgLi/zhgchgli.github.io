@@ -236,6 +236,7 @@ include:
   - "api/json/*.json"
   
 exclude:
+  - L10n
   - "*.gem"
   - "*.gemspec"
   - docs
