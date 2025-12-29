@@ -1,0 +1,18 @@
+  {% assign current_lang = include.lang | default: page.lang | default: site.lang %}
+
+  <div aria-label="Language switch" style="display:flex;align-items:center;justify-content:flex-end;">
+    <a href="{{ include.allLangs['zh-Hant'] | default: 'https://zhgchg.li' }}"
+       style="display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;border:1px solid {% if current_lang == 'zh-tw' or current_lang == 'zh-hant' %}#dc3545{% else %}rgba(220,53,69,.35){% endif %};background:{% if current_lang == 'zh-tw' or current_lang == 'zh-hant' %}#dc3545{% else %}rgba(220,53,69,.08){% endif %};color:{% if current_lang == 'zh-tw' or current_lang == 'zh-hant' %}#fff{% else %}#dc3545{% endif %} !important;font-size:12px;font-weight:600;line-height:1;text-decoration:none;">
+      正體中文
+    </a>
+
+    <a href="{{ include.allLangs['zh-Hans'] | default: 'https://zh-hans.zhgchg.li' }}"
+       style="display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;border:1px solid {% if current_lang == 'zh-cn' or current_lang == 'zh-hans' %}#dc3545{% else %}rgba(220,53,69,.35){% endif %};background:{% if current_lang == 'zh-cn' or current_lang == 'zh-hans' %}#dc3545{% else %}rgba(220,53,69,.08){% endif %};color:{% if current_lang == 'zh-cn' or current_lang == 'zh-hans' %}#fff{% else %}#dc3545{% endif %} !important;font-size:12px;font-weight:600;line-height:1;text-decoration:none;">
+      简体中文
+    </a>
+    
+    <a href="{{ include.allLangs['en'] | default: 'https://en.zhgchg.li' }}"
+       style="display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;border:1px solid {% if current_lang == 'en' %}#dc3545{% else %}rgba(220,53,69,.35){% endif %};background:{% if current_lang == 'en' %}#dc3545{% else %}rgba(220,53,69,.08){% endif %};color:{% if current_lang == 'en' %}#fff{% else %}#dc3545{% endif %} !important;font-size:12px;font-weight:600;line-height:1;text-decoration:none;">
+      English
+    </a>
+  </div>

@@ -55,7 +55,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
     
     zPlguin.removeTravelReadMore(post, L10nStrings.makeMoreTraveloguesTitle(zPost.lang))
     zPlguin.replaceBuymeacoffeToPaypal(post)
-    post.content = zPlguin.makePostContentHeader(post) + post.content +  zPlguin.makePostContentFooter(post)
+    post.content = zPlguin.makePostContentHeader(post) + post.content +  zPlguin.makePostContentFooter(post, mediumFollowers)
 end
 
 # === On Post Pre Render ===
@@ -119,24 +119,12 @@ class ZPlugin
         zPost = ZPost.new(post.path)
         header = ""
 
-        L10nStrings.makeOtherLangsMessages(zPost.otherLangs()).each do |message|
-            header += <<~MSG
-> #{message}
-{: .prompt-tip }
-MSG
-        end
-
-        if zPost.isAITranslatedPost()
-            header += <<-MSG
-> #{L10nStrings.makePostIsTranslatedMessage(zPost.lang)}
-{: .prompt-info }
-MSG
-        elsif zPost.isMediumPost()
-            header += <<-MSG
-> #{L10nStrings.makeSEOMessage(zPost.lang)}
-{: .prompt-info }
-MSG
-        end
+#         L10nStrings.makeOtherLangsMessages(zPost.otherLangs()).each do |message|
+#             header += <<~MSG
+# > #{message}
+# {: .prompt-tip }
+# MSG
+#         end
 
         return header+"\n\n<ZHGCHGLI_POC></ZHGCHGLI_POC>\n---\n\n"
     end
@@ -163,7 +151,7 @@ MSG
         return readMoreText
     end
 
-    def makePostContentFooter(post)
+    def makePostContentFooter(post, mediumFollowers)
         zPost = ZPost.new(post.path)
         footer = ''
 
@@ -196,12 +184,30 @@ MSG
         footer += <<-MSG
 <a href="https://www.paypal.com/ncp/payment/CMALMPT8UUTY2" target="_blank" rel="noopener" style="display:block;margin:12px 0;text-align:center;align-items:center;justify-content:center;padding:10px 22px;border-radius:999px;text-decoration:none;background:linear-gradient(135deg,#ffd54f,#ffb300);color:#000;font-size:16px;font-weight:700;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;box-shadow:0 4px 10px rgba(0,0,0,.15);cursor:pointer;transition:all .15s ease;width:350px" onmouseover='this.style.background="linear-gradient(135deg,#FFE082,#FFC107)",this.style.transform="translateY(-1px)",this.style.boxShadow="0 6px 14px rgba(0,0,0,0.2)"' onmouseout='this.style.background="linear-gradient(135deg,#FFD54F,#FFB300)",this.style.transform="translateY(0)",this.style.boxShadow="0 4px 10px rgba(0,0,0,0.15)"'>🍺 Buy me a beer on PayPal</a>
 MSG
+        footer += <<-MSG
+> 👉👉👉 [**Follow Me On Medium!** (#{mediumFollowers} Followers)](https://medium.com/@zhgchgli){:target="_blank"} 👈👈👈
+{: .prompt-tip }
+MSG
+        
+        if zPost.isAITranslatedPost()
+            footer += <<-MSG
+> #{L10nStrings.makePostIsTranslatedMessage(zPost.lang)}
+{: .prompt-info }
+MSG
+        elsif zPost.isMediumPost()
+            footer += <<-MSG
+> #{L10nStrings.makeSEOMessage(zPost.lang)}
+{: .prompt-info }
+MSG
+        end
+        
         if zPost.isMediumPost()
             footer += <<-MSG
 > #{L10nStrings.makePostFromMediumMessage(zPost.slug, zPost.lang)}
 {: .prompt-info }
 MSG
         end
+
         footer += <<-MSG
 > [Improve this page on Github.](https://github.com/ZhgChgLi/zhgchgli.github.io/blob/main/#{post.relative_path}){:target="_blank"}
 {: .prompt-info }

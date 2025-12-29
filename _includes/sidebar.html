@@ -19,7 +19,7 @@
   <nav class="flex-column flex-grow-1 w-100 ps-0">
     <ul class="nav">
       <!-- ZhgChgLi Customized Start -->
-          {% include zhgchgli/sidebar-follow.html mediumFollowers=site.data.mediumFollowers allLangs=page.allLangs %}
+          {% include zhgchgli/sidebar-follow-header.html mediumFollowers=site.data.mediumFollowers %}
       <!-- ZhgChgLi Customized End -->
       
       <!-- home -->
@@ -41,6 +41,10 @@
         </li>
         <!-- .nav-item -->
       {% endfor %}
+
+      <!-- ZhgChgLi Customized Start -->
+          {% include zhgchgli/sidebar-follow-footer.html allLangs=page.allLangs %}
+      <!-- ZhgChgLi Customized End -->
     </ul>
   </nav>
 
