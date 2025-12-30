@@ -41,14 +41,20 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
         "zh-tw" => "zh-Hant",
         "zh-cn" => "zh-Hans",
         "en" => "en",
-        "jp" => "jp"
+        "jp" => "ja"
     }
 
     post.data['otherLangs'] = otherLangs.transform_keys { |k| langsToHreflang[k.to_s.downcase] || k.to_s }
 
     allLangs = otherLangs
+    langsToDomainlang = {
+        "zh-tw" => "zh-Hant",
+        "zh-cn" => "zh-Hans",
+        "en" => "en",
+        "jp" => "jp"
+    }
     allLangs[zPost.lang] = zPost.postURL()
-    post.data['allLangs'] = allLangs.transform_keys { |k| langsToHreflang[k.to_s.downcase] || k.to_s }
+    post.data['allLangs'] = allLangs.transform_keys { |k| langsToDomainlang[k.to_s.downcase] || k.to_s }
 
     post.data['currentURL'] = zPost.postURL()
     post.data['currentLang'] = langsToHreflang[zPost.lang.downcase] || zPost.lang
