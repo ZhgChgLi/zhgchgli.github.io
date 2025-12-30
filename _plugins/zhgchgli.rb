@@ -40,7 +40,8 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
     langsToHreflang = {
         "zh-tw" => "zh-Hant",
         "zh-cn" => "zh-Hans",
-        "en" => "en"
+        "en" => "en",
+        "jp" => "jp"
     }
 
     post.data['otherLangs'] = otherLangs.transform_keys { |k| langsToHreflang[k.to_s.downcase] || k.to_s }
@@ -395,7 +396,8 @@ class L10nStrings
         messages = {
             "zh-tw" => "更多遊記",
             "zh-cn" => "更多游记",
-            "en" => "More Travelogues"
+            "en" => "More Travelogues",
+            "jp" => "もっと旅行記"
         }
         return messages[lang] || messages["en"]
     end
@@ -404,7 +406,8 @@ class L10nStrings
         messages = {
             "zh-tw" => "文章目錄",
             "zh-cn" => "文章目录",
-            "en" => "Table of Contents"
+            "en" => "Table of Contents",
+            "jp" => "記事一覧"
         }
         return messages[lang] || messages["en"]
     end
@@ -413,7 +416,8 @@ class L10nStrings
         messages = {
             "zh-tw" => "如果這篇文章對您有幫助，歡迎使用我的 推廣連結 選購 KKday 商品、行程，我將獲得部分收益，持續更多旅遊創作，謝謝您的支持！。",
             "zh-cn" => "如果这篇文章对您有帮助，欢迎使用我的 推广链接 选购 KKday 商品、行程，我将获得部分收益，持续更多旅游创作，谢谢您的支持！。",
-            "en" => "Found this guide useful? Use my KKday referral link to book your trip—I’ll earn a small commission to support more content like this. Thank you!"
+            "en" => "Found this guide useful? Use my KKday referral link to book your trip—I’ll earn a small commission to support more content like this. Thank you!",
+            "jp" => "もしこの記事がお役に立ちましたら、私の紹介リンクから KKday の商品やツアーをご利用いただけると嬉しいです。 収益の一部は、今後の旅の記録や記事制作に活用させていただきます。 応援ありがとうございます！"
         }
         return messages[lang] || messages["en"]
     end
@@ -422,7 +426,8 @@ class L10nStrings
         messages = {
             "zh-tw" => "基於 SEO 考量，本文標題與描述經 AI 調整，原始版本請參考內文。",
             "zh-cn" => "基于 SEO 考量，本文标题与描述经 AI 调整，原始版本请参考内文。",
-            "en" => "For SEO purposes, this article’s title and description have been refined using AI. Please refer to the content below for the original wording."
+            "en" => "For SEO purposes, this article’s title and description have been refined using AI. Please refer to the content below for the original wording.",
+            "jp" => "SEO の観点から、本記事のタイトルおよび説明文は AI により調整されています。原文については本文をご参照ください。"
         }
         return messages[lang] || messages["en"]
     end
@@ -431,7 +436,8 @@ class L10nStrings
         messages = {
             "zh-tw" => %(本文首次發表於 Medium \([**點此查看原始版本**](https://medium.com/p/#{slug}){:target="_blank"}\)，由 [ZMediumToMarkdown](/posts/tools/medium-to-jekyll/){:target="_blank"} 提供自動轉換與同步技術。),
             "zh-cn" => %(本文首次发表于 Medium \([**点击查看原始版本**](https://medium.com/p/#{slug}){:target="_blank"}\)，由 [ZMediumToMarkdown](/posts/tools/medium-to-jekyll/){:target="_blank"} 提供自动转换与同步技术。),
-            "en" => %(This post was originally published on Medium \([**View original post**](https://medium.com/p/#{slug}){:target="_blank"}\), and automatically converted and synced by [ZMediumToMarkdown](/posts/tools/medium-to-jekyll/){:target="_blank"}.)
+            "en" => %(This post was originally published on Medium \([**View original post**](https://medium.com/p/#{slug}){:target="_blank"}\), and automatically converted and synced by [ZMediumToMarkdown](/posts/tools/medium-to-jekyll/){:target="_blank"}.),
+            "jp" => %(本記事は Medium にて初公開されました（[**こちらからオリジナル版を確認**](https://medium.com/p/#{slug}){:target="_blank"}）。[ZMediumToMarkdown](/posts/tools/medium-to-jekyll/){:target="_blank"} による自動変換・同期技術を使用しています。)
         }
         return messages[lang] || messages["en"]
     end
@@ -440,7 +446,8 @@ class L10nStrings
         messages = {
             "zh-tw" => "這篇文章是由 AI 協助翻譯的版本，若發現語意不通順的地方，歡迎留言告知！",
             "zh-cn" => "这篇文章是由 AI 协助翻译的版本，若发现语意不通顺的地方，欢迎留言告知！",
-            "en" => "This post was translated with AI assistance — let me know if anything sounds off!"
+            "en" => "This post was translated with AI assistance — let me know if anything sounds off!",
+            "jp" => "本記事は AI による翻訳をもとに作成されています。表現が不自然な箇所がありましたら、ぜひコメントでお知らせください。"
         }
         return messages[lang] || messages["en"]
     end
@@ -451,7 +458,8 @@ class L10nStrings
             messages = {
                 "zh-tw" => "[**點擊這裡**](#{url})查看本文章正體中文版本。",
                 "zh-cn" => "[**点击这里**](#{url})查看本文章简体中文版本。",
-                "en" => "[**Click here**](#{url}) to view the English version of this article."
+                "en" => "[**Click here**](#{url}) to view the English version of this article.",
+                "jp" => "[**こちらをクリック**](#{url})して、本記事の日本語版をご覧ください。"
             }
             next if messages[lang].nil? || messages[lang].empty?
             allMessages.push(messages[lang])
@@ -553,7 +561,7 @@ class ZPost
     end
 
     def isTravelPost(lang = @lang)
-        if self.getPostCategory(lang).match(/(遊記|travel)/i)
+        if self.getPostCategory(lang).match(/(遊記|travel|旅行記)/i)
             return true
         end
         return false
@@ -592,6 +600,8 @@ class ZPost
                 return "https://zh-hans.zhgchg.li/posts#{postCategoryURLPath}/#{posURLPath}/"
             elsif lang == "zh-tw"
                 return "https://zhgchg.li/posts#{postCategoryURLPath}/#{posURLPath}/"
+            elsif lang == "jp"
+                return "https://jp.zhgchg.li/posts#{postCategoryURLPath}/#{posURLPath}/"
             end
         end
         

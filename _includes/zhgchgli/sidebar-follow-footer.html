@@ -1,20 +1,28 @@
 <li class="nav-item">
   {% assign current_lang = include.lang | default: page.lang | default: site.lang %}
 
-  <div aria-label="Language switch" style="display:flex;align-items:center;justify-content:center;">
+  <div aria-label="Language switch" style="display:flex;align-items:center;justify-content:center;gap:5px;">
     <a href="{{ include.allLangs['zh-Hant'] | default: 'https://zhgchg.li' }}"
        style="display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;border:1px solid {% if current_lang == 'zh-tw' or current_lang == 'zh-hant' %}#666{% else %}#ccc{% endif %};background:{% if current_lang == 'zh-tw' or current_lang == 'zh-hant' %}#111{% else %}#f3f3f3{% endif %};color:{% if current_lang == 'zh-tw' or current_lang == 'zh-hant' %}#fff{% else %}#555{% endif %};font-size:12px;font-weight:600;line-height:1;text-decoration:none;">
       正體中文
     </a>
-
+    <span style="width:1px;height:18px;background:rgba(0,0,0,.12);"></span>
     <a href="{{ include.allLangs['zh-Hans'] | default: 'https://zh-hans.zhgchg.li' }}"
        style="display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;border:1px solid {% if current_lang == 'zh-cn' or current_lang == 'zh-hans' %}#666{% else %}#ccc{% endif %};background:{% if current_lang == 'zh-cn' or current_lang == 'zh-hans' %}#111{% else %}#f3f3f3{% endif %};color:{% if current_lang == 'zh-cn' or current_lang == 'zh-hans' %}#fff{% else %}#555{% endif %};font-size:12px;font-weight:600;line-height:1;text-decoration:none;">
       简体中文
     </a>
+
+    </div>
+    <div aria-label="Language switch" style="display:flex;align-items:center;justify-content:center;gap:5px;margin-top:5px;">
     
     <a href="{{ include.allLangs['en'] | default: 'https://en.zhgchg.li' }}"
        style="display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;border:1px solid {% if current_lang == 'en' %}#666{% else %}#ccc{% endif %};background:{% if current_lang == 'en' %}#111{% else %}#f3f3f3{% endif %};color:{% if current_lang == 'en' %}#fff{% else %}#555{% endif %};font-size:12px;font-weight:600;line-height:1;text-decoration:none;">
       English
+    </a>
+    <span style="width:1px;height:18px;background:rgba(0,0,0,.12);"></span>
+    <a href="{{ include.allLangs['jp'] | default: 'https://jp.zhgchg.li' }}"
+       style="display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;border:1px solid {% if current_lang == 'jp' %}#666{% else %}#ccc{% endif %};background:{% if current_lang == 'jp' %}#111{% else %}#f3f3f3{% endif %};color:{% if current_lang == 'jp' %}#fff{% else %}#555{% endif %};font-size:12px;font-weight:600;line-height:1;text-decoration:none;">
+      日本語
     </a>
   </div>
 </li>

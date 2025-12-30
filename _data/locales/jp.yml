@@ -1,0 +1,99 @@
+# サイトUIテキスト
+
+# ----- 共通ラベル -----
+
+layout:
+  post: 記事
+  category: カテゴリー
+  tag: タグ
+
+# サイドバータブ
+tabs:
+  # 形式：<拡張子なしのファイル名>: <表示テキスト>
+  home: ホーム
+  categories: カテゴリー
+  tags: タグ
+  archives: アーカイブ
+  about: このサイトについて
+  contact: お問い合わせ
+
+# 検索バーと検索結果の表示テキスト
+search:
+  hint: 検索
+  cancel: キャンセル
+  no_results: 該当する結果が見つかりません。
+
+panel:
+  lastmod: 最終更新
+  trending_tags: 人気タグ
+  toc: 目次 🔖
+
+copyright:
+  # 記事下部に表示
+  license:
+    template: 本記事は著者により :LICENSE_NAME に基づき公開されています。
+    name: CC BY 4.0
+    link: https://creativecommons.org/licenses/by/4.0/deed.ja
+
+  # フッターに表示
+  brief: All rights reserved.
+  verbose: >-
+    特に記載がない限り、本サイト上のすべての記事は、
+    著者によりクリエイティブ・コモンズ 表示 4.0 国際
+    （CC BY 4.0）ライセンスの下で公開されています。
+
+meta: >-
+  本サイトは :THEME テーマを使用し、:PLATFORM 上で構築されています。<br/>
+  Medium の記事は
+  <a href="https://github.com/ZhgChgLi/ZMediumToMarkdown" target="_blank">ZMediumToMarkdown</a>
+  により変換されています。
+
+not_found:
+  statement: 申し訳ありません。このページは存在しないか、削除された可能性があります。
+
+notification:
+  update_found: 新しいバージョンのコンテンツが見つかりました。
+  update: 更新
+
+# ----- 記事関連ラベル -----
+
+post:
+  written_by: 著者
+  posted: 公開日
+  updated: 更新日
+  words: 文字
+  pageview_measure: 閲覧
+  read_time:
+    unit: 分
+    prompt: 読了時間
+  relate_posts: 関連記事
+  share: シェア
+  button:
+    next: 次の記事
+    previous: 前の記事
+    copy_code:
+      succeed: コピーしました！
+    share_link:
+      title: リンクをコピー
+      succeed: リンクをコピーしました！
+
+# 日付・時間フォーマット
+# 参考：<http://strftime.net/>, <https://day.js.org/docs/en/display/format>
+df:
+  post:
+    strftime: "%Y年%m月%d日"
+    dayjs: "YYYY年M月D日"
+  archives:
+    strftime: "%m月"
+    dayjs: "MMM"
+
+# カテゴリーページ
+categories:
+  category_measure:
+    singular: カテゴリー
+    plural: カテゴリー
+  post_measure:
+    singular: 記事
+    plural: 記事
+
+lastUpdated: "最終更新日時:"

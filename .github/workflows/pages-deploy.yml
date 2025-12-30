@@ -95,6 +95,18 @@ jobs:
             -d '{
               "ref": "main"
             }'
+
+      - name: Trigger jp deploy
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/ZhgChgLi/zhgchgli-jp.github.io/actions/workflows/deploy.yml/dispatches \
+            -d '{
+              "ref": "main"
+            }'
       
       # - name: Upload site artifact
       #   uses: actions/upload-pages-artifact@v3

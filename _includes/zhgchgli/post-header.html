@@ -15,4 +15,9 @@
        style="display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;border:1px solid {% if current_lang == 'en' %}#dc3545{% else %}rgba(220,53,69,.35){% endif %};background:{% if current_lang == 'en' %}#dc3545{% else %}rgba(220,53,69,.08){% endif %};color:{% if current_lang == 'en' %}#fff{% else %}#dc3545{% endif %} !important;font-size:12px;font-weight:600;line-height:1;text-decoration:none;">
       English
     </a>
+
+    <a href="{{ include.allLangs['jp'] | default: 'https://jp.zhgchg.li' }}"
+       style="display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;border:1px solid {% if current_lang == 'jp' %}#dc3545{% else %}rgba(220,53,69,.35){% endif %};background:{% if current_lang == 'jp' %}#dc3545{% else %}rgba(220,53,69,.08){% endif %};color:{% if current_lang == 'jp' %}#fff{% else %}#dc3545{% endif %} !important;font-size:12px;font-weight:600;line-height:1;text-decoration:none;">
+      日本語
+    </a>
   </div>
