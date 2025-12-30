@@ -127,6 +127,18 @@ class ZPlugin
 # MSG
 #         end
 
+        if zPost.isAITranslatedPost()
+            header += <<-MSG
+> #{L10nStrings.makePostIsTranslatedMessage(zPost.lang)}
+{: .prompt-info }
+MSG
+        elsif zPost.isMediumPost()
+            header += <<-MSG
+> #{L10nStrings.makeSEOMessage(zPost.lang)}
+{: .prompt-info }
+MSG
+        end
+
         return header+"\n\n<ZHGCHGLI_POC></ZHGCHGLI_POC>\n---\n\n"
     end
 
@@ -189,18 +201,6 @@ MSG
 > 👉👉👉 [**Follow Me On Medium!** (#{mediumFollowers} Followers)](https://medium.com/@zhgchgli){:target="_blank"} 👈👈👈
 {: .prompt-tip }
 MSG
-        
-        if zPost.isAITranslatedPost()
-            footer += <<-MSG
-> #{L10nStrings.makePostIsTranslatedMessage(zPost.lang)}
-{: .prompt-info }
-MSG
-        elsif zPost.isMediumPost()
-            footer += <<-MSG
-> #{L10nStrings.makeSEOMessage(zPost.lang)}
-{: .prompt-info }
-MSG
-        end
         
         if zPost.isMediumPost()
             footer += <<-MSG

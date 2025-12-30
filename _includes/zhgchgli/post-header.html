@@ -1,3 +1,4 @@
+{% if page.collection != 'tabs' %}
   {% assign current_lang = include.lang | default: page.lang | default: site.lang %}
 
   <div aria-label="Language switch" style="display:flex;align-items:center;justify-content:flex-end;">
@@ -21,3 +22,4 @@
       日本語
     </a>
   </div>
+{% endif %}
