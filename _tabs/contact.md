@@ -4,8 +4,6 @@ comments: true
 order: 6
 ---
 
-[All Links](https://link.zhgchg.li/){:target="_blank"} | [About Me](/about/){:target="_blank"}
-
 # ❤️ Donate｜Support My Work
 
 Hi, I’m [**Harry**](/about/){:target="_blank"}.
