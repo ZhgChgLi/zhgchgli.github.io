@@ -60,6 +60,7 @@ jobs:
           MEDIUM_HOST: "${{ secrets.MEDIUM_HOST }}"
           MEDIUM_COOKIE_SID: "${{ secrets.MEDIUM_COOKIE_SID }}"
           MEDIUM_COOKIE_UID: "${{ secrets.MEDIUM_COOKIE_UID }}"
+          Analytics_URL: "${{ secrets.Analytics_URL }}"
           
       - name: Test site
         run: |
