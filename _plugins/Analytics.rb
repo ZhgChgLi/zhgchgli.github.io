@@ -1,6 +1,6 @@
 class Analytics
     def initialize()
-        @_postStatusDataURL = "https://script.google.com/macros/s/AKfycbzCiCVP_lp4eh4v-4wAabW6PBjxB5FraxDvBHTZm5albeIgPR6W-iE-3dfmFSL5s_1jVw/exec"
+        @_postStatusDataURL = ENV['Analytics_URL']
         @_cachePostStatus = {}
     end
 
