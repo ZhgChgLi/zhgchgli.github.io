@@ -1,9 +1,4 @@
 class ZMedium
-    def initialize()
-        @_postStatusDataURL = "https://script.google.com/macros/s/AKfycbx7p5jak9qelxQOrl90ZXgJAu38_Ss4OJD-jJ2g_Dc4eCPbsvWsYrWsD3pDOc3m_J947w/exec"
-        @_cachePostStatus = {}
-    end
-
     def getFollowers()
         begin
             url = medium_host = ENV['MEDIUM_HOST'] || "https://medium.com/_/graphql"
@@ -72,35 +67,6 @@ class ZMedium
             return "#{count.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}+"
         rescue => e
             "1K+"
-        end
-    end
-
-    def getPostStatus(slug)
-        if @_cachePostStatus.empty?
-            @_cachePostStatus = self._getPostStatusData()
-        end
-
-        result = @_cachePostStatus.fetch(slug, {})
-        return {
-            medium: result.fetch("meidum", 0),
-            zhgchgli: result.fetch("zhgchgli", 0),
-        }
-    end
-
-    private
-    def _getPostStatusData(url = @_postStatusDataURL)
-        uri = URI(url);
-        response = Net::HTTP.get_response(uri)
-
-        case response
-        when Net::HTTPSuccess then
-            data = JSON.parse(response.body)
-            return data
-        when Net::HTTPFound then
-            newURL = response['location']
-            return self._getPostStatusData(newURL)
-        else
-            return {}
         end
     end
 end

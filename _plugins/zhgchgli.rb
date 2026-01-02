@@ -14,6 +14,8 @@ require 'jekyll'
 zMedium = ZMedium.new
 mediumFollowers = zMedium.getFollowers()
 
+analytics = Analytics.new
+
 # === On Post init ===
 Jekyll::Hooks.register :posts, :post_init do |post|
     zPlguin = ZPlugin.new
@@ -59,7 +61,8 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
     post.data['currentURL'] = zPost.postURL()
     post.data['currentLang'] = langsToHreflang[zPost.lang.downcase] || zPost.lang
     # ===
-    
+    post.data['views'] = analytics.getPostStatus(zPost.slug)
+
     zPlguin.removeTravelReadMore(post, L10nStrings.makeMoreTraveloguesTitle(zPost.lang))
     zPlguin.replaceBuymeacoffeToPaypal(post)
     post.content = zPlguin.makePostContentHeader(post) + post.content +  zPlguin.makePostContentFooter(post, mediumFollowers)
@@ -79,6 +82,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
     formatted_time = gmt_plus_8.strftime("%Y-%m-%d %H:%M:%S")
     site.data['lastUpdated'] = "#{formatted_time} +08:00"
     site.data['mediumFollowers'] = mediumFollowers
+    site.data['totalViews'] = analytics.getPostStatus('total')
 end
 
 # === Plugin ===

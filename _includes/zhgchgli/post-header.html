@@ -1,7 +1,20 @@
 {% if page.collection != 'tabs' %}
   {% assign current_lang = include.lang | default: page.lang | default: site.lang %}
 
-  <div aria-label="Language switch" style="display:flex;align-items:center;justify-content:flex-end;">
+<div aria-label="Language switch"
+     style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+
+  <!-- Left: Views -->
+  <div aria-label="Views"
+       style="display:inline-flex;align-items:center;gap:6px;font-size:.85rem;">
+    <span style="display:inline-flex;align-items:center;justify-content:center;">
+      {{ site.data.locales[current_lang].views }} <span style="margin-left:4px;" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="{{ site.data.locales[current_lang].lastUpdated }} {{ site.data.lastUpdated }}"><u>{{ include.views | default: '🤫' }}</u></span>
+    </span>
+  </div>
+
+  <!-- Right: Language switch -->
+  <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;">
+
     <a href="{{ include.allLangs['zh-Hant'] | default: 'https://zhgchg.li' }}"
        style="display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;border:1px solid {% if current_lang == 'zh-tw' or current_lang == 'zh-hant' %}#dc3545{% else %}rgba(220,53,69,.35){% endif %};background:{% if current_lang == 'zh-tw' or current_lang == 'zh-hant' %}#dc3545{% else %}rgba(220,53,69,.08){% endif %};color:{% if current_lang == 'zh-tw' or current_lang == 'zh-hant' %}#fff{% else %}#dc3545{% endif %} !important;font-size:12px;font-weight:600;line-height:1;text-decoration:none;">
       正體中文
@@ -22,4 +35,5 @@
       日本語
     </a>
   </div>
+</div>
 {% endif %}

@@ -1,2 +1,2 @@
 <br/>
-{{ site.data.locales[include.lang].lastUpdated }}{{ site.data.lastUpdated }}
+{{ site.data.locales[current_lang].views }} <u>{{ site.data.totalViews | default: '🤫' }}</u>, {{ site.data.locales[include.lang].lastUpdated }} <u>{{ site.data.lastUpdated }}</u>
