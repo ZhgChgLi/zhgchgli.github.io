@@ -66,6 +66,8 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
     zPlguin.removeTravelReadMore(post, L10nStrings.makeMoreTraveloguesTitle(zPost.lang))
     zPlguin.replaceBuymeacoffeToPaypal(post)
     post.content = zPlguin.makePostContentHeader(post) + post.content +  zPlguin.makePostContentFooter(post, mediumFollowers)
+
+    post.data["shortURL"] = zPost.slugPostURL()
 end
 
 # === On Post Pre Render ===
@@ -192,13 +194,7 @@ MSG
         site      = post.site
         site_url  = site.config['url'] || ""
 
-        post_url = "#{site_url}#{zPost.postURL()}"
-
-        l10n = ENV["L10n"]
-        if !l10n.nil?
-            post_url = zPost.postURL()
-        end
-
+        post_url = "#{site_url}#{zPost.slugPostURL()}"
         footer += <<-MSG
 <script src="/assets/clipboard.min.js"></script>
 <div style=" display:flex; align-items:center; gap:10px; border:1px solid #e5e7eb; background:#f9fafb; padding:12px 16px; border-radius:12px; margin:18px 0; box-shadow:0 3px 8px rgba(0,0,0,0.05); width: auto;"> <input id="share-url" value="#{post_url}" readonly style=" flex:1; border:1px solid #d1d5db; border-radius:8px; padding:10px 12px; font-size:0.9rem; background:#ffffff; color:#111827; outline:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; " /> <button class="btn" data-clipboard-target="#share-url" id="copy-btn" style=" border:none; background:#3b82f6; color:white; padding:10px 16px; border-radius:10px; cursor:pointer; font-size:0.85rem; font-weight:600; display:flex; align-items:center; gap:6px; transition:all .15s ease; box-shadow:0 2px 5px rgba(59,130,246,0.35); " onmouseover="this.style.opacity='0.92';" onmouseout="this.style.opacity='1';" > <span style="font-size:1rem;">🔗</span> <span id="copy-btn-text">Copy link to share!</span> </button></div><script> new ClipboardJS('.btn'); var btn = document.getElementById("copy-btn"); var text = document.getElementById("copy-btn-text"); btn.addEventListener("click", function () { text.textContent = "Copied!"; btn.style.background = "#16a34a"; btn.style.boxShadow = "0 2px 6px rgba(22,163,74,0.35)"; setTimeout(() => { text.textContent = "Copy link to share!"; btn.style.background = "#3b82f6"; btn.style.boxShadow = "0 2px 5px rgba(59,130,246,0.35)"; }, 1500); });</script>
