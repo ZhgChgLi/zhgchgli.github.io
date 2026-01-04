@@ -38,6 +38,8 @@ jobs:
                 }
               })
           ')"
+
+          echo  "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/rules/lists/${CLOUDFLARE_LIST_ID}/items"
           
           # 送出並保留 response body 方便 debug
           resp="$(curl -sS -f -X PUT https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/rules/lists/${CLOUDFLARE_LIST_ID}/items \
