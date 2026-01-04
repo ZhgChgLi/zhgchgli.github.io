@@ -6,6 +6,10 @@ on:
     workflows: ["pages-build-deployment"]
     types: [completed]
 
+concurrency:
+  group: "zhgchgli-after-pages-deploy"
+  cancel-in-progress: true
+
 jobs:
   after_deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
