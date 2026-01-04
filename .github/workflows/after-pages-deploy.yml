@@ -40,7 +40,7 @@ jobs:
           ')"
           
           # 送出並保留 response body 方便 debug
-          resp="$(curl -sS -f -X PUT "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/rules/lists/${CLOUDFLARE_LIST_ID}/items" \
+          resp="$(curl -sS -f -X PUT https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/rules/lists/${CLOUDFLARE_LIST_ID}/items \
             -H "Authorization: Bearer ${CLOUDFLARE_TOKEN}" \
             -H "Content-Type: application/json" \
             --data "$payload" || true)"
