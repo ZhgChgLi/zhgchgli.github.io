@@ -21,8 +21,11 @@ jobs:
           CLOUDFLARE_LIST_ID: "${{ secrets.CLOUDFLARE_LIST_ID }}"
           CLOUDFLARE_TOKEN: "${{ secrets.CLOUDFLARE_TOKEN }}"
         run: |
-          curl -fsSL "https://zhgchg.li/redirects.json" \
-          | jq '
+          set -euo pipefail
+          
+          API="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/rules/lists/${CLOUDFLARE_LIST_ID}/items"
+          
+          payload="$(curl -fsSL "https://zhgchg.li/redirects.json" | jq '
             to_entries
             | map({
                 redirect: {
@@ -36,9 +39,15 @@ jobs:
                   status_code: 301
                 }
               })
-          ' \
-          | curl -fsS --fail-with-body -X PUT \
-            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/rules/lists/${CLOUDFLARE_LIST_ID}/items" \
+          ')"
+          
+          # 送出並保留 response body 方便 debug
+          resp="$(curl -sS -f -X PUT "$API" \
             -H "Authorization: Bearer ${CLOUDFLARE_TOKEN}" \
             -H "Content-Type: application/json" \
-            --data @-
+            --data "$payload" || true)"
+          
+          echo "$resp"
+          
+          # 如果 Cloudflare 回 success=false 或根本沒 success，直接 fail
+          echo "$resp" | jq -e '.success == true' >/dev/null
