@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Print deployment info
         env:
-          CLOUDFLARE_ACCOUND_ID: "${{ secrets.CLOUDFLARE_ACCOUND_ID }}"
+          CLOUDFLARE_ACCOUNT_ID: "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
           CLOUDFLARE_LIST_ID: "${{ secrets.CLOUDFLARE_LIST_ID }}"
           CLOUDFLARE_TOKEN: "${{ secrets.CLOUDFLARE_TOKEN }}"
         run: |
