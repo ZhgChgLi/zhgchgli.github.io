@@ -36,6 +36,9 @@ Your support helps me stay motivated to keep writing, building, and contributing
 {: .prompt-tip }
 
 ## Supporters
+### 2026
+- 2026/01/05 Rehan Azmat **🍺x1**
+
 ### 2025
 - 2025/12 [小克](https://buymeacoffee.com/goodjack){:target="_blank"} **🍺x10**: `支持分享～`
 - 2025/12 [ethanhuang13](https://buymeacoffee.com/ethanhuang13){:target="_blank"} **🍺x5**: `請多多分享！`
@@ -51,6 +54,8 @@ Your support helps me stay motivated to keep writing, building, and contributing
 Last updated: 2026-01-02
 
 ---
+
+# Contact
 
 ### Email
 - [zhgchgli@gmail.com](mailto:zhgchgli@gmail.com){:target="_blank"}
