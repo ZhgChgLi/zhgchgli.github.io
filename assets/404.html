@@ -18,7 +18,6 @@ if (segments.length >= 2) {
     const lastPath = lastSegment.split("-").filter(Boolean).pop();
 
     if (segments[0] === "posts" &&
-        lastPath !== lastSegment &&
         lastPath.match(/^([a-f0-9]+)$/i)) {
 
         const isEn = segments.includes("en");
@@ -27,7 +26,7 @@ if (segments.length >= 2) {
             location.replace("https://en.zhgchg.li/posts/" + lastPath);
         } else if (isCn) {
             location.replace("https://zh-hans.zhgchg.li/posts/" + lastPath);
-        } else {
+        } else if (lastPath !== lastSegment) {
             location.replace("/posts/" + lastPath);
         }
     } else {
