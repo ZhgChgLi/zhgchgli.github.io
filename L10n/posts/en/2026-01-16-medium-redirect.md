@@ -40,9 +40,8 @@ title: Medium Redirect...
     const mediumPostId = parseMediumPostIdFromReferrer(ref);
 
     if (mediumPostId) {
-      window.location.replace(target+"posts/"+mediumPostId);
-      return;
+        window.location.replace(target+"posts/"+mediumPostId);
+    } else {
+        window.location.replace(target);
     }
-
-    window.location.replace(target);
 </script>
