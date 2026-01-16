@@ -75,6 +75,31 @@ Jekyll::Hooks.register :posts, :post_render do |post|
     zPlguin = ZPlugin.new
     tocHTML = zPlguin.makeTOCHTML(post)
     post.output = post.output.gsub("<ZHGCHGLI_POC></ZHGCHGLI_POC>", tocHTML)
+
+    kkday = KKday.new()
+    zPost = ZPost.new(post.path)
+    kkdayHeader = kkday.makeCommonFlights()
+    kkdayFooter = kkday.makeCommonProducts()
+
+    if zPost.slug == '8ace34a1a3d8'
+        kkdayHeader = kkday.makeBusanFlights()
+        kkdayFooter = kkday.makeBusanProducts()
+    elsif zPost.slug == '31b9b3a63abc' || zPost.slug == 'aacd5f5cacd1'
+        kkdayHeader = kkday.makeSainFlights()
+        kkdayFooter = kkday.makeSainProducts()
+    elsif zPost.slug == 'd78e0b15a08a' || zPost.slug == 'cb65fd5ab770'
+        kkdayHeader = kkday.makeKyuhsuFlights()
+        kkdayFooter = kkday.makeKyuhsuProducts()
+    elsif zPost.slug == '958599363857' || zPost.slug == '9da2c51fa4f2'
+        kkdayHeader = kkday.makeTokyoFlights()
+        kkdayFooter = kkday.makeTokyoProducts()
+    elsif zPost.slug == 'b7e7c0938985'
+        kkdayHeader = kkday.makeBangkokFlights()
+        kkdayFooter = kkday.makeBangkokProducts()
+    end
+    
+    post.output = post.output.gsub("<ZHGCHGLI_KKDAY_HEADER></ZHGCHGLI_KKDAY_HEADER>", kkdayHeader)
+    post.output = post.output.gsub("<ZHGCHGLI_KKDAY_FOOTER></ZHGCHGLI_KKDAY_FOOTER>", kkdayFooter)
 end
 
 
@@ -85,6 +110,109 @@ Jekyll::Hooks.register :site, :pre_render do |site|
     site.data['lastUpdated'] = "#{formatted_time} +08:00"
     site.data['mediumFollowers'] = mediumFollowers
     site.data['totalViews'] = analytics.getPostStatus('total')
+end
+
+# === KKday ===
+class KKday 
+    def makeCommonFlights()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5318" data-amount="3" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+
+    def makeSainFlights()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5317" data-amount="3" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+
+    def makeBusanFlights()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5309" data-amount="3" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+    
+    def makeKyuhsuFlights()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5308" data-amount="3" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+
+    def makeTokyoFlights()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5307" data-amount="3" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+
+    def makeBangkokFlights()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5306" data-amount="3" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+
+    def makeKansaiFlights()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5305" data-amount="3" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+
+
+
+    def makeCommonProducts()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5288" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+
+    def makeSainProducts()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5284" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+
+    def makeBusanProducts()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5286" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+
+    def makeKyuhsuProducts()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5300" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+
+    def makeTokyoProducts()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5299" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+
+    def makeBangkokProducts()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5298" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
+
+    def makeKansaiProducts()
+        return <<~MSG
+<ins class="kkday-product-media" data-oid="5301" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
+<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
+MSG
+    end
 end
 
 # === Plugin ===
@@ -151,7 +279,14 @@ MSG
 MSG
         end
 
-        return header+"\n\n<ZHGCHGLI_POC></ZHGCHGLI_POC>\n---\n\n"
+        header += "\n\n<ZHGCHGLI_POC></ZHGCHGLI_POC>\n---\n\n"
+
+        if zPost.isTravelPost()
+            header += "<ZHGCHGLI_KKDAY_HEADER></ZHGCHGLI_KKDAY_HEADER>"
+        end
+
+        return header
+
     end
 
     def makeReadMoreTravelPostsHTML(post, zPost)
@@ -181,15 +316,7 @@ MSG
         footer = ''
 
         if zPost.isTravelPost()
-            readMoreTravelText = self.makeReadMoreTravelPostsHTML(post, zPost)
-            footer += readMoreTravelText
-            footer += "---\n"
-            footer += "\n"
-            footer += <<-MSG
-[**#{L10nStrings.makeKKdayPromoMessage(zPost.lang)}**](https://www.kkday.com/zh-tw?cid=19365){:target="_blank"}
-<ins class="kkday-product-media" data-oid="870" data-amount="6" data-origin="https://kkpartners.kkday.com"></ins>
-<script type="text/javascript" src="https://kkpartners.kkday.com/iframe.init.1.0.js"></script>
-MSG
+            footer += "<ZHGCHGLI_KKDAY_FOOTER></ZHGCHGLI_KKDAY_FOOTER>"
         end
         site      = post.site
         site_url  = site.config['url'] || ""
@@ -567,7 +694,7 @@ class ZPost
     end
 
     def isTravelPost(lang = @lang)
-        if self.getPostCategory(lang).match(/(遊記|travel|旅行記)/i)
+        if self.getPostCategory(lang).match(/(遊記|travel|旅行記|life|生活)/i)
             return true
         end
         return false
