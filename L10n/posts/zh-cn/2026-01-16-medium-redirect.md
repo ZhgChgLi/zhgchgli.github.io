@@ -15,15 +15,8 @@ title: Medium Redirect...
 ---
 
 <script>
-  (function () {
     const target = "https://zh-hans.zhgchg.li/";
 
-    /**
-     * Extract Medium post id (12 hex chars) from a Medium article URL.
-     * Example: ...-823ac523ccc8  ->  823ac523ccc8
-     * @param {string} ref
-     * @returns {string|null}
-     */
     function parseMediumPostIdFromReferrer(ref) {
       if (!ref) return null;
       let u;
@@ -33,11 +26,9 @@ title: Medium Redirect...
         return null;
       }
 
-      // Accept medium.com and its subdomains
       const host = u.hostname.toLowerCase();
       if (!(host === "medium.com" || host.endsWith(".medium.com"))) return null;
 
-      // Take the last path segment and look for a trailing -<12hex>
       const path = u.pathname.replace(/\/+$/, "");
       const lastSeg = path.split("/").pop() || "";
 
@@ -48,14 +39,10 @@ title: Medium Redirect...
     const ref = document.referrer || "";
     const mediumPostId = parseMediumPostIdFromReferrer(ref);
 
-    // If coming from Medium and we can parse the post id, pass it along for tracking.
-    // (Safe even if your target ignores the query.)
     if (mediumPostId) {
       window.location.replace(target+"posts/"+mediumPostId);
       return;
     }
 
-    // Fallback: normal redirect
     window.location.replace(target);
-  })();
 </script>
