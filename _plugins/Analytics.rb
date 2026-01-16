@@ -14,9 +14,9 @@ class Analytics
             return "#{result.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}+"
         else
             if slug == "total"
-                return "10,000+"
-            else
                 return "1,000,000+"
+            else
+                return "10,000+"
             end
         end
     end
