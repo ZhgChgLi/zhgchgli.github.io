@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-label="自然人憑證使用情境與方式示意圖">
+  <defs>
+    <style>
+      .bg { fill: #0b1220; }
+      .card { fill: #111b33; stroke: #2a3a66; stroke-width: 2; rx: 18; }
+      .title { fill: #e6f0ff; font: 700 28px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .text { fill: #c7d5ff; font: 500 18px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .hint { fill: #9fb3e6; font: 500 14px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .tag { fill: #0f1730; stroke: #2a3a66; stroke-width: 2; rx: 999; }
+      .tagText { fill: #e6f0ff; font: 600 14px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .line { stroke: #2a3a66; stroke-width: 3; }
+      .accent { fill: #56d364; }
+      .warn { fill: #ffcc66; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="620" rx="24"/>
+  <text class="title" x="40" y="58">自然人憑證能做什麼？（把它想成「網路世界的身分證＋簽名章」）</text>
+  <text class="hint" x="40" y="88">依不同網站/APP，會要求不同的驗證方式：電腦讀卡機、手機 NFC、或行動自然人憑證 App。</text>
+
+  <!-- Left: Ways -->
+  <rect class="card" x="40" y="120" width="350" height="460" rx="18"/>
+  <text class="text" x="60" y="165">三種常見使用方式</text>
+
+  <rect class="tag" x="60" y="190" width="140" height="34"/>
+  <text class="tagText" x="78" y="213">方式 A</text>
+  <text class="text" x="60" y="252">電腦＋讀卡機（IC 卡）</text>
+  <text class="hint" x="60" y="280">- 需要可上網的電腦</text>
+  <text class="hint" x="60" y="304">- 需要 IC 智慧卡讀卡機</text>
+  <text class="hint" x="60" y="328">- 依服務安裝元件/驅動</text>
+
+  <rect class="tag" x="60" y="360" width="140" height="34"/>
+  <text class="tagText" x="78" y="383">方式 B</text>
+  <text class="text" x="60" y="422">手機 NFC 感應（IC 卡）</text>
+  <text class="hint" x="60" y="450">- 服務端需支援 NFC</text>
+  <text class="hint" x="60" y="474">- 卡片需具備 NFC 晶片</text>
+  <text class="hint" x="60" y="498">- 感應位置/角度很重要</text>
+
+  <rect class="tag" x="60" y="530" width="140" height="34"/>
+  <text class="tagText" x="78" y="553">方式 C</text>
+  <text class="text" x="60" y="592">行動自然人憑證（App）</text>
+
+  <!-- Middle: Identity / Signature -->
+  <rect class="card" x="430" y="120" width="350" height="460" rx="18"/>
+  <text class="text" x="450" y="165">兩個核心能力</text>
+
+  <rect x="450" y="190" width="310" height="110" rx="16" fill="#0f1730" stroke="#2a3a66" stroke-width="2"/>
+  <circle cx="475" cy="230" r="10" class="accent"/>
+  <text class="text" x="495" y="235">身分驗證（登入/查詢）</text>
+  <text class="hint" x="475" y="265">像是：登入政府平台、查詢個人資料、申辦證明</text>
+
+  <rect x="450" y="330" width="310" height="120" rx="16" fill="#0f1730" stroke="#2a3a66" stroke-width="2"/>
+  <circle cx="475" cy="372" r="10" class="warn"/>
+  <text class="text" x="495" y="377">數位簽章（線上簽署）</text>
+  <text class="hint" x="475" y="407">用來簽文件/同意書/申請表，</text>
+  <text class="hint" x="475" y="429">很多流程會把它當成「本人簽名」的替代</text>
+
+  <text class="hint" x="450" y="520">提示：不同網站可能只用到其中一種（登入或簽章）。</text>
+
+  <!-- Right: Use cases -->
+  <rect class="card" x="820" y="120" width="340" height="460" rx="18"/>
+  <text class="text" x="840" y="165">常見使用場景（舉例）</text>
+  <text class="hint" x="840" y="194">以下為常見類型，實際支援方式以各網站公告為準</text>
+
+  <rect x="840" y="220" width="300" height="70" rx="14" fill="#0f1730" stroke="#2a3a66" stroke-width="2"/>
+  <text class="text" x="860" y="256">政府服務</text>
+  <text class="hint" x="860" y="282">報稅、戶政/地政、MyData、各式線上申辦</text>
+
+  <rect x="840" y="310" width="300" height="70" rx="14" fill="#0f1730" stroke="#2a3a66" stroke-width="2"/>
+  <text class="text" x="860" y="346">金融/證券</text>
+  <text class="hint" x="860" y="372">提升轉帳額度、設定約定帳戶、線上簽署</text>
+
+  <rect x="840" y="400" width="300" height="70" rx="14" fill="#0f1730" stroke="#2a3a66" stroke-width="2"/>
+  <text class="text" x="860" y="436">醫療/保險</text>
+  <text class="hint" x="860" y="462">部分服務會提供憑證/健保卡等多種登入</text>
+
+  <rect x="840" y="490" width="300" height="70" rx="14" fill="#0f1730" stroke="#2a3a66" stroke-width="2"/>
+  <text class="text" x="860" y="526">企業/校園/契約</text>
+  <text class="hint" x="860" y="552">需要「可信任身分＋簽章」的線上流程</text>
+
+  <!-- Connecting lines -->
+  <line class="line" x1="390" y1="350" x2="430" y2="350"/>
+  <line class="line" x1="780" y1="350" x2="820" y2="350"/>
+</svg>
+

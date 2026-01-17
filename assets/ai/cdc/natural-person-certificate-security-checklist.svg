@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-label="自然人憑證安全使用清單">
+  <defs>
+    <style>
+      .bg { fill: #0b1220; }
+      .card { fill: #111b33; stroke: #2a3a66; stroke-width: 2; rx: 18; }
+      .title { fill: #e6f0ff; font: 700 28px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .text { fill: #c7d5ff; font: 500 18px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .hint { fill: #9fb3e6; font: 500 14px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .ok { fill: #56d364; }
+      .warn { fill: #ffcc66; }
+      .bad { fill: #ff6b6b; }
+      .label { fill: #e6f0ff; font: 700 16px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="520" rx="24"/>
+  <text class="title" x="40" y="58">自然人憑證安全使用清單（照做就能降低風險）</text>
+  <text class="hint" x="40" y="88">自然人憑證屬於「可用來做身分驗證/數位簽章」的工具，請當作重要證件與印鑑來管理。</text>
+
+  <rect class="card" x="40" y="120" width="1120" height="360" rx="18"/>
+
+  <!-- Checklist items -->
+  <circle cx="80" cy="170" r="10" class="ok"/>
+  <text class="label" x="105" y="176">改預設 PIN</text>
+  <text class="text" x="240" y="176">預設密碼通常可被推測，領卡後第一件事就是改掉。</text>
+
+  <circle cx="80" cy="230" r="10" class="ok"/>
+  <text class="label" x="105" y="236">用戶代碼要「離線保管」</text>
+  <text class="text" x="360" y="236">用於解鎖/停用（依官方規則），請不要存在聊天記錄或雲端記事本。</text>
+
+  <circle cx="80" cy="290" r="10" class="warn"/>
+  <text class="label" x="105" y="296">不要在不信任的電腦操作</text>
+  <text class="text" x="360" y="296">網咖/公用電腦風險高；若不得已，操作後務必拔卡、清除暫存。</text>
+
+  <circle cx="80" cy="350" r="10" class="warn"/>
+  <text class="label" x="105" y="356">拍照/截圖先遮蔽個資</text>
+  <text class="text" x="360" y="356">卡號、身分證字號、條碼/QR 等資訊不要外流（你分享教學也一樣）。</text>
+
+  <circle cx="80" cy="410" r="10" class="bad"/>
+  <text class="label" x="105" y="416">遺失/懷疑外洩：立即停用/廢止</text>
+  <text class="text" x="420" y="416">不要等！先讓憑證失效，再處理補發/換發，最安全。</text>
+
+  <text class="hint" x="60" y="462">提醒：不同服務的登入/簽章流程不同，遇到要求你提供 PIN、卡片照片或要你代操作的「客服/代辦」請提高警覺。</text>
+</svg>
+

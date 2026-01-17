@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-label="自然人憑證申辦流程示意圖">
+  <defs>
+    <style>
+      .bg { fill: #0b1220; }
+      .card { fill: #111b33; stroke: #2a3a66; stroke-width: 2; rx: 18; }
+      .title { fill: #e6f0ff; font: 700 28px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .text { fill: #c7d5ff; font: 500 18px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .hint { fill: #9fb3e6; font: 500 14px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .step { fill: #e6f0ff; font: 700 18px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .pill { fill: #1f2b4d; stroke: #2a3a66; stroke-width: 2; rx: 999; }
+      .accent { fill: #56d364; }
+      .warn { fill: #ffcc66; }
+      .arrow { stroke: #2a3a66; stroke-width: 4; fill: none; marker-end: url(#arrowHead); }
+    </style>
+    <marker id="arrowHead" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2a3a66"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="520" rx="24"/>
+
+  <text class="title" x="40" y="58">自然人憑證（Citizen Digital Certificate）申辦流程</text>
+  <text class="hint" x="40" y="88">重點：線上填表資料通常只保留 7 天；臨櫃需本人攜帶身分證正本；實體卡工本費常見為 250 元（以官方公告為準）。</text>
+
+  <!-- Step 1 -->
+  <rect class="card" x="40" y="120" width="260" height="210" rx="18"/>
+  <rect class="pill" x="60" y="140" width="120" height="34" rx="999"/>
+  <text class="step" x="78" y="163">Step 1</text>
+  <text class="text" x="60" y="205">線上填寫申請資料</text>
+  <text class="hint" x="60" y="236">- 填姓名／身分證字號</text>
+  <text class="hint" x="60" y="258">- 設定 PIN 與用戶代碼</text>
+  <text class="hint" x="60" y="280">- 留 Email／手機作通知</text>
+  <rect x="60" y="295" width="170" height="10" rx="5" class="accent" opacity="0.9"/>
+  <text class="hint" x="60" y="324">提示：送出後請儘快臨櫃</text>
+
+  <!-- Step 2 -->
+  <rect class="card" x="340" y="120" width="260" height="210" rx="18"/>
+  <rect class="pill" x="360" y="140" width="120" height="34" rx="999"/>
+  <text class="step" x="378" y="163">Step 2</text>
+  <text class="text" x="360" y="205">到戶政事務所臨櫃辦理</text>
+  <text class="hint" x="360" y="236">- 任一戶所（不一定要戶籍地）</text>
+  <text class="hint" x="360" y="258">- 身分證正本</text>
+  <text class="hint" x="360" y="280">- 工本費（常見 250 元）</text>
+  <rect x="360" y="295" width="180" height="10" rx="5" class="warn" opacity="0.95"/>
+  <text class="hint" x="360" y="324">現場核對資料、設定密碼</text>
+
+  <!-- Step 3 -->
+  <rect class="card" x="640" y="120" width="260" height="210" rx="18"/>
+  <rect class="pill" x="660" y="140" width="120" height="34" rx="999"/>
+  <text class="step" x="678" y="163">Step 3</text>
+  <text class="text" x="660" y="205">領卡／啟用前必做</text>
+  <text class="hint" x="660" y="236">- 確認 PIN（建議改預設）</text>
+  <text class="hint" x="660" y="258">- 保管用戶代碼（解鎖用）</text>
+  <text class="hint" x="660" y="280">- 記下效期（常見 5 年）</text>
+  <rect x="660" y="295" width="150" height="10" rx="5" class="accent" opacity="0.9"/>
+  <text class="hint" x="660" y="324">把卡當成「網路身分證」</text>
+
+  <!-- Step 4 -->
+  <rect class="card" x="940" y="120" width="220" height="210" rx="18"/>
+  <rect class="pill" x="960" y="140" width="120" height="34" rx="999"/>
+  <text class="step" x="978" y="163">Step 4</text>
+  <text class="text" x="960" y="205">開始使用</text>
+  <text class="hint" x="960" y="236">A. 電腦＋讀卡機</text>
+  <text class="hint" x="960" y="258">B. 手機 NFC（支援者）</text>
+  <text class="hint" x="960" y="280">C. 行動自然人憑證</text>
+  <text class="hint" x="960" y="302">（App＋生物辨識）</text>
+
+  <!-- Arrows -->
+  <path class="arrow" d="M 300 225 L 340 225"/>
+  <path class="arrow" d="M 600 225 L 640 225"/>
+  <path class="arrow" d="M 900 225 L 940 225"/>
+
+  <!-- Footer -->
+  <text class="hint" x="40" y="392">常見疑問：PIN／用戶代碼是什麼？鎖卡怎麼辦？電腦要裝哪些元件？手機怎麼感應？本篇後面會逐一拆解。</text>
+  <rect x="40" y="410" width="1120" height="80" rx="18" fill="#0f1730" stroke="#2a3a66" stroke-width="2"/>
+  <text class="text" x="60" y="448">小提醒</text>
+  <text class="hint" x="60" y="474">1) 卡片與密碼不要交給任何人代管；2) 遺失/懷疑外洩要立刻停用/廢止；3) 各服務是否支援 NFC/行動自然人憑證，以官方說明為準。</text>
+</svg>
+
