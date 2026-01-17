@@ -10,9 +10,6 @@ import re
 import mistune
 from mistune.renderers.markdown import MarkdownRenderer
 
-root_dir = "../../L10n/posts/zh-tw/zmediumtomarkdown"
-output_root_dir = "../../L10n/posts/jp/zmediumtomarkdown"
-
 def execute():
     parser = argparse.ArgumentParser(description="Translate Markdown content using OpenAI API")
     parser.add_argument("--api-key", help="OpenAI API key (optional, 預設讀環境變數 OPENAI_API_KEY)")
@@ -23,7 +20,7 @@ def execute():
         print("❌ Error: 請提供 API key (--api-key) 或設 OPENAI_API_KEY 環境變數")
         sys.exit(1)
 
-    def process_file(filename, root_dir, api_key):
+    def process_file(filename, root_dir, api_key, output_root_dir):
         file_path = os.path.join(root_dir, filename)
         basename = os.path.splitext(filename)[0]
         slug = re.sub(r'^\d{4}-\d{2}-\d{2}-', '', basename)
@@ -129,17 +126,32 @@ def execute():
         except Exception as e:
             print(f"❌ 發生錯誤：{filename} - {e}")
 
-    filenames = os.listdir(root_dir)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-        futures = [
-            executor.submit(process_file, filename, root_dir, api_key)
-            for filename in filenames
-        ]
-        for future in concurrent.futures.as_completed(futures):
-            try:
-                future.result()  # 這裡會拋出子任務裡的 Exception
-            except Exception as e:
-                print(f"❌ 任務失敗: {e}")
+    configs = [
+        {
+            "root_dir": "../../L10n/posts/zh-tw/zmediumtomarkdown",
+            "output_root_dir": "../../L10n/posts/jp/zmediumtomarkdown"
+        },
+        {
+            "root_dir": "../../L10n/posts/zh-tw/ai",
+            "output_root_dir": "../../L10n/posts/jp/ai"
+        }
+    ]
+
+    for item in configs:
+        root_dir = item["root_dir"]
+        output_root_dir = item["output_root_dir"]
+
+        filenames = os.listdir(root_dir)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+            futures = [
+                executor.submit(process_file, filename, root_dir, api_key, output_root_dir)
+                for filename in filenames
+            ]
+            for future in concurrent.futures.as_completed(futures):
+                try:
+                    future.result()  # 這裡會拋出子任務裡的 Exception
+                except Exception as e:
+                    print(f"❌ 任務失敗: {e}")
 
 def get_orginal_english_title(file_path):
     if not os.path.exists(file_path):
