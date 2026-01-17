@@ -6,6 +6,7 @@ import json
 import argparse
 import frontmatter
 import re
+import copy
 
 result_json_file_path="../../assets/data/seo/zh-tw/results.json"
 cn_result_json_file_path="../../assets/data/seo/zh-cn/results.json"
@@ -77,7 +78,7 @@ def execute():
                         json.dump(seo_results, f, ensure_ascii=False)
 
                     with open(cn_result_json_file_path, "w", encoding="utf-8") as f:
-                        cn_seo_results = seo_results
+                        cn_seo_results = copy.deepcopy(seo_results)
                         for slug, item in cn_seo_results.items():
                             for key, value in item.items():
                                 cn_seo_results[slug][key] = cc.convert(value)
