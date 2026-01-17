@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-label="山陽（廣島、岡山）到山陰（島根、鳥取）的交通與景點分布示意圖">
+  <defs>
+    <style>
+      .bg { fill: #0b1020; }
+      .panel { fill: #111a33; stroke: #2a3a6b; stroke-width: 2; }
+      .sea { fill: #0c2b53; opacity: .45; }
+      .land { fill: #15224a; opacity: .75; }
+      .title { fill: #e8eefc; font: 700 34px system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif; }
+      .subtitle { fill: #b9c7f7; font: 500 18px system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif; }
+      .label { fill: #e8eefc; font: 600 16px system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif; }
+      .small { fill: #b9c7f7; font: 500 14px system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif; }
+      .muted { fill: #9fb0e6; font: 500 13px system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif; }
+      .city { fill: #ffd36e; }
+      .spot { fill: #7ee2b8; }
+      .sanin { fill: #b2a2ff; }
+      .line-shinkansen { stroke: #ff6b6b; stroke-width: 6; stroke-linecap: round; }
+      .line-limited { stroke: #7ee2b8; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 10 8; }
+      .line-local { stroke: #8bb8ff; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 2 10; }
+      .line-bus { stroke: #ffd36e; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 12 10; }
+      .pin { stroke: rgba(255,255,255,.12); stroke-width: 10; }
+      .legend-box { fill: rgba(255,255,255,.06); stroke: rgba(255,255,255,.12); stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="700" rx="28"/>
+  <rect class="panel" x="30" y="28" width="1140" height="644" rx="22"/>
+
+  <text class="title" x="70" y="92">山陽 × 山陰：廣島／岡山到山陰的「交通＋景點」一張看懂</text>
+  <text class="subtitle" x="70" y="128">示意圖（非比例尺）：把你的行程想成「山陽新幹線當骨幹，跨山特急/巴士補洞」</text>
+
+  <!-- Map area -->
+  <g transform="translate(70,160)">
+    <!-- Seas -->
+    <rect class="sea" x="0" y="0" width="1060" height="220" rx="18"/>
+    <text class="small" x="22" y="38">瀨戶內海（山陽側）</text>
+
+    <rect class="sea" x="0" y="430" width="1060" height="140" rx="18"/>
+    <text class="small" x="22" y="468">日本海（山陰側）</text>
+
+    <!-- Land band -->
+    <rect class="land" x="0" y="210" width="1060" height="240" rx="18"/>
+    <text class="muted" x="22" y="250">中國山地（跨山移動的「地形原因」：特急/巴士會走這一帶的隧道與山谷）</text>
+
+    <!-- Cities & spots -->
+    <!-- Hiroshima -->
+    <circle class="pin" cx="150" cy="140" r="18"/>
+    <circle class="city" cx="150" cy="140" r="10"/>
+    <text class="label" x="175" y="146">廣島（市區）</text>
+    <text class="muted" x="175" y="170">和平公園／原爆圓頂／廣島城</text>
+
+    <!-- Miyajima -->
+    <circle class="pin" cx="190" cy="105" r="16"/>
+    <circle class="spot" cx="190" cy="105" r="9"/>
+    <text class="small" x="210" y="110">宮島（嚴島神社）</text>
+
+    <!-- Kure -->
+    <circle class="pin" cx="215" cy="175" r="16"/>
+    <circle class="spot" cx="215" cy="175" r="9"/>
+    <text class="small" x="235" y="180">吳市（大和博物館／潛水艦館）</text>
+
+    <!-- Onomichi -->
+    <circle class="pin" cx="360" cy="160" r="16"/>
+    <circle class="spot" cx="360" cy="160" r="9"/>
+    <text class="small" x="380" y="165">尾道（千光寺／貓之細道／瀨戶內海景）</text>
+
+    <!-- Tomonoura -->
+    <circle class="pin" cx="430" cy="205" r="16"/>
+    <circle class="spot" cx="430" cy="205" r="9"/>
+    <text class="small" x="450" y="210">鞆之浦（港町風景／常夜燈）</text>
+
+    <!-- Okayama -->
+    <circle class="pin" cx="620" cy="150" r="18"/>
+    <circle class="city" cx="620" cy="150" r="10"/>
+    <text class="label" x="645" y="156">岡山（市區）</text>
+    <text class="muted" x="645" y="180">後樂園／岡山城／桃太郎傳說（吉備）</text>
+
+    <!-- Kurashiki -->
+    <circle class="pin" cx="570" cy="195" r="16"/>
+    <circle class="spot" cx="570" cy="195" r="9"/>
+    <text class="small" x="590" y="200">倉敷（美觀地區／運河倉庫街）</text>
+
+    <!-- Sanin nodes -->
+    <circle class="pin" cx="760" cy="500" r="18"/>
+    <circle class="sanin" cx="760" cy="500" r="10"/>
+    <text class="label" x="785" y="506">島根（松江／出雲）</text>
+    <text class="muted" x="785" y="530">山陰旅行常見基地：松江、出雲</text>
+
+    <circle class="pin" cx="930" cy="500" r="18"/>
+    <circle class="sanin" cx="930" cy="500" r="10"/>
+    <text class="label" x="955" y="506">鳥取（鳥取市／米子）</text>
+    <text class="muted" x="955" y="530">砂丘／溫泉／境港等延伸</text>
+
+    <!-- Transport lines -->
+    <path class="line-shinkansen" d="M 140 160 C 250 180, 380 175, 520 170 S 780 160, 980 150"/>
+    <text class="small" x="320" y="146">山陽新幹線／山陽本線（大動脈）</text>
+
+    <path class="line-limited" d="M 620 170 C 660 250, 700 330, 760 490"/>
+    <text class="small" x="650" y="270">特急 Yakumo（岡山 ⇄ 松江／出雲）</text>
+
+    <path class="line-limited" d="M 620 165 C 700 250, 820 340, 930 490"/>
+    <text class="small" x="760" y="320">特急 Super Inaba（岡山 ⇄ 鳥取）</text>
+
+    <path class="line-bus" d="M 150 160 C 260 260, 420 360, 760 490"/>
+    <text class="small" x="260" y="300">高速巴士（視班次/行李需求取捨）</text>
+
+    <!-- Legend -->
+    <g transform="translate(740,20)">
+      <rect class="legend-box" x="0" y="0" width="300" height="170" rx="16"/>
+      <text class="label" x="16" y="34">圖例</text>
+
+      <circle class="city" cx="24" cy="62" r="7"/><text class="small" x="40" y="67">主要城市（住宿基地）</text>
+      <circle class="spot" cx="24" cy="88" r="7"/><text class="small" x="40" y="93">景點/小鎮（半日～一日）</text>
+      <circle class="sanin" cx="24" cy="114" r="7"/><text class="small" x="40" y="119">山陰（島根／鳥取）</text>
+
+      <line class="line-shinkansen" x1="16" y1="140" x2="66" y2="140"/><text class="small" x="78" y="145">山陽骨幹線</text>
+      <line class="line-limited" x1="16" y1="158" x2="66" y2="158"/><text class="small" x="78" y="163">跨山特急</text>
+    </g>
+  </g>
+</svg>
+

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="廣島岡山六日行程範例（可延伸接山陰）">
+  <defs>
+    <style>
+      .bg { fill: #0b1020; }
+      .panel { fill: #111a33; stroke: #2a3a6b; stroke-width: 2; }
+      .title { fill: #e8eefc; font: 800 34px system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif; }
+      .subtitle { fill: #b9c7f7; font: 500 18px system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif; }
+      .day { fill: rgba(255,255,255,.06); stroke: rgba(255,255,255,.12); stroke-width: 1.5; }
+      .dayTitle { fill: #ffd36e; font: 800 18px system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif; }
+      .text { fill: #e8eefc; font: 600 15px system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif; }
+      .muted { fill: #b9c7f7; font: 500 13px system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif; }
+      .tag { fill: rgba(126,226,184,.16); stroke: rgba(126,226,184,.45); stroke-width: 1.2; }
+      .tagText { fill: #7ee2b8; font: 700 12px system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif; letter-spacing: .2px; }
+      .arrow { stroke: rgba(255,255,255,.25); stroke-width: 3; fill: none; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="800" rx="28"/>
+  <rect class="panel" x="30" y="28" width="1140" height="744" rx="22"/>
+
+  <text class="title" x="70" y="92">六日行程範例：廣島 × 岡山（可加碼接山陰）</text>
+  <text class="subtitle" x="70" y="128">以你提供的 6 日自由行為骨架，整理成「一眼就能排」的版本（依季節與開放時間調整）</text>
+
+  <g transform="translate(70,170)">
+    <!-- 6 day cards -->
+    <g transform="translate(0,0)">
+      <rect class="day" x="0" y="0" width="340" height="180" rx="18"/>
+      <text class="dayTitle" x="18" y="34">Day 1｜抵達岡山 → 進廣島</text>
+      <text class="text" x="18" y="64">岡山機場入境 → JR/巴士移動</text>
+      <text class="muted" x="18" y="90">晚上：廣島站周邊覓食（廣島燒）</text>
+      <rect class="tag" x="18" y="118" width="86" height="26" rx="13"/><text class="tagText" x="32" y="135">交通日</text>
+      <rect class="tag" x="110" y="118" width="110" height="26" rx="13"/><text class="tagText" x="124" y="135">美食入門</text>
+    </g>
+
+    <g transform="translate(380,0)">
+      <rect class="day" x="0" y="0" width="340" height="180" rx="18"/>
+      <text class="dayTitle" x="18" y="34">Day 2｜宮島一日＋和平公園</text>
+      <text class="text" x="18" y="64">嚴島神社／海上鳥居／彌山纜車</text>
+      <text class="muted" x="18" y="90">下午：原爆圓頂、和平紀念公園散步</text>
+      <rect class="tag" x="18" y="118" width="108" height="26" rx="13"/><text class="tagText" x="32" y="135">世界遺產</text>
+      <rect class="tag" x="132" y="118" width="96" height="26" rx="13"/><text class="tagText" x="146" y="135">登高景</text>
+    </g>
+
+    <g transform="translate(760,0)">
+      <rect class="day" x="0" y="0" width="340" height="180" rx="18"/>
+      <text class="dayTitle" x="18" y="34">Day 3｜尾道＋鞆之浦（港町）</text>
+      <text class="text" x="18" y="64">千光寺展望／坂道散步／商店街</text>
+      <text class="muted" x="18" y="90">傍晚：鞆之浦常夜燈、海邊夕陽</text>
+      <rect class="tag" x="18" y="118" width="98" height="26" rx="13"/><text class="tagText" x="32" y="135">港町感</text>
+      <rect class="tag" x="122" y="118" width="112" height="26" rx="13"/><text class="tagText" x="136" y="135">山城散步</text>
+    </g>
+
+    <g transform="translate(0,220)">
+      <rect class="day" x="0" y="0" width="340" height="180" rx="18"/>
+      <text class="dayTitle" x="18" y="34">Day 4｜吳市軍港文化＋市區庭園</text>
+      <text class="text" x="18" y="64">大和博物館／潛水艦館</text>
+      <text class="muted" x="18" y="90">縮景園／廣島城（可視時間）</text>
+      <rect class="tag" x="18" y="118" width="124" height="26" rx="13"/><text class="tagText" x="32" y="135">人文歷史</text>
+      <rect class="tag" x="148" y="118" width="96" height="26" rx="13"/><text class="tagText" x="162" y="135">城市綠洲</text>
+    </g>
+
+    <g transform="translate(380,220)">
+      <rect class="day" x="0" y="0" width="340" height="180" rx="18"/>
+      <text class="dayTitle" x="18" y="34">Day 5｜倉敷美觀地區＋岡山夜景</text>
+      <text class="text" x="18" y="64">倉庫運河街／阿智神社／散策</text>
+      <text class="muted" x="18" y="90">晚上：後樂園點燈＋岡山城</text>
+      <rect class="tag" x="18" y="118" width="112" height="26" rx="13"/><text class="tagText" x="32" y="135">江戶街景</text>
+      <rect class="tag" x="136" y="118" width="90" height="26" rx="13"/><text class="tagText" x="150" y="135">名園</text>
+    </g>
+
+    <g transform="translate(760,220)">
+      <rect class="day" x="0" y="0" width="340" height="180" rx="18"/>
+      <text class="dayTitle" x="18" y="34">Day 6｜吉備文化 → 回程（OKJ）</text>
+      <text class="text" x="18" y="64">吉備津神社／桃太郎傳說脈絡</text>
+      <text class="muted" x="18" y="90">岡山站周邊購物 → 機場巴士</text>
+      <rect class="tag" x="18" y="118" width="124" height="26" rx="13"/><text class="tagText" x="32" y="135">文化收尾</text>
+      <rect class="tag" x="148" y="118" width="86" height="26" rx="13"/><text class="tagText" x="162" y="135">採買</text>
+    </g>
+
+    <!-- Optional extension -->
+    <path class="arrow" d="M 560 450 C 560 520, 560 560, 560 610" />
+    <path class="arrow" d="M 552 602 L 560 612 L 568 602" />
+    <rect class="day" x="190" y="620" width="820" height="120" rx="18"/>
+    <text class="dayTitle" x="220" y="660">加碼接山陰（島根／鳥取）</text>
+    <text class="text" x="220" y="690">從岡山搭特急 Yakumo／Super Inaba 北上；或從廣島改搭高速巴士跨山</text>
+    <text class="muted" x="220" y="716">適合：想一口氣玩「瀨戶內海＋出雲大社／松江／鳥取砂丘」的人</text>
+  </g>
+</svg>
+
