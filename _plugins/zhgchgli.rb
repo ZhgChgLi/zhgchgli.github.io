@@ -732,11 +732,19 @@ class ZPost
     end
 
     def getPostTitle(lang = @lang)
-        return self._getSEOData(lang).fetch(@slug, {}).fetch('title', self._getFrontMatter(lang).fetch('title', ''))
+        if isAIGenPost
+            return self._getFrontMatter(lang).fetch('title', '')
+        else
+            return self._getSEOData(lang).fetch(@slug, {}).fetch('title', self._getFrontMatter(lang).fetch('title', ''))
+        end
     end
 
     def getPostDescription(lang = @lang)
-        return self._getSEOData(lang).fetch(@slug, {}).fetch('description', self._getFrontMatter(lang).fetch('description', ''))
+        if isAIGenPost
+            return self._getFrontMatter(lang).fetch('title', '')
+        else
+            return self._getSEOData(lang).fetch(@slug, {}).fetch('description', self._getFrontMatter(lang).fetch('description', ''))
+        end
     end
 
     def getPostCategory(lang = @lang)
