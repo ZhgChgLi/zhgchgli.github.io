@@ -401,6 +401,13 @@ MSG
         redirect_from = post.data['redirect_from'] || []
         redirect_from.push(zPost.slugPostURL())
         redirect_from.push(zPost.shortPostURL())
+
+        if zPost.lang == "zh-tw"
+            if zPost.slug == "atami"
+                redirect_from.push("/posts/z-度旅行遊記/熱海夏季花火大會攻略-觀賞地點-交通-住宿-美食與一日遊全解析-atami/")
+            end
+        end
+
         
         post.data['redirect_from'] = redirect_from
     end

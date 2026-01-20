@@ -17,27 +17,35 @@ if (segments.length >= 2) {
     const lastSegment = segments.pop();
     const lastPath = lastSegment.split("-").filter(Boolean).pop();
 
-    if (segments[0] === "posts" &&
-        lastPath.match(/^([a-f0-9]+)$/i)) {
-
-        const isEn = segments.includes("en");
-        const isCn = segments.includes("zh-cn");
-        if (isEn) {
-            location.replace("https://en.zhgchg.li/posts/" + lastPath);
-        } else if (isCn) {
-            location.replace("https://zh-hans.zhgchg.li/posts/" + lastPath);
-        } else if (lastPath !== lastSegment) {
-            location.replace("/posts/" + lastPath);
-        }
+    if (lastPath == "atami) {
+        location.replace("/posts/atami/");
+    } else if (lastPath == "cdc) {
+        location.replace("/posts/cdc/");
+    } else if (lastPath == "sanin) {
+        location.replace("/posts/sanin/");
     } else {
-        if (notFoundContent) {
-            notFoundContent.style.display = "";
-            document.getElementsByClassName("dynamic-title")[0].innerHTML = "404: Page not found";
-            document.title = "404: Page not found";
-            const spans = document.getElementById("breadcrumb").getElementsByTagName("span");
-            for (const span of spans) {
-                if (span.textContent.trim() === "Redirecting…") {
-                    span.textContent = "404: Page not found";
+        if (segments[0] === "posts" &&
+            lastPath.match(/^([a-f0-9]+)$/i)) {
+
+            const isEn = segments.includes("en");
+            const isCn = segments.includes("zh-cn");
+            if (isEn) {
+                location.replace("https://en.zhgchg.li/posts/" + lastPath);
+            } else if (isCn) {
+                location.replace("https://zh-hans.zhgchg.li/posts/" + lastPath);
+            } else if (lastPath !== lastSegment) {
+                location.replace("/posts/" + lastPath);
+            }
+        } else {
+            if (notFoundContent) {
+                notFoundContent.style.display = "";
+                document.getElementsByClassName("dynamic-title")[0].innerHTML = "404: Page not found";
+                document.title = "404: Page not found";
+                const spans = document.getElementById("breadcrumb").getElementsByTagName("span");
+                for (const span of spans) {
+                    if (span.textContent.trim() === "Redirecting…") {
+                        span.textContent = "404: Page not found";
+                    }
                 }
             }
         }
