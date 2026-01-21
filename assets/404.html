@@ -17,11 +17,11 @@ if (segments.length >= 2) {
     const lastSegment = segments.pop();
     const lastPath = lastSegment.split("-").filter(Boolean).pop();
 
-    if (lastPath == "atami) {
+    if (lastPath == "atami") {
         location.replace("/posts/atami/");
-    } else if (lastPath == "cdc) {
+    } else if (lastPath == "cdc") {
         location.replace("/posts/cdc/");
-    } else if (lastPath == "sanin) {
+    } else if (lastPath == "sanin") {
         location.replace("/posts/sanin/");
     } else {
         if (segments[0] === "posts" &&
