@@ -76,28 +76,34 @@ Jekyll::Hooks.register :posts, :post_render do |post|
     tocHTML = zPlguin.makeTOCHTML(post)
     post.output = post.output.gsub("<ZHGCHGLI_POC></ZHGCHGLI_POC>", tocHTML)
 
-    kkday = KKday.new()
     zPost = ZPost.new(post.path)
-    kkdayHeader = kkday.makeCommonFlights()
-    kkdayFooter = kkday.makeCommonProducts()
 
-    if zPost.slug == '8ace34a1a3d8'
-        kkdayHeader = kkday.makeBusanFlights()
-        kkdayFooter = kkday.makeBusanProducts()
-    elsif zPost.slug == '31b9b3a63abc' || zPost.slug == 'aacd5f5cacd1'
-        kkdayHeader = kkday.makeSainFlights()
-        kkdayFooter = kkday.makeSainProducts()
-    elsif zPost.slug == 'd78e0b15a08a' || zPost.slug == 'cb65fd5ab770'
-        kkdayHeader = kkday.makeKyuhsuFlights()
-        kkdayFooter = kkday.makeKyuhsuProducts()
-    elsif zPost.slug == '958599363857' || zPost.slug == '9da2c51fa4f2'
-        kkdayHeader = kkday.makeTokyoFlights()
-        kkdayFooter = kkday.makeTokyoProducts()
-    elsif zPost.slug == 'b7e7c0938985'
-        kkdayHeader = kkday.makeBangkokFlights()
-        kkdayFooter = kkday.makeBangkokProducts()
-    end
+    # kkday = KKday.new()
+    # kkdayHeader = kkday.makeCommonFlights()
+    # kkdayFooter = kkday.makeCommonProducts()
+
+    # if zPost.slug == '8ace34a1a3d8'
+    #     kkdayHeader = kkday.makeBusanFlights()
+    #     kkdayFooter = kkday.makeBusanProducts()
+    # elsif zPost.slug == '31b9b3a63abc' || zPost.slug == 'aacd5f5cacd1'
+    #     kkdayHeader = kkday.makeSainFlights()
+    #     kkdayFooter = kkday.makeSainProducts()
+    # elsif zPost.slug == 'd78e0b15a08a' || zPost.slug == 'cb65fd5ab770'
+    #     kkdayHeader = kkday.makeKyuhsuFlights()
+    #     kkdayFooter = kkday.makeKyuhsuProducts()
+    # elsif zPost.slug == '958599363857' || zPost.slug == '9da2c51fa4f2'
+    #     kkdayHeader = kkday.makeTokyoFlights()
+    #     kkdayFooter = kkday.makeTokyoProducts()
+    # elsif zPost.slug == 'b7e7c0938985'
+    #     kkdayHeader = kkday.makeBangkokFlights()
+    #     kkdayFooter = kkday.makeBangkokProducts()
+    # end
     
+    kkdayHeader = <<~MSG
+> [Tripezgo 掌握每月旅遊優惠，即刻出發！](https://tripezgo.com/)
+{: .prompt-tip }
+MSG
+    kkdayFooter = kkdayHeader
     post.output = post.output.gsub("<ZHGCHGLI_KKDAY_HEADER></ZHGCHGLI_KKDAY_HEADER>", kkdayHeader)
     post.output = post.output.gsub("<ZHGCHGLI_KKDAY_FOOTER></ZHGCHGLI_KKDAY_FOOTER>", kkdayFooter)
 end
@@ -286,10 +292,10 @@ MSG
             end
         end
 
-        #header += "\n\n<ZHGCHGLI_POC></ZHGCHGLI_POC>\n---\n\n"
-        #if zPost.isTravelPost()
-        #    header += "<ZHGCHGLI_KKDAY_HEADER></ZHGCHGLI_KKDAY_HEADER>"
-        #end
+        header += "\n\n<ZHGCHGLI_POC></ZHGCHGLI_POC>\n---\n\n"
+        if zPost.isTravelPost()
+           header += "<ZHGCHGLI_KKDAY_HEADER></ZHGCHGLI_KKDAY_HEADER>"
+        end
 
         return header
 
@@ -321,9 +327,9 @@ MSG
         zPost = ZPost.new(post.path)
         footer = ''
 
-        #if zPost.isTravelPost()
-        #    footer += "<ZHGCHGLI_KKDAY_FOOTER></ZHGCHGLI_KKDAY_FOOTER>"
-        #end
+        if zPost.isTravelPost()
+           footer += "<ZHGCHGLI_KKDAY_FOOTER></ZHGCHGLI_KKDAY_FOOTER>"
+        end
         
         site      = post.site
         site_url  = site.config['url'] || ""
