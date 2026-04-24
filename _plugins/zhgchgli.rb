@@ -100,8 +100,7 @@ Jekyll::Hooks.register :posts, :post_render do |post|
     # end
     
     kkdayHeader = <<~MSG
-> [Tripezgo 掌握每月旅遊優惠，即刻出發！](https://tripezgo.com/)
-{: .prompt-tip }
+<p>🏝️👉👉<a href="https://tripezgo.com/" target="_blank">Tripezgo 掌握每月旅遊優惠，即刻出發！</a></p>
 MSG
     kkdayFooter = kkdayHeader
     post.output = post.output.gsub("<ZHGCHGLI_KKDAY_HEADER></ZHGCHGLI_KKDAY_HEADER>", kkdayHeader)
