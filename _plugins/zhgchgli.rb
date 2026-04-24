@@ -286,10 +286,10 @@ MSG
             end
         end
 
-        header += "\n\n<ZHGCHGLI_POC></ZHGCHGLI_POC>\n---\n\n"
-        if zPost.isTravelPost()
-            header += "<ZHGCHGLI_KKDAY_HEADER></ZHGCHGLI_KKDAY_HEADER>"
-        end
+        #header += "\n\n<ZHGCHGLI_POC></ZHGCHGLI_POC>\n---\n\n"
+        #if zPost.isTravelPost()
+        #    header += "<ZHGCHGLI_KKDAY_HEADER></ZHGCHGLI_KKDAY_HEADER>"
+        #end
 
         return header
 
@@ -321,9 +321,9 @@ MSG
         zPost = ZPost.new(post.path)
         footer = ''
 
-        if zPost.isTravelPost()
-            footer += "<ZHGCHGLI_KKDAY_FOOTER></ZHGCHGLI_KKDAY_FOOTER>"
-        end
+        #if zPost.isTravelPost()
+        #    footer += "<ZHGCHGLI_KKDAY_FOOTER></ZHGCHGLI_KKDAY_FOOTER>"
+        #end
         
         site      = post.site
         site_url  = site.config['url'] || ""
