@@ -7,6 +7,7 @@ class Analytics
     def getPostStatus(slug)
         if @_cachePostStatus.empty?
             @_cachePostStatus = self._getPostStatusData()
+            puts @_cachePostStatus
         end
 
         result = @_cachePostStatus.fetch(slug, 0)
