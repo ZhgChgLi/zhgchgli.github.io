@@ -79,7 +79,7 @@ layout: default
     </div>
   </div>
 
-  <div style="height: 64px"></div>
+  <div id="post-bottom" style="height: 64px"></div>
 
   {% if page.tags.size > 0 %}
     <div class="post-tail post-tags-row">
@@ -353,6 +353,13 @@ layout: default
         }
         html += '</li>';
       });
+      var jumpLabel = {{ t.post.toc_jump_bottom | jsonify }};
+      html += '<li>' +
+        '<div class="toc-h2 toc-jump-bottom" data-id="post-bottom">' +
+          '<span class="num"><i class="fa-solid fa-angles-down"></i></span>' +
+          '<a class="label-text" href="#post-bottom">' + escapeHtml(jumpLabel) + '</a>' +
+          '<span class="toc-toggle spacer">↓</span>' +
+        '</div></li>';
       html += '</ol>';
       return html;
     }

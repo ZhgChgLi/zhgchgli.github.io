@@ -85,6 +85,7 @@ zh-tw:
     toc_eyebrow: Table of Contents
     toc_label: 本文目錄
     toc_count: "· %d 段"
+    toc_jump_bottom: 跳至文章底部
     fab_back: 回到目錄
     filed_under: 收錄於
     improve_title: 在 GitHub 上補充修正
@@ -213,6 +214,7 @@ en:
     toc_eyebrow: Table of Contents
     toc_label: Contents
     toc_count: "· %d sections"
+    toc_jump_bottom: Jump to bottom
     fab_back: Back to TOC
     filed_under: Filed under
     improve_title: Improve this page
@@ -341,6 +343,7 @@ zh-cn:
     toc_eyebrow: Table of Contents
     toc_label: 本文目录
     toc_count: "· %d 段"
+    toc_jump_bottom: 跳至文章底部
     fab_back: 回到目录
     filed_under: 收录于
     improve_title: 在 GitHub 上补充修正
@@ -469,6 +472,7 @@ jp:
     toc_eyebrow: Table of Contents
     toc_label: 目次
     toc_count: "· %d セクション"
+    toc_jump_bottom: 記事の最後へ
     fab_back: 目次へ戻る
     filed_under: 分類
     improve_title: GitHub で編集
