@@ -22,6 +22,7 @@ zh-tw:
     follow_heading: 訂閱
     rss_link: RSS Feed
     sitemap_link: Sitemap
+    links_link: 我的連結
     all_writing: 全部文章
     categories: 分類
     tags: 標籤
@@ -152,6 +153,7 @@ en:
     follow_heading: Follow
     rss_link: RSS Feed
     sitemap_link: Sitemap
+    links_link: All my links
     all_writing: All writing
     categories: Categories
     tags: Tags
@@ -282,6 +284,7 @@ zh-cn:
     follow_heading: 订阅
     rss_link: RSS Feed
     sitemap_link: Sitemap
+    links_link: 我的链接
     all_writing: 全部文章
     categories: 分类
     tags: 标签
@@ -412,6 +415,7 @@ jp:
     follow_heading: フォロー
     rss_link: RSS フィード
     sitemap_link: Sitemap
+    links_link: マイリンク集
     all_writing: 全ての記事
     categories: カテゴリー
     tags: タグ

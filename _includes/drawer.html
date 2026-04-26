@@ -24,6 +24,9 @@
   </nav>
 
   <div class="socials">
+    <a href="https://link.zhgchg.li" aria-label="{{ t.footer.links_link }}" target="_blank" rel="noopener">
+      <i class="fa-solid fa-link"></i>
+    </a>
     {% for s in site.data.social %}
       <a href="{{ s.url }}" aria-label="{{ s.label }}" {% unless s.url contains 'mailto' or s.url contains '/feed' %}target="_blank" rel="noopener"{% endunless %}>
         <i class="{{ s.icon }}"></i>

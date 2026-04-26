@@ -1,0 +1,143 @@
+/*!
+ * Custom giscus theme — matches ZhgChgLi warm cream / ink / accent palette.
+ * Based on giscus's light theme, with site tokens substituted.
+ * Loaded via data-theme="<absolute_url>/assets/css/giscus.css" in giscus.html.
+ */
+
+main {
+  /* ---- site tokens (mirrors :root in main.scss) ---- */
+  --cream-50: #fbf7f1;
+  --cream-100: #f6efe4;
+  --cream-200: #ede2cf;
+  --ink-900: #1d1813;
+  --ink-700: #3d342a;
+  --ink-500: #6b5e51;
+  --ink-400: #8a7e70;
+  --paper: #fefcf8;
+  --accent: #b14e2c;
+  --accent-soft: #d6885f;
+  --rule: rgba(29, 24, 19, 0.12);
+  --rule-soft: rgba(29, 24, 19, 0.06);
+
+  /* ---- giscus / Primer surface ---- */
+  --color-canvas-default: var(--paper);
+  --color-canvas-overlay: var(--paper);
+  --color-canvas-inset: var(--cream-50);
+  --color-canvas-subtle: var(--cream-50);
+
+  /* ---- text ---- */
+  --color-fg-default: var(--ink-900);
+  --color-fg-muted: var(--ink-500);
+  --color-fg-subtle: var(--ink-400);
+  --color-fg-on-emphasis: #ffffff;
+
+  /* ---- borders ---- */
+  --color-border-default: var(--rule);
+  --color-border-muted: var(--rule-soft);
+
+  /* ---- accent ---- */
+  --color-accent-fg: var(--accent);
+  --color-accent-emphasis: var(--accent);
+  --color-accent-muted: rgba(177, 78, 44, 0.4);
+  --color-accent-subtle: rgba(177, 78, 44, 0.1);
+
+  /* ---- neutral ---- */
+  --color-neutral-emphasis-plus: var(--ink-900);
+  --color-neutral-emphasis: var(--ink-700);
+  --color-neutral-muted: rgba(29, 24, 19, 0.1);
+  --color-neutral-subtle: rgba(29, 24, 19, 0.05);
+
+  /* ---- buttons ---- */
+  --color-btn-text: var(--ink-900);
+  --color-btn-bg: var(--paper);
+  --color-btn-border: var(--rule);
+  --color-btn-shadow: 0 1px 0 rgba(29, 24, 19, 0.04);
+  --color-btn-inset-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  --color-btn-hover-bg: var(--cream-100);
+  --color-btn-hover-border: var(--rule);
+  --color-btn-active-bg: var(--cream-200);
+  --color-btn-active-border: var(--rule);
+  --color-btn-selected-bg: var(--cream-200);
+  --color-btn-counter-bg: var(--cream-100);
+
+  --color-btn-primary-text: #ffffff;
+  --color-btn-primary-bg: var(--accent);
+  --color-btn-primary-border: var(--accent);
+  --color-btn-primary-shadow: 0 1px 0 rgba(29, 24, 19, 0.04);
+  --color-btn-primary-inset-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  --color-btn-primary-hover-bg: #9c4424;
+  --color-btn-primary-hover-border: #9c4424;
+  --color-btn-primary-selected-bg: #8a3c1f;
+  --color-btn-primary-selected-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
+  --color-btn-primary-disabled-text: rgba(255, 255, 255, 0.6);
+  --color-btn-primary-disabled-bg: var(--accent-soft);
+  --color-btn-primary-disabled-border: var(--accent-soft);
+  --color-btn-primary-icon: #ffffff;
+  --color-btn-primary-counter-bg: rgba(255, 255, 255, 0.2);
+
+  /* ---- input ---- */
+  --color-input-bg: var(--paper);
+  --color-input-contrast-bg: var(--cream-50);
+
+  /* ---- timeline / hovercard ---- */
+  --color-timeline-badge-bg: var(--cream-100);
+  --color-timeline-text: var(--ink-700);
+
+  /* ---- markdown body ---- */
+  --color-fg-link: var(--accent);
+  --color-fg-link-hover: #9c4424;
+
+  /* ---- syntax (GitHub light-ish, warm) ---- */
+  --color-prettylights-syntax-comment: #8a7e70;
+  --color-prettylights-syntax-constant: #b14e2c;
+  --color-prettylights-syntax-entity: #6f42c1;
+  --color-prettylights-syntax-storage-modifier-import: #1d1813;
+  --color-prettylights-syntax-entity-tag: #1f7a3a;
+  --color-prettylights-syntax-keyword: #b14e2c;
+  --color-prettylights-syntax-string: #1f6feb;
+  --color-prettylights-syntax-variable: #b14e2c;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #b14e2c;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #1f7a3a;
+  --color-prettylights-syntax-markup-list: #735c0f;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #1d1813;
+  --color-prettylights-syntax-markup-bold: #1d1813;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-ignored-text: #eaeef2;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-brackethighlighter-angle: #57606a;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #8c959f;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+}
+
+/* Make the comment box surface match cream-50 instead of stark white */
+main .pagination-loader-container {
+  background-image: none;
+}
+
+main .gsc-comment-box,
+main .gsc-comment,
+main .gsc-reply-box {
+  border-color: var(--rule);
+}
+
+main .gsc-comment-box-tabs button[aria-selected="true"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* Reaction popover */
+main .gsc-reactions-popover {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}

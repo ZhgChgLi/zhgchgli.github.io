@@ -51,6 +51,28 @@ module ZhgChgLi
     # out of the quote and renders as a real heading.
     HEADING_AFTER_QUOTE_RE = Regexp.new('^(>[^\n]*)\n(\#{1,6}[ \t])').freeze
 
+    # Two adjacent markdown links pointing at the same URL — happens when an
+    # exporter splits a single title at `【` `】` `[` `]`, e.g.:
+    #   [KKday — 【](URL){:target="_blank"} [官方銷售】...](URL){:target="_blank"}
+    # Captures: 1=text1, 2=url, 3=ial1, 4=gap, 5=text2, 6=ial2
+    ADJACENT_SAME_URL_LINK_RE = /
+      \[ ((?:\\.|[^\[\]\\])*) \]
+      \( ([^)\s]+) \)
+      (\{:[^}]*\})?
+      (\s+)
+      \[ ((?:\\.|[^\[\]\\])*) \]
+      \( \2 \)
+      (\{:[^}]*\})?
+    /x.freeze
+
+    # Any markdown link — used to escape stray markdown specials in the text
+    # portion. Captures: 1=text, 2=url, 3=ial.
+    MARKDOWN_LINK_RE = /\[((?:\\.|[^\[\]\\])*)\]\(([^)\s]+)\)(\{:[^}]*\})?/.freeze
+
+    # Markdown specials that break link text if left unescaped. `[` and `]` are
+    # already excluded by MARKDOWN_LINK_RE; `|` confuses GFM table parsing.
+    UNESCAPED_PIPE_IN_LINK_RE = /(?<!\\)\|/.freeze
+
     def self.apply(post)
       content = post.content
 
@@ -71,6 +93,26 @@ module ZhgChgLi
 
       # 5) Strip the "any questions, contact me" tail in every supported language.
       CONTACT_TAIL_PATTERNS.each { |re| content = content.gsub(re, '') }
+
+      # 5b) Merge consecutive markdown links that point at the same URL.
+      # Loop until stable so 3+ split fragments collapse fully.
+      loop do
+        new_content = content.gsub(ADJACENT_SAME_URL_LINK_RE) do
+          t1, url, ial1, gap, t2, ial2 = Regexp.last_match.captures
+          ial = ial2 || ial1 || ''
+          "[#{t1}#{gap}#{t2}](#{url})#{ial}"
+        end
+        break if new_content == content
+        content = new_content
+      end
+
+      # 5c) Escape unescaped `|` inside markdown link text — otherwise GFM
+      # treats it as a table cell separator and the link breaks.
+      content = content.gsub(MARKDOWN_LINK_RE) do
+        text, url, ial = Regexp.last_match.captures
+        text = text.gsub(UNESCAPED_PIPE_IN_LINK_RE, '\\|')
+        "[#{text}](#{url})#{ial}"
+      end
 
       # 5a) Force a blank line between a blockquote and an immediately following
       # ATX heading so kramdown doesn't swallow the heading into the quote.

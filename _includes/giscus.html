@@ -8,7 +8,7 @@
         data-reactions-enabled="{{ site.giscus.reactions_enabled | default: '1' }}"
         data-emit-metadata="{{ site.giscus.emit_metadata | default: '0' }}"
         data-input-position="{{ site.giscus.input_position | default: 'bottom' }}"
-        data-theme="{{ site.giscus.theme | default: 'light' }}"
+        data-theme="{{ '/assets/css/giscus.css' | absolute_url }}"
         data-lang="{{ site.giscus.lang | default: 'zh-TW' }}"
         data-loading="lazy"
         crossorigin="anonymous"
