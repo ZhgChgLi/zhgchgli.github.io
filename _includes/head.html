@@ -9,7 +9,7 @@
 {% elsif page.title and page.url != "/" %}
   <title>{{ page.title | strip_html }} · {{ site.title }}</title>
 {% else %}
-  <title>{{ site.title }} · {{ site.description | strip_newlines | truncate: 80 }}</title>
+  <title>{{ site.title }}</title>
 {% endif %}
 
 {% seo title=false %}

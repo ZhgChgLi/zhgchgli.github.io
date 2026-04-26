@@ -77,7 +77,7 @@ jobs:
   # every shell repo so they rebuild against the latest master content.
   # vars.SHELL_REPOS is a JSON array of "owner/repo" strings stored as a
   # GitHub Actions variable (skip the job entirely if not configured).
-  # secrets.DISPATCH_TOKEN must be a fine-grained PAT with `Contents: write` /
+  # secrets.GH_TOKEN must be a fine-grained PAT with `Contents: write` /
   # `Actions: write` scope on each shell repo.
   notify-shells:
     needs: deploy
@@ -87,7 +87,7 @@ jobs:
       - name: Trigger shell-repo rebuilds
         env:
           SHELL_REPOS: ${{ vars.SHELL_REPOS }}
-          GH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           for repo in $(echo "$SHELL_REPOS" | jq -r '.[]'); do
             echo "→ dispatch master-updated → $repo"
