@@ -1,6 +1,6 @@
 # Overlay for the Simplified Chinese site (zh-Hans).
 lang: zh-Hans
-url: https://cn.zhgchg.li
+url: https://zh-hans.zhgchg.li
 
 i18n:
   current: zh-cn

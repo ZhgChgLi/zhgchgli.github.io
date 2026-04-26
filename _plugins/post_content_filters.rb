@@ -42,6 +42,15 @@ module ZhgChgLi
       Regexp::IGNORECASE
     )
 
+    # ATX heading that directly follows a blockquote line with no blank line
+    # in between. Medium-imported posts often look like:
+    #   > https://github.com/.../foo.yml
+    #   ## 2. 點擊右方編輯按鈕
+    # kramdown treats the heading as a lazy continuation of the blockquote,
+    # so the heading is swallowed. Insert a blank line so the heading breaks
+    # out of the quote and renders as a real heading.
+    HEADING_AFTER_QUOTE_RE = Regexp.new('^(>[^\n]*)\n(\#{1,6}[ \t])').freeze
+
     def self.apply(post)
       content = post.content
 
@@ -62,6 +71,15 @@ module ZhgChgLi
 
       # 5) Strip the "any questions, contact me" tail in every supported language.
       CONTACT_TAIL_PATTERNS.each { |re| content = content.gsub(re, '') }
+
+      # 5a) Force a blank line between a blockquote and an immediately following
+      # ATX heading so kramdown doesn't swallow the heading into the quote.
+      # Loop until stable in case of consecutive matches.
+      loop do
+        new_content = content.gsub(HEADING_AFTER_QUOTE_RE, "\\1\n\n\\2")
+        break if new_content == content
+        content = new_content
+      end
 
       # 6) Collapse trailing whitespace (from the removals above).
       content = content.sub(/\s+\z/, "\n")
