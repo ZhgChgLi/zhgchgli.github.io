@@ -274,6 +274,15 @@ layout: default
 {% endif %}
 
 <script>
+  {%- capture _ic_angles_down -%}{% include icon.html name="angles-down" %}{%- endcapture -%}
+  {%- capture _ic_check -%}{% include icon.html name="check" %}{%- endcapture -%}
+  {%- capture _ic_copy -%}{% include icon.html name="copy" %}{%- endcapture -%}
+  window.ICONS = window.ICONS || {
+    anglesDown: {{ _ic_angles_down | strip | jsonify }},
+    check: {{ _ic_check | strip | jsonify }},
+    copy: {{ _ic_copy | strip | jsonify }}
+  };
+
   // GLightbox: wrap article images in zoomable links
   document.addEventListener('DOMContentLoaded', function () {
     var body = document.getElementById('post-body');
@@ -291,14 +300,6 @@ layout: default
       var lb = GLightbox({ selector: '.glightbox', loop: true, touchNavigation: true, zoomable: true });
     }
 
-    {%- capture _ic_angles_down -%}{% include icon.html name="angles-down" %}{%- endcapture -%}
-    {%- capture _ic_check -%}{% include icon.html name="check" %}{%- endcapture -%}
-    {%- capture _ic_copy -%}{% include icon.html name="copy" %}{%- endcapture -%}
-    window.ICONS = window.ICONS || {
-      anglesDown: {{ _ic_angles_down | strip | jsonify }},
-      check: {{ _ic_check | strip | jsonify }},
-      copy: {{ _ic_copy | strip | jsonify }}
-    };
     var ICONS = window.ICONS;
 
     // Build TOC from headings — auto-detect main/sub levels.
@@ -512,30 +513,22 @@ layout: default
       codeEl.classList.add('ln-on');
     }
 
-    body.querySelectorAll('div[class*="language-"].highlighter-rouge').forEach(function (wrap) {
-      if (!wrap.querySelector('pre')) return;
+    var copyLabel   = {{ t.copy_btn.copy | jsonify }};
+    var copiedLabel = {{ t.copy_btn.copied | jsonify }};
+
+    function decorate(wrap, code, lang) {
       if (wrap.dataset.codeReady === '1') return;
       wrap.dataset.codeReady = '1';
 
-      var pre  = wrap.querySelector('pre.highlight') || wrap.querySelector('pre');
-      var code = pre.querySelector('code') || pre;
-
-      // Wrap lines for the line-number gutter
       try { wrapLines(code); } catch (e) { /* leave un-numbered on failure */ }
 
-      // Toolbar: language tag + copy
-      var m = (wrap.className || '').match(/language-([\w+#.-]+)/);
-      var lang = m ? m[1] : '';
       var bar = document.createElement('div');
       bar.className = 'code-toolbar';
-      if (lang && lang !== 'plaintext') {
-        var tag = document.createElement('span');
-        tag.className = 'lang-tag';
-        tag.textContent = lang;
-        bar.appendChild(tag);
-      }
-      var copyLabel   = {{ t.copy_btn.copy | jsonify }};
-      var copiedLabel = {{ t.copy_btn.copied | jsonify }};
+      var tag = document.createElement('span');
+      tag.className = 'lang-tag';
+      tag.textContent = lang || 'plaintext';
+      bar.appendChild(tag);
+
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'copy-btn';
@@ -555,6 +548,14 @@ layout: default
           }, 1500);
         });
       });
+    }
+
+    body.querySelectorAll('div[class*="language-"].highlighter-rouge').forEach(function (wrap) {
+      if (!wrap.querySelector('pre')) return;
+      var pre  = wrap.querySelector('pre.highlight') || wrap.querySelector('pre');
+      var code = pre.querySelector('code') || pre;
+      var m = (wrap.className || '').match(/language-([\w+#.-]+)/);
+      decorate(wrap, code, m ? m[1] : '');
     });
   })();
 </script>

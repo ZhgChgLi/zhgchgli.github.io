@@ -1049,13 +1049,13 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 .post-body pre.highlight > code.ln-on .ln {
   display: block; position: relative;
-  padding-left: 5em; padding-right: 20px;
+  padding-left: 3em; padding-right: 20px;
   white-space: pre;
 }
 .post-body pre.highlight > code.ln-on .ln::before {
   content: attr(data-ln);
   position: absolute; left: 0; top: 0; bottom: 0;
-  width: 4em; padding-right: 1em; padding-left: 0;
+  width: 2.2em; padding-right: 0.5em; padding-left: 0;
   text-align: right;
   color: #6c7079;
   background: #1c1f26;
@@ -1131,8 +1131,8 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   .post-body td.rouge-gutter { min-width: 40px; padding: 14px 10px 14px 14px; }
   .post-body td.rouge-code { padding: 14px 16px; }
   .post-body div[class*="language-"].highlighter-rouge pre.highlight { font-size: 12.5px; }
-  .post-body pre.highlight > code.ln-on .ln { padding-left: 6em; }
-  .post-body pre.highlight > code.ln-on .ln::before { width: 4em; padding-right: 1.5em; }
+  .post-body pre.highlight > code.ln-on .ln { padding-left: 3.5em; padding-right: 16px; }
+  .post-body pre.highlight > code.ln-on .ln::before { width: 2.2em; padding-right: 0.5em; }
 }
 
 /* Floating "Go to TOC" button — appears when top TOC is out of view */
