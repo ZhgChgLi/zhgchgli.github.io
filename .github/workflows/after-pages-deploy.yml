@@ -25,7 +25,7 @@ jobs:
         run: |
           set -euo pipefail
           
-          payload="$(curl -fsSL "${CLOUDFLARE_REDIRECT_JSON_URL}" | jq '
+          curl -fsSL "${CLOUDFLARE_REDIRECT_JSON_URL}" | jq '
             to_entries
             | map({
                 redirect: {
@@ -39,13 +39,13 @@ jobs:
                   status_code: 301
                 }
               })
-          ')"
-          
+          ' > payload.json
+
           # 送出並保留 response body 方便 debug
           resp="$(curl -sS -f -X PUT "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/rules/lists/${CLOUDFLARE_LIST_ID}/items" \
             -H "Authorization: Bearer ${CLOUDFLARE_TOKEN}" \
             -H "Content-Type: application/json" \
-            --data "$payload" || true)"
+            --data-binary @payload.json || true)"
           
           echo "$resp"
           
