@@ -124,7 +124,7 @@ zh-tw:
   donate:
     eyebrow: 喜歡這篇文章？
     title: 請我喝杯咖啡 ☕
-    subtitle: 獨立寫作，無付費牆、無業配。如果有幫到你，歡迎請我一杯咖啡支持持續創作。
+    subtitle: 獨立寫作，免費共享。如果有幫到你，歡迎請我一杯咖啡支持持續創作。
     cta_paypal: PayPal
   contact:
     eyebrow: 有任何問題或指教？
@@ -233,6 +233,7 @@ en:
     comments_em: ""
     comments_powered: ""
     related_h: You may also enjoy
+    ai_translation_notice: "This article was AI-translated — please let me know if anything looks off."
   notfound:
     issue_label: "Issue No.404 · Out of print"
     h1_main: This page is
@@ -255,7 +256,7 @@ en:
   donate:
     eyebrow: Liked this essay?
     title: Buy me a coffee ☕
-    subtitle: Independent writing — no paywall, no sponsored posts. If this helped, a coffee keeps the writing going.
+    subtitle: Independent writing, free to read. If this helped, a coffee keeps the writing going.
     cta_paypal: PayPal
   contact:
     eyebrow: Questions or feedback?
@@ -364,6 +365,7 @@ zh-cn:
     comments_em: · Comments
     comments_powered: ""
     related_h: 你也许会喜欢
+    ai_translation_notice: 本文使用 AI 翻译，如有不妥敬请告知。"
   notfound:
     issue_label: "Issue No.404 · 缺货中"
     h1_main: 这个页面
@@ -386,7 +388,7 @@ zh-cn:
   donate:
     eyebrow: 喜欢这篇文章？
     title: 请我喝杯咖啡 ☕
-    subtitle: 独立写作，无付费墙、无业配。如果有帮到你，欢迎请我一杯咖啡支持持续创作。
+    subtitle: 独立写作，免费共享。如果有帮到你，欢迎请我喝杯咖啡支持持续创作。
     cta_paypal: PayPal
   contact:
     eyebrow: 有任何问题或指教？
@@ -495,6 +497,7 @@ jp:
     comments_em: ""
     comments_powered: ""
     related_h: こちらもおすすめ
+    ai_translation_notice: "本記事は AI による翻訳です。お気づきの点があればお知らせください。"
   notfound:
     issue_label: "Issue No.404 · 在庫切れ"
     h1_main: このページは
@@ -517,7 +520,7 @@ jp:
   donate:
     eyebrow: 記事は役に立ちましたか？
     title: コーヒーをおごる ☕
-    subtitle: 独立した執筆活動です — ペイウォールも広告タイアップもありません。記事が役に立ったなら、一杯のコーヒーで応援してください。
+    subtitle: 独立した執筆活動です — 無料で公開しています。記事が役に立ったなら、一杯のコーヒーで応援してください。
     cta_paypal: PayPal
   contact:
     eyebrow: ご質問・ご意見は？

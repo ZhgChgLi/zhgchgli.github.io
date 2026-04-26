@@ -506,6 +506,24 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .post-hero .byline a:hover { color: var(--accent); }
 .post-hero .byline a:hover img { opacity: 0.8; }
 
+.ai-translation-notice {
+  max-width: 920px; margin: 56px auto 0; padding: 0 var(--pad-x);
+}
+.ai-translation-notice .inner {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 14px 18px;
+  border-left: 3px solid var(--accent);
+  background: #fdf2e9;
+  font-size: 13px; line-height: 1.6;
+  color: var(--accent);
+}
+.ai-translation-notice svg.icon { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+
+/* Hide leftover "Buy me a coffee" donation banners imported from Medium —
+   they're redundant with the donate-card we render at the bottom of every post. */
+#post-body img[alt*="Buy me a coffee" i],
+#post-body a:has(img[alt*="Buy me a coffee" i]) { display: none; }
+
 /* Cover — full viewport-width bleed; image contained, blurred copy fills the letterbox */
 .post-cover {
   width: 100vw; position: relative; overflow: hidden;

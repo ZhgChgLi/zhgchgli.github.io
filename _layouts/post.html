@@ -60,6 +60,15 @@ layout: default
     </div>
   {% endif %}
 
+  {% if t.post.ai_translation_notice %}
+    <div class="ai-translation-notice" role="note">
+      <div class="inner">
+        {% include icon.html name="circle-info" %}
+        <span>{{ t.post.ai_translation_notice }}</span>
+      </div>
+    </div>
+  {% endif %}
+
   {% if page.toc != false %}
     <aside class="post-toc" id="post-toc" aria-label="{{ t.post.toc_label }}" hidden>
       <div class="post-toc-inner">
