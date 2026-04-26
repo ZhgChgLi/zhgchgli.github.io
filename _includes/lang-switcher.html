@@ -7,9 +7,9 @@
 {% endfor %}
 <div class="lang-switcher" data-lang-switcher>
   <button type="button" class="lang-trigger" aria-haspopup="menu" aria-expanded="false">
-    <i class="fa-solid fa-globe"></i>
+    {% include icon.html name="globe" %}
     <span class="short">{{ cur_lang.short | default: 'EN' }}</span>
-    <i class="fa-solid fa-chevron-down chev"></i>
+    {% include icon.html name="chevron-down" class="chev" %}
   </button>
   <div class="lang-menu" role="menu" hidden>
     {% for lng in site.i18n.languages %}
@@ -29,11 +29,11 @@
       {% endif %}
       <a class="lang-item{% if lng.code == current %} is-active{% endif %}" href="{{ href }}" hreflang="{{ lng.iso | default: lng.code }}" role="menuitem">
         <span class="label">{{ lng.label }}</span>
-        {% if lng.code == current %}<i class="fa-solid fa-check tick"></i>{% endif %}
+        {% if lng.code == current %}{% include icon.html name="check" class="tick" %}{% endif %}
       </a>
     {% endfor %}
     <div class="lang-note">
-      <i class="fa-solid fa-circle-info"></i> {{ t.lang_switcher.note }}
+      {% include icon.html name="circle-info" %} {{ t.lang_switcher.note }}
     </div>
   </div>
 </div>

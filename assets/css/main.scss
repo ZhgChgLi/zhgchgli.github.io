@@ -2,7 +2,7 @@
 ---
 @charset "utf-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Noto+Serif+TC:wght@400;500;700;900&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap');
+svg.icon { vertical-align: -0.125em; flex-shrink: 0; }
 
 /* ============================================
    ZhgChgLi · Magazine theme — design tokens
@@ -100,7 +100,7 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 32px 0; }
 .lang-switcher { position: relative; }
 .lang-trigger {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 7px 12px; border-radius: 999px;
+  height: 38px; padding: 0 14px; border-radius: 999px;
   background: var(--paper);
   border: 1px solid var(--rule);
   color: var(--ink-700);
@@ -110,9 +110,9 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 32px 0; }
 }
 .lang-trigger:hover { background: var(--cream-50); }
 .lang-trigger.open { background: var(--cream-100); }
-.lang-trigger > i.fa-globe { font-size: 11px; color: var(--ink-500); }
-.lang-trigger .short { font-weight: 500; }
-.lang-trigger .chev { font-size: 9px; color: var(--ink-400); transition: transform .15s; }
+.lang-trigger > svg.icon:first-of-type { width: 12px; height: 12px; color: var(--ink-500); }
+.lang-trigger .short { font-weight: 500; line-height: 1; }
+.lang-trigger .chev { width: 10px; height: 10px; color: var(--ink-400); transition: transform .15s; }
 .lang-trigger.open .chev { transform: rotate(180deg); }
 .lang-menu {
   position: absolute; top: calc(100% + 6px); right: 0;
@@ -132,16 +132,16 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 32px 0; }
 .lang-item:hover { background: var(--cream-50); }
 .lang-item.is-active { background: var(--cream-100); }
 .lang-item .label { flex: 1; }
-.lang-item .tick { font-size: 11px; color: var(--accent); }
+.lang-item .tick { width: 12px; height: 12px; color: var(--accent); }
 .lang-note {
   border-top: 1px solid var(--rule-soft);
   margin-top: 4px; padding: 8px 12px 4px;
   font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--ink-400);
 }
-.lang-note i { margin-right: 5px; }
+.lang-note svg.icon { margin-right: 5px; vertical-align: -2px; }
 @media (max-width: 540px) {
-  .lang-trigger { padding: 6px 10px; font-size: 11px; }
+  .lang-trigger { padding: 0 10px; font-size: 11px; }
   .lang-trigger .short { display: none; }
   .lang-menu { right: -8px; min-width: 180px; }
 }
@@ -298,7 +298,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 .foot .brand-foot .dot { color: var(--accent); }
 .foot .copy { font-size: 11px; color: var(--ink-400); margin-top: 12px; }
-.foot .icon { margin-right: 8px; width: 14px; display: inline-block; }
+.foot .icon { margin-right: 8px; width: 14px; height: 14px; vertical-align: -2px; }
 
 /* ============================================
    Home — pinned + hero + grid

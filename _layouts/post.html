@@ -43,10 +43,10 @@ layout: default
       {% if author_link %}</a>{% endif %}
       <span>{{ t.post.by }} {% if author_link %}<a href="{{ author_link | relative_url }}">{{ author_display }}</a>{% else %}{{ author_display }}{% endif %}</span>
       <span class="dot-sep"></span>
-      <i class="fa-regular fa-calendar"></i>
+      {% include icon.html name="calendar" %}
       <span><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y-%m-%d' }}</time></span>
       <span class="dot-sep"></span>
-      <i class="fa-regular fa-clock"></i>
+      {% include icon.html name="clock" %}
       <span>{{ read_time }} {{ t.post.min_read }}</span>
     </div>
   </header>
@@ -64,7 +64,7 @@ layout: default
     <aside class="post-toc" id="post-toc" aria-label="{{ t.post.toc_label }}" hidden>
       <div class="post-toc-inner">
         <div class="head">
-          <i class="fa-solid fa-list-ul" style="font-size:12px;color:var(--accent)"></i>
+          <span style="font-size:12px;color:var(--accent)">{% include icon.html name="list-ul" %}</span>
           <span class="eyebrow muted">{{ t.post.toc_eyebrow }}</span>
           <span class="label">{{ t.post.toc_label }} <i id="post-toc-count"></i></span>
         </div>
@@ -108,31 +108,31 @@ layout: default
   <div class="post-tail post-actions">
     <a class="post-action" href="{{ edit_url }}" target="_blank" rel="noopener">
       <div class="l">
-        <div class="badge"><i class="fa-brands fa-github"></i></div>
+        <div class="badge">{% include icon.html name="github" %}</div>
         <div>
           <div class="t1">{{ t.post.improve_title }}</div>
           <div class="t2">{{ t.post.improve_subtitle }}</div>
         </div>
       </div>
-      <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+      {% include icon.html name="arrow-up-right-from-square" class="arrow" %}
     </a>
 
     {% if is_medium_origin %}
     <a class="post-action" href="http://medium.com/p/{{ page.slug }}" target="_blank" rel="noopener">
       <div class="l">
-        <div class="badge"><i class="fa-brands fa-medium"></i></div>
+        <div class="badge">{% include icon.html name="medium" %}</div>
         <div>
           <div class="t1">{{ t.post.medium_origin_title }}</div>
           <div class="t2">{{ t.post.medium_origin_subtitle }}</div>
         </div>
       </div>
-      <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+      {% include icon.html name="arrow-up-right-from-square" class="arrow" %}
     </a>
     {% endif %}
 
     <div class="post-action">
       <div class="l">
-        <div class="badge"><i class="fa-solid fa-share-nodes"></i></div>
+        <div class="badge">{% include icon.html name="share-nodes" %}</div>
         <div>
           <div class="t1">{{ t.post.share_title }}</div>
           <div class="t2">{{ t.post.share_subtitle }}</div>
@@ -141,11 +141,11 @@ layout: default
       {% assign share_path = page.short_url | default: page.url %}
       {% assign share_abs = share_path | absolute_url %}
       <div class="share-row" data-share data-url="{{ share_abs }}" data-title="{{ page.title | uri_escape }}">
-        <button type="button" data-share-action="copy" title="{{ t.post.copy_link }}"><i class="fa-solid fa-link"></i></button>
-        <a href="https://twitter.com/intent/tweet?url={{ share_abs | url_encode }}&text={{ page.title | url_encode }}" target="_blank" rel="noopener" title="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_abs | url_encode }}" target="_blank" rel="noopener" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://social-plugins.line.me/lineit/share?url={{ share_abs | url_encode }}" target="_blank" rel="noopener" title="LINE"><i class="fa-brands fa-line"></i></a>
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_abs | url_encode }}" target="_blank" rel="noopener" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <button type="button" data-share-action="copy" title="{{ t.post.copy_link }}">{% include icon.html name="link" %}</button>
+        <a href="https://twitter.com/intent/tweet?url={{ share_abs | url_encode }}&text={{ page.title | url_encode }}" target="_blank" rel="noopener" title="X / Twitter">{% include icon.html name="x-twitter" %}</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_abs | url_encode }}" target="_blank" rel="noopener" title="Facebook">{% include icon.html name="facebook-f" %}</a>
+        <a href="https://social-plugins.line.me/lineit/share?url={{ share_abs | url_encode }}" target="_blank" rel="noopener" title="LINE">{% include icon.html name="line" %}</a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_abs | url_encode }}" target="_blank" rel="noopener" title="LinkedIn">{% include icon.html name="linkedin-in" %}</a>
       </div>
     </div>
   </div>
@@ -153,14 +153,14 @@ layout: default
   {% if site.donate.paypal %}
   <div class="post-tail">
     <aside class="donate-card" aria-label="{{ t.donate.title }}">
-      <div class="donate-icon" aria-hidden="true"><i class="fa-solid fa-mug-saucer"></i></div>
+      <div class="donate-icon" aria-hidden="true">{% include icon.html name="mug-saucer" %}</div>
       <div class="donate-body">
         <div class="eyebrow" style="margin-bottom:6px">{{ t.donate.eyebrow }}</div>
         <h4>{{ t.donate.title }}</h4>
         <p>{{ t.donate.subtitle }}</p>
         <div class="donate-actions">
           <a class="btn-pill" href="{{ site.donate.paypal }}" target="_blank" rel="noopener">
-            <i class="fa-brands fa-paypal"></i> {{ t.donate.cta_paypal }}
+            {% include icon.html name="paypal" %} {{ t.donate.cta_paypal }}
           </a>
         </div>
       </div>
@@ -175,7 +175,7 @@ layout: default
   {% if contact_url %}
   <div class="post-tail">
     <aside class="contact-card" aria-label="{{ t.contact.title }}">
-      <div class="contact-icon" aria-hidden="true"><i class="fa-regular fa-envelope"></i></div>
+      <div class="contact-icon" aria-hidden="true">{% include icon.html name="envelope" %}</div>
       <div class="contact-body">
         <div class="eyebrow" style="margin-bottom:6px">{{ t.contact.eyebrow }}</div>
         <h4>{{ t.contact.title }}</h4>
@@ -184,7 +184,7 @@ layout: default
           {% assign is_external = false %}
           {% if contact_url contains '://' %}{% assign is_external = true %}{% endif %}
           <a class="btn-pill" href="{{ contact_url | relative_url }}"{% if is_external %} target="_blank" rel="noopener"{% endif %}>
-            <i class="fa-regular fa-paper-plane"></i> {{ t.contact.cta }}
+            {% include icon.html name="paper-plane" %} {{ t.contact.cta }}
           </a>
         </div>
       </div>
@@ -260,7 +260,7 @@ layout: default
 
 {% if page.toc != false %}
   <button type="button" class="toc-fab" id="toc-fab" aria-label="{{ t.post.fab_back }}">
-    <i class="fa-solid fa-list-ul"></i><span>{{ t.post.fab_back }}</span>
+    {% include icon.html name="list-ul" %}<span>{{ t.post.fab_back }}</span>
   </button>
 {% endif %}
 
@@ -281,6 +281,16 @@ layout: default
       });
       var lb = GLightbox({ selector: '.glightbox', loop: true, touchNavigation: true, zoomable: true });
     }
+
+    {%- capture _ic_angles_down -%}{% include icon.html name="angles-down" %}{%- endcapture -%}
+    {%- capture _ic_check -%}{% include icon.html name="check" %}{%- endcapture -%}
+    {%- capture _ic_copy -%}{% include icon.html name="copy" %}{%- endcapture -%}
+    window.ICONS = window.ICONS || {
+      anglesDown: {{ _ic_angles_down | strip | jsonify }},
+      check: {{ _ic_check | strip | jsonify }},
+      copy: {{ _ic_copy | strip | jsonify }}
+    };
+    var ICONS = window.ICONS;
 
     // Build TOC from headings — auto-detect main/sub levels.
     // Use the lowest heading level present as "main", level+1 as "sub".
@@ -356,7 +366,7 @@ layout: default
       var jumpLabel = {{ t.post.toc_jump_bottom | jsonify }};
       html += '<li>' +
         '<div class="toc-h2 toc-jump-bottom" data-id="post-bottom">' +
-          '<span class="num"><i class="fa-solid fa-angles-down"></i></span>' +
+          '<span class="num">' + ICONS.anglesDown + '</span>' +
           '<a class="label-text" href="#post-bottom">' + escapeHtml(jumpLabel) + '</a>' +
           '<span class="toc-toggle spacer">↓</span>' +
         '</div></li>';
@@ -403,7 +413,7 @@ layout: default
         var url = b.closest('[data-share]').getAttribute('data-url') || location.href;
         navigator.clipboard && navigator.clipboard.writeText(url).then(function () {
           var prev = b.innerHTML;
-          b.innerHTML = '<i class="fa-solid fa-check"></i>';
+          b.innerHTML = ICONS.check;
           setTimeout(function () { b.innerHTML = prev; }, 1500);
         });
       });
@@ -520,7 +530,7 @@ layout: default
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'copy-btn';
-      btn.innerHTML = '<i class="fa-regular fa-copy"></i><span>' + copyLabel + '</span>';
+      btn.innerHTML = window.ICONS.copy + '<span>' + copyLabel + '</span>';
       bar.appendChild(btn);
       wrap.insertBefore(bar, wrap.firstChild);
 
@@ -529,10 +539,10 @@ layout: default
         if (!navigator.clipboard) return;
         navigator.clipboard.writeText(text).then(function () {
           btn.classList.add('copied');
-          btn.innerHTML = '<i class="fa-solid fa-check"></i><span>' + copiedLabel + '</span>';
+          btn.innerHTML = window.ICONS.check + '<span>' + copiedLabel + '</span>';
           setTimeout(function () {
             btn.classList.remove('copied');
-            btn.innerHTML = '<i class="fa-regular fa-copy"></i><span>' + copyLabel + '</span>';
+            btn.innerHTML = window.ICONS.copy + '<span>' + copyLabel + '</span>';
           }, 1500);
         });
       });

@@ -26,7 +26,7 @@ pagination:
     {% assign pinned_count = t.list.pinned_count | replace: '%d', pinned_posts.size %}
     <section class="pinned-strip">
       <div class="head">
-        <span class="pinned-ribbon"><i class="fa-solid fa-thumbtack"></i> {{ t.home.pinned_ribbon }}</span>
+        <span class="pinned-ribbon">{% include icon.html name="thumbtack" %} {{ t.home.pinned_ribbon }}</span>
         <span class="head-meta">{{ pinned_count }}</span>
       </div>
       <div class="pinned-grid">
@@ -39,12 +39,12 @@ pagination:
               {% endif %}
             </div>
             <div class="body">
-              <div class="meta"><i class="fa-solid fa-thumbtack" style="font-size:11px"></i> {{ t.home.pinned_ribbon }} · {{ p.categories | first }}</div>
+              <div class="meta"><span style="font-size:11px">{% include icon.html name="thumbtack" %}</span> {{ t.home.pinned_ribbon }} · {{ p.categories | first }}</div>
               <h4>{{ p.title }}</h4>
               <p class="excerpt">{{ p.description | default: p.excerpt | strip_html | truncate: 110 }}</p>
               <div class="foot-line">
                 <span>{{ p.date | date: '%Y-%m-%d' }}</span>
-                <span class="more">{{ t.home.read_essay_btn }} <i class="fa-solid fa-arrow-right" style="font-size:10px"></i></span>
+                <span class="more">{{ t.home.read_essay_btn }} <span style="font-size:10px">{% include icon.html name="arrow-right" %}</span></span>
               </div>
             </div>
           </a>

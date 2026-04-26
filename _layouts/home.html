@@ -14,7 +14,7 @@ layout: default
 <section class="section-pinned">
   <div class="head">
     <div class="head-l">
-      <span class="pinned-ribbon"><i class="fa-solid fa-thumbtack"></i> {{ t.home.pinned_ribbon }}</span>
+      <span class="pinned-ribbon">{% include icon.html name="thumbtack" %} {{ t.home.pinned_ribbon }}</span>
       <h3><i>{{ t.home.pinned_eyebrow }}</i> · {{ t.home.pinned_title }}</h3>
     </div>
     <span class="head-r">{{ t.home.pinned_picks_label }} · {{ pinned_posts.size | prepend: '0' | slice: -2, 2 }}</span>
@@ -29,12 +29,12 @@ layout: default
           {% endif %}
         </div>
         <div class="body">
-          <div class="meta"><i class="fa-solid fa-thumbtack" style="font-size:11px"></i> {{ t.home.pinned_ribbon }} · {{ p.categories | first }}</div>
+          <div class="meta"><span style="font-size:11px">{% include icon.html name="thumbtack" %}</span> {{ t.home.pinned_ribbon }} · {{ p.categories | first }}</div>
           <h4>{{ p.title }}</h4>
           <p class="excerpt">{{ p.description | default: p.excerpt | strip_html | truncate: 110 }}</p>
           <div class="foot-line">
             <span>{{ p.date | date: '%Y-%m-%d' }}</span>
-            <span class="more">{{ t.home.read_essay_btn }} <i class="fa-solid fa-arrow-right" style="font-size:10px"></i></span>
+            <span class="more">{{ t.home.read_essay_btn }} <span style="font-size:10px">{% include icon.html name="arrow-right" %}</span></span>
           </div>
         </div>
       </a>
@@ -56,14 +56,14 @@ layout: default
     <h2><a href="{{ hero.url | relative_url }}">{{ hero.title }}</a></h2>
     <p class="lead">{{ hero.description | default: hero.excerpt | strip_html | truncate: 160 }}</p>
     <div class="meta">
-      <i class="fa-regular fa-calendar"></i><span>{{ hero.date | date: '%Y-%m-%d' }}</span>
+      {% include icon.html name="calendar" %}<span>{{ hero.date | date: '%Y-%m-%d' }}</span>
       <span class="dot-sep"></span>
-      <i class="fa-regular fa-clock"></i><span>{{ rt }} {{ t.home.min_read }}</span>
+      {% include icon.html name="clock" %}<span>{{ rt }} {{ t.home.min_read }}</span>
       <span class="dot-sep"></span>
-      <i class="fa-regular fa-user"></i><span>{{ t.home.by }} {{ site.author.display_name }}</span>
+      {% include icon.html name="user" %}<span>{{ t.home.by }} {{ site.author.display_name }}</span>
     </div>
     <a class="btn-pill" href="{{ hero.url | relative_url }}">
-      {{ t.home.read_essay_btn }} <i class="fa-solid fa-arrow-right" style="font-size:11px;margin-left:4px"></i>
+      {{ t.home.read_essay_btn }} <span style="font-size:11px;margin-left:4px">{% include icon.html name="arrow-right" %}</span>
     </a>
   </div>
 </section>
@@ -72,7 +72,7 @@ layout: default
 <section class="section-latest-head">
   <h3 class="section-title">{{ t.home.latest_writing_title }} <i>{{ t.home.latest_writing_em }}</i></h3>
   {% assign view_all = t.home.view_all | replace: '%d', visible_posts.size %}
-  <a class="view-all" href="{{ '/posts/' | relative_url }}">{{ view_all }} <i class="fa-solid fa-arrow-right" style="font-size:10px;margin-left:4px"></i></a>
+  <a class="view-all" href="{{ '/posts/' | relative_url }}">{{ view_all }} <span style="font-size:10px;margin-left:4px">{% include icon.html name="arrow-right" %}</span></a>
 </section>
 
 <section class="section-latest">
@@ -92,7 +92,7 @@ layout: default
   </div>
   <div class="latest-cta">
     <a class="btn-pill" href="{{ '/posts/' | relative_url }}">
-      {{ view_all }} <i class="fa-solid fa-arrow-right" style="font-size:11px;margin-left:4px"></i>
+      {{ view_all }} <span style="font-size:11px;margin-left:4px">{% include icon.html name="arrow-right" %}</span>
     </a>
   </div>
 </section>

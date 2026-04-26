@@ -14,10 +14,10 @@
     <div class="right">
       {% include lang-switcher.html %}
       <a class="icon-btn" href="{{ '/search/' | relative_url }}" aria-label="{{ t.topbar.search_aria }}">
-        <i class="fa-solid fa-magnifying-glass"></i>
+        {% include icon.html name="magnifying-glass" %}
       </a>
       <button class="icon-btn" id="menu-btn" aria-label="{{ t.topbar.menu_aria }}" aria-controls="drawer" aria-expanded="false">
-        <i class="fa-solid fa-bars"></i>
+        {% include icon.html name="bars" %}
       </button>
     </div>
   </div>

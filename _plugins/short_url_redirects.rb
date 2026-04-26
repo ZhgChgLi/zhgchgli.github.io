@@ -150,6 +150,7 @@ module ZhgChgLi
       redirects = Array(post.data['redirect_from'])
       redirects << short_url
       redirects << "/#{fslug}/"
+      redirects << "/posts/#{cat_slug}/#{fslug}/" if cat_slug
       if !original_slug.empty? && original_slug != final_slug
         redirects << PostPermalinks.url(cat_slug, original_slug, fslug)
       end

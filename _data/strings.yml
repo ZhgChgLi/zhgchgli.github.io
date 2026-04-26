@@ -100,7 +100,7 @@ zh-tw:
     author: 作者
     comments_h: 留言
     comments_em: · Comments
-    comments_powered: Powered by giscus
+    comments_powered: ""
     related_h: 你也許會喜歡
   notfound:
     issue_label: "Issue No.404 · 缺貨中"
@@ -231,7 +231,7 @@ en:
     author: Author
     comments_h: Comments
     comments_em: ""
-    comments_powered: Powered by giscus
+    comments_powered: ""
     related_h: You may also enjoy
   notfound:
     issue_label: "Issue No.404 · Out of print"
@@ -362,7 +362,7 @@ zh-cn:
     author: 作者
     comments_h: 留言
     comments_em: · Comments
-    comments_powered: Powered by giscus
+    comments_powered: ""
     related_h: 你也许会喜欢
   notfound:
     issue_label: "Issue No.404 · 缺货中"
@@ -493,7 +493,7 @@ jp:
     author: 著者
     comments_h: コメント
     comments_em: ""
-    comments_powered: Powered by giscus
+    comments_powered: ""
     related_h: こちらもおすすめ
   notfound:
     issue_label: "Issue No.404 · 在庫切れ"

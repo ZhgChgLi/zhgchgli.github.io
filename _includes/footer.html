@@ -16,19 +16,19 @@
     <div>
       <h5>{{ t.footer.connect_heading }}</h5>
       <a class="donate-link" href="{{ '/contact/' | relative_url }}">
-        <i class="fa-solid fa-mug-saucer icon"></i>{{ t.footer.donate_link }}
+        {% include icon.html name="mug-saucer" %}{{ t.footer.donate_link }}
       </a>
       {% for s in site.data.social %}{% unless s.id == 'rss' %}
         <a href="{{ s.url }}" {% unless s.url contains 'mailto' %}target="_blank" rel="noopener"{% endunless %}>
-          <i class="{{ s.icon }} icon"></i>{{ s.label }}
+          {% include icon.html name=s.icon %}{{ s.label }}
         </a>
       {% endunless %}{% endfor %}
     </div>
     <div>
       <h5>{{ t.footer.follow_heading }}</h5>
-      <a href="https://link.zhgchg.li" target="_blank" rel="noopener"><i class="fa-solid fa-link icon"></i>{{ t.footer.links_link }}</a>
-      <a href="{{ '/feed.xml' | relative_url }}"><i class="fa-solid fa-rss icon" style="color:var(--accent)"></i>{{ t.footer.rss_link }}</a>
-      <a href="{{ '/sitemap.xml' | relative_url }}"><i class="fa-solid fa-sitemap icon"></i>{{ t.footer.sitemap_link }}</a>
+      <a href="https://link.zhgchg.li" target="_blank" rel="noopener">{% include icon.html name="link" %}{{ t.footer.links_link }}</a>
+      <a href="{{ '/feed.xml' | relative_url }}"><span style="color:var(--accent)">{% include icon.html name="rss" %}</span>{{ t.footer.rss_link }}</a>
+      <a href="{{ '/sitemap.xml' | relative_url }}">{% include icon.html name="sitemap" %}{{ t.footer.sitemap_link }}</a>
     </div>
   </div>
 </footer>

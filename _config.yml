@@ -205,3 +205,12 @@ exclude:
 sass:
   style: compressed
   sass_dir: _sass
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: [html, head, body]
+  profile: false
+  ignore:
+    envs: development

@@ -1,16 +1,16 @@
 - id: linkedin
   label: LinkedIn
   url: https://www.linkedin.com/in/zhgchgli
-  icon: fa-brands fa-linkedin-in
+  icon: linkedin-in
 - id: twitter
   label: X / Twitter
   url: https://twitter.com/zhgchgli
-  icon: fa-brands fa-x-twitter
+  icon: x-twitter
 - id: email
   label: Email
   url: mailto:zhgchgli@gmail.com
-  icon: fa-solid fa-envelope
+  icon: envelope
 - id: rss
   label: RSS
   url: /feed.xml
-  icon: fa-solid fa-rss
+  icon: rss
