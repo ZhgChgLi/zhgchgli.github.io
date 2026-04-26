@@ -35,6 +35,8 @@
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0.01em;
   line-height: 1.6;
+  max-width: 1140px;
+  margin: 0 auto;
 }
 
 .frame * { box-sizing: border-box; }
@@ -131,12 +133,24 @@
 }
 
 /* Buttons */
-.btn-pill {
+.btn-pill,
+a.btn-pill,
+button.btn-pill {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 18px; border-radius: 999px;
-  background: var(--ink-900); color: var(--paper);
+  background: var(--ink-900); color: #ffffff;
   font-size: 13px; letter-spacing: 0.02em;
+  border: 1px solid var(--ink-900);
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
 }
+.btn-pill:hover,
+a.btn-pill:hover,
+button.btn-pill:hover {
+  background: var(--ink-700); color: #ffffff;
+}
+.btn-pill i { color: #ffffff; }
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 18px; border-radius: 999px;
@@ -164,7 +178,17 @@
   font-weight: 600;
 }
 
-/* Footer */
+/* KKday brand link */
+a[href*="kkday.com"] {
+  color: #1ab6c1;
+  text-decoration: underline;
+  text-decoration-color: rgba(26, 182, 193, 0.3);
+  text-underline-offset: 2px;
+  font-weight: 500;
+}
+a[href*="kkday.com"]:hover {
+  text-decoration-color: #1ab6c1;
+}
 .foot {
   padding: 56px 56px 40px;
   border-top: 1px solid var(--rule);

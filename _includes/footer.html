@@ -15,6 +15,9 @@
     </div>
     <div>
       <h5>{{ t.footer.connect_heading }}</h5>
+      <a class="donate-link" href="{{ '/contact/' | relative_url }}">
+        <i class="fa-solid fa-mug-saucer icon"></i>{{ t.footer.donate_link }}
+      </a>
       {% for s in site.data.social %}{% unless s.id == 'rss' %}
         <a href="{{ s.url }}" {% unless s.url contains 'mailto' %}target="_blank" rel="noopener"{% endunless %}>
           <i class="{{ s.icon }} icon"></i>{{ s.label }}

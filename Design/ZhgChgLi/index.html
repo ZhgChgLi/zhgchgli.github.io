@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <link rel="stylesheet" href="styles/shared.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" referrerpolicy="no-referrer" />
 
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -22,16 +23,12 @@
   <script src="shared/sample-data.js"></script>
   <script type="text/babel" src="design-canvas.jsx"></script>
   <script type="text/babel" src="directions/direction-a.jsx"></script>
-  <script type="text/babel" src="directions/direction-b.jsx"></script>
-  <script type="text/babel" src="directions/direction-c.jsx"></script>
 
   <script type="text/babel" data-presets="react">
     const { useState } = React;
 
-    /* Each artboard is its own little router so users can click around inside */
-    function PageRouter({ direction, initialPage }) {
+    function PageRouter({ initialPage }) {
       const [page, setPage] = useState(initialPage);
-      const D = direction;
       const props = {
         page,
         onNav: setPage,
@@ -40,56 +37,32 @@
         tags: window.BLOG_TAGS,
         archives: window.BLOG_ARCHIVES,
       };
-      // Direction A
-      if (D === "A") {
-        if (page === "home") return <window.DirectionA.HomeA {...props} />;
-        if (page === "list") return <window.DirectionA.PostListA {...props} />;
-        if (page === "post") return <window.DirectionA.PostA {...props} />;
-        if (page === "category") return <window.DirectionA.CategoryA {...props} />;
-        if (page === "tag") return <window.DirectionA.TagA {...props} />;
-        if (page === "archive") return <window.DirectionA.ArchiveA {...props} />;
-        if (page === "search") return <window.DirectionA.SearchA {...props} />;
-        if (page === "notfound") return <window.DirectionA.NotFoundA {...props} />;
-      }
-      if (D === "B") {
-        if (page === "home") return <window.DirectionB.HomeB {...props} />;
-        if (page === "list") return <window.DirectionB.PostListB {...props} />;
-        if (page === "post") return <window.DirectionB.PostB {...props} />;
-        if (page === "category") return <window.DirectionB.CategoryB {...props} />;
-        if (page === "tag") return <window.DirectionB.TagB {...props} />;
-        if (page === "archive") return <window.DirectionB.ArchiveB {...props} />;
-      }
-      if (D === "C") {
-        if (page === "home") return <window.DirectionC.HomeC {...props} />;
-        if (page === "list") return <window.DirectionC.PostListC {...props} />;
-        if (page === "post") return <window.DirectionC.PostC {...props} />;
-        if (page === "category") return <window.DirectionC.CategoryC {...props} />;
-        if (page === "tag") return <window.DirectionC.TagC {...props} />;
-        if (page === "archive") return <window.DirectionC.ArchiveC {...props} />;
-      }
+      if (page === "home") return <window.DirectionA.HomeA {...props} />;
+      if (page === "list") return <window.DirectionA.PostListA {...props} />;
+      if (page === "post") return <window.DirectionA.PostA {...props} />;
+      if (page === "category") return <window.DirectionA.CategoryA {...props} />;
+      if (page === "tag") return <window.DirectionA.TagA {...props} />;
+      if (page === "archive") return <window.DirectionA.ArchiveA {...props} />;
+      if (page === "search") return <window.DirectionA.SearchA {...props} />;
+      if (page === "notfound") return <window.DirectionA.NotFoundA {...props} />;
       return null;
     }
 
-    /* Single artboard wrapper — fixed width/height for the canvas */
-    function Screen({ direction, initialPage, w = 1280, h = 1600 }) {
+    function Screen({ initialPage, w = 1280, h = 1600 }) {
       return (
-        <div style={{ width: w, height: h, overflow: "auto", background: "var(--paper)" }}>
-          <PageRouter direction={direction} initialPage={initialPage} />
+        <div data-scroll-root style={{ width: w, height: h, overflow: "auto", background: "var(--cream-100)", position: "relative" }}>
+          <PageRouter initialPage={initialPage} />
         </div>
       );
     }
 
-    const PAGES = [
+    const PAGES_A = [
       ["home", "Home · 首頁"],
       ["list", "Writing · 文章列表"],
       ["post", "Essay · 單篇文章"],
       ["category", "Categories · 分類"],
       ["tag", "Tags · 標籤"],
       ["archive", "Archive · 歸檔"],
-    ];
-
-    const PAGES_A = [
-      ...PAGES,
       ["search", "Search · 搜尋"],
       ["notfound", "404 · 找不到頁面"],
     ];
@@ -110,49 +83,13 @@
                 width={1280}
                 height={1600}
               >
-                <Screen direction="A" initialPage={id} w={1280} h={1600} />
-              </DCArtboard>
-            ))}
-          </DCSection>
-
-          <DCSection
-            id="dir-b"
-            title="Direction B · Quiet"
-            subtitle="留白雜誌風 — 單欄、超大留白、極簡 metadata、暖灰；像紙本書一樣安靜"
-          >
-            {PAGES.map(([id, label]) => (
-              <DCArtboard
-                key={"b-" + id}
-                id={"b-" + id}
-                label={label}
-                width={1280}
-                height={1600}
-              >
-                <Screen direction="B" initialPage={id} w={1280} h={1600} />
-              </DCArtboard>
-            ))}
-          </DCSection>
-
-          <DCSection
-            id="dir-c"
-            title="Direction C · Studio"
-            subtitle="工作室風 — 結構網格、Topbar 寬條、暖駝 + 深墨；密度高、編輯導向"
-          >
-            {PAGES.map(([id, label]) => (
-              <DCArtboard
-                key={"c-" + id}
-                id={"c-" + id}
-                label={label}
-                width={1280}
-                height={1600}
-              >
-                <Screen direction="C" initialPage={id} w={1280} h={1600} />
+                <Screen initialPage={id} w={1280} h={1600} />
               </DCArtboard>
             ))}
           </DCSection>
 
           <DCPostIt top={20} left={60} rotate={-2} width={260}>
-            <b>三條方向</b><br/>
+            <b>Direction A · Gallery</b><br/>
             每個 artboard 都是可互動的真實頁面 — 點 nav / drawer / 卡片都可切換。<br/>
             按 ⤢ 圖示可全螢幕聚焦。
           </DCPostIt>

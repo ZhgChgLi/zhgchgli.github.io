@@ -3,6 +3,7 @@ layout: page
 title: 聯絡
 nav_id: contact
 permalink: /contact/
+comments: true
 ---
 
 

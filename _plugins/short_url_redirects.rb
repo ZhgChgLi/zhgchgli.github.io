@@ -118,12 +118,9 @@ module ZhgChgLi
       cat_slug = PostPermalinks.first_category_slug(post)
       seo_entry = seo_data[fslug] || {}
 
-      # Hidden posts: keep the page reachable via direct URL but exclude from
-      # the sitemap (jekyll-sitemap reads sitemap: false) and the Atom feed
-      # (handled by our custom feed.xml override that also checks `hidden`).
-      if post.data['hidden']
-        post.data['sitemap'] = false
-      end
+      # Hidden posts: omitted from on-site listings (handled in layouts via
+      # `where_exp: 'p', 'p.hidden != true'`) but kept in the sitemap and
+      # Atom feed so search engines and feed readers can still discover them.
 
       original_title = post.data['title'].to_s
       final_title    = (seo_entry['title'].to_s.empty? ? original_title : seo_entry['title'].to_s)

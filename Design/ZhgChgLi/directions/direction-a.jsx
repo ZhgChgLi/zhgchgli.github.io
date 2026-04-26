@@ -46,10 +46,80 @@ function DrawerA({ open, onClose, page, onNav }) {
           ))}
         </nav>
         <div className="socials">
-          <a>Md</a><a>Gh</a><a>In</a><a>@</a><a>Rss</a>
+          <a><i className="fa-brands fa-medium"></i></a>
+          <a><i className="fa-brands fa-github"></i></a>
+          <a><i className="fa-brands fa-linkedin-in"></i></a>
+          <a><i className="fa-solid fa-envelope"></i></a>
+          <a><i className="fa-solid fa-rss"></i></a>
         </div>
       </aside>
     </>
+  );
+}
+
+// ---------- A: Language switcher (global) ----------
+const LANGS = [
+  { code: "zh-TW", label: "繁體中文", short: "繁中", flag: "🇹🇼" },
+  { code: "zh-CN", label: "简体中文", short: "简中", flag: "🇨🇳" },
+  { code: "en",    label: "English",  short: "EN",   flag: "🇺🇸" },
+  { code: "ja",    label: "日本語",   short: "日本",  flag: "🇯🇵" },
+];
+
+function LangSwitcher({ size = "sm" }) {
+  const [open, setOpen] = useStateA(false);
+  const [lang, setLang] = useStateA("zh-TW");
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    const onClick = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
+  const cur = LANGS.find(l => l.code === lang);
+  const big = size === "lg";
+  return (
+    <div ref={ref} style={{position:"relative"}}>
+      <button onClick={() => setOpen(o => !o)}
+        style={{
+          display:"flex", alignItems:"center", gap:8,
+          padding: big ? "10px 18px" : "7px 12px",
+          border:"1px solid var(--rule)", borderRadius:999,
+          background: open ? "var(--cream-100)" : "var(--paper)",
+          color:"var(--ink-700)", cursor:"pointer",
+          fontFamily:"inherit", fontSize: big ? 13 : 12, letterSpacing:"0.04em",
+        }}>
+        <i className="fa-solid fa-globe" style={{fontSize: big ? 13 : 11, color:"var(--ink-500)"}}></i>
+        <span style={{fontWeight:500}}>{cur.short}</span>
+        <i className={"fa-solid " + (open ? "fa-chevron-up" : "fa-chevron-down")} style={{fontSize:9, color:"var(--ink-400)"}}></i>
+      </button>
+      {open && (
+        <div style={{
+          position:"absolute", top:"calc(100% + 6px)", right:0,
+          background:"var(--paper)", border:"1px solid var(--rule)",
+          minWidth: 180, boxShadow:"var(--shadow-card)",
+          zIndex: 60, padding:6,
+        }}>
+          {LANGS.map(l => (
+            <button key={l.code} onClick={() => { setLang(l.code); setOpen(false); }}
+              style={{
+                display:"flex", alignItems:"center", gap:10, width:"100%",
+                padding:"10px 12px", border:"none", borderRadius:2,
+                background: l.code === lang ? "var(--cream-100)" : "transparent",
+                color:"var(--ink-900)", cursor:"pointer", fontFamily:"inherit",
+                fontSize:13, textAlign:"left",
+              }}>
+              <span style={{fontSize:14}}>{l.flag}</span>
+              <span style={{flex:1}}>{l.label}</span>
+              {l.code === lang && <i className="fa-solid fa-check" style={{fontSize:11, color:"var(--accent)"}}></i>}
+            </button>
+          ))}
+          <div style={{borderTop:"1px solid var(--rule-soft)", margin:"6px 0"}}></div>
+          <div style={{padding:"8px 12px 4px", fontSize:10, letterSpacing:"0.12em", textTransform:"uppercase", color:"var(--ink-400)"}}>
+            <i className="fa-solid fa-circle-info" style={{marginRight:5}}></i>
+            部分文章可能未翻譯
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -68,10 +138,32 @@ function TopbarA({ page, onNav, onMenu }) {
         ))}
       </nav>
       <div className="right">
-        <span style={{fontSize:13}}>Search</span>
-        <button className="menu-btn" onClick={onMenu}><span className="bar"></span></button>
+        <LangSwitcher />
+        <button onClick={() => onNav?.("search")} title="Search"
+          style={{background:"transparent", border:"none", cursor:"pointer", color:"var(--ink-700)", fontSize:15}}>
+          <i className="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <button className="menu-btn" onClick={onMenu}>
+          <i className="fa-solid fa-bars" style={{fontSize:14, color:"var(--ink-900)"}}></i>
+        </button>
       </div>
     </header>
+  );
+}
+
+// ---------- A: Pinned card (used on Home + List) ----------
+function PinnedRibbon() {
+  return (
+    <span style={{
+      display:"inline-flex", alignItems:"center", gap:6,
+      padding:"4px 10px",
+      background:"var(--accent)", color:"var(--paper)",
+      fontSize:10, letterSpacing:"0.16em", textTransform:"uppercase", fontWeight:600,
+      borderRadius:2,
+    }}>
+      <i className="fa-solid fa-thumbtack" style={{fontSize:10}}></i>
+      Pinned
+    </span>
   );
 }
 
@@ -90,14 +182,16 @@ function FooterA() {
       </div>
       <div>
         <h5>Connect</h5>
-        <a>Medium</a><a>GitHub</a><a>LinkedIn</a><a>Email</a>
+        <a><i className="fa-brands fa-medium" style={{marginRight:8, width:14}}></i>Medium</a>
+        <a><i className="fa-brands fa-github" style={{marginRight:8, width:14}}></i>GitHub</a>
+        <a><i className="fa-brands fa-linkedin-in" style={{marginRight:8, width:14}}></i>LinkedIn</a>
+        <a><i className="fa-solid fa-envelope" style={{marginRight:8, width:14}}></i>Email</a>
       </div>
       <div>
-        <h5>Subscribe</h5>
-        <div style={{display:"flex", gap:6, marginTop:10}}>
-          <input placeholder="you@email.com" style={{flex:1, padding:"10px 12px", borderRadius:6, border:"1px solid var(--rule)", background:"var(--paper)", fontSize:13, fontFamily:"inherit"}}/>
-          <button style={{padding:"10px 14px", borderRadius:6, background:"var(--ink-900)", color:"var(--paper)", border:"none", fontSize:12, cursor:"pointer"}}>Join</button>
-        </div>
+        <h5>Follow</h5>
+        <a><i className="fa-solid fa-rss" style={{marginRight:8, width:14, color:"var(--accent)"}}></i>RSS Feed</a>
+        <a><i className="fa-brands fa-x-twitter" style={{marginRight:8, width:14}}></i>X / Twitter</a>
+        <a><i className="fa-brands fa-threads" style={{marginRight:8, width:14}}></i>Threads</a>
       </div>
     </footer>
   );
@@ -108,31 +202,62 @@ function FooterA() {
 // ============================================
 function HomeA({ posts, onNav, onMenu, page }) {
   const [drawer, setDrawer] = useStateA(false);
-  const hero = posts[0];
-  const featured = posts.slice(1, 3);
+  // Mark first 2 posts as pinned for demo
+  const pinned = posts.slice(0, 2);
+  const hero = posts[2];
   const grid = posts.slice(3);
   return (
     <div className="frame" style={{position:"relative", minHeight:"100%"}}>
       <TopbarA page={page} onNav={onNav} onMenu={() => setDrawer(true)} />
       <DrawerA open={drawer} onClose={() => setDrawer(false)} page={page} onNav={onNav} />
 
-      {/* Editorial Masthead */}
-      <section style={{padding:"72px 56px 48px", borderBottom:"1px solid var(--rule)", background:"var(--cream-50)"}}>
-        <div style={{display:"flex", justifyContent:"space-between", alignItems:"flex-end", marginBottom:40}}>
-          <div>
-            <div className="eyebrow" style={{marginBottom:18}}>Issue No.087 · September 2025</div>
-            <h1 style={{
-              fontFamily:"var(--font-display)",
-              fontSize:96, lineHeight:0.95, fontWeight:400,
-              margin:0, letterSpacing:"-0.03em", maxWidth:980
+      {/* Pinned essays — replaces the intro masthead */}
+      <section style={{padding:"56px 56px 40px", background:"var(--cream-50)", borderBottom:"1px solid var(--rule)"}}>
+        <div style={{display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:24}}>
+          <div style={{display:"flex", alignItems:"center", gap:14}}>
+            <PinnedRibbon />
+            <h3 style={{
+              fontFamily:"var(--font-display)", fontSize:24, fontWeight:500, margin:0,
+              letterSpacing:"-0.01em",
             }}>
-              Crafting <i style={{fontWeight:300}}>quiet</i> software,<br/>
-              <span style={{fontStyle:"italic", fontWeight:300, color:"var(--ink-500)"}}>one</span> field note at a time.
-            </h1>
+              <i style={{fontWeight:300, color:"var(--ink-500)"}}>釘選</i> · 編輯精選
+            </h3>
           </div>
-          <div style={{textAlign:"right", fontSize:12, color:"var(--ink-500)", letterSpacing:"0.1em", textTransform:"uppercase", paddingBottom:12}}>
-            087 essays<br/>since 2018
-          </div>
+          <span style={{fontSize:11, color:"var(--ink-400)", letterSpacing:"0.12em", textTransform:"uppercase"}}>
+            Editor's picks · {String(pinned.length).padStart(2,"0")}
+          </span>
+        </div>
+        <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:32}}>
+          {pinned.map((p, i) => (
+            <article key={i} onClick={() => onNav?.("post")}
+              style={{
+                cursor:"pointer", background:"var(--paper)",
+                border:"1px solid var(--rule)",
+                display:"grid", gridTemplateColumns:"180px 1fr",
+                position:"relative", overflow:"hidden",
+              }}>
+              <div style={{height:"100%", minHeight:160, overflow:"hidden", background:"var(--cream-100)"}}>
+                <img src={p.cover} style={{width:"100%", height:"100%", objectFit:"cover"}}/>
+              </div>
+              <div style={{padding:"22px 24px", minWidth:0}}>
+                <div style={{display:"flex", alignItems:"center", gap:8, marginBottom:10}}>
+                  <i className="fa-solid fa-thumbtack" style={{fontSize:11, color:"var(--accent)"}}></i>
+                  <span className="eyebrow" style={{color:"var(--accent)"}}>Pinned · {p.category}</span>
+                </div>
+                <h4 style={{fontFamily:"var(--font-display)", fontSize:22, lineHeight:1.25, fontWeight:500, margin:"0 0 10px", letterSpacing:"-0.01em"}}>
+                  {p.title}
+                </h4>
+                <p style={{fontSize:13, lineHeight:1.6, color:"var(--ink-500)", margin:"0 0 12px",
+                  display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden"}}>
+                  {p.excerpt}
+                </p>
+                <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", fontSize:11, color:"var(--ink-400)"}}>
+                  <span>{p.date} · {p.readTime}</span>
+                  <span style={{color:"var(--accent)"}}>Read <i className="fa-solid fa-arrow-right" style={{fontSize:10}}></i></span>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -153,13 +278,18 @@ function HomeA({ posts, onNav, onMenu, page }) {
             {hero.excerpt}
           </p>
           <div style={{display:"flex", gap:14, alignItems:"center", fontSize:12, color:"var(--ink-500)", marginBottom:28}}>
+            <i className="fa-regular fa-calendar" style={{fontSize:11}}></i>
             <span>{hero.date}</span>
             <span style={{width:3, height:3, background:"var(--ink-300)", borderRadius:999}}></span>
+            <i className="fa-regular fa-clock" style={{fontSize:11}}></i>
             <span>{hero.readTime} read</span>
             <span style={{width:3, height:3, background:"var(--ink-300)", borderRadius:999}}></span>
+            <i className="fa-regular fa-user" style={{fontSize:11}}></i>
             <span>by Harry</span>
           </div>
-          <a className="btn-pill" onClick={() => onNav?.("post")} style={{cursor:"pointer"}}>Read essay →</a>
+          <a className="btn-pill" onClick={() => onNav?.("post")} style={{cursor:"pointer"}}>
+            Read essay <i className="fa-solid fa-arrow-right" style={{fontSize:11, marginLeft:4}}></i>
+          </a>
         </div>
       </section>
 
@@ -168,13 +298,15 @@ function HomeA({ posts, onNav, onMenu, page }) {
         <h3 style={{fontFamily:"var(--font-display)", fontSize:32, fontWeight:500, margin:0, letterSpacing:"-0.01em"}}>
           Latest <i style={{fontWeight:300, color:"var(--ink-400)"}}>writing</i>
         </h3>
-        <a onClick={() => onNav?.("list")} style={{fontSize:13, color:"var(--ink-500)", cursor:"pointer"}}>View all 087 →</a>
+        <a onClick={() => onNav?.("list")} style={{fontSize:13, color:"var(--ink-500)", cursor:"pointer"}}>
+          View all 087 <i className="fa-solid fa-arrow-right" style={{fontSize:10, marginLeft:4}}></i>
+        </a>
       </section>
 
       {/* 2-column card grid */}
       <section style={{padding:"32px 56px 80px"}}>
         <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:48, rowGap:64}}>
-          {[...featured, ...grid].map((p, i) => (
+          {grid.map((p, i) => (
             <article key={i} style={{cursor:"pointer"}} onClick={() => onNav?.("post")}>
               <div style={{aspectRatio:"5/3.4", overflow:"hidden", marginBottom:22, background:"var(--cream-100)"}}>
                 <img src={p.cover} style={{width:"100%", height:"100%", objectFit:"cover", transition:"transform .6s"}}/>
@@ -226,41 +358,79 @@ function PostListA({ posts, onNav, page }) {
         </div>
       </section>
 
-      {/* Dense left-image rows — fits ~12 posts / page */}
-      <section style={{padding:"24px 56px 64px"}}>
-        {posts.concat(posts).slice(0, 12).map((p, i) => (
+      {/* Pinned strip */}
+      <section style={{padding:"36px 56px 32px", background:"var(--cream-50)", borderBottom:"1px solid var(--rule-soft)"}}>
+        <div style={{display:"flex", alignItems:"center", gap:12, marginBottom:18}}>
+          <PinnedRibbon />
+          <span style={{fontSize:12, color:"var(--ink-500)", letterSpacing:"0.05em"}}>{Math.min(6, posts.length)} 篇文章被釘選</span>
+        </div>
+        <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:24}}>
+          {posts.slice(0, Math.min(6, posts.length)).map((p, i) => (
+            <article key={i} onClick={() => onNav?.("post")}
+              style={{
+                background:"var(--paper)", border:"1px solid var(--rule)",
+                cursor:"pointer", position:"relative", overflow:"hidden",
+                display:"flex", flexDirection:"column",
+              }}>
+              <div style={{aspectRatio:"16/9", overflow:"hidden", background:"var(--cream-100)"}}>
+                <img src={p.cover} style={{width:"100%", height:"100%", objectFit:"cover"}}/>
+              </div>
+              <div style={{padding:"16px 20px 18px", position:"relative"}}>
+                <i className="fa-solid fa-thumbtack" style={{
+                  position:"absolute", top:14, right:14, fontSize:11, color:"var(--accent)",
+                }}></i>
+                <div className="eyebrow" style={{color:"var(--ink-500)", marginBottom:8}}>
+                  {p.category} · {p.date}
+                </div>
+                <h5 style={{
+                  fontFamily:"var(--font-display)", fontSize:18, lineHeight:1.3,
+                  fontWeight:500, margin:0, letterSpacing:"-0.005em",
+                  display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden",
+                  paddingRight:18,
+                }}>
+                  {p.title}
+                </h5>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Two-column dense rows — left image + right text per row, fits ~16 posts / page */}
+      <section style={{padding:"24px 56px 64px", display:"grid", gridTemplateColumns:"1fr 1fr", columnGap:48}}>
+        {posts.concat(posts).slice(0, 16).map((p, i) => (
           <article key={i} onClick={() => onNav?.("post")}
             style={{
               display:"grid",
-              gridTemplateColumns:"180px 1fr 120px",
-              gap:32,
-              alignItems:"center",
-              padding:"24px 0",
+              gridTemplateColumns:"140px 1fr",
+              gap:20,
+              alignItems:"flex-start",
+              padding:"22px 0",
               borderBottom:"1px solid var(--rule-soft)",
               cursor:"pointer",
             }}>
-            <div style={{width:180, height:120, overflow:"hidden", background:"var(--cream-100)"}}>
+            <div style={{width:140, height:96, overflow:"hidden", background:"var(--cream-100)"}}>
               <img src={p.cover} style={{width:"100%", height:"100%", objectFit:"cover"}}/>
             </div>
-            <div>
-              <div className="eyebrow" style={{marginBottom:8, color:"var(--ink-500)"}}>{p.category}</div>
+            <div style={{minWidth:0}}>
+              <div style={{display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:6, gap:12}}>
+                <span className="eyebrow" style={{color:"var(--ink-500)"}}>{p.category}</span>
+                <span style={{fontSize:11, color:"var(--ink-400)", letterSpacing:"0.05em", whiteSpace:"nowrap"}}>{p.date} · {p.readTime}</span>
+              </div>
               <h4 style={{
-                fontFamily:"var(--font-display)", fontSize:24, lineHeight:1.25,
-                fontWeight:500, margin:"0 0 8px", letterSpacing:"-0.01em",
+                fontFamily:"var(--font-display)", fontSize:20, lineHeight:1.25,
+                fontWeight:500, margin:"0 0 6px", letterSpacing:"-0.01em",
+                display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden",
               }}>
                 {p.title}
               </h4>
-              <p style={{fontSize:14, lineHeight:1.55, color:"var(--ink-500)", margin:"0 0 8px",
+              <p style={{fontSize:13, lineHeight:1.55, color:"var(--ink-500)", margin:"0 0 8px",
                 display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden"}}>
                 {p.excerpt}
               </p>
-              <div style={{display:"flex", gap:6, flexWrap:"wrap"}}>
-                {p.tags.slice(0,3).map(t => <span key={t} className="chip" style={{fontSize:10, padding:"3px 8px"}}>{t}</span>)}
+              <div style={{display:"flex", gap:5, flexWrap:"wrap"}}>
+                {p.tags.slice(0,2).map(t => <span key={t} className="chip" style={{fontSize:10, padding:"2px 7px"}}>{t}</span>)}
               </div>
-            </div>
-            <div style={{textAlign:"right", fontSize:12, color:"var(--ink-500)", letterSpacing:"0.05em"}}>
-              {p.date}<br/>
-              <span style={{color:"var(--ink-400)"}}>{p.readTime}</span>
             </div>
           </article>
         ))}
@@ -281,11 +451,341 @@ function PostListA({ posts, onNav, page }) {
   );
 }
 
+// ---------- A: TOC items + helpers ----------
+const TOC_ITEMS = [
+  { id: "toc-1",   level: 2, label: "從一行程式碼開始" },
+  { id: "toc-2",   level: 2, label: "上架前夜" },
+  { id: "toc-2-1", level: 3, label: "隱私權聲明的細節" },
+  { id: "toc-2-2", level: 3, label: "IPv6 環境下的網路問題" },
+  { id: "toc-3",   level: 2, label: "上架之後，才是開始" },
+  { id: "toc-4",   level: 2, label: "後記：寫給三年前的自己" },
+];
+
+function findScroller(el) {
+  if (!el) return null;
+  // Prefer explicit marker
+  const marked = el.closest('[data-scroll-root]');
+  if (marked) return marked;
+  // Fallback: walk up to find first ancestor with computed scrollable overflow
+  let cur = el.parentElement;
+  while (cur) {
+    const cs = getComputedStyle(cur);
+    const oy = cs.overflowY;
+    if ((oy === 'auto' || oy === 'scroll') && cur.scrollHeight > cur.clientHeight) {
+      return cur;
+    }
+    cur = cur.parentElement;
+  }
+  return null;
+}
+
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const scroller = findScroller(el);
+  if (scroller) {
+    const top = el.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - 24;
+    scroller.scrollTo({ top, behavior: "smooth" });
+  } else {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+// ---------- A: Table of Contents (top of article — sub-sections collapse) ----------
+function TableOfContentsA({ topRef, active, onJump }) {
+  // Build map: h2 id -> boolean expanded
+  const h2ids = TOC_ITEMS.filter(it => it.level === 2).map(it => it.id);
+  const initExpanded = {};
+  h2ids.forEach(id => { initExpanded[id] = false; });
+  const [expanded, setExpanded] = useStateA(initExpanded);
+
+  // Determine which h2 "owns" each h3
+  function parentOf(idx) {
+    for (let i = idx - 1; i >= 0; i--) {
+      if (TOC_ITEMS[i].level === 2) return TOC_ITEMS[i].id;
+    }
+    return null;
+  }
+
+  const toggleSection = (id) => setExpanded(e => ({ ...e, [id]: !e[id] }));
+  let globalIdx = 0;
+
+  return (
+    <aside ref={topRef} id="post-toc-top" style={{maxWidth: 760, margin: "56px auto 0", padding: "0 56px"}}>
+      <div style={{
+        background: "var(--cream-50)",
+        border: "1px solid var(--rule)",
+        padding: "24px 32px 22px",
+      }}>
+        <div style={{display: "flex", alignItems: "baseline", gap: 12, marginBottom: 18}}>
+          <i className="fa-solid fa-list-ul" style={{fontSize: 12, color: "var(--accent)"}}></i>
+          <span className="eyebrow" style={{color: "var(--ink-500)"}}>Table of Contents</span>
+          <span style={{
+            fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 500,
+            letterSpacing: "-0.01em", marginLeft: 4,
+          }}>
+            本文目錄 <i style={{fontWeight: 300, color: "var(--ink-400)", fontSize: 14}}>· {h2ids.length} 段</i>
+          </span>
+        </div>
+
+        <ol style={{listStyle: "none", padding: 0, margin: 0}}>
+          {TOC_ITEMS.map((it, i) => {
+            const isActive = active === it.id;
+            if (it.level === 3) {
+              const parent = parentOf(i);
+              if (!expanded[parent]) return null;
+              globalIdx++;
+              return (
+                <li key={it.id} style={{marginBottom: 2}}>
+                  <a onClick={() => onJump(it.id)} style={{
+                    display: "grid",
+                    gridTemplateColumns: "16px 28px 1fr 14px",
+                    alignItems: "baseline", gap: 10,
+                    padding: "8px 12px 8px 28px",
+                    borderLeft: isActive ? "2px solid var(--accent)" : "2px solid transparent",
+                    background: isActive ? "var(--paper)" : "transparent",
+                    cursor: "pointer", textDecoration: "none",
+                    fontSize: 13, color: isActive ? "var(--ink-900)" : "var(--ink-700)",
+                    transition: "background .15s",
+                  }}>
+                    <span style={{color: "var(--ink-300)", fontSize: 10}}>└</span>
+                    <span style={{
+                      fontFamily: "var(--font-display)", fontStyle: "italic",
+                      fontSize: 11, color: isActive ? "var(--accent)" : "var(--ink-300)",
+                      letterSpacing: "0.02em",
+                    }}>{String(i + 1).padStart(2, "0")}</span>
+                    <span style={{fontWeight: 400, lineHeight: 1.45, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>{it.label}</span>
+                    <i className="fa-solid fa-arrow-right" style={{fontSize: 10, color: isActive ? "var(--accent)" : "var(--ink-300)"}}></i>
+                  </a>
+                </li>
+              );
+            }
+            // h2
+            const hasChildren = TOC_ITEMS[i + 1] && TOC_ITEMS[i + 1].level === 3;
+            const isOpen = expanded[it.id];
+            return (
+              <li key={it.id} style={{marginBottom: 2}}>
+                <div onClick={() => hasChildren && toggleSection(it.id)} style={{
+                  display: "grid",
+                  gridTemplateColumns: "28px 1fr 18px",
+                  alignItems: "center", gap: 10,
+                  padding: "10px 12px",
+                  borderLeft: isActive ? "2px solid var(--accent)" : "2px solid transparent",
+                  background: isActive ? "var(--paper)" : "transparent",
+                  cursor: hasChildren ? "pointer" : "default",
+                  transition: "background .15s",
+                }}>
+                  <span style={{
+                    fontFamily: "var(--font-display)", fontStyle: "italic",
+                    fontSize: 11, color: isActive ? "var(--accent)" : "var(--ink-300)",
+                    letterSpacing: "0.02em",
+                  }}>{String(i + 1).padStart(2, "0")}</span>
+                  <span onClick={(e) => { e.stopPropagation(); onJump(it.id); }} style={{
+                    fontWeight: 500, lineHeight: 1.45, cursor: "pointer",
+                    fontSize: 14, color: isActive ? "var(--ink-900)" : "var(--ink-700)",
+                    textDecoration: "none",
+                  }}>{it.label}</span>
+                  {hasChildren
+                    ? <i className={"fa-solid " + (isOpen ? "fa-chevron-up" : "fa-chevron-down")} style={{fontSize: 10, color: "var(--ink-400)"}}></i>
+                    : <i className="fa-solid fa-arrow-right" style={{fontSize: 10, color: isActive ? "var(--accent)" : "var(--ink-300)"}}></i>
+                  }
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </aside>
+  );
+}
+
+// ---------- A: Sticky sidebar TOC — appears only when the top TOC scrolls out of view ----------
+function FloatingTocA({ active, onJump, topRef }) {
+  const [open, setOpen] = useStateA(true);
+  const [visible, setVisible] = useStateA(false);
+
+  // Sub-section expand state (h2 id -> bool)
+  const h2ids = TOC_ITEMS.filter(it => it.level === 2).map(it => it.id);
+  const initExpanded = {};
+  h2ids.forEach(id => { initExpanded[id] = false; });
+  const [expanded, setExpanded] = useStateA(initExpanded);
+  const toggleSection = (id) => setExpanded(e => ({ ...e, [id]: !e[id] }));
+
+  function parentOf(idx) {
+    for (let i = idx - 1; i >= 0; i--) {
+      if (TOC_ITEMS[i].level === 2) return TOC_ITEMS[i].id;
+    }
+    return null;
+  }
+
+  React.useEffect(() => {
+    if (!topRef || !topRef.current) return;
+    const scrollRoot = topRef.current.closest("[data-scroll-root]") || null;
+    const io = new IntersectionObserver(
+      (entries) => { setVisible(!entries[0].isIntersecting); },
+      { root: scrollRoot, threshold: 0, rootMargin: "0px 0px -40% 0px" }
+    );
+    io.observe(topRef.current);
+    return () => io.disconnect();
+  }, [topRef]);
+
+  return (
+    <aside style={{
+      width: "100%",
+      opacity: visible ? 1 : 0,
+      transform: visible ? "translateY(0)" : "translateY(-6px)",
+      pointerEvents: visible ? "auto" : "none",
+      transition: "opacity .28s ease, transform .28s ease",
+    }}>
+      <div style={{
+        background: "var(--paper)",
+        border: "1px solid var(--rule)",
+        padding: open ? "16px 18px 14px" : "12px 18px",
+        boxShadow: "var(--shadow-card)",
+      }}>
+        <div style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          marginBottom: open ? 12 : 0,
+        }}>
+          <div style={{display: "flex", alignItems: "center", gap: 8}}>
+            <i className="fa-solid fa-list-ul" style={{fontSize: 10, color: "var(--accent)"}}></i>
+            <span className="eyebrow" style={{color: "var(--ink-500)", fontSize: 9}}>本文目錄</span>
+          </div>
+          <button onClick={() => setOpen(o => !o)} style={{
+            background: "transparent", border: "none", cursor: "pointer",
+            color: "var(--ink-400)", fontSize: 10, padding: 0,
+          }}>
+            <i className={"fa-solid " + (open ? "fa-chevron-up" : "fa-chevron-down")}></i>
+          </button>
+        </div>
+        {open && (
+          <ol style={{listStyle: "none", padding: 0, margin: 0}}>
+            {TOC_ITEMS.map((it, i) => {
+              const isActive = active === it.id;
+              if (it.level === 3) {
+                const parent = parentOf(i);
+                if (!expanded[parent]) return null;
+                return (
+                  <li key={it.id}>
+                    <a onClick={() => onJump(it.id)} style={{
+                      display: "grid", gridTemplateColumns: "10px 18px 1fr",
+                      alignItems: "baseline", gap: 6,
+                      padding: "5px 8px 5px 14px",
+                      borderLeft: isActive ? "2px solid var(--accent)" : "2px solid transparent",
+                      background: isActive ? "var(--cream-50)" : "transparent",
+                      cursor: "pointer", textDecoration: "none",
+                      fontSize: 11, color: isActive ? "var(--ink-900)" : "var(--ink-500)",
+                      transition: "background .15s",
+                    }}>
+                      <span style={{color: "var(--ink-300)", fontSize: 9}}>└</span>
+                      <span style={{fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: 9, color: isActive ? "var(--accent)" : "var(--ink-300)"}}>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span style={{fontWeight: 400, lineHeight: 1.4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>{it.label}</span>
+                    </a>
+                  </li>
+                );
+              }
+              // h2
+              const hasChildren = TOC_ITEMS[i + 1] && TOC_ITEMS[i + 1].level === 3;
+              const isOpen = expanded[it.id];
+              return (
+                <li key={it.id}>
+                  <a onClick={() => { if (hasChildren) toggleSection(it.id); onJump(it.id); }} style={{
+                    display: "grid", gridTemplateColumns: "18px 1fr 14px",
+                    alignItems: "center", gap: 6,
+                    padding: "6px 8px",
+                    borderLeft: isActive ? "2px solid var(--accent)" : "2px solid transparent",
+                    background: isActive ? "var(--cream-50)" : "transparent",
+                    cursor: "pointer", textDecoration: "none",
+                    fontSize: 12, color: isActive ? "var(--ink-900)" : "var(--ink-500)",
+                    transition: "background .15s",
+                  }}>
+                    <span style={{fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: 9, color: isActive ? "var(--accent)" : "var(--ink-300)"}}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span style={{fontWeight: 500, lineHeight: 1.4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>{it.label}</span>
+                    {hasChildren && (
+                      <i className={"fa-solid " + (isOpen ? "fa-chevron-up" : "fa-chevron-down")} style={{fontSize: 8, color: "var(--ink-400)"}}></i>
+                    )}
+                  </a>
+                </li>
+              );
+            })}
+          </ol>
+        )}
+      </div>
+    </aside>
+  );
+}
+
+// ---------- KKday branded link ----------
+function KKdayLink({ href = "https://www.kkday.com", children }) {
+  const [hover, setHover] = React.useState(false);
+  return (
+    <a
+      href={href}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        display: "inline-flex", alignItems: "center", gap: 5,
+        verticalAlign: "middle",
+        color: "#1ab6c1",
+        textDecoration: "underline",
+        textDecorationColor: hover ? "#1ab6c1" : "rgba(26,182,193,0.35)",
+        textUnderlineOffset: 2,
+        fontWeight: 500,
+        transition: "text-decoration-color .15s",
+      }}>
+      <span style={{
+        display: "inline-flex", alignItems: "center", justifyContent: "center",
+        width: 18, height: 18, borderRadius: 4,
+        background: hover ? "#1ab6c1" : "rgba(26,182,193,0.12)",
+        transition: "background .15s", flexShrink: 0,
+      }}>
+        <i className="fa-solid fa-ticket" style={{
+          fontSize: 9,
+          color: hover ? "#fff" : "#1ab6c1",
+          transform: "rotate(-45deg)",
+          transition: "color .15s",
+        }}></i>
+      </span>
+      {children}
+    </a>
+  );
+}
+
+// ---------- Hash heading — hover reveals # anchor ----------
+function HashHeading({ id, tag: Tag = "h2", style, children }) {
+  const [hover, setHover] = useStateA(false);
+  return (
+    <Tag id={id}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{position: "relative", ...style}}>
+      {children}
+      <a href={"#" + id} style={{
+        position: "absolute", left: -28, top: "50%", transform: "translateY(-50%)",
+        opacity: hover ? 1 : 0, transition: "opacity .15s",
+        fontFamily: "var(--font-en)", fontWeight: 400, fontStyle: "normal",
+        fontSize: 16, color: "var(--ink-300)", textDecoration: "none",
+        paddingRight: 8, userSelect: "none",
+      }}>#</a>
+    </Tag>
+  );
+}
+
+// ---------- A: Back to Top — REMOVED (kept for reference, not rendered)
+// (component deleted — using sticky TOC + browser scroll affordances instead)
+
 // ============================================
 // A — POST (single)
 // ============================================
 function PostA({ posts, onNav, page }) {
   const [drawer, setDrawer] = useStateA(false);
+  const [active, setActive] = useStateA("toc-1");
+  const topRef = React.useRef(null);
+  const onJump = (id) => { setActive(id); scrollToId(id); };
   const p = posts[0];
   return (
     <div className="frame" style={{position:"relative", minHeight:"100%"}}>
@@ -296,18 +796,20 @@ function PostA({ posts, onNav, page }) {
         {/* Hero */}
         <header style={{padding:"80px 56px 56px", maxWidth:920, margin:"0 auto", textAlign:"center"}}>
           <div className="eyebrow" style={{marginBottom:24}}>{p.category} · Essay</div>
-          <h1 style={{fontFamily:"var(--font-display)", fontSize:64, lineHeight:1.05, fontWeight:500, margin:"0 0 28px", letterSpacing:"-0.025em"}}>
+          <h1 id="post-top" style={{fontFamily:"var(--font-display)", fontSize:64, lineHeight:1.05, fontWeight:500, margin:"0 0 28px", letterSpacing:"-0.025em"}}>
             {p.title}
           </h1>
-          <p style={{fontSize:21, lineHeight:1.55, color:"var(--ink-500)", margin:"0 0 32px", fontFamily:"var(--font-display)", fontStyle:"italic", fontWeight:300}}>
+          <p style={{fontSize:21, lineHeight:1.55, color:"var(--ink-500)", margin:"0 0 32px", fontFamily:"var(--font-display)", fontWeight:300}}>
             {p.excerpt}
           </p>
-          <div style={{display:"flex", gap:18, alignItems:"center", justifyContent:"center", fontSize:13, color:"var(--ink-500)"}}>
+          <div style={{display:"flex", gap:18, alignItems:"center", justifyContent:"center", fontSize:13, color:"var(--ink-500)", flexWrap:"wrap"}}>
             <img src="https://avatars.githubusercontent.com/u/7194691?v=4" style={{width:32, height:32, borderRadius:999}}/>
             <span>by Harry Li</span>
             <span style={{width:3, height:3, background:"var(--ink-300)", borderRadius:999}}></span>
+            <i className="fa-regular fa-calendar" style={{fontSize:12}}></i>
             <span>{p.date}</span>
             <span style={{width:3, height:3, background:"var(--ink-300)", borderRadius:999}}></span>
+            <i className="fa-regular fa-clock" style={{fontSize:12}}></i>
             <span>{p.readTime} read</span>
           </div>
         </header>
@@ -319,8 +821,18 @@ function PostA({ posts, onNav, page }) {
           </div>
         </div>
 
-        <div style={{maxWidth:680, margin:"64px auto", padding:"0 24px", fontFamily:"var(--font-display)", fontSize:19, lineHeight:1.8, color:"var(--ink-700)"}}>
-          <p style={{marginTop:0}}>
+        {/* Table of Contents — top of article (always shown) */}
+        <TableOfContentsA topRef={topRef} active={active} onJump={onJump} />
+
+        {/* Body wrapper */}
+        <div style={{
+          maxWidth: 1080,
+          margin: "40px auto 0",
+          padding: "0 56px",
+        }}>
+          {/* Body — centred */}
+          <div style={{maxWidth: 680, margin: "0 auto", fontFamily:"var(--font-display)", fontSize:19, lineHeight:1.8, color:"var(--ink-700)"}}>
+            <p style={{marginTop:0}}>
             <span style={{
               float:"left", fontFamily:"var(--font-display)", fontSize:84, lineHeight:0.9,
               fontWeight:500, marginRight:12, marginTop:8, color:"var(--accent)"
@@ -330,51 +842,234 @@ function PostA({ posts, onNav, page }) {
           <p>
             這篇文章想記錄的不是教學，而是過程裡那些細微的、難以對人說的轉折——關於團隊溝通、關於自我懷疑、關於凌晨三點看著建構失敗的紅字想放棄的時刻。
           </p>
-          <h2 style={{fontFamily:"var(--font-display)", fontSize:32, fontWeight:500, marginTop:48, marginBottom:16, letterSpacing:"-0.01em"}}>
+          <HashHeading id="toc-1" tag="h2" style={{fontFamily:"var(--font-display)", fontSize:32, fontWeight:500, marginTop:48, marginBottom:16, letterSpacing:"-0.01em", scrollMarginTop:32}}>
             一、從一行程式碼開始
-          </h2>
+          </HashHeading>
           <p>
             最初的版本只有一個畫面、一個按鈕。但就是這個簡陋的原型，幫我打開了第一扇門。我學會的第一件事是：完成比完美更重要。
           </p>
           <blockquote style={{
             borderLeft:"3px solid var(--accent)", paddingLeft:24, margin:"36px 0",
-            fontStyle:"italic", fontSize:24, color:"var(--ink-700)", lineHeight:1.5
+            fontSize:24, color:"var(--ink-700)", lineHeight:1.5
           }}>
             「Done is better than perfect.」這句被引用到爛的話，當你真的做過一次，才會懂它的份量。
           </blockquote>
           <p>
             接下來的三個月，我每天下班後寫兩小時，週末再寫八小時。不是因為熱情多麼澎湃，而是因為害怕——害怕自己又是個只會說不會做的人。
+            旅行途中靠著 <KKdayLink href="https://www.kkday.com">KKday</KKdayLink> 訂了幾個當地體驗行程，
+            讓我在釐清思路的同時也充了電。
           </p>
-          <h2 style={{fontFamily:"var(--font-display)", fontSize:32, fontWeight:500, marginTop:48, marginBottom:16, letterSpacing:"-0.01em"}}>
+          <HashHeading id="toc-2" tag="h2" style={{fontFamily:"var(--font-display)", fontSize:32, fontWeight:500, marginTop:48, marginBottom:16, letterSpacing:"-0.01em", scrollMarginTop:32}}>
             二、上架前夜
-          </h2>
+          </HashHeading>
           <p>
             送審被拒了兩次。第一次是隱私權聲明寫得不清楚，第二次是 IPv6 環境下無法連線。每一次被拒都讓人沮喪，但也每一次都學到了一些書上不會教的事。
           </p>
+          <HashHeading id="toc-2-1" tag="h3" style={{fontFamily:"var(--font-display)", fontSize:24, fontWeight:500, marginTop:36, marginBottom:14, color:"var(--ink-700)", scrollMarginTop:32}}>
+            隱私權聲明的細節
+          </HashHeading>
+          <p>
+            Apple 對隱私權聲明的要求非常具體 — 不是寫一份「我們重視你的隱私」就能過關，而是要逐條對應到 App 蒐集的資料類型。
+          </p>
+          <HashHeading id="toc-2-2" tag="h3" style={{fontFamily:"var(--font-display)", fontSize:24, fontWeight:500, marginTop:36, marginBottom:14, color:"var(--ink-700)", scrollMarginTop:32}}>
+            IPv6 環境下的網路問題
+          </HashHeading>
+          <p>
+            審核機房預設使用 IPv6-only 網路，如果後端 API 沒有支援，請求會直接 timeout。這是很多獨立開發者第一次送審被打回的常見原因。
+          </p>
+          <HashHeading id="toc-3" tag="h2" style={{fontFamily:"var(--font-display)", fontSize:32, fontWeight:500, marginTop:48, marginBottom:16, letterSpacing:"-0.01em", scrollMarginTop:32}}>
+            三、上架之後，才是開始
+          </HashHeading>
+          <p>
+            App 上架的那一刻，原本以為會是煙火、慶祝、放鬆。但實際發生的是：第二天早上 8 點，我已經在處理第一個 crash report 了。
+          </p>
+          <HashHeading id="toc-4" tag="h2" style={{fontFamily:"var(--font-display)", fontSize:32, fontWeight:500, marginTop:48, marginBottom:16, letterSpacing:"-0.01em", scrollMarginTop:32}}>
+            後記：寫給三年前的自己
+          </HashHeading>
+          <p>
+            如果回到三年前，我會跟自己說：別把第一個版本想得太完美。你寫得出來最重要，使用者會告訴你下一步要做什麼。
+          </p>
         </div>
 
-        {/* Tags + share */}
-        <div style={{padding:"0 56px", maxWidth:680, margin:"0 auto 48px", display:"flex", justifyContent:"space-between", alignItems:"center", borderTop:"1px solid var(--rule)", paddingTop:32}}>
+          {/* /Body */}
+        </div>
+        {/* /Body wrapper */}
+
+        <div style={{height: 64}}></div>
+
+        {/* Tags row */}
+        <div style={{padding:"0 56px", maxWidth:680, margin:"0 auto 40px", borderTop:"1px solid var(--rule)", paddingTop:32}}>
+          <div className="eyebrow" style={{marginBottom:14, color:"var(--ink-500)"}}>Filed under</div>
           <div style={{display:"flex", gap:8, flexWrap:"wrap"}}>
             {p.tags.map(t => <span key={t} className="chip">#{t}</span>)}
           </div>
-          <div style={{display:"flex", gap:8, fontSize:12, color:"var(--ink-500)"}}>
-            <span style={{padding:"6px 12px", border:"1px solid var(--rule)", borderRadius:999}}>Share</span>
-            <span style={{padding:"6px 12px", border:"1px solid var(--rule)", borderRadius:999}}>Copy link</span>
+        </div>
+
+        {/* Article footer — four actions */}
+        <div style={{maxWidth:680, margin:"0 auto 64px", padding:"0 56px"}}>
+          <div style={{borderTop:"1px solid var(--rule)", paddingTop:40, display:"flex", flexDirection:"column", gap:0}}>
+
+            {/* Originally published on Medium */}
+            <a style={{
+              display:"flex", alignItems:"center", justifyContent:"space-between",
+              padding:"18px 0", borderBottom:"1px solid var(--rule-soft)",
+              cursor:"pointer", textDecoration:"none",
+              color:"var(--ink-700)",
+            }}>
+              <div style={{display:"flex", alignItems:"center", gap:14}}>
+                <div style={{
+                  width:36, height:36, borderRadius:999,
+                  background:"var(--ink-900)", display:"flex", alignItems:"center", justifyContent:"center",
+                  flexShrink:0,
+                }}>
+                  <i className="fa-brands fa-medium" style={{fontSize:16, color:"#fff"}}></i>
+                </div>
+                <div>
+                  <div style={{fontSize:14, fontWeight:500, lineHeight:1.3}}>原文發表自 Medium</div>
+                  <div style={{fontSize:12, color:"var(--ink-400)", marginTop:2}}>Originally published on Medium</div>
+                </div>
+              </div>
+              <i className="fa-solid fa-arrow-up-right-from-square" style={{fontSize:13, color:"var(--ink-300)"}}></i>
+            </a>
+
+            {/* Improve this page */}
+            <a style={{
+              display:"flex", alignItems:"center", justifyContent:"space-between",
+              padding:"18px 0", borderBottom:"1px solid var(--rule-soft)",
+              cursor:"pointer", textDecoration:"none",
+              color:"var(--ink-700)",
+            }}>
+              <div style={{display:"flex", alignItems:"center", gap:14}}>
+                <div style={{
+                  width:36, height:36, borderRadius:999,
+                  border:"1px solid var(--rule)",
+                  display:"flex", alignItems:"center", justifyContent:"center",
+                  flexShrink:0,
+                }}>
+                  <i className="fa-brands fa-github" style={{fontSize:16, color:"var(--ink-900)"}}></i>
+                </div>
+                <div>
+                  <div style={{fontSize:14, fontWeight:500, lineHeight:1.3}}>Improve this page</div>
+                  <div style={{fontSize:12, color:"var(--ink-400)", marginTop:2}}>在 GitHub 上修改或補充這篇文章</div>
+                </div>
+              </div>
+              <i className="fa-solid fa-arrow-up-right-from-square" style={{fontSize:13, color:"var(--ink-300)"}}></i>
+            </a>
+
+            {/* Donate */}
+            <a style={{
+              display:"flex", alignItems:"center", justifyContent:"space-between",
+              padding:"18px 0", borderBottom:"1px solid var(--rule-soft)",
+              cursor:"pointer", textDecoration:"none",
+              color:"var(--ink-700)",
+            }}>
+              <div style={{display:"flex", alignItems:"center", gap:14}}>
+                <div style={{
+                  width:36, height:36, borderRadius:999,
+                  background:"rgba(177,78,44,0.1)",
+                  display:"flex", alignItems:"center", justifyContent:"center",
+                  flexShrink:0,
+                }}>
+                  <i className="fa-solid fa-mug-saucer" style={{fontSize:14, color:"var(--accent)"}}></i>
+                </div>
+                <div>
+                  <div style={{fontSize:14, fontWeight:500, lineHeight:1.3}}>請我喝杯咖啡</div>
+                  <div style={{fontSize:12, color:"var(--ink-400)", marginTop:2}}>獨立寫作，無付費牆，無業配</div>
+                </div>
+              </div>
+              <i className="fa-solid fa-arrow-right" style={{fontSize:13, color:"var(--ink-300)"}}></i>
+            </a>
+
+            {/* Copy link & share */}
+            <div style={{padding:"18px 0", display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+              <div style={{display:"flex", alignItems:"center", gap:14}}>
+                <div style={{
+                  width:36, height:36, borderRadius:999,
+                  border:"1px solid var(--rule)",
+                  display:"flex", alignItems:"center", justifyContent:"center",
+                  flexShrink:0,
+                }}>
+                  <i className="fa-solid fa-share-nodes" style={{fontSize:14, color:"var(--ink-700)"}}></i>
+                </div>
+                <div>
+                  <div style={{fontSize:14, fontWeight:500, lineHeight:1.3}}>分享這篇文章</div>
+                  <div style={{fontSize:12, color:"var(--ink-400)", marginTop:2}}>Copy link · 分享到社群</div>
+                </div>
+              </div>
+              <div style={{display:"flex", gap:8}}>
+                {[
+                  {icon:"fa-solid fa-link", title:"Copy link"},
+                  {icon:"fa-brands fa-x-twitter", title:"X / Twitter"},
+                  {icon:"fa-brands fa-facebook-f", title:"Facebook"},
+                  {icon:"fa-brands fa-line", title:"LINE"},
+                  {icon:"fa-brands fa-threads", title:"Threads"},
+                ].map((s,i) => (
+                  <button key={i} title={s.title} style={{
+                    width:32, height:32, borderRadius:999,
+                    border:"1px solid var(--rule)", background:"transparent",
+                    color:"var(--ink-500)", cursor:"pointer", fontSize:13,
+                    display:"flex", alignItems:"center", justifyContent:"center",
+                  }}>
+                    <i className={s.icon}></i>
+                  </button>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
 
         {/* Author card */}
-        <div style={{maxWidth:680, margin:"0 auto 80px", padding:"40px", background:"var(--cream-50)", display:"flex", gap:24, alignItems:"center", borderRadius:2}}>
-          <img src="https://avatars.githubusercontent.com/u/7194691?v=4" style={{width:80, height:80, borderRadius:999}}/>
-          <div>
-            <div className="eyebrow" style={{marginBottom:6}}>Author</div>
-            <h4 style={{fontFamily:"var(--font-display)", fontSize:24, fontWeight:600, margin:"0 0 6px"}}>Harry Li · ZhgChgLi</h4>
-            <p style={{fontSize:14, color:"var(--ink-500)", lineHeight:1.6, margin:0}}>
-              iOS / web developer in Taipei. Open-source maintainer. Sometimes writes about places, things, and the slow craft of making software.
-            </p>
+        <div style={{maxWidth:680, margin:"0 auto 40px", padding:"0 56px"}}>
+          <div style={{background:"var(--cream-50)", padding:"40px", display:"flex", gap:24, alignItems:"center", borderRadius:2}}>
+            <img src="https://avatars.githubusercontent.com/u/7194691?v=4" style={{width:80, height:80, borderRadius:999}}/>
+            <div>
+              <div className="eyebrow" style={{marginBottom:6}}>Author</div>
+              <h4 style={{fontFamily:"var(--font-display)", fontSize:24, fontWeight:600, margin:"0 0 6px"}}>Harry Li · ZhgChgLi</h4>
+              <p style={{fontSize:14, color:"var(--ink-500)", lineHeight:1.6, margin:0}}>
+                iOS / web developer in Taipei. Open-source maintainer. Sometimes writes about places, things, and the slow craft of making software.
+              </p>
+            </div>
           </div>
         </div>
+
+        {/* Disqus comment section */}
+        <div style={{maxWidth:680, margin:"0 auto 80px", padding:"0 56px"}}>
+          <div style={{borderTop:"1px solid var(--rule)", paddingTop:40}}>
+            <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:32}}>
+              <h3 style={{fontFamily:"var(--font-display)", fontSize:24, fontWeight:500, margin:0, letterSpacing:"-0.01em"}}>
+                留言 <i style={{fontWeight:300, color:"var(--ink-400)"}}>· Comments</i>
+              </h3>
+              <img src="https://c.disquscdn.com/next/current/marketing/assets/img/brand/disqus-logo-blue.svg"
+                style={{height:20, opacity:0.5}} alt="Disqus" />
+            </div>
+            <div id="disqus_thread">
+              {/* Disqus will inject here; show a styled placeholder in prototype */}
+              <div style={{
+                padding:"48px 0", textAlign:"center",
+                color:"var(--ink-400)", fontSize:14, lineHeight:1.8,
+                border:"1px dashed var(--rule)", borderRadius:2,
+              }}>
+                <i className="fa-regular fa-comment-dots" style={{fontSize:28, display:"block", marginBottom:12, opacity:0.4}}></i>
+                <div style={{fontWeight:500, color:"var(--ink-700)", marginBottom:4}}>Disqus 留言</div>
+                <div style={{fontSize:13}}>實際部署後，Disqus 留言框會顯示在此。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script dangerouslySetInnerHTML={{__html: `
+          var disqus_config = function () {
+            this.page.url = window.location.href;
+            this.page.identifier = 'post-slug';
+          };
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://zhgchgli.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        `}} />
 
         {/* Related */}
         <section style={{padding:"40px 56px 80px", borderTop:"1px solid var(--rule)"}}>
@@ -408,48 +1103,68 @@ function CategoryA({ categories, posts, onNav, page }) {
       <TopbarA page={page} onNav={onNav} onMenu={() => setDrawer(true)} />
       <DrawerA open={drawer} onClose={() => setDrawer(false)} page={page} onNav={onNav} />
 
-      <section style={{padding:"80px 56px 56px", borderBottom:"1px solid var(--rule)"}}>
+      <section style={{padding:"80px 56px 40px", borderBottom:"1px solid var(--rule)"}}>
         <div className="eyebrow" style={{marginBottom:18}}>Browse by · Category</div>
         <h1 style={{fontFamily:"var(--font-display)", fontSize:80, lineHeight:1, fontWeight:400, margin:0, letterSpacing:"-0.025em"}}>
           Eight <i style={{fontWeight:300, color:"var(--ink-500)"}}>topics.</i>
         </h1>
       </section>
 
-      {/* Categories list */}
-      <section style={{padding:"48px 56px"}}>
-        {categories.map((c, i) => (
-          <a key={c.name} style={{
-            display:"grid", gridTemplateColumns:"60px 1fr 100px 40px",
-            alignItems:"baseline", gap:24, padding:"28px 0",
-            borderBottom:"1px solid var(--rule)", cursor:"pointer"
-          }}>
-            <span style={{fontFamily:"var(--font-display)", fontStyle:"italic", fontSize:18, color:"var(--ink-300)"}}>0{i+1}</span>
-            <span style={{fontFamily:"var(--font-display)", fontSize:38, fontWeight:500, letterSpacing:"-0.015em"}}>
-              {c.name}
-            </span>
-            <span style={{fontSize:13, color:"var(--ink-500)", textAlign:"right"}}>{c.count} posts</span>
-            <span style={{fontSize:18, color:"var(--ink-300)"}}>→</span>
-          </a>
+      {/* Horizontal category chips — quick filter */}
+      <section style={{padding:"32px 56px 24px", borderBottom:"1px solid var(--rule-soft)", display:"flex", flexWrap:"wrap", gap:8, alignItems:"center"}}>
+        <span style={{fontSize:11, letterSpacing:"0.18em", textTransform:"uppercase", color:"var(--ink-400)", marginRight:8}}>Filter</span>
+        <button className="btn-pill" style={{padding:"6px 14px", fontSize:12}}>iOS · 42</button>
+        {categories.filter(c=>c.name!=="iOS").map(c => (
+          <button key={c.name} className="btn-ghost" style={{padding:"6px 14px", fontSize:12}}>{c.name} · {c.count}</button>
         ))}
       </section>
 
-      {/* Highlighted category preview */}
-      <section style={{padding:"40px 56px 80px", background:"var(--cream-50)"}}>
-        <div className="eyebrow" style={{marginBottom:18}}>Currently in · iOS</div>
-        <h3 style={{fontFamily:"var(--font-display)", fontSize:42, fontWeight:500, margin:"0 0 32px", letterSpacing:"-0.02em"}}>
-          Recent in <i>iOS</i>
-        </h3>
-        <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:48}}>
-          {posts.filter(p=>p.category==="iOS").slice(0,2).map((p,i)=>(
-            <article key={i} style={{cursor:"pointer"}}>
-              <div style={{aspectRatio:"5/3", overflow:"hidden", marginBottom:18}}>
-                <img src={p.cover} style={{width:"100%", height:"100%", objectFit:"cover"}}/>
-              </div>
-              <div className="eyebrow" style={{marginBottom:8, color:"var(--ink-500)"}}>{p.date}</div>
-              <h4 style={{fontFamily:"var(--font-display)", fontSize:26, fontWeight:500, lineHeight:1.2, margin:0}}>{p.title}</h4>
-            </article>
-          ))}
+      {/* Selected category header */}
+      <section style={{padding:"40px 56px 0"}}>
+        <div style={{display:"flex", justifyContent:"space-between", alignItems:"flex-end", marginBottom:8}}>
+          <div>
+            <div className="eyebrow" style={{marginBottom:10, color:"var(--accent)"}}>Currently in · Category 01 / 08</div>
+            <h2 style={{fontFamily:"var(--font-display)", fontSize:56, fontWeight:500, margin:0, letterSpacing:"-0.02em"}}>
+              <i style={{fontWeight:300, color:"var(--ink-500)"}}>#</i>iOS
+            </h2>
+          </div>
+          <div style={{textAlign:"right", fontSize:13, color:"var(--ink-500)", lineHeight:1.6}}>
+            42 essays<br/>
+            <span style={{color:"var(--ink-400)"}}>since Jul 2018</span>
+          </div>
         </div>
+        <p style={{fontSize:15, color:"var(--ink-500)", lineHeight:1.65, maxWidth:620, marginTop:14}}>
+          Swift, SwiftUI, and the small joys of Apple platforms — from concurrency to interview prep.
+        </p>
+      </section>
+
+      {/* Two-column dense article list */}
+      <section style={{padding:"32px 56px 80px", display:"grid", gridTemplateColumns:"1fr 1fr", columnGap:48}}>
+        {posts.concat(posts).slice(0, 12).map((p, i) => (
+          <article key={i} onClick={() => onNav?.("post")}
+            style={{
+              display:"grid", gridTemplateColumns:"140px 1fr", gap:20,
+              alignItems:"flex-start", padding:"22px 0",
+              borderBottom:"1px solid var(--rule-soft)", cursor:"pointer",
+            }}>
+            <div style={{width:140, height:96, overflow:"hidden", background:"var(--cream-100)"}}>
+              <img src={p.cover} style={{width:"100%", height:"100%", objectFit:"cover"}}/>
+            </div>
+            <div style={{minWidth:0}}>
+              <div style={{display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:6, gap:12}}>
+                <span className="eyebrow" style={{color:"var(--ink-500)"}}>{p.category}</span>
+                <span style={{fontSize:11, color:"var(--ink-400)", letterSpacing:"0.05em", whiteSpace:"nowrap"}}>{p.date} · {p.readTime}</span>
+              </div>
+              <h4 style={{fontFamily:"var(--font-display)", fontSize:20, lineHeight:1.25, fontWeight:500, margin:"0 0 6px", letterSpacing:"-0.01em",
+                display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden"}}>{p.title}</h4>
+              <p style={{fontSize:13, lineHeight:1.55, color:"var(--ink-500)", margin:"0 0 8px",
+                display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden"}}>{p.excerpt}</p>
+              <div style={{display:"flex", gap:5, flexWrap:"wrap"}}>
+                {p.tags.slice(0,2).map(t => <span key={t} className="chip" style={{fontSize:10, padding:"2px 7px"}}>{t}</span>)}
+              </div>
+            </div>
+          </article>
+        ))}
       </section>
 
       <FooterA />
@@ -499,23 +1214,48 @@ function TagA({ tags, posts, onNav, page }) {
       </section>
 
       {/* Selected tag */}
-      <section style={{padding:"32px 56px 80px", borderTop:"1px solid var(--rule)"}}>
-        <div className="eyebrow" style={{marginBottom:14}}>Selected · #Swift</div>
-        <h3 style={{fontFamily:"var(--font-display)", fontSize:38, fontWeight:500, margin:"0 0 32px", letterSpacing:"-0.02em"}}>
-          12 posts tagged <i>#Swift</i>
-        </h3>
-        <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:48, rowGap:48}}>
-          {posts.slice(0,4).map((p, i) => (
-            <article key={i} style={{display:"grid", gridTemplateColumns:"140px 1fr", gap:18, cursor:"pointer"}}>
-              <img src={p.cover} style={{width:"100%", aspectRatio:"1/1", objectFit:"cover"}}/>
-              <div>
-                <div className="eyebrow" style={{marginBottom:8, color:"var(--ink-500)"}}>{p.date}</div>
-                <h4 style={{fontFamily:"var(--font-display)", fontSize:20, lineHeight:1.25, margin:"0 0 8px", fontWeight:500}}>{p.title}</h4>
-                <p style={{fontSize:13, color:"var(--ink-500)", lineHeight:1.5, margin:0}}>{p.excerpt}</p>
-              </div>
-            </article>
-          ))}
+      <section style={{padding:"32px 56px 24px", borderTop:"1px solid var(--rule)"}}>
+        <div style={{display:"flex", justifyContent:"space-between", alignItems:"flex-end"}}>
+          <div>
+            <div className="eyebrow" style={{marginBottom:10, color:"var(--accent)"}}>Selected tag</div>
+            <h3 style={{fontFamily:"var(--font-display)", fontSize:56, fontWeight:500, margin:0, letterSpacing:"-0.02em"}}>
+              <i style={{fontWeight:300, color:"var(--ink-500)"}}>#</i>Swift
+            </h3>
+          </div>
+          <div style={{textAlign:"right", fontSize:13, color:"var(--ink-500)", lineHeight:1.6}}>
+            12 essays<br/>
+            <span style={{color:"var(--ink-400)"}}>last updated Sep 12</span>
+          </div>
         </div>
+      </section>
+
+      {/* Two-column dense article list */}
+      <section style={{padding:"24px 56px 64px", display:"grid", gridTemplateColumns:"1fr 1fr", columnGap:48}}>
+        {posts.concat(posts).slice(0, 12).map((p, i) => (
+          <article key={i} onClick={() => onNav?.("post")}
+            style={{
+              display:"grid", gridTemplateColumns:"140px 1fr", gap:20,
+              alignItems:"flex-start", padding:"22px 0",
+              borderBottom:"1px solid var(--rule-soft)", cursor:"pointer",
+            }}>
+            <div style={{width:140, height:96, overflow:"hidden", background:"var(--cream-100)"}}>
+              <img src={p.cover} style={{width:"100%", height:"100%", objectFit:"cover"}}/>
+            </div>
+            <div style={{minWidth:0}}>
+              <div style={{display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:6, gap:12}}>
+                <span className="eyebrow" style={{color:"var(--ink-500)"}}>{p.category}</span>
+                <span style={{fontSize:11, color:"var(--ink-400)", letterSpacing:"0.05em", whiteSpace:"nowrap"}}>{p.date} · {p.readTime}</span>
+              </div>
+              <h4 style={{fontFamily:"var(--font-display)", fontSize:20, lineHeight:1.25, fontWeight:500, margin:"0 0 6px", letterSpacing:"-0.01em",
+                display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden"}}>{p.title}</h4>
+              <p style={{fontSize:13, lineHeight:1.55, color:"var(--ink-500)", margin:"0 0 8px",
+                display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden"}}>{p.excerpt}</p>
+              <div style={{display:"flex", gap:5, flexWrap:"wrap"}}>
+                {p.tags.slice(0,2).map(t => <span key={t} className="chip" style={{fontSize:10, padding:"2px 7px", background: t==="Swift" ? "rgba(177, 78, 44, 0.1)" : undefined, color: t==="Swift" ? "var(--accent)" : undefined}}>{t}</span>)}
+              </div>
+            </div>
+          </article>
+        ))}
       </section>
 
       <FooterA />

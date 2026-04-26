@@ -20,7 +20,7 @@ that re-builds against the master.
       ▼
 ┌────────────────────────┐  ┌────────────────────────┐  ┌─────────────────────┐
 │ ZhgChgLi/<en-repo>     │  │ ZhgChgLi/<cn-repo>     │  │ ZhgChgLi/<jp-repo>  │
-│ → en.zhgchg.li         │  │ → zh-hans.zhgchg.li    │  │ → ja.zhgchg.li      │
+│ → en.zhgchg.li         │  │ → zh-hans.zhgchg.li    │  │ → jp.zhgchg.li      │
 │                        │  │                        │  │                     │
 │ ONLY a workflow file:  │  │ ONLY a workflow file:  │  │ ONLY a workflow:    │
 │ .github/workflows/     │  │ .github/workflows/     │  │ .github/workflows/  │

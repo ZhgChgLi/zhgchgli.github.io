@@ -29,12 +29,24 @@ pagination:
         <span class="pinned-ribbon"><i class="fa-solid fa-thumbtack"></i> {{ t.home.pinned_ribbon }}</span>
         <span class="head-meta">{{ pinned_count }}</span>
       </div>
-      <div class="pinned-strip-grid">
+      <div class="pinned-grid">
         {% for p in pinned_posts limit: 6 %}
-          <a class="pinned-strip-card" href="{{ p.url | relative_url }}">
-            <i class="fa-solid fa-thumbtack pin-icon"></i>
-            <div class="meta">{{ p.categories | first }} · {{ p.date | date: '%Y-%m-%d' }}</div>
-            <h5>{{ p.title }}</h5>
+          <a class="pinned-card" href="{{ p.url | relative_url }}">
+            <div class="cover">
+              {% if p.image.path %}
+                <img src="{{ p.image.path | relative_url }}" alt="" loading="lazy" decoding="async"
+                     {% if p.image.lqip %}lqip="{{ p.image.lqip }}"{% endif %}>
+              {% endif %}
+            </div>
+            <div class="body">
+              <div class="meta"><i class="fa-solid fa-thumbtack" style="font-size:11px"></i> {{ t.home.pinned_ribbon }} · {{ p.categories | first }}</div>
+              <h4>{{ p.title }}</h4>
+              <p class="excerpt">{{ p.description | default: p.excerpt | strip_html | truncate: 110 }}</p>
+              <div class="foot-line">
+                <span>{{ p.date | date: '%Y-%m-%d' }}</span>
+                <span class="more">{{ t.home.read_essay_btn }} <i class="fa-solid fa-arrow-right" style="font-size:10px"></i></span>
+              </div>
+            </div>
           </a>
         {% endfor %}
       </div>

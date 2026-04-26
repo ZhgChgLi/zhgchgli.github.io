@@ -14,3 +14,16 @@ layout: default
     {{ content }}
   </div>
 </div>
+
+{% if page.comments %}
+  {% assign t = site.data.strings[site.i18n.current] %}
+  <div class="post-tail">
+    <div class="comments">
+      <div class="head">
+        <h3>{{ t.post.comments_h }} <i>{{ t.post.comments_em }}</i></h3>
+        <span style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-400)">{{ t.post.comments_powered }}</span>
+      </div>
+      {% include giscus.html %}
+    </div>
+  </div>
+{% endif %}

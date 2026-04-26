@@ -18,7 +18,7 @@ zh-tw:
     menu_aria: 選單
   footer:
     read_heading: 讀文章
-    connect_heading: 聯繫
+    connect_heading: 聯絡
     follow_heading: 訂閱
     rss_link: RSS Feed
     sitemap_link: Sitemap
@@ -26,6 +26,7 @@ zh-tw:
     categories: 分類
     tags: 標籤
     archive: 歸檔
+    donate_link: 請我喝杯咖啡
     copy_made_with: "© 2018–%Y · ZhgChgLi"
   home:
     pinned_ribbon: Pinned
@@ -155,6 +156,7 @@ en:
     categories: Categories
     tags: Tags
     archive: Archive
+    donate_link: Buy me a coffee
     copy_made_with: "© 2018–%Y · ZhgChgLi"
   home:
     pinned_ribbon: Pinned
@@ -284,6 +286,7 @@ zh-cn:
     categories: 分类
     tags: 标签
     archive: 归档
+    donate_link: 请我喝杯咖啡
     copy_made_with: "© 2018–%Y · ZhgChgLi"
   home:
     pinned_ribbon: Pinned
@@ -413,6 +416,7 @@ jp:
     categories: カテゴリー
     tags: タグ
     archive: アーカイブ
+    donate_link: コーヒーを奢る
     copy_made_with: "© 2018–%Y · ZhgChgLi"
   home:
     pinned_ribbon: Pinned
