@@ -761,7 +761,8 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   display: flex; gap: 24px; align-items: center;
   margin-bottom: 40px;
 }
-.author-card img { width: 80px; height: 80px; border-radius: 999px; flex-shrink: 0; transition: opacity 0.15s ease; }
+.author-card img { width: 80px; height: 80px; border-radius: 999px; object-fit: cover; object-position: center; flex-shrink: 0; transition: opacity 0.15s ease; }
+.author-card a { flex-shrink: 0; }
 .author-card a { color: inherit; transition: color 0.15s ease; }
 .author-card a:hover { color: var(--accent); }
 .author-card a:hover img { opacity: 0.8; }
