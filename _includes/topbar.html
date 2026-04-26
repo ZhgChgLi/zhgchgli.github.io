@@ -1,0 +1,24 @@
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }}">
+      <b>ZhgChg</b><span class="dot">.</span><i>Li</i>
+    </a>
+    <nav class="topnav" aria-label="Main">
+      {% for link in site.data.nav %}
+        {% assign active = false %}
+        {% if page.nav_id == link.id %}{% assign active = true %}{% endif %}
+        {% if page.url == link.url %}{% assign active = true %}{% endif %}
+        <a href="{{ link.url | relative_url }}"{% if active %} class="active"{% endif %}>{{ t.nav[link.id] }}</a>
+      {% endfor %}
+    </nav>
+    <div class="right">
+      {% include lang-switcher.html %}
+      <a class="icon-btn" href="{{ '/search/' | relative_url }}" aria-label="{{ t.topbar.search_aria }}">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+      <button class="icon-btn" id="menu-btn" aria-label="{{ t.topbar.menu_aria }}" aria-controls="drawer" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</header>

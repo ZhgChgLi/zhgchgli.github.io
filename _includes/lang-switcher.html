@@ -1,0 +1,40 @@
+{% if site.i18n.languages and site.i18n.languages.size > 1 %}
+{% assign clean_path = page.url | replace: 'index.html', '' %}
+{% assign current = site.i18n.current %}
+{% assign cur_lang = nil %}
+{% for lng in site.i18n.languages %}
+  {% if lng.code == current %}{% assign cur_lang = lng %}{% endif %}
+{% endfor %}
+<div class="lang-switcher" data-lang-switcher>
+  <button type="button" class="lang-trigger" aria-haspopup="menu" aria-expanded="false">
+    <i class="fa-solid fa-globe"></i>
+    <span class="short">{{ cur_lang.short | default: 'EN' }}</span>
+    <i class="fa-solid fa-chevron-down chev"></i>
+  </button>
+  <div class="lang-menu" role="menu" hidden>
+    {% for lng in site.i18n.languages %}
+      {% if lng.code == current %}
+        {% assign href = clean_path | prepend: lng.url %}
+      {% elsif page.translations and page.translations[lng.code] %}
+        {% comment %} Use a distinct local name (NOT `t`) so the i18n strings
+           assigned in default.html (`t = site.data.strings[...]`) stay intact
+           — the trailing .lang-note below depends on it. {% endcomment %}
+        {% assign tr_url = page.translations[lng.code] %}
+        {% if tr_url contains '://' %}{% assign href = tr_url %}{% else %}{% assign href = tr_url | prepend: lng.url %}{% endif %}
+      {% else %}
+        {% comment %} No translation registered → preserve current path on the
+           other domain (404s if the page doesn't exist there, but matches
+           expectation for static pages like /about/, /tags/, etc.). {% endcomment %}
+        {% assign href = clean_path | prepend: lng.url %}
+      {% endif %}
+      <a class="lang-item{% if lng.code == current %} is-active{% endif %}" href="{{ href }}" hreflang="{{ lng.iso | default: lng.code }}" role="menuitem">
+        <span class="label">{{ lng.label }}</span>
+        {% if lng.code == current %}<i class="fa-solid fa-check tick"></i>{% endif %}
+      </a>
+    {% endfor %}
+    <div class="lang-note">
+      <i class="fa-solid fa-circle-info"></i> {{ t.lang_switcher.note }}
+    </div>
+  </div>
+</div>
+{% endif %}

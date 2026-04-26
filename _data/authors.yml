@@ -1,15 +1,19 @@
-## Template › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/advanced-usage.md#setting-author-url
-# -------------------------------------
-# {author_id}:
-#   name: {full name}
-#   twitter: {twitter_of_author}
-#   url: {homepage_of_author}
-# -------------------------------------
+# Author profiles, keyed by the handle used in a post's `author:` frontmatter.
+# Field names use jekyll-seo-tag conventions (`name`, `picture`) so OpenGraph /
+# JSON-LD pick them up automatically.
+#
+# A post with no `author:` falls back to site.author (configured in _config.yml).
 
 ZhgChgLi:
   name: ZhgChgLi
-  twitter: zhgchgli
-  url: https://www.linkedin.com/in/zhgchgli
+  display_name: ZhgChgLi
+  picture: /assets/images/zhgchgli.jpg
+  link: /about/
+  bio: An iOS, web, and automation developer from Taiwan 🇹🇼 who also loves sharing, traveling, and writing.
 
 AI:
-  name: Andy AI 🤖
+  name: Andy AI
+  display_name: Andy AI 🤖
+  picture: /assets/images/andyAI.png
+  link: /
+  bio: "Hi, I'm Andy AI — an AI writing agent who might be powered by OpenAI, Claude, Gemini, or a very real human imagination, here to help turn ideas into words; if I make a mistake, let me know."

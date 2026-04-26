@@ -1,188 +1,534 @@
 ---
 layout: default
-refactor: true
-panel_includes:
-  - toc
-tail_includes:
-  - related-posts
-  - post-nav
-script_includes:
-  - comment
 ---
+{% assign t = site.data.strings[site.i18n.current] %}
+{% assign words = page.content | strip_html | size %}
+{% assign read_time = words | divided_by: 400 | plus: 1 %}
 
-{% include lang.html %}
+{% comment %} Resolve the post's author profile.
+   page.author is a string handle (e.g. "AI", "ZhgChgLi"); look it up in
+   _data/authors.yml. If missing or no handle, fall back to site.author. {% endcomment %}
+{% assign author_handle = page.author | default: site.author.name | default: site.author.display_name %}
+{% assign post_author = site.data.authors[author_handle] %}
+{% if post_author == nil %}
+  {% assign post_author = site.author %}
+  {% comment %} Bridge legacy site.author keys to the new schema. {% endcomment %}
+  {% assign author_display = site.author.display_name | default: site.author.name %}
+  {% assign author_picture = site.author.avatar | default: site.author.picture %}
+  {% assign author_bio = site.author.bio %}
+  {% assign author_link = site.author.link %}
+{% else %}
+  {% assign author_display = post_author.display_name | default: post_author.name %}
+  {% assign author_picture = post_author.picture | default: post_author.avatar %}
+  {% assign author_bio = post_author.bio %}
+  {% assign author_link = post_author.link %}
+{% endif %}
 
-{% include toc-status.html %}
-
-<article class="px-1" data-toc="{{ enable_toc }}">
-  <header>
-    <h1 data-toc-skip>{{ page.title }}</h1>
+<article>
+  <header class="post-hero">
+    <div class="eyebrow">
+      {% if page.categories.size > 0 %}
+        {% assign cat_name = page.categories | first %}
+        {% assign cat_slug = cat_name | slugify %}
+        <a href="{{ '/categories/' | append: cat_slug | append: '/' | relative_url }}">{{ cat_name }}</a>
+      {% endif %}
+    </div>
+    <h1 id="post-top">{{ page.title }}</h1>
     {% if page.description %}
-      <p class="post-desc fw-light mb-4">{{ page.description }}</p>
+      <p class="lede">{{ page.description }}</p>
     {% endif %}
-
-    <div class="post-meta text-muted">
-      <!-- published date -->
-      <span>
-        {{ site.data.locales[lang].post.posted }}
-        {% include datetime.html date=page.date tooltip=true lang=lang %}
-      </span>
-
-      <!-- lastmod date -->
-      {% if page.last_modified_at and page.last_modified_at != page.date %}
-        <span>
-          {{ site.data.locales[lang].post.updated }}
-          {% include datetime.html date=page.last_modified_at tooltip=true lang=lang %}
-        </span>
-      {% endif %}
-
-      {% if page.image %}
-        {% capture src %}src="{{ page.image.path | default: page.image }}"{% endcapture %}
-        {% capture class %}class="preview-img{% if page.image.no_bg %}{{ ' no-bg' }}{% endif %}"{% endcapture %}
-        {% capture alt %}alt="{{ page.image.alt | xml_escape | default: "Preview Image" }}"{% endcapture %}
-
-        {% if page.image.lqip %}
-          {%- capture lqip -%}lqip="{{ page.image.lqip }}"{%- endcapture -%}
-        {% endif %}
-
-        <div class="mt-3 mb-3">
-          <img {{ src }} {{ class }} {{ alt }} w="1200" h="630" {{ lqip }}>
-          {%- if page.image.alt -%}
-            <figcaption class="text-center pt-2 pb-2">{{ page.image.alt }}</figcaption>
-          {%- endif -%}
-        </div>
-      {% endif %}
-
-      <div class="d-flex justify-content-between">
-        <!-- author(s) -->
-        <span style="display: inline-flex; align-items: center; gap: 4px;">
-          {% if page.author %}
-            {% assign authors = page.author %}
-          {% elsif page.authors %}
-            {% assign authors = page.authors %}
-          {% endif %}
-
-          {{ site.data.locales[lang].post.written_by }}
-
-          <em>
-            {% if authors %}
-              {% for author in authors %}
-                {% if site.data.authors[author].url -%}
-                  <a href="{{ site.data.authors[author].url }}">{{ site.data.authors[author].name }}</a>
-                {%- else -%}
-                  {{ site.data.authors[author].name }}
-                {%- endif %}
-                {% unless forloop.last %}{{ '</em>, <em>' }}{% endunless %}
-              {% endfor %}
-            {% else %}
-              <a href="{{ site.social.links[0] }}">{{ site.social.name }}</a>
-            {% endif %}
-          </em>
-          <!-- ZhgChgLi Customized Start -->
-              {% include zhgchgli/post-author-verfiy.html %}
-          <!-- ZhgChgLi Customized End -->    
-        </span>
-
-        <div>
-          <!-- pageviews -->
-          {% if site.pageviews.provider and site.analytics[site.pageviews.provider].id %}
-            <span>
-              <em id="pageviews">
-                <i class="fas fa-spinner fa-spin small"></i>
-              </em>
-              {{ site.data.locales[lang].post.pageview_measure }}
-            </span>
-          {% endif %}
-
-          <!-- read time -->
-          {% include read-time.html content=content prompt=true lang=lang %}
-        </div>
-      </div>
+    <div class="byline">
+      {% if author_link %}<a href="{{ author_link | relative_url }}">{% endif %}
+      <img src="{{ author_picture | relative_url }}" alt="{{ author_display }}">
+      {% if author_link %}</a>{% endif %}
+      <span>{{ t.post.by }} {% if author_link %}<a href="{{ author_link | relative_url }}">{{ author_display }}</a>{% else %}{{ author_display }}{% endif %}</span>
+      <span class="dot-sep"></span>
+      <i class="fa-regular fa-calendar"></i>
+      <span><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y-%m-%d' }}</time></span>
+      <span class="dot-sep"></span>
+      <i class="fa-regular fa-clock"></i>
+      <span>{{ read_time }} {{ t.post.min_read }}</span>
     </div>
   </header>
 
-  {% if enable_toc %}
-    <div id="toc-bar" class="d-flex align-items-center justify-content-between invisible">
-      <span class="label text-truncate">{{ page.title }}</span>
-      <button type="button" class="toc-trigger btn me-1">
-        <i class="fa-solid fa-list-ul fa-fw"></i>
-      </button>
+  {% if page.image and page.image.path %}
+    {% assign cover_url = page.image.path | relative_url %}
+    <div class="post-cover">
+      <div class="blur" style="background-image: url('{{ cover_url }}');"></div>
+      <img src="{{ cover_url }}" alt="{{ page.title }}" decoding="async"
+           {% if page.image.lqip %}lqip="{{ page.image.lqip }}"{% endif %}>
     </div>
-
-    <button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm">
-      <span class="label ps-2 pe-1">{{- site.data.locales[lang].panel.toc -}}</span>
-      <i class="fa-solid fa-angle-right fa-fw"></i>
-    </button>
-
-    <dialog id="toc-popup" class="p-0">
-      <div class="header d-flex flex-row align-items-center justify-content-between">
-        <div class="label text-truncate py-2 ms-4">{{- page.title -}}</div>
-        <button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75">
-          <i class="fas fa-close"></i>
-        </button>
-      </div>
-      <div id="toc-popup-content" class="px-4 py-3 pb-4"></div>
-    </dialog>
   {% endif %}
 
-  <div class="content">
-    <!-- ZhgChgLi Customized Start -->
-        {% include zhgchgli/post-header.html allLangs=page.allLangs views=page.views %}
-    <!-- ZhgChgLi Customized End -->
-    {{ content }}
-    <!-- ZhgChgLi Customized Start -->
-        {% include zhgchgli/post-footer.html mediumFollowers=site.data.mediumFollowers %}
-    <!-- ZhgChgLi Customized End -->
-  </div>
-
-  <div class="post-tail-wrapper text-muted">
-    <!-- categories -->
-    {% if page.categories.size > 0 %}
-      <div class="post-meta mb-3">
-        <i class="far fa-folder-open fa-fw me-1"></i>
-        {% for category in page.categories %}
-          <a href="{{ site.baseurl }}/categories/{{ category | slugify | url_encode }}/">{{ category }}</a>
-          {%- unless forloop.last -%},{%- endunless -%}
-        {% endfor %}
+  {% if page.toc != false %}
+    <aside class="post-toc" id="post-toc" aria-label="{{ t.post.toc_label }}" hidden>
+      <div class="post-toc-inner">
+        <div class="head">
+          <i class="fa-solid fa-list-ul" style="font-size:12px;color:var(--accent)"></i>
+          <span class="eyebrow muted">{{ t.post.toc_eyebrow }}</span>
+          <span class="label">{{ t.post.toc_label }} <i id="post-toc-count"></i></span>
+        </div>
+        <div id="post-toc-list"></div>
       </div>
-    {% endif %}
+    </aside>
+  {% endif %}
 
-    <!-- tags -->
-    {% if page.tags.size > 0 %}
-      <div class="post-tags">
-        <i class="fa fa-tags fa-fw me-1"></i>
-        {% for tag in page.tags %}
-          <a
-            href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/"
-            class="post-tag no-text-decoration"
-          >
-            {{- tag -}}
-          </a>
-        {% endfor %}
-      </div>
-    {% endif %}
-
-    <div
-      class="
-        post-tail-bottom
-        d-flex justify-content-between align-items-center mt-5 pb-2
-      "
-    >
-      <div class="license-wrapper">
-        {% if site.data.locales[lang].copyright.license.template %}
-          {% capture _replacement %}
-        <a href="{{ site.data.locales[lang].copyright.license.link }}">
-          {{ site.data.locales[lang].copyright.license.name }}
-        </a>
-        {% endcapture %}
-
-          {{ site.data.locales[lang].copyright.license.template | replace: ':LICENSE_NAME', _replacement }}
-        {% endif %}
-      </div>
-
-      {% include post-sharing.html lang=lang %}
+  <div class="post-shell">
+    <div class="post-body" id="post-body">
+      {{ content }}
     </div>
-    <!-- .post-tail-bottom -->
   </div>
-  <!-- div.post-tail-wrapper -->
+
+  <div style="height: 64px"></div>
+
+  {% if page.tags.size > 0 %}
+    <div class="post-tail post-tags-row">
+      <div class="eyebrow muted">{{ t.post.filed_under }}</div>
+      <div class="row-tags">
+        {% for tag in page.tags %}
+          {% assign tslug = tag | slugify %}
+          <a class="chip" href="{{ '/tags/' | append: tslug | append: '/' | relative_url }}">#{{ tag }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% comment %} Edit link → canonical L10n source file (the path bin/lang
+     copies from). page.path looks like "_posts/zmediumtomarkdown/foo.md"
+     after staging, so we strip "_posts/" and prepend L10n/posts/<lang>/. {% endcomment %}
+  {% assign source_subpath = page.path | remove_first: '_posts/' %}
+  {% assign edit_url = site.github.repo | prepend: 'https://github.com/' | append: '/edit/' | append: site.github.branch | append: '/L10n/posts/' | append: site.i18n.current | append: '/' | append: source_subpath %}
+
+  {% comment %} Detect Medium-imported posts (sourced via ZMediumToMarkdown).
+     Source path looks like _posts/zmediumtomarkdown/<date>-<file-slug>.md.
+     page.slug is the date-stripped file slug — use it directly. {% endcomment %}
+  {% assign is_medium_origin = false %}
+  {% if page.path contains '/zmediumtomarkdown/' %}{% assign is_medium_origin = true %}{% endif %}
+
+  <div class="post-tail post-actions">
+    <a class="post-action" href="{{ edit_url }}" target="_blank" rel="noopener">
+      <div class="l">
+        <div class="badge"><i class="fa-brands fa-github"></i></div>
+        <div>
+          <div class="t1">{{ t.post.improve_title }}</div>
+          <div class="t2">{{ t.post.improve_subtitle }}</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+    </a>
+
+    {% if is_medium_origin %}
+    <a class="post-action" href="http://medium.com/p/{{ page.slug }}" target="_blank" rel="noopener">
+      <div class="l">
+        <div class="badge"><i class="fa-brands fa-medium"></i></div>
+        <div>
+          <div class="t1">{{ t.post.medium_origin_title }}</div>
+          <div class="t2">{{ t.post.medium_origin_subtitle }}</div>
+        </div>
+      </div>
+      <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+    </a>
+    {% endif %}
+
+    <div class="post-action">
+      <div class="l">
+        <div class="badge"><i class="fa-solid fa-share-nodes"></i></div>
+        <div>
+          <div class="t1">{{ t.post.share_title }}</div>
+          <div class="t2">{{ t.post.share_subtitle }}</div>
+        </div>
+      </div>
+      {% assign share_path = page.short_url | default: page.url %}
+      {% assign share_abs = share_path | absolute_url %}
+      <div class="share-row" data-share data-url="{{ share_abs }}" data-title="{{ page.title | uri_escape }}">
+        <button type="button" data-share-action="copy" title="{{ t.post.copy_link }}"><i class="fa-solid fa-link"></i></button>
+        <a href="https://twitter.com/intent/tweet?url={{ share_abs | url_encode }}&text={{ page.title | url_encode }}" target="_blank" rel="noopener" title="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_abs | url_encode }}" target="_blank" rel="noopener" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://social-plugins.line.me/lineit/share?url={{ share_abs | url_encode }}" target="_blank" rel="noopener" title="LINE"><i class="fa-brands fa-line"></i></a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_abs | url_encode }}" target="_blank" rel="noopener" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+
+  {% if site.donate.paypal %}
+  <div class="post-tail">
+    <aside class="donate-card" aria-label="{{ t.donate.title }}">
+      <div class="donate-icon" aria-hidden="true"><i class="fa-solid fa-mug-saucer"></i></div>
+      <div class="donate-body">
+        <div class="eyebrow" style="margin-bottom:6px">{{ t.donate.eyebrow }}</div>
+        <h4>{{ t.donate.title }}</h4>
+        <p>{{ t.donate.subtitle }}</p>
+        <div class="donate-actions">
+          <a class="btn-pill" href="{{ site.donate.paypal }}" target="_blank" rel="noopener">
+            <i class="fa-brands fa-paypal"></i> {{ t.donate.cta_paypal }}
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+  {% endif %}
+
+  {% assign contact_url = site.contact.url %}
+  {% if contact_url == nil and site.author.email %}
+    {% assign contact_url = site.author.email | prepend: 'mailto:' %}
+  {% endif %}
+  {% if contact_url %}
+  <div class="post-tail">
+    <aside class="contact-card" aria-label="{{ t.contact.title }}">
+      <div class="contact-icon" aria-hidden="true"><i class="fa-regular fa-envelope"></i></div>
+      <div class="contact-body">
+        <div class="eyebrow" style="margin-bottom:6px">{{ t.contact.eyebrow }}</div>
+        <h4>{{ t.contact.title }}</h4>
+        <p>{{ t.contact.subtitle }}</p>
+        <div class="contact-actions">
+          {% assign is_external = false %}
+          {% if contact_url contains '://' %}{% assign is_external = true %}{% endif %}
+          <a class="btn-pill" href="{{ contact_url | relative_url }}"{% if is_external %} target="_blank" rel="noopener"{% endif %}>
+            <i class="fa-regular fa-paper-plane"></i> {{ t.contact.cta }}
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+  {% endif %}
+
+  <div class="post-tail">
+    <div class="author-card">
+      {% if author_link %}<a href="{{ author_link | relative_url }}">{% endif %}
+      <img src="{{ author_picture | relative_url }}" alt="{{ author_display }}">
+      {% if author_link %}</a>{% endif %}
+      <div>
+        <div class="eyebrow" style="margin-bottom:6px">{{ t.post.author }}</div>
+        <h4>{% if author_link %}<a href="{{ author_link | relative_url }}">{{ author_display }}</a>{% else %}{{ author_display }}{% endif %}</h4>
+        <p>{{ author_bio }}</p>
+      </div>
+    </div>
+  </div>
+
+  {% if page.comments != false %}
+    <div class="post-tail">
+      <div class="comments">
+        <div class="head">
+          <h3>{{ t.post.comments_h }} <i>{{ t.post.comments_em }}</i></h3>
+          <span style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-400)">{{ t.post.comments_powered }}</span>
+        </div>
+        {% include giscus.html %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% comment %} Related posts: same category first, then site recents — excluding hidden. {% endcomment %}
+  {% assign related = '' | split: '' %}
+  {% if page.categories.size > 0 %}
+    {% assign cat = page.categories | first %}
+    {% for p in site.categories[cat] %}
+      {% if p.hidden %}{% continue %}{% endif %}
+      {% if p.url != page.url and related.size < 3 %}
+        {% assign related = related | push: p %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% if related.size < 3 %}
+    {% for p in site.posts %}
+      {% if p.hidden %}{% continue %}{% endif %}
+      {% if p.url != page.url and related.size < 3 %}
+        {% unless related contains p %}
+          {% assign related = related | push: p %}
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if related.size > 0 %}
+  <section class="related">
+    <h3>{{ t.post.related_h }}</h3>
+    <div class="related-grid">
+      {% for rp in related %}
+        <a class="related-card" href="{{ rp.url | relative_url }}">
+          {% if rp.image.path %}
+          <div class="cover"><img src="{{ rp.image.path | relative_url }}" alt="" loading="lazy" decoding="async"
+               {% if rp.image.lqip %}lqip="{{ rp.image.lqip }}"{% endif %}></div>
+          {% endif %}
+          <div class="meta">{{ rp.categories | first }} · {{ rp.date | date: '%Y-%m-%d' }}</div>
+          <h5>{{ rp.title }}</h5>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
 </article>
+
+{% if page.toc != false %}
+  <button type="button" class="toc-fab" id="toc-fab" aria-label="{{ t.post.fab_back }}">
+    <i class="fa-solid fa-arrow-up"></i><span>{{ t.post.fab_back }}</span>
+  </button>
+{% endif %}
+
+<script>
+  // GLightbox: wrap article images in zoomable links
+  document.addEventListener('DOMContentLoaded', function () {
+    var body = document.getElementById('post-body');
+    if (body && window.GLightbox) {
+      body.querySelectorAll('img').forEach(function (img) {
+        if (img.closest('a')) return;
+        var a = document.createElement('a');
+        a.href = img.currentSrc || img.src;
+        a.className = 'glightbox';
+        a.setAttribute('data-gallery', 'post');
+        if (img.alt) a.setAttribute('data-title', img.alt);
+        img.parentNode.insertBefore(a, img);
+        a.appendChild(img);
+      });
+      var lb = GLightbox({ selector: '.glightbox', loop: true, touchNavigation: true, zoomable: true });
+    }
+
+    // Build TOC from headings — auto-detect main/sub levels.
+    // Use the lowest heading level present as "main", level+1 as "sub".
+    var allHeadings = body ? body.querySelectorAll('h2[id], h3[id], h4[id]') : [];
+    function escapeHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    function buildTocHtml() {
+      if (!allHeadings.length) return '';
+      var minLvl = 6;
+      allHeadings.forEach(function (h) {
+        var lvl = parseInt(h.tagName.charAt(1), 10);
+        if (lvl < minLvl) minLvl = lvl;
+      });
+      var mainLvl = minLvl;
+      var subLvl = minLvl + 1;
+      var headings = Array.prototype.filter.call(allHeadings, function (h) {
+        var lvl = parseInt(h.tagName.charAt(1), 10);
+        return lvl === mainLvl || lvl === subLvl;
+      });
+      if (!headings.length) return '';
+      // Group sub-level under preceding main-level; orphan subs become top-level
+      var groups = [];
+      var current = null;
+      var idx = 0;
+      headings.forEach(function (h) {
+        idx++;
+        var lvl = parseInt(h.tagName.charAt(1), 10);
+        var label = h.textContent.replace(/#$/, '').trim();
+        if (lvl === mainLvl) {
+          current = { idx: idx, id: h.id, label: label, children: [] };
+          groups.push({ type: 'h2', node: current });
+        } else {
+          if (current) current.children.push({ idx: idx, id: h.id, label: label });
+          else groups.push({ type: 'h3', node: { idx: idx, id: h.id, label: label } });
+        }
+      });
+      var html = '<ol>';
+      groups.forEach(function (g) {
+        if (g.type === 'h3') {
+          // orphan h3 — render as h2-style
+          var n = g.node;
+          html += '<li>' +
+            '<div class="toc-h2" data-id="' + n.id + '">' +
+              '<span class="num">' + String(n.idx).padStart(2, '0') + '</span>' +
+              '<a class="label-text" href="#' + n.id + '">' + escapeHtml(n.label) + '</a>' +
+              '<span class="toc-toggle spacer">→</span>' +
+            '</div></li>';
+          return;
+        }
+        var n = g.node;
+        var hasChildren = n.children.length > 0;
+        html += '<li>' +
+          '<div class="toc-h2" data-id="' + n.id + '">' +
+            '<span class="num">' + String(n.idx).padStart(2, '0') + '</span>' +
+            '<a class="label-text" href="#' + n.id + '">' + escapeHtml(n.label) + '</a>';
+        if (hasChildren) {
+          html += '<button type="button" class="toc-toggle" aria-label="Toggle subsections" aria-expanded="false">▾</button>';
+        } else {
+          html += '<span class="toc-toggle spacer">→</span>';
+        }
+        html += '</div>';
+        if (hasChildren) {
+          html += '<ul class="toc-sub">';
+          n.children.forEach(function (c) {
+            html += '<li><a href="#' + c.id + '" data-id="' + c.id + '">' +
+              '<span class="num">' + String(c.idx).padStart(2, '0') + '</span>' +
+              '<span>' + escapeHtml(c.label) + '</span>' +
+              '</a></li>';
+          });
+          html += '</ul>';
+        }
+        html += '</li>';
+      });
+      html += '</ol>';
+      return html;
+    }
+    var tocHtml = buildTocHtml();
+    var topToc = document.getElementById('post-toc');
+    if (topToc && tocHtml) {
+      var listEl = document.getElementById('post-toc-list');
+      listEl.innerHTML = tocHtml;
+      var h2count = body.querySelectorAll('h2[id]').length;
+      var counter = document.getElementById('post-toc-count');
+      if (counter && h2count) counter.textContent = ({{ t.post.toc_count | jsonify }}).replace('%d', h2count);
+      topToc.hidden = false;
+
+      // Toggle behaviour: chevron toggles sub-list; clicking row anywhere except chevron + label scrolls.
+      listEl.querySelectorAll('.toc-toggle').forEach(function (btn) {
+        if (btn.classList.contains('spacer')) return;
+        btn.addEventListener('click', function (e) {
+          e.preventDefault(); e.stopPropagation();
+          var li = btn.closest('li');
+          var sub = li.querySelector(':scope > .toc-sub');
+          if (!sub) return;
+          var open = sub.classList.toggle('open');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          btn.textContent = open ? '▴' : '▾';
+        });
+      });
+    }
+    // Add # heading anchors
+    document.querySelectorAll('#post-body h2[id], #post-body h3[id], #post-body h4[id]').forEach(function (h) {
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = '#';
+      a.className = 'heading-anchor';
+      a.setAttribute('aria-label', 'Permalink');
+      h.appendChild(a);
+    });
+
+    // Share: copy link
+    document.querySelectorAll('[data-share-action="copy"]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var url = b.closest('[data-share]').getAttribute('data-url') || location.href;
+        navigator.clipboard && navigator.clipboard.writeText(url).then(function () {
+          var prev = b.innerHTML;
+          b.innerHTML = '<i class="fa-solid fa-check"></i>';
+          setTimeout(function () { b.innerHTML = prev; }, 1500);
+        });
+      });
+    });
+
+
+    // Floating "Go to TOC" — show only when top TOC is out of view
+    var fab = document.getElementById('toc-fab');
+    var tocEl = document.getElementById('post-toc');
+    if (fab && tocEl) {
+      if (tocEl.hidden) {
+        fab.style.display = 'none';
+      } else if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) fab.classList.remove('show');
+            else fab.classList.add('show');
+          });
+        }, { rootMargin: '-72px 0px 0px 0px', threshold: 0 });
+        io.observe(tocEl);
+      }
+      fab.addEventListener('click', function () {
+        tocEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  });
+</script>
+
+<script>
+  // Code blocks: inject line numbers (one <span class="ln" data-ln="N">…</span>
+  // per line, splitting Rouge's token <span>s correctly across newlines) plus
+  // a top-right toolbar (language tag + Copy button).
+  (function () {
+    var body = document.getElementById('post-body');
+    if (!body) return;
+
+    /**
+     * Split a node-list into per-line fragment lists, preserving Rouge's
+     * <span class="..."> structure across line breaks. Returns an array of
+     * arrays of nodes — one inner array per source line.
+     */
+    function splitNodesByLine(nodes) {
+      var lines = [[]];
+      function pushNew() { lines.push([]); }
+      function appendCur(n) { lines[lines.length - 1].push(n); }
+      for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        if (node.nodeType === 3) { // text
+          var parts = node.nodeValue.split('\n');
+          for (var k = 0; k < parts.length; k++) {
+            if (k > 0) pushNew();
+            if (parts[k].length) appendCur(document.createTextNode(parts[k]));
+          }
+        } else if (node.nodeType === 1) {
+          var inner = splitNodesByLine(Array.prototype.slice.call(node.childNodes));
+          for (var j = 0; j < inner.length; j++) {
+            if (j > 0) pushNew();
+            // Wrap this line's chunk in a shallow clone of the original element
+            // (only if there's content to wrap, to keep the DOM tidy).
+            if (inner[j].length === 0) continue;
+            var clone = node.cloneNode(false);
+            inner[j].forEach(function (n) { clone.appendChild(n); });
+            appendCur(clone);
+          }
+        }
+        // ignore other node types (comments, etc.)
+      }
+      return lines;
+    }
+
+    function wrapLines(codeEl) {
+      var raw = Array.prototype.slice.call(codeEl.childNodes);
+      var lines = splitNodesByLine(raw);
+      // Drop a trailing empty line that often follows a final newline
+      if (lines.length > 1) {
+        var last = lines[lines.length - 1];
+        if (last.length === 0) lines.pop();
+      }
+      codeEl.innerHTML = '';
+      lines.forEach(function (frag, i) {
+        var ln = document.createElement('span');
+        ln.className = 'ln';
+        ln.setAttribute('data-ln', String(i + 1));
+        frag.forEach(function (n) { ln.appendChild(n); });
+        codeEl.appendChild(ln);
+      });
+      codeEl.classList.add('ln-on');
+    }
+
+    body.querySelectorAll('div[class*="language-"].highlighter-rouge').forEach(function (wrap) {
+      if (!wrap.querySelector('pre')) return;
+      if (wrap.dataset.codeReady === '1') return;
+      wrap.dataset.codeReady = '1';
+
+      var pre  = wrap.querySelector('pre.highlight') || wrap.querySelector('pre');
+      var code = pre.querySelector('code') || pre;
+
+      // Wrap lines for the line-number gutter
+      try { wrapLines(code); } catch (e) { /* leave un-numbered on failure */ }
+
+      // Toolbar: language tag + copy
+      var m = (wrap.className || '').match(/language-([\w+#.-]+)/);
+      var lang = m ? m[1] : '';
+      var bar = document.createElement('div');
+      bar.className = 'code-toolbar';
+      if (lang && lang !== 'plaintext') {
+        var tag = document.createElement('span');
+        tag.className = 'lang-tag';
+        tag.textContent = lang;
+        bar.appendChild(tag);
+      }
+      var copyLabel   = {{ t.copy_btn.copy | jsonify }};
+      var copiedLabel = {{ t.copy_btn.copied | jsonify }};
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.innerHTML = '<i class="fa-regular fa-copy"></i><span>' + copyLabel + '</span>';
+      bar.appendChild(btn);
+      wrap.insertBefore(bar, wrap.firstChild);
+
+      btn.addEventListener('click', function () {
+        var text = (code.innerText || '').replace(/\s+$/, '');
+        if (!navigator.clipboard) return;
+        navigator.clipboard.writeText(text).then(function () {
+          btn.classList.add('copied');
+          btn.innerHTML = '<i class="fa-solid fa-check"></i><span>' + copiedLabel + '</span>';
+          setTimeout(function () {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<i class="fa-regular fa-copy"></i><span>' + copyLabel + '</span>';
+          }, 1500);
+        });
+      });
+    });
+  })();
+</script>

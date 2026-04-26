@@ -1,0 +1,44 @@
+---
+layout: default
+title: Page not found
+permalink: /404.html
+sitemap: false
+---
+{% assign t = site.data.strings[site.i18n.current] %}
+<section class="notfound-hero">
+  <div class="ghost" aria-hidden="true">404</div>
+  <div class="body">
+    <div class="eyebrow">{{ t.notfound.issue_label }}</div>
+    <h1>{{ t.notfound.h1_main }} <i>{{ t.notfound.h1_em }}</i></h1>
+    <p>{{ t.notfound.body }}</p>
+    <div class="ctas">
+      <a class="btn-pill" href="{{ '/' | relative_url }}">{{ t.notfound.back_home }}</a>
+      <a class="btn-ghost" href="{{ '/search/' | relative_url }}">{{ t.notfound.search_btn }}</a>
+      <a class="btn-ghost" href="{{ '/archive/' | relative_url }}">{{ t.notfound.archive_btn }}</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding:56px var(--pad-x);">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:32px;flex-wrap:wrap;gap:16px">
+    <h3 class="section-title">{{ t.notfound.suggest_h }}<i>{{ t.notfound.suggest_em }}</i></h3>
+    <a class="view-all" href="{{ '/posts/' | relative_url }}" style="font-size:13px;color:var(--ink-500)">{{ t.notfound.all_writing_link }}</a>
+  </div>
+  <div class="related-grid">
+    {% assign visible_posts = site.posts | where_exp: 'p', 'p.hidden != true' %}
+    {% for p in visible_posts limit: 3 %}
+      <a class="related-card" href="{{ p.url | relative_url }}">
+        {% if p.image.path %}<div class="cover"><img src="{{ p.image.path | relative_url }}" alt="" loading="lazy" decoding="async"
+             {% if p.image.lqip %}lqip="{{ p.image.lqip }}"{% endif %}></div>{% endif %}
+        <div class="meta">{{ p.categories | first }} · {{ p.date | date: '%Y-%m-%d' }}</div>
+        <h5>{{ p.title }}</h5>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="notfound-foot">
+  <span>{{ t.notfound.error_label }}</span>
+  <span style="font-family:var(--font-display)">{{ t.notfound.poetic }}</span>
+  <a href="{{ '/' | relative_url }}" style="color:var(--accent)">{{ t.notfound.home_arrow }}</a>
+</section>

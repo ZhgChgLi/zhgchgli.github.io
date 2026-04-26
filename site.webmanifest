@@ -1,0 +1,11 @@
+{
+  "name": "ZhgChgLi Tech & Travel",
+  "short_name": "ZhgChgLi",
+  "icons": [
+    { "src": "/assets/img/favicons/web-app-manifest-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/img/favicons/web-app-manifest-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#fefcf8",
+  "background_color": "#fefcf8",
+  "display": "standalone"
+}

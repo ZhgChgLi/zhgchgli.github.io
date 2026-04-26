@@ -1,0 +1,62 @@
+---
+layout: default
+title: Categories
+nav_id: category
+permalink: /categories/
+---
+{% assign t = site.data.strings[site.i18n.current] %}
+{% comment %} Build a list of "padded_count|name" filtered to visible posts only,
+   then sort by count desc. Categories that become empty after hiding are dropped. {% endcomment %}
+{% assign keys = '' | split: '' %}
+{% for cat in site.categories %}
+  {% assign visible = cat[1] | where_exp: 'p', 'p.hidden != true' %}
+  {% if visible.size > 0 %}
+    {% assign padded = visible.size | prepend: '0000' %}
+    {% assign padded = padded | slice: -4, 4 %}
+    {% capture key %}{{ padded }}|{{ cat[0] }}{% endcapture %}
+    {% assign keys = keys | push: key %}
+  {% endif %}
+{% endfor %}
+{% assign sorted_keys = keys | sort | reverse %}
+
+<section class="list-hero">
+  <div class="eyebrow">{{ t.categories.eyebrow }}</div>
+  <h1>{{ sorted_keys.size }} <i>{{ t.categories.h1_count_em }}</i></h1>
+</section>
+
+<section class="chip-row">
+  <span class="lbl">{{ t.categories.filter_label }}</span>
+  {% for entry in sorted_keys %}
+    {% assign parts = entry | split: '|' %}
+    {% assign cname = parts[1] %}
+    {% assign cslug = cname | slugify %}
+    {% assign cposts = site.categories[cname] | where_exp: 'p', 'p.hidden != true' %}
+    <a class="btn-ghost" href="{{ '/categories/' | append: cslug | append: '/' | relative_url }}">{{ cname }} · {{ cposts.size }}</a>
+  {% endfor %}
+</section>
+
+<section style="padding: 40px var(--pad-x) 80px;">
+  {% for entry in sorted_keys %}
+    {% assign parts = entry | split: '|' %}
+    {% assign cname = parts[1] %}
+    {% assign cslug = cname | slugify %}
+    {% assign cposts = site.categories[cname] | where_exp: 'p', 'p.hidden != true' %}
+    <div style="margin-bottom: 56px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px;">
+        <h2 style="font-family:var(--font-display);font-size:40px;font-weight:500;margin:0;letter-spacing:-0.02em;">
+          <i style="font-weight:300;color:var(--ink-500);">#</i><a href="{{ '/categories/' | append: cslug | append: '/' | relative_url }}">{{ cname }}</a>
+        </h2>
+        <span style="font-size:13px;color:var(--ink-500)">{{ cposts.size }} {{ t.categories.essays_suffix }}</span>
+      </div>
+      <div class="dense-list" style="padding: 0;">
+        {% for post in cposts limit: 4 %}
+          {% include dense-row.html post=post %}
+        {% endfor %}
+      </div>
+      {% if cposts.size > 4 %}
+        {% assign view_more = t.categories.view_all_arrow | replace: '%d', cposts.size %}
+        <div style="margin-top:16px"><a class="btn-ghost" href="{{ '/categories/' | append: cslug | append: '/' | relative_url }}">{{ view_more }}</a></div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</section>

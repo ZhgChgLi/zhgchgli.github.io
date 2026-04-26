@@ -1,0 +1,28 @@
+---
+layout: default
+---
+{% assign t = site.data.strings[site.i18n.current] %}
+{% assign visible = page.posts | where_exp: 'p', 'p.hidden != true' %}
+{% assign n_essays = t.categories.n_essays_in | replace: '%d', visible.size %}
+<section class="list-hero">
+  <div class="eyebrow">{{ t.archive.year_eyebrow }}</div>
+  <h1>{{ page.title }} <i>{{ t.archive.year_em }}</i></h1>
+  <div class="sub">
+    <p>{{ n_essays }}</p>
+  </div>
+</section>
+
+<section class="archive-block">
+  <div class="archive-year-row">
+    <h2>{{ page.title }}</h2>
+    <div class="archive-list">
+      {% for p in visible %}
+      <a href="{{ p.url | relative_url }}">
+        <span class="when">{{ p.date | date: '%b %d' }}</span>
+        <span class="ttl">{{ p.title }}</span>
+        <span class="ar">→</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>

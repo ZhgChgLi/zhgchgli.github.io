@@ -7,40 +7,49 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: zmedium-to-markdown
+  cancel-in-progress: false
+
 jobs:
   ZMediumToMarkdown:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.4.2
-      - run: gem install ZMediumToMarkdown
-        shell: bash
-      - name: MV posts to root
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Install ZMediumToMarkdown
+        run: gem install ZMediumToMarkdown
+
+      # ZMediumToMarkdown writes into ./_posts/zmediumtomarkdown/. Stage the
+      # current zh-tw masters there first so the CLI only fetches diffs.
+      - name: Stage zh-tw posts into _posts/
         run: |
           mkdir -p ./_posts/zmediumtomarkdown/
-          mv ./L10n/posts/zh-tw/zmediumtomarkdown/* ./_posts/zmediumtomarkdown/
-      - name: update unlisted posts
-        run: |
-          echo "PWD: $(pwd)"
-          echo "Repo root files:"
-          ls -la | sed -n '1,200p'
+          if [[ -d ./L10n/posts/zh-tw/zmediumtomarkdown ]]; then
+            shopt -s nullglob dotglob
+            files=( ./L10n/posts/zh-tw/zmediumtomarkdown/* )
+            if (( ${#files[@]} )); then
+              mv "${files[@]}" ./_posts/zmediumtomarkdown/
+            fi
+          fi
 
+      - name: Update unlisted posts
+        env:
+          MIRO_MEDIUM_HOST: ${{ secrets.MIRO_MEDIUM_HOST }}
+          MEDIUM_HOST: ${{ secrets.MEDIUM_HOST }}
+        run: |
           if [[ ! -f unlist.txt ]]; then
             echo "❌ unlist.txt not found in repo root"
             exit 1
           fi
-
-          echo "---- Preview unlist.txt (show control chars) ----"
-          nl -ba unlist.txt | sed -n '1,200p' | sed 's/\r$//'
-
-          # 確認 CLI 存在
           command -v ZMediumToMarkdown >/dev/null || { echo "❌ ZMediumToMarkdown not in PATH"; exit 1; }
-          echo "ZMediumToMarkdown path: $(command -v ZMediumToMarkdown)"
 
-          # 過濾：去 CR、修剪空白、跳過空白/註解行
-          count=0
+          # Strip CR, trim, skip blank/comment lines, then fetch each unlisted slug.
           sed 's/\r$//' unlist.txt \
             | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' \
             | awk 'NF && $0 !~ /^[[:space:]]*#/' \
@@ -50,51 +59,50 @@ jobs:
                   --cookie_uid "${{ secrets.MEDIUM_COOKIE_UID }}" \
                   --cookie_sid "${{ secrets.MEDIUM_COOKIE_SID }}" \
                   -j zhgchgli
-                count=$((count+1))
               done
 
-          # 上面 while 在 subshell 中執行，若需要在這裡拿到 count，可改用暫存檔或用 xargs 方案（見下）
-          echo "✅ update unlisted posts step finished."
-        shell: bash
+      - name: Fetch latest posts
         env:
-          MIRO_MEDIUM_HOST: "${{ secrets.MIRO_MEDIUM_HOST }}"
-          MEDIUM_HOST: "${{ secrets.MEDIUM_HOST }}"
-      - run: ZMediumToMarkdown --cookie_uid ${{ secrets.MEDIUM_COOKIE_UID }} --cookie_sid ${{ secrets.MEDIUM_COOKIE_SID }} -j zhgchgli
-        shell: bash
-        env:
-          MIRO_MEDIUM_HOST: "${{ secrets.MIRO_MEDIUM_HOST }}"
-          MEDIUM_HOST: "${{ secrets.MEDIUM_HOST }}"
-      - name: MV posts to zh-tw
-        run: mv ./_posts/zmediumtomarkdown/* ./L10n/posts/zh-tw/zmediumtomarkdown/
-      
-      - name: 🐍 Set up Python
+          MIRO_MEDIUM_HOST: ${{ secrets.MIRO_MEDIUM_HOST }}
+          MEDIUM_HOST: ${{ secrets.MEDIUM_HOST }}
+        run: |
+          ZMediumToMarkdown \
+            --cookie_uid "${{ secrets.MEDIUM_COOKIE_UID }}" \
+            --cookie_sid "${{ secrets.MEDIUM_COOKIE_SID }}" \
+            -j zhgchgli
+
+      - name: Move fetched posts back to L10n/posts/zh-tw/
+        run: |
+          mkdir -p ./L10n/posts/zh-tw/zmediumtomarkdown/
+          shopt -s nullglob dotglob
+          files=( ./_posts/zmediumtomarkdown/* )
+          if (( ${#files[@]} )); then
+            mv "${files[@]}" ./L10n/posts/zh-tw/zmediumtomarkdown/
+          fi
+
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+          cache: 'pip'
+          cache-dependency-path: tools/translators/requirements.txt
 
-      - name: 📦 Install Poetry
-        uses: abatilo/actions-poetry@v3
-        with:
-          poetry-version: 2.1.4
+      - name: Install translator dependencies
+        run: pip install -r tools/translators/requirements.txt
 
-      - name: 🔧 Install dependencies
-        working-directory: ./tools/zhgchgli
-        run: poetry install
-
-      - name: Execute
-        working-directory: ./tools/zhgchgli
+      - name: Translate (en, jp, zh-cn) and unify tags
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          poetry run optimizePhotos
-          poetry run seoMaker --api-key ${{ secrets.OPENAI_API_KEY }}
-          poetry run aioMaker --api-key ${{ secrets.OPENAI_API_KEY }}
-          poetry run translator --api-key ${{ secrets.OPENAI_API_KEY }}
-          poetry run translator_jp --api-key ${{ secrets.OPENAI_API_KEY }}
-          poetry run translator_cn
-          poetry run unifyAllTags
+          python tools/translators/translator.py en
+          python tools/translators/translator.py jp
+          python tools/translators/translator_cn.py
+          ./bin/unify-tags
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update fetched posts."
           commit_user_name: "ZMediumToMarkdown"
           commit_user_email: "zhgchgli@gmail.com"
           commit_author: ZMediumToMarkdown <zhgchgli@gmail.com>
+          file_pattern: "L10n/** assets/**"

@@ -1,129 +1,66 @@
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta
-    name="viewport"
-    content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
-  >
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fefcf8">
 
-  {%- capture seo_tags -%}
-    {% seo title=false %}
-  {%- endcapture -%}
+{% comment %} Special-case 404: pull localized title from i18n strings since
+   the page's frontmatter title is a static "Page not found" placeholder. {% endcomment %}
+{% if page.url == '/404.html' %}
+  <title>{{ t.notfound.error_label }} · {{ site.title }}</title>
+{% elsif page.title and page.url != "/" %}
+  <title>{{ page.title | strip_html }} · {{ site.title }}</title>
+{% else %}
+  <title>{{ site.title }} · {{ site.description | strip_newlines | truncate: 80 }}</title>
+{% endif %}
 
-  <!-- Setup Open Graph image -->
+{% seo title=false %}
 
-  {% if page.image %}
-    {% assign src = page.image.path | default: page.image %}
+<link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+<link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | absolute_url }}">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="{{ '/sitemap.xml' | absolute_url }}">
 
-    {% unless src contains '://' %}
-      {%- capture img_url -%}
-        {% include media-url.html src=src subpath=page.media_subpath absolute=true %}
-      {%- endcapture -%}
-
-      {%- capture old_url -%}{{ src | absolute_url }}{%- endcapture -%}
-      {%- capture new_url -%}{{ img_url }}{%- endcapture -%}
-
-      {% assign seo_tags = seo_tags | replace: old_url, new_url %}
-    {% endunless %}
-
-  {% elsif site.social_preview_image %}
-    {%- capture img_url -%}
-      {% include media-url.html src=site.social_preview_image absolute=true %}
-    {%- endcapture -%}
-
-    {%- capture og_image -%}
-      <meta property="og:image" content="{{ img_url }}" />
-    {%- endcapture -%}
-
-    {%- capture twitter_image -%}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:image" content="{{ img_url }}" />
-    {%- endcapture -%}
-
-    {% assign old_meta_clip = '<meta name="twitter:card" content="summary" />' %}
-    {% assign new_meta_clip = og_image | append: twitter_image %}
-    {% assign seo_tags = seo_tags | replace: old_meta_clip, new_meta_clip %}
-  {% endif %}
-
-  {{ seo_tags }}
-
-  <title>
-    {%- unless page.layout == 'home' -%}
-      {{ page.title | append: ' | ' }}
-    {%- endunless -%}
-    {{ site.title }}
-  </title>
-
-  {% include_cached favicons.html %}
-
-  <!-- Resource Hints -->
-  {% unless site.assets.self_host.enabled %}
-    {% for hint in site.data.origin.cors.resource_hints %}
-      {% for link in hint.links %}
-        <link rel="{{ link.rel }}" href="{{ hint.url }}" {{ link.opts | join: ' ' }}>
-      {% endfor %}
-    {% endfor %}
-  {% endunless %}
-
-  <!-- Bootstrap -->
-  {% unless jekyll.environment == 'production' %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
-  {% endunless %}
-
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ '/assets/css/:THEME.css' | replace: ':THEME', site.theme | relative_url }}">
-
-  <!-- Web Font -->
-  <link rel="stylesheet" href="{{ site.data.origin[type].webfonts | relative_url }}">
-
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{ site.data.origin[type].fontawesome.css | relative_url }}">
-
-  <!-- 3rd-party Dependencies -->
-
-  {% if site.toc and page.toc %}
-    <link rel="stylesheet" href="{{ site.data.origin[type].toc.css | relative_url }}">
-  {% endif %}
-
-  {% if page.layout == 'post' or page.layout == 'page' or page.layout == 'home' %}
-    <link rel="stylesheet" href="{{ site.data.origin[type]['lazy-polyfill'].css | relative_url }}">
-  {% endif %}
-
-  {% if page.layout == 'page' or page.layout == 'post' %}
-    <!-- Image Popup -->
-    <link rel="stylesheet" href="{{ site.data.origin[type].glightbox.css | relative_url }}">
-  {% endif %}
-
-  <!-- Scripts -->
-
-  <script src="{{ '/assets/js/dist/theme.min.js' | relative_url }}"></script>
-
-  {% include js-selector.html lang=lang %}
-
-  {% if jekyll.environment == 'production' %}
-    <!-- PWA -->
-    {% if site.pwa.enabled %}
-      <script
-        defer
-        src="{{ '/app.min.js' | relative_url }}?baseurl={{ site.baseurl | default: '' }}&register={{ site.pwa.cache.enabled }}"
-      ></script>
+{% comment %} hreflang for cross-domain multi-language SEO.
+   Uses each language's `iso` field (BCP-47) for the hreflang attribute,
+   keeping `code` (zh-tw / zh-cn / en / jp) as the internal identifier. {% endcomment %}
+{% if site.i18n.languages %}
+  {% assign clean_path = page.url | replace: 'index.html', '' %}
+  {% for lng in site.i18n.languages %}
+    {% if lng.code == site.i18n.current %}
+      {% assign href = clean_path | prepend: lng.url %}
+    {% elsif page.translations and page.translations[lng.code] %}
+      {% assign tr_url = page.translations[lng.code] %}
+      {% if tr_url contains '://' %}{% assign href = tr_url %}{% else %}{% assign href = tr_url | prepend: lng.url %}{% endif %}
+    {% else %}
+      {% comment %} Path-preserving fallback: if no translation registered, point
+         to the same path on the other domain (404s if the page doesn't exist on
+         that side, but most static pages — /about/, /posts/, /tags/ — do). {% endcomment %}
+      {% assign href = clean_path | prepend: lng.url %}
     {% endif %}
+    <link rel="alternate" hreflang="{{ lng.iso | default: lng.code }}" href="{{ href }}">
+  {% endfor %}
+  {% assign default_lang = site.i18n.languages | first %}
+  <link rel="alternate" hreflang="x-default" href="{{ clean_path | prepend: default_lang.url }}">
+{% endif %}
 
-    <!-- Web Analytics -->
-    {% for analytics in site.analytics %}
-      {% capture str %}{{ analytics }}{% endcapture %}
-      {% assign platform = str | split: '{' | first %}
-      {% if site.analytics[platform].id and site.analytics[platform].id != empty %}
-        {% include analytics/{{ platform }}.html %}
-      {% endif %}
-    {% endfor %}
-  {% endif %}
+<link rel="icon" type="image/x-icon" href="{{ '/assets/img/favicons/favicon.ico' | relative_url }}">
+<link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicons/favicon.svg' | relative_url }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/img/favicons/favicon-32x32.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/img/favicons/apple-touch-icon.png' | relative_url }}">
+<link rel="manifest" href="{{ '/site.webmanifest' | relative_url }}">
 
-  {% include metadata-hook.html %}
-  <!-- ZhgChgLi Customized Start -->
-      {% include zhgchgli/metadata.html otherLangs=page.otherLangs currentURL=page.currentURL currentLang=page.currentLang aioFaqs=page.aioFaqs %}
-  <!-- ZhgChgLi Customized End -->
-</head>
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+
+{% if page.aioFaqs %}
+<script type="application/ld+json">{{ page.aioFaqs }}</script>
+{% endif %}
+
+{% if site.google_analytics %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ site.google_analytics }}', { anonymize_ip: true });
+</script>
+{% endif %}

@@ -1,0 +1,33 @@
+<div class="drawer-overlay" id="drawer-overlay" hidden></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <button class="close" id="drawer-close" aria-label="Close">×</button>
+  <div class="avatar-row">
+    <img class="avatar" src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.display_name }}" />
+    <div>
+      <div class="who">{{ site.author.display_name }}</div>
+      <div class="who-sub">Harry Li</div>
+    </div>
+  </div>
+  <p class="bio">{{ site.author.bio }}</p>
+
+  <div class="nav-section">{{ t.drawer.navigate_section }}</div>
+  <nav class="nav">
+    {% for link in site.data.nav %}
+      {% assign active = false %}
+      {% if page.nav_id == link.id %}{% assign active = true %}{% endif %}
+      {% if page.url == link.url %}{% assign active = true %}{% endif %}
+      <a href="{{ link.url | relative_url }}"{% if active %} class="active"{% endif %}>
+        <span><span class="num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>{{ t.nav[link.id] }}</span>
+        <span class="ar">→</span>
+      </a>
+    {% endfor %}
+  </nav>
+
+  <div class="socials">
+    {% for s in site.data.social %}
+      <a href="{{ s.url }}" aria-label="{{ s.label }}" {% unless s.url contains 'mailto' or s.url contains '/feed' %}target="_blank" rel="noopener"{% endunless %}>
+        <i class="{{ s.icon }}"></i>
+      </a>
+    {% endfor %}
+  </div>
+</aside>

@@ -1,0 +1,51 @@
+---
+layout: default
+title: All writing
+nav_id: list
+permalink: /posts/
+pagination:
+  enabled: true
+  per_page: 20
+  permalink: 'page/:num/'
+---
+{% assign t = site.data.strings[site.i18n.current] %}
+{% assign visible_posts = site.posts | where_exp: 'p', 'p.hidden != true' %}
+{% assign sub = t.list.sub_template | replace: '%d', visible_posts.size %}
+{% assign page_of = t.list.page_of_n | replace: '%p', paginator.page | replace: '%t', paginator.total_pages %}
+<section class="list-hero">
+  <div class="eyebrow">{{ t.list.eyebrow }}</div>
+  <h1>{{ t.list.h1_main }} <i>{{ t.list.h1_em }}</i></h1>
+  <div class="sub">
+    <p>{{ sub }}{% if paginator.total_pages > 1 %} — {{ page_of }}{% endif %}</p>
+  </div>
+</section>
+
+{% if paginator.page == 1 %}
+  {% assign pinned_posts = visible_posts | where: 'pin', true %}
+  {% if pinned_posts.size > 0 %}
+    {% assign pinned_count = t.list.pinned_count | replace: '%d', pinned_posts.size %}
+    <section class="pinned-strip">
+      <div class="head">
+        <span class="pinned-ribbon"><i class="fa-solid fa-thumbtack"></i> {{ t.home.pinned_ribbon }}</span>
+        <span class="head-meta">{{ pinned_count }}</span>
+      </div>
+      <div class="pinned-strip-grid">
+        {% for p in pinned_posts limit: 6 %}
+          <a class="pinned-strip-card" href="{{ p.url | relative_url }}">
+            <i class="fa-solid fa-thumbtack pin-icon"></i>
+            <div class="meta">{{ p.categories | first }} · {{ p.date | date: '%Y-%m-%d' }}</div>
+            <h5>{{ p.title }}</h5>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+{% endif %}
+
+<section class="dense-list">
+  {% for post in paginator.posts %}{% unless post.hidden %}
+    {% include dense-row.html post=post %}
+  {% endunless %}{% endfor %}
+</section>
+
+{% include pager.html paginator=paginator %}

@@ -1,0 +1,165 @@
+#!/usr/bin/env ruby
+# Walk assets/ and generate assets/data/photos.json with the (width, height)
+# of every image. Used by _plugins/photo_optimization.rb to emit correctly-
+# proportioned LQIP placeholders (so layout doesn't shift while images load).
+#
+# Output structure (keyed by parent directory == post slug):
+#   {
+#     "<slug>": {
+#       "<filename-without-ext>": { "width": 1200, "height": 800 },
+#       ...
+#     },
+#     ...
+#   }
+#
+# Pure Ruby, no gem dependencies. Parses PNG, JPEG, GIF, WebP headers.
+
+require 'json'
+require 'fileutils'
+
+ROOT = File.expand_path('..', __dir__)
+ASSETS_DIR = File.join(ROOT, 'assets')
+OUTPUT = File.join(ASSETS_DIR, 'data', 'photos.json')
+SKIP_DIRS = %w[data img images lib node_modules].freeze
+EXTS = %w[.jpg .jpeg .png .gif .webp].freeze
+
+# ---------------------------------------------------------------------------
+# Image header parsers — each returns [width, height] or nil.
+# ---------------------------------------------------------------------------
+
+def png_dimensions(io)
+  io.seek(16)
+  data = io.read(8)
+  return nil unless data && data.bytesize == 8
+  data.unpack('N2')
+end
+
+def gif_dimensions(io)
+  io.seek(6)
+  data = io.read(4)
+  return nil unless data && data.bytesize == 4
+  data.unpack('v2') # little-endian uint16 × 2
+end
+
+def jpeg_dimensions(io)
+  io.seek(2) # skip SOI (0xFFD8)
+  loop do
+    byte = io.read(1)
+    return nil unless byte
+    return nil unless byte.ord == 0xFF
+    # consume any padding 0xFF bytes
+    marker = io.read(1)
+    return nil unless marker
+    while marker.ord == 0xFF
+      marker = io.read(1)
+      return nil unless marker
+    end
+    code = marker.ord
+    # SOFn frame markers carry the dimensions (skip DHT 0xC4, JPG 0xC8, DAC 0xCC)
+    if (0xC0..0xCF).include?(code) && ![0xC4, 0xC8, 0xCC].include?(code)
+      io.read(3) # length(2) + precision(1)
+      h, w = io.read(4).unpack('n2')
+      return [w, h]
+    end
+    seg_len = io.read(2)
+    return nil unless seg_len && seg_len.bytesize == 2
+    io.seek(seg_len.unpack1('n') - 2, IO::SEEK_CUR)
+  end
+end
+
+def webp_dimensions(io)
+  io.seek(0)
+  header = io.read(12)
+  return nil unless header && header[0, 4] == 'RIFF' && header[8, 4] == 'WEBP'
+  chunk = io.read(8)
+  return nil unless chunk
+  fourcc = chunk[0, 4]
+  case fourcc
+  when 'VP8 '
+    io.seek(6, IO::SEEK_CUR) # 3-byte tag + 3-byte sync code
+    raw = io.read(4)
+    return nil unless raw
+    w, h = raw.unpack('vv')
+    [w & 0x3FFF, h & 0x3FFF]
+  when 'VP8L'
+    io.seek(1, IO::SEEK_CUR) # signature byte 0x2F
+    raw = io.read(4)
+    return nil unless raw
+    b = raw.unpack('C4')
+    w = ((b[1] & 0x3F) << 8 | b[0]) + 1
+    h = ((b[3] & 0x0F) << 10 | b[2] << 2 | (b[1] & 0xC0) >> 6) + 1
+    [w, h]
+  when 'VP8X'
+    io.read(4) # flags + reserved
+    wb = io.read(3).bytes
+    hb = io.read(3).bytes
+    w = (wb[0] | wb[1] << 8 | wb[2] << 16) + 1
+    h = (hb[0] | hb[1] << 8 | hb[2] << 16) + 1
+    [w, h]
+  end
+end
+
+def dimensions_for(path)
+  File.open(path, 'rb') do |io|
+    head = io.read(12)
+    return nil unless head
+    io.rewind
+    if head.start_with?("\x89PNG\r\n\x1a\n".b)
+      png_dimensions(io)
+    elsif head.start_with?('GIF87a', 'GIF89a')
+      gif_dimensions(io)
+    elsif head.bytes[0] == 0xFF && head.bytes[1] == 0xD8
+      jpeg_dimensions(io)
+    elsif head[0, 4] == 'RIFF' && head[8, 4] == 'WEBP'
+      webp_dimensions(io)
+    end
+  end
+rescue StandardError => e
+  warn "  ✗ #{path}: #{e.class}: #{e.message}"
+  nil
+end
+
+# ---------------------------------------------------------------------------
+# Walk and emit
+# ---------------------------------------------------------------------------
+
+records = {}
+total = scanned = 0
+ok = 0
+fail = 0
+
+unless Dir.exist?(ASSETS_DIR)
+  abort "✗ assets/ not found at #{ASSETS_DIR}"
+end
+
+Dir.glob(File.join(ASSETS_DIR, '*'))
+   .select { |p| File.directory?(p) }
+   .reject { |p| SKIP_DIRS.include?(File.basename(p)) }
+   .each do |slug_dir|
+  slug = File.basename(slug_dir)
+  Dir.glob(File.join(slug_dir, '**', '*'))
+     .select { |f| File.file?(f) && EXTS.include?(File.extname(f).downcase) }
+     .each do |img|
+    total += 1
+    base = File.basename(img, File.extname(img))
+    # Skip if we already have dims for this base name in this slug (prefer first .webp -> .jpg order)
+    next if records.dig(slug, base)
+    dims = dimensions_for(img)
+    scanned += 1
+    if dims && dims[0] && dims[1]
+      records[slug] ||= {}
+      records[slug][base] = { 'width' => dims[0], 'height' => dims[1] }
+      ok += 1
+    else
+      fail += 1
+      warn "  ? could not read dimensions: #{img.sub(ROOT + '/', '')}"
+    end
+  end
+end
+
+FileUtils.mkdir_p(File.dirname(OUTPUT))
+File.write(OUTPUT, JSON.pretty_generate(records))
+
+puts "→ Wrote #{OUTPUT.sub(ROOT + '/', '')}"
+puts "  slugs:    #{records.size}"
+puts "  images:   #{total}  (parsed #{ok}, failed #{fail}, deduped #{total - scanned})"

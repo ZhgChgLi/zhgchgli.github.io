@@ -1,0 +1,82 @@
+name: Build & Deploy <DEPLOY_LANG> shell from master
+
+# This is a template for the *shell* repos (en / zh-cn / jp). Each shell repo
+# only contains this workflow file; all theme files, posts and plugins live
+# in the master repo (defaults below). The workflow:
+#   1. Checks out the master repo
+#   2. Stages just <DEPLOY_LANG>'s posts and the theme into a build dir
+#   3. Builds with bin/lang <DEPLOY_LANG>
+#   4. Publishes to *this* shell repo's GitHub Pages
+#
+# Setup checklist for a new shell repo:
+#   1. Save this file at .github/workflows/pages.yml
+#   2. Edit the env block below (DEPLOY_LANG + MASTER_REPO/REF if needed)
+#   3. Repo → Settings → Pages → Source = "GitHub Actions"
+#   4. Repo → Settings → Pages → Custom domain → set the lang's domain
+#   5. (Optional) trigger on master push: see "Cross-repo trigger" docs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "17 4 * * *"   # daily safety re-build (drop if undesired)
+  repository_dispatch:      # master repo can fan-out via repository_dispatch
+    types: [master-updated]
+
+env:
+  DEPLOY_LANG: en             # ← change this per shell repo (en / zh-cn / jp)
+  MASTER_REPO: ZhgChgLi/zhgchgli.github.io
+  MASTER_REF:  main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master content
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.MASTER_REPO }}
+          ref: ${{ env.MASTER_REF }}
+          # If master repo is private, add: token: ${{ secrets.MASTER_READ_TOKEN }}
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - uses: actions/configure-pages@v5
+        id: pages
+
+      - name: Generate assets/data/photos.json (LQIP dimensions)
+        run: ./bin/generate-photos-json
+
+      - name: Build with bin/lang
+        env:
+          JEKYLL_ENV: production
+        run: |
+          ./bin/lang "${{ env.DEPLOY_LANG }}" build \
+            --baseurl "${{ steps.pages.outputs.base_path }}"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

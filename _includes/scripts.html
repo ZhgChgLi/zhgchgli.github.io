@@ -1,0 +1,71 @@
+<script>
+  (function () {
+    var btn = document.getElementById('menu-btn');
+    var drawer = document.getElementById('drawer');
+    var overlay = document.getElementById('drawer-overlay');
+    var closeBtn = document.getElementById('drawer-close');
+    if (!btn || !drawer || !overlay) return;
+    function open() {
+      drawer.classList.add('open');
+      overlay.classList.add('open');
+      overlay.hidden = false;
+      drawer.setAttribute('aria-hidden', 'false');
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      drawer.classList.remove('open');
+      overlay.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      setTimeout(function () { overlay.hidden = true; }, 300);
+    }
+    btn.addEventListener('click', open);
+    overlay.addEventListener('click', close);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && drawer.classList.contains('open')) close();
+    });
+  })();
+</script>
+<script>
+  // Language switcher dropdown
+  (function () {
+    document.querySelectorAll('[data-lang-switcher]').forEach(function (root) {
+      var trig = root.querySelector('.lang-trigger');
+      var menu = root.querySelector('.lang-menu');
+      if (!trig || !menu) return;
+      function close() { menu.hidden = true; trig.classList.remove('open'); trig.setAttribute('aria-expanded', 'false'); }
+      function open() { menu.hidden = false; trig.classList.add('open'); trig.setAttribute('aria-expanded', 'true'); }
+      trig.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (menu.hidden) open(); else close();
+      });
+      document.addEventListener('click', function (e) { if (!root.contains(e.target)) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    });
+  })();
+</script>
+<script>
+  // LQIP hydrator: paint the low-quality placeholder as a CSS background
+  // behind every <img lqip="data:..."> so layout is reserved and there's a
+  // pleasant pre-fill while the real (often webp) image downloads.
+  (function () {
+    var imgs = document.querySelectorAll('img[lqip]');
+    if (!imgs.length) return;
+    imgs.forEach(function (img) {
+      var lqip = img.getAttribute('lqip');
+      if (!lqip) return;
+      img.style.backgroundImage = 'url("' + lqip + '")';
+      img.style.backgroundSize = 'cover';
+      img.style.backgroundPosition = 'center';
+      // After the real image loads (or if it was cached), drop the bg to
+      // avoid a stale cream rectangle behind transparent PNGs.
+      var clear = function () { img.style.backgroundImage = ''; };
+      if (img.complete && img.naturalWidth > 0) clear();
+      else img.addEventListener('load', clear, { once: true });
+    });
+  })();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>

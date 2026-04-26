@@ -1,0 +1,90 @@
+#!/usr/bin/env ruby
+# Walk L10n/posts/**/*.md and normalize each post's tags in place:
+#   - downcase
+#   - run Jekyll-style slugify (matches what the templates use to compare tags)
+#   - dedupe while preserving order
+#
+# This is a maintenance script, not a build step. Run it any time after adding
+# new posts or after editing tags. It overwrites markdown files in place.
+#
+# Usage:
+#   bin/unify-tags                     # process every language under L10n/posts/
+#   bin/unify-tags zh-tw               # only one language
+#   bin/unify-tags zh-tw en jp         # multiple specific languages
+
+require 'yaml'
+require 'fileutils'
+require 'date'
+
+ROOT = File.expand_path('..', __dir__)
+POSTS_ROOT = File.join(ROOT, 'L10n', 'posts')
+
+# Mirror Jekyll::Utils.slugify default mode: keep unicode word chars, replace
+# everything else with '-', strip leading/trailing dashes, downcase.
+def slugify(str)
+  s = str.to_s.downcase
+  s = s.gsub(/[^[:alnum:]_]+/u, '-')
+  s.gsub(/\A-+|-+\z/, '')
+end
+
+def normalize_tags(tags)
+  Array(tags)
+    .map { |t| slugify(t.to_s.strip) }
+    .reject(&:empty?)
+    .uniq
+end
+
+def split_frontmatter(content)
+  return nil unless content.start_with?("---\n") || content.start_with?("---\r\n")
+  m = content.match(/\A---\s*\r?\n(.*?\r?\n)---\s*\r?\n(.*)\z/m)
+  return nil unless m
+  yaml_text = m[1]
+  body = m[2]
+  data = YAML.safe_load(yaml_text, permitted_classes: [Time, Date, DateTime], aliases: true) || {}
+  [data, body]
+end
+
+# Stable, key-order-preserving YAML dump so diffs stay minimal.
+def dump_frontmatter(data)
+  YAML.dump(data).sub(/\A---\s*\r?\n/, '')
+end
+
+def process(file)
+  content = File.read(file)
+  parsed = split_frontmatter(content)
+  return [:skip, 'no frontmatter'] unless parsed
+  data, body = parsed
+  return [:skip, 'no tags'] unless data['tags']
+
+  before = data['tags']
+  after  = normalize_tags(before)
+  return [:noop, nil] if before == after
+
+  data['tags'] = after
+  out = "---\n#{dump_frontmatter(data)}---\n#{body}"
+  File.write(file, out)
+  [:updated, "#{before.inspect} → #{after.inspect}"]
+end
+
+langs = ARGV.empty? ? Dir.children(POSTS_ROOT).sort.select { |d| File.directory?(File.join(POSTS_ROOT, d)) } : ARGV
+
+langs.each do |lang|
+  dir = File.join(POSTS_ROOT, lang)
+  unless File.directory?(dir)
+    warn "✗ no such language: #{lang}"
+    next
+  end
+
+  files = Dir.glob(File.join(dir, '**', '*.md'))
+  total = files.size
+  changed = skipped = noop = 0
+  files.each do |f|
+    status, msg = process(f)
+    case status
+    when :updated then changed += 1; puts "  ✎ #{f.sub(ROOT + '/', '')}  #{msg}"
+    when :skip    then skipped += 1
+    when :noop    then noop += 1
+    end
+  end
+  puts "→ #{lang}: #{total} posts (#{changed} updated, #{noop} unchanged, #{skipped} skipped)"
+end

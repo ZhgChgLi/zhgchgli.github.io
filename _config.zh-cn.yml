@@ -1,0 +1,13 @@
+# Overlay for the Simplified Chinese site (zh-Hans).
+lang: zh-Hans
+url: https://cn.zhgchg.li
+
+i18n:
+  current: zh-cn
+
+title: "ZhgChgLi 技术与旅行"
+description: >-
+  记录程序开发、科技观察与旅途生活。
+
+giscus:
+  lang: zh-CN

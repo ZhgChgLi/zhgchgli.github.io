@@ -1,0 +1,97 @@
+name: Build & Deploy Jekyll site to GitHub Pages
+
+# This repository deploys ONE language to its own custom domain.
+# Set the language for *this repo's* deployment via the `DEPLOY_LANG` env below.
+# To run additional languages, fork the repo (or push to additional repos)
+# and change `DEPLOY_LANG`. Each language has its own _config.<lang>.yml.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      lang:
+        description: "Language code (zh-tw, zh-cn, en, jp)"
+        required: false
+        default: ""
+
+env:
+  DEPLOY_LANG: zh-tw
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve language
+        id: lang
+        run: |
+          lang="${{ github.event.inputs.lang }}"
+          if [[ -z "$lang" ]]; then lang="${DEPLOY_LANG}"; fi
+          echo "lang=$lang" >> "$GITHUB_OUTPUT"
+          echo "→ Building language: $lang"
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - uses: actions/configure-pages@v5
+        id: pages
+
+      - name: Generate assets/data/photos.json (LQIP dimensions)
+        run: ./bin/generate-photos-json
+
+      - name: Build with bin/lang
+        env:
+          JEKYLL_ENV: production
+        run: |
+          ./bin/lang "${{ steps.lang.outputs.lang }}" build \
+            --baseurl "${{ steps.pages.outputs.base_path }}"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  # After zh-tw deploys successfully, fan out a repository_dispatch event to
+  # every shell repo so they rebuild against the latest master content.
+  # vars.SHELL_REPOS is a JSON array of "owner/repo" strings stored as a
+  # GitHub Actions variable (skip the job entirely if not configured).
+  # secrets.DISPATCH_TOKEN must be a fine-grained PAT with `Contents: write` /
+  # `Actions: write` scope on each shell repo.
+  notify-shells:
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: ${{ vars.SHELL_REPOS != '' }}
+    steps:
+      - name: Trigger shell-repo rebuilds
+        env:
+          SHELL_REPOS: ${{ vars.SHELL_REPOS }}
+          GH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
+        run: |
+          for repo in $(echo "$SHELL_REPOS" | jq -r '.[]'); do
+            echo "→ dispatch master-updated → $repo"
+            gh api "repos/$repo/dispatches" \
+              -f event_type=master-updated \
+              -F 'client_payload[ref]=${{ github.sha }}'
+          done

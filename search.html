@@ -1,0 +1,120 @@
+---
+layout: default
+title: Search
+nav_id: search
+permalink: /search/
+---
+{% assign t = site.data.strings[site.i18n.current] %}
+<section class="search-hero">
+  <div class="eyebrow">{{ t.search.eyebrow }}</div>
+  <h1>{{ t.search.h1_main }} <i>{{ t.search.h1_em }}</i></h1>
+  <form class="search-box" role="search" onsubmit="return false;">
+    <span class="glyph">⌕</span>
+    <input id="q" type="search" autocomplete="off" placeholder="{{ t.search.placeholder }}" autofocus>
+    <span class="kbd">⌘ K</span>
+  </form>
+  <div style="display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;align-items:center" id="popular-row">
+    <span style="font-size:11px;color:var(--ink-500);letter-spacing:0.18em;text-transform:uppercase;margin-right:8px">{{ t.search.popular_label }}</span>
+  </div>
+</section>
+
+<section style="padding:32px var(--pad-x) 8px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px">
+  <h3 class="section-title" id="result-summary">{{ t.search.initial_summary }}</h3>
+</section>
+
+<section class="search-results" id="results"></section>
+
+<script>
+(function () {
+  var STRINGS = {
+    initialSummary: {{ t.search.initial_summary | jsonify }},
+    indexing:       {{ t.search.indexing | jsonify }},
+    resultsFor:     {{ t.search.results_for | jsonify }},
+    notFoundTpl:    {{ t.search.not_found_template | jsonify }}
+  };
+
+  var q = document.getElementById('q');
+  var summary = document.getElementById('result-summary');
+  var results = document.getElementById('results');
+  var popularRow = document.getElementById('popular-row');
+  var data = [];
+  var ready = false;
+
+  function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, function (c) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+  function highlight(text, qstr) {
+    if (!qstr) return escapeHtml(text);
+    var safe = escapeHtml(text);
+    try {
+      var re = new RegExp('(' + qstr.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + ')', 'gi');
+      return safe.replace(re, '<mark>$1</mark>');
+    } catch (e) { return safe; }
+  }
+  function render(matches, qstr) {
+    if (!matches.length) {
+      var msg = STRINGS.notFoundTpl.replace('%s', escapeHtml(qstr));
+      results.innerHTML = '<div class="search-empty"><div style="font-family:var(--font-display);font-size:48px;color:var(--ink-300);margin-bottom:16px">—</div>' + msg + '</div>';
+      return;
+    }
+    results.innerHTML = matches.map(function (p) {
+      var cover = p.cover ? '<div class="cover"><img src="' + escapeHtml(p.cover) + '" alt="" loading="lazy"></div>' : '<div class="cover"></div>';
+      return '<a class="search-result" href="' + escapeHtml(p.url) + '">' +
+        cover +
+        '<div>' +
+          '<div class="eyebrow muted" style="margin-bottom:6px">' + escapeHtml(p.category) + '</div>' +
+          '<h4>' + highlight(p.title, qstr) + '</h4>' +
+          '<p class="excerpt">' + highlight(p.excerpt, qstr) + '</p>' +
+        '</div>' +
+        '<div class="when">' + escapeHtml(p.date) + '</div>' +
+      '</a>';
+    }).join('');
+  }
+  function search(qstr) {
+    qstr = (qstr || '').trim();
+    if (!qstr) {
+      summary.innerHTML = escapeHtml(STRINGS.initialSummary);
+      results.innerHTML = '';
+      return;
+    }
+    if (!ready) {
+      summary.textContent = STRINGS.indexing;
+      return;
+    }
+    var lower = qstr.toLowerCase();
+    var matches = data.filter(function (p) {
+      return (p.title && p.title.toLowerCase().indexOf(lower) >= 0) ||
+        (p.category && p.category.toLowerCase().indexOf(lower) >= 0) ||
+        (p.tags && p.tags.some(function (tag) { return tag.toLowerCase().indexOf(lower) >= 0; })) ||
+        (p.excerpt && p.excerpt.toLowerCase().indexOf(lower) >= 0) ||
+        (p.body && p.body.toLowerCase().indexOf(lower) >= 0);
+    });
+    summary.innerHTML = matches.length + ' <i style="font-weight:300;color:var(--ink-500)">' + escapeHtml(STRINGS.resultsFor) + '</i> <span style="color:var(--accent);margin-left:8px">"' + escapeHtml(qstr) + '"</span>';
+    render(matches, qstr);
+  }
+
+  fetch('{{ "/search.json" | relative_url }}').then(function (r) { return r.json(); }).then(function (j) {
+    data = j; ready = true;
+    var counts = {};
+    data.forEach(function (p) { (p.tags || []).forEach(function (tag) { counts[tag] = (counts[tag] || 0) + 1; }); });
+    var popular = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; }).slice(0, 8);
+    popular.forEach(function (tag) {
+      var btn = document.createElement('button');
+      btn.className = 'btn-ghost'; btn.style.fontSize = '12px'; btn.textContent = tag;
+      btn.addEventListener('click', function () { q.value = tag; search(tag); });
+      popularRow.appendChild(btn);
+    });
+    var initial = new URLSearchParams(location.search).get('q');
+    if (initial) { q.value = initial; search(initial); }
+    else if (q.value) search(q.value);
+  });
+
+  var debounce;
+  q.addEventListener('input', function () {
+    clearTimeout(debounce);
+    debounce = setTimeout(function () { search(q.value); }, 120);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); q.focus(); q.select(); }
+  });
+})();
+</script>

@@ -1,0 +1,4 @@
+{% comment %} Reading time helper — assumes ~400 cn chars per minute {% endcomment %}
+{% assign words = include.post.content | strip_html | size %}
+{% assign rt = words | divided_by: 400 | plus: 1 %}
+{{ rt }} min

@@ -1,0 +1,26 @@
+---
+layout: default
+---
+{% assign t = site.data.strings[site.i18n.current] %}
+{% comment %} paginate-v2 already counts only posts in this category. We can't
+   subtract hidden ones cheaply (page.title is the slugified key, not the raw
+   category name in site.categories), so the count may include any hidden
+   posts in this category — usually 0 in practice. {% endcomment %}
+{% assign total_in_cat = paginator.total_posts | default: 0 %}
+{% assign n_essays = t.categories.n_essays_in | replace: '%d', total_in_cat %}
+{% assign page_of = t.list.page_of_n | replace: '%p', paginator.page | replace: '%t', paginator.total_pages %}
+<section class="list-hero">
+  <div class="eyebrow">{{ t.categories.in_category_eyebrow }}</div>
+  <h1><i>#</i>{{ page.title }}</h1>
+  <div class="sub">
+    <p>{{ n_essays }}{% if paginator.total_pages > 1 %} — {{ page_of }}{% endif %}</p>
+  </div>
+</section>
+
+<section class="dense-list">
+  {% for post in paginator.posts %}{% unless post.hidden %}
+    {% include dense-row.html post=post %}
+  {% endunless %}{% endfor %}
+</section>
+
+{% include pager.html paginator=paginator %}

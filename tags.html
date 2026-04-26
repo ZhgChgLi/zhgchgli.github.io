@@ -1,0 +1,48 @@
+---
+layout: default
+title: Tags
+nav_id: tag
+permalink: /tags/
+---
+{% assign t = site.data.strings[site.i18n.current] %}
+{% comment %} Drop tags whose only posts are hidden. {% endcomment %}
+{% assign tag_pairs = '' | split: '' %}
+{% for pair in site.tags %}
+  {% assign visible = pair[1] | where_exp: 'p', 'p.hidden != true' %}
+  {% if visible.size > 0 %}
+    {% capture record %}{{ pair[0] }}|{{ visible.size }}{% endcapture %}
+    {% assign tag_pairs = tag_pairs | push: record %}
+  {% endif %}
+{% endfor %}
+{% assign tag_pairs = tag_pairs | sort %}
+
+<section class="list-hero">
+  <div class="eyebrow">{{ t.tags.eyebrow }}</div>
+  <h1>{{ t.tags.h1_main }} <i>{{ t.tags.h1_em }}</i></h1>
+  <div class="sub"><p>{{ t.tags.sub }}</p></div>
+</section>
+
+<section class="tag-cloud">
+  {% assign max_count = 1 %}
+  {% for rec in tag_pairs %}
+    {% assign size = rec | split: '|' | last | plus: 0 %}
+    {% if size > max_count %}{% assign max_count = size %}{% endif %}
+  {% endfor %}
+  {% for rec in tag_pairs %}
+    {% assign parts = rec | split: '|' %}
+    {% assign tname = parts[0] %}
+    {% assign tsize = parts[1] | plus: 0 %}
+    {% assign ratio = tsize | times: 100 | divided_by: max_count %}
+    {% if ratio >= 75 %}{% assign sz = 40 %}{% assign bold = true %}
+    {% elsif ratio >= 50 %}{% assign sz = 32 %}{% assign bold = true %}
+    {% elsif ratio >= 30 %}{% assign sz = 26 %}{% assign bold = false %}
+    {% elsif ratio >= 15 %}{% assign sz = 22 %}{% assign bold = false %}
+    {% else %}{% assign sz = 18 %}{% assign bold = false %}
+    {% endif %}
+    {% assign mod3 = forloop.index0 | modulo: 3 %}
+    {% assign tslug = tname | slugify %}
+    <a href="{{ '/tags/' | append: tslug | append: '/' | relative_url }}"
+       style="font-size:{{ sz }}px;{% if bold %}font-weight:600;color:var(--ink-900);{% else %}font-weight:400;{% endif %}"
+       title="{{ tsize }}">#{{ tname }}<sup style="font-size:0.5em;color:var(--ink-300);margin-left:2px">{{ tsize }}</sup></a>
+  {% endfor %}
+</section>

@@ -1,0 +1,4 @@
+openai>=1.40
+python-frontmatter>=1.1
+mistune>=3.0
+opencc-python-reimplemented>=0.1.7

@@ -1,0 +1,208 @@
+title: "ZhgChgLi Tech & Travel"
+tagline: "ZhgChgLi"
+description: >-
+  記錄程式開發、科技觀察與旅途生活。
+  An iOS, web, and automation developer from Taiwan who also loves sharing,
+  traveling, and writing.
+url: "https://zhgchg.li"
+baseurl: ""
+lang: zh-Hant
+timezone: Asia/Taipei
+
+# GitHub repo backing the site — used by post layout's "Improve this page"
+# link to deep-link straight to the canonical L10n source file.
+github:
+  repo: ZhgChgLi/zhgchgli.github.io
+  branch: main
+
+# External donation link surfaced at the bottom of every post.
+donate:
+  paypal: https://paypal.me/zhgchgli
+
+# Where the "Contact me" block at the bottom of every post links to.
+# Falls back to mailto:site.author.email if unset.
+contact:
+  url: /contact/
+
+# i18n — each language is a separate Jekyll site on its own domain.
+# `code`     is the short identifier used in URLs, file paths, bin/lang arg.
+# `iso`      is the BCP-47 tag used in HTML lang= and hreflang= (SEO-correct).
+# `current` matches one of the codes in `languages` and identifies *this* site.
+i18n:
+  current: zh-tw
+  languages:
+    - code: zh-tw
+      iso: zh-Hant
+      label: 繁體中文
+      short: 繁中
+      url: https://zhgchg.li
+    - code: zh-cn
+      iso: zh-Hans
+      label: 简体中文
+      short: 简中
+      url: https://cn.zhgchg.li
+    - code: en
+      iso: en
+      label: English
+      short: EN
+      url: https://en.zhgchg.li
+    - code: jp
+      iso: ja
+      label: 日本語
+      short: 日本
+      url: https://ja.zhgchg.li
+
+author:
+  name: ZhgChgLi
+  display_name: ZhgChgLi
+  bio: "An iOS, web, and automation developer from Taiwan 🇹🇼 who also loves sharing, traveling, and writing."
+  avatar: /assets/images/zhgchgli.jpg
+  email: zhgchgli@gmail.com
+  linkedin: zhgchgli
+  twitter: zhgchgli
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Per-post permalinks are set in _plugins/short_url_redirects.rb so we can
+# slugify category segments correctly and avoid Jekyll's auto-categorize-by-
+# subdir behaviour. Canonical:  /posts/<cat-slug>/<title-slug>-<file-slug>/
+# A short URL  /<file-slug>/  is also auto-emitted as a redirect.
+permalink: /:slug/
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  # Line numbers are rendered client-side (see _layouts/post.html). Rouge's
+  # table-based line numbers caused alignment bugs.
+  toc_levels: 2..3
+  hard_wrap: false
+
+# Pagination (jekyll-paginate-v2) — also auto-generates paginated index
+# pages for every category and tag (autopages) so they share the 20/page rule.
+pagination:
+  enabled: true
+  per_page: 20
+  permalink: '/page/:num/'
+  title: ':title · 第 :num 頁'
+  limit: 0
+  sort_field: 'date'
+  sort_reverse: true
+  # Populate paginator.page_trail (used by _includes/pager.html so categories,
+  # tags and the global posts list all share one consistent pager).
+  trail:
+    before: 999
+    after: 999
+
+autopages:
+  enabled: true
+  collections:
+    enabled: false
+  categories:
+    enabled: true
+    layouts:
+      - 'archive-category.html'
+    title: ':cat'
+    permalink: '/categories/:cat/'
+    slugify:
+      mode: 'default'
+      cased: false
+  tags:
+    enabled: true
+    layouts:
+      - 'archive-tag.html'
+    title: ':tag'
+    permalink: '/tags/:tag/'
+    slugify:
+      mode: 'default'
+      cased: false
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate-v2
+  - jekyll-archives
+  - jekyll-seo-tag
+  - jekyll-redirect-from
+
+# jekyll-archives is now used only for /archive/:year/ — categories and tags
+# are handled by jekyll-paginate-v2 autopages above so they can paginate.
+jekyll-archives:
+  enabled:
+    - year
+  layouts:
+    year: archive-year
+  permalinks:
+    year: /archive/:year/
+
+# Feed
+feed:
+  path: feed.xml
+  posts_limit: 30
+
+# SEO
+social:
+  name: ZhgChgLi
+  links:
+    - https://github.com/ZhgChgLi
+    - https://www.linkedin.com/in/zhgchgli
+    - https://twitter.com/zhgchgli
+
+# Third-party
+google_analytics: G-6WZJENT8WR
+
+giscus:
+  repo: ZhgChgLi/zhgchgli.github.io
+  repo_id: R_kgDOHdowLw
+  category: General
+  category_id: DIC_kwDOHdowL84CU-q5
+  mapping: pathname
+  reactions_enabled: 1
+  emit_metadata: 0
+  input_position: bottom
+  theme: light
+  lang: zh-TW
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author: ZhgChgLi
+      comments: true
+      toc: true
+
+# Standalone Markdown pages (about, contact, etc.) live under _pages/.
+# Jekyll skips _underscore-prefixed dirs by default; explicitly include it.
+include:
+  - _pages
+
+# Excludes
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - node_modules
+  - Design
+  - CLAUDE.md
+  - README.md
+  - .github
+  - .ruby-version
+  # L10n/ holds the per-language source markdown. bin/lang stages the relevant
+  # language into _posts/ before each build; without this exclude Jekyll picks
+  # up *every* translated source file as a top-level page (519 leaked URLs).
+  - L10n
+  - bin
+  - tools
+  - docs
+  - .vscode
+  - .idea
+
+# Collection of pages
+sass:
+  style: compressed
+  sass_dir: _sass

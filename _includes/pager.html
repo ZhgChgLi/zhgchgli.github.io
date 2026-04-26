@@ -1,0 +1,45 @@
+{% assign p = include.paginator %}
+{% if p.total_pages > 1 %}
+{% assign cur = p.page %}
+{% assign max = p.total_pages %}
+{% assign cur_m1 = cur | minus: 1 %}
+{% assign cur_p1 = cur | plus: 1 %}
+{% assign cur_m2 = cur | minus: 2 %}
+{% assign cur_p2 = cur | plus: 2 %}
+<nav class="pager" aria-label="Pagination">
+  {% if p.previous_page_path %}
+    <a href="{{ p.previous_page_path | relative_url }}" aria-label="Previous">‹</a>
+  {% else %}
+    <span aria-hidden="true">‹</span>
+  {% endif %}
+
+  {% comment %} page_trail is populated by jekyll-paginate-v2 with one entry per page,
+       each having .num, .path, .title — works for both /posts/ and category/tag autopages. {% endcomment %}
+  {% for t in p.page_trail %}
+    {% assign i = t.num %}
+    {% assign show = false %}
+    {% if i == 1 %}{% assign show = true %}{% endif %}
+    {% if i == max %}{% assign show = true %}{% endif %}
+    {% if i == cur %}{% assign show = true %}{% endif %}
+    {% if i == cur_m1 %}{% assign show = true %}{% endif %}
+    {% if i == cur_p1 %}{% assign show = true %}{% endif %}
+    {% if show %}
+      {% if i == cur %}
+        <span class="current">{{ i }}</span>
+      {% else %}
+        <a href="{{ t.path | relative_url }}">{{ i }}</a>
+      {% endif %}
+    {% else %}
+      {% if i == cur_m2 or i == cur_p2 %}
+        <span class="gap">…</span>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% if p.next_page_path %}
+    <a href="{{ p.next_page_path | relative_url }}" aria-label="Next">›</a>
+  {% else %}
+    <span aria-hidden="true">›</span>
+  {% endif %}
+</nav>
+{% endif %}

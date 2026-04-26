@@ -1,0 +1,15 @@
+# Nav order. Labels live in _data/strings.yml under <lang>.nav.<id>.
+- id: home
+  url: /
+- id: list
+  url: /posts/
+- id: category
+  url: /categories/
+- id: tag
+  url: /tags/
+- id: archive
+  url: /archive/
+- id: about
+  url: /about/
+- id: contact
+  url: /contact/

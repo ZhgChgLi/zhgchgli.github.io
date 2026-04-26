@@ -1,0 +1,514 @@
+# All framework UI strings, keyed by language code (matches site.i18n.current).
+# In templates: {% assign t = site.data.strings[site.i18n.current] %}
+
+zh-tw:
+  nav:
+    home: 首頁
+    list: 文章
+    category: 分類
+    tag: 標籤
+    archive: 歸檔
+    about: 關於
+    contact: 聯絡
+    search: 搜尋
+  drawer:
+    navigate_section: Navigate
+  topbar:
+    search_aria: 搜尋
+    menu_aria: 選單
+  footer:
+    read_heading: 讀文章
+    connect_heading: 聯繫
+    follow_heading: 訂閱
+    rss_link: RSS Feed
+    sitemap_link: Sitemap
+    all_writing: 全部文章
+    categories: 分類
+    tags: 標籤
+    archive: 歸檔
+    copy_made_with: "© 2018–%Y · ZhgChgLi"
+  home:
+    pinned_ribbon: Pinned
+    pinned_eyebrow: 釘選
+    pinned_title: 編輯精選
+    pinned_picks_label: "Editor's picks"
+    featured_eyebrow: Featured
+    read_essay_btn: 閱讀全文
+    latest_writing_title: 最新
+    latest_writing_em: 文章
+    view_all: 全部 %d 篇
+    by: by
+    min_read: 分鐘
+  list:
+    eyebrow: The Index
+    h1_main: 全部
+    h1_em: 文章
+    sub_template: "%d 篇關於 iOS 開發、開源、效率工具、與旅行的文章。"
+    page_of_n: "第 %p 頁，共 %t 頁"
+    pinned_count: "%d 篇文章被釘選"
+  categories:
+    eyebrow: 分類瀏覽
+    h1_count_em: 個分類
+    filter_label: 篩選
+    essays_suffix: 篇
+    view_all_arrow: 查看全部 %d 篇 →
+    in_category_eyebrow: 當前分類
+    n_essays_in: "%d 篇文章"
+  tags:
+    eyebrow: 標籤瀏覽
+    h1_main: 標籤
+    h1_em: 雲
+    sub: 從這裡找到貫穿文章的線索 — 點任一個展開。
+    selected_eyebrow: 當前標籤
+    n_essays_tagged: "%d 篇文章"
+  archive:
+    eyebrow: 時間歸檔
+    h1_count_em: 年的書寫
+    stats_essays: ESSAYS
+    stats_words: WORDS
+    stats_since: SINCE
+    year_eyebrow: 年度歸檔
+    year_em: 年的文章
+  search:
+    eyebrow: 搜尋
+    h1_main: 搜尋
+    h1_em: 全部文章
+    placeholder: 搜尋文章標題、標籤、分類、內文…
+    popular_label: 熱門
+    initial_summary: 輸入關鍵字開始搜尋
+    indexing: 索引載入中…
+    results_for: 結果
+    not_found_template: "找不到符合「%s」的文章。試試別的關鍵字？"
+  post:
+    by: by
+    min_read: 分鐘
+    toc_eyebrow: Table of Contents
+    toc_label: 本文目錄
+    toc_count: "· %d 段"
+    fab_back: 回到目錄
+    filed_under: 收錄於
+    improve_title: 在 GitHub 上補充修正
+    improve_subtitle: 編輯這篇文章
+    medium_origin_title: 本文首次發表於 Medium
+    medium_origin_subtitle: 點此查看原文
+    share_title: 分享這篇文章
+    share_subtitle: 複製連結 · 分享到社群
+    copy_link: 複製連結
+    author: 作者
+    comments_h: 留言
+    comments_em: · Comments
+    comments_powered: Powered by giscus
+    related_h: 你也許會喜歡
+  notfound:
+    issue_label: "Issue No.404 · 缺貨中"
+    h1_main: 這個頁面
+    h1_em: 找不到了。
+    body: 可能這篇文章已經搬家、被改名，或從來不存在。像在京都的小巷裡迷路一樣 — 雖然找不到原本要去的地方，但也許會發現別的好東西。
+    back_home: ← 回首頁
+    search_btn: ⌕ 搜尋文章
+    archive_btn: 翻翻歸檔
+    suggest_h: 既然來了，
+    suggest_em: 讀點別的？
+    all_writing_link: 全部文章 →
+    error_label: Error 404 · 找不到頁面
+    poetic: 你在這裡，但不在那裡。
+    home_arrow: 首頁 →
+  lang_switcher:
+    note: 部分文章可能未翻譯
+  copy_btn:
+    copy: Copy
+    copied: Copied
+  donate:
+    eyebrow: 喜歡這篇文章？
+    title: 請我喝杯咖啡 ☕
+    subtitle: 獨立寫作，無付費牆、無業配。如果有幫到你，歡迎請我一杯咖啡支持持續創作。
+    cta_paypal: PayPal
+  contact:
+    eyebrow: 有任何問題或指教？
+    title: 歡迎與我聯絡
+    subtitle: 文章內容如有錯誤、想交流意見、合作邀約，都歡迎來信。
+    cta: 聯絡我
+
+en:
+  nav:
+    home: Home
+    list: Writing
+    category: Categories
+    tag: Tags
+    archive: Archive
+    about: About
+    contact: Contact
+    search: Search
+  drawer:
+    navigate_section: Navigate
+  topbar:
+    search_aria: Search
+    menu_aria: Menu
+  footer:
+    read_heading: Read
+    connect_heading: Connect
+    follow_heading: Follow
+    rss_link: RSS Feed
+    sitemap_link: Sitemap
+    all_writing: All writing
+    categories: Categories
+    tags: Tags
+    archive: Archive
+    copy_made_with: "© 2018–%Y · ZhgChgLi"
+  home:
+    pinned_ribbon: Pinned
+    pinned_eyebrow: Pinned
+    pinned_title: "Editor's picks"
+    pinned_picks_label: "Editor's picks"
+    featured_eyebrow: Featured
+    read_essay_btn: Read essay
+    latest_writing_title: Latest
+    latest_writing_em: writing
+    view_all: View all %d
+    by: by
+    min_read: min read
+  list:
+    eyebrow: The Index
+    h1_main: All
+    h1_em: writing.
+    sub_template: "%d essays on iOS engineering, open source craft, productivity systems, and the occasional travelogue."
+    page_of_n: "page %p of %t"
+    pinned_count: "%d essays pinned"
+  categories:
+    eyebrow: Browse by · Category
+    h1_count_em: topics.
+    filter_label: Filter
+    essays_suffix: essays
+    view_all_arrow: View all %d →
+    in_category_eyebrow: Currently in · Category
+    n_essays_in: "%d essays in this category"
+  tags:
+    eyebrow: Browse by · Tag
+    h1_main: Tag
+    h1_em: cloud.
+    sub: Smaller threads running through the writing — pick one and pull.
+    selected_eyebrow: Selected tag
+    n_essays_tagged: "%d essays tagged"
+  archive:
+    eyebrow: Time · Archive
+    h1_count_em: years of writing.
+    stats_essays: ESSAYS
+    stats_words: WORDS
+    stats_since: SINCE
+    year_eyebrow: Year · Archive
+    year_em: writing.
+  search:
+    eyebrow: The Index · Search
+    h1_main: Search the
+    h1_em: archive.
+    placeholder: Search titles, tags, categories, content…
+    popular_label: Popular
+    initial_summary: Type a query to start searching
+    indexing: Loading index…
+    results_for: results for
+    not_found_template: "No essays matching “%s”. Try another keyword?"
+  post:
+    by: by
+    min_read: min read
+    toc_eyebrow: Table of Contents
+    toc_label: Contents
+    toc_count: "· %d sections"
+    fab_back: Back to TOC
+    filed_under: Filed under
+    improve_title: Improve this page
+    improve_subtitle: Edit on GitHub
+    medium_origin_title: Originally published on Medium
+    medium_origin_subtitle: Read the original
+    share_title: Share this essay
+    share_subtitle: Copy link · share to socials
+    copy_link: Copy link
+    author: Author
+    comments_h: Comments
+    comments_em: ""
+    comments_powered: Powered by giscus
+    related_h: You may also enjoy
+  notfound:
+    issue_label: "Issue No.404 · Out of print"
+    h1_main: This page is
+    h1_em: nowhere to be found.
+    body: Maybe it moved, was renamed, or never existed. Like getting lost in a Kyoto alley — you may not find what you came for, but you might find something else worth keeping.
+    back_home: ← Home
+    search_btn: ⌕ Search
+    archive_btn: Browse archive
+    suggest_h: Since you're here,
+    suggest_em: read something else?
+    all_writing_link: All writing →
+    error_label: Error 404 · Page not found
+    poetic: You are here, but not there.
+    home_arrow: Home →
+  lang_switcher:
+    note: Some essays may not be translated
+  copy_btn:
+    copy: Copy
+    copied: Copied
+  donate:
+    eyebrow: Liked this essay?
+    title: Buy me a coffee ☕
+    subtitle: Independent writing — no paywall, no sponsored posts. If this helped, a coffee keeps the writing going.
+    cta_paypal: PayPal
+  contact:
+    eyebrow: Questions or feedback?
+    title: Get in touch
+    subtitle: Spotted a mistake, want to discuss, or talk collaboration? Drop me a line.
+    cta: Contact me
+
+zh-cn:
+  nav:
+    home: 首页
+    list: 文章
+    category: 分类
+    tag: 标签
+    archive: 归档
+    about: 关于
+    contact: 联络
+    search: 搜索
+  drawer:
+    navigate_section: 导航
+  topbar:
+    search_aria: 搜索
+    menu_aria: 菜单
+  footer:
+    read_heading: 阅读
+    connect_heading: 联系
+    follow_heading: 订阅
+    rss_link: RSS Feed
+    sitemap_link: Sitemap
+    all_writing: 全部文章
+    categories: 分类
+    tags: 标签
+    archive: 归档
+    copy_made_with: "© 2018–%Y · ZhgChgLi"
+  home:
+    pinned_ribbon: Pinned
+    pinned_eyebrow: 置顶
+    pinned_title: 编辑精选
+    pinned_picks_label: "Editor's picks"
+    featured_eyebrow: Featured
+    read_essay_btn: 阅读全文
+    latest_writing_title: 最新
+    latest_writing_em: 文章
+    view_all: 全部 %d 篇
+    by: by
+    min_read: 分钟
+  list:
+    eyebrow: The Index
+    h1_main: 全部
+    h1_em: 文章
+    sub_template: "%d 篇关于 iOS 开发、开源、效率工具、与旅行的文章。"
+    page_of_n: "第 %p 页，共 %t 页"
+    pinned_count: "%d 篇文章被置顶"
+  categories:
+    eyebrow: 分类浏览
+    h1_count_em: 个分类
+    filter_label: 筛选
+    essays_suffix: 篇
+    view_all_arrow: 查看全部 %d 篇 →
+    in_category_eyebrow: 当前分类
+    n_essays_in: "%d 篇文章"
+  tags:
+    eyebrow: 标签浏览
+    h1_main: 标签
+    h1_em: 云
+    sub: 从这里找到贯穿文章的线索 — 点任一个展开。
+    selected_eyebrow: 当前标签
+    n_essays_tagged: "%d 篇文章"
+  archive:
+    eyebrow: 时间归档
+    h1_count_em: 年的写作
+    stats_essays: ESSAYS
+    stats_words: WORDS
+    stats_since: SINCE
+    year_eyebrow: 年度归档
+    year_em: 年的文章
+  search:
+    eyebrow: 搜索
+    h1_main: 搜索
+    h1_em: 全部文章
+    placeholder: 搜索文章标题、标签、分类、内文…
+    popular_label: 热门
+    initial_summary: 输入关键字开始搜索
+    indexing: 索引加载中…
+    results_for: 结果
+    not_found_template: "找不到符合「%s」的文章。试试别的关键字？"
+  post:
+    by: by
+    min_read: 分钟
+    toc_eyebrow: Table of Contents
+    toc_label: 本文目录
+    toc_count: "· %d 段"
+    fab_back: 回到目录
+    filed_under: 收录于
+    improve_title: 在 GitHub 上补充修正
+    improve_subtitle: 编辑这篇文章
+    medium_origin_title: 本文首次发表于 Medium
+    medium_origin_subtitle: 点此查看原文
+    share_title: 分享这篇文章
+    share_subtitle: 复制链接 · 分享到社群
+    copy_link: 复制链接
+    author: 作者
+    comments_h: 留言
+    comments_em: · Comments
+    comments_powered: Powered by giscus
+    related_h: 你也许会喜欢
+  notfound:
+    issue_label: "Issue No.404 · 缺货中"
+    h1_main: 这个页面
+    h1_em: 找不到了。
+    body: 可能这篇文章已经搬家、被改名，或从未存在。像在京都的小巷里迷路一样 — 虽然找不到原本要去的地方，但也许会发现别的好东西。
+    back_home: ← 回首页
+    search_btn: ⌕ 搜索文章
+    archive_btn: 翻翻归档
+    suggest_h: 既然来了，
+    suggest_em: 读点别的？
+    all_writing_link: 全部文章 →
+    error_label: Error 404 · 找不到页面
+    poetic: 你在这里，但不在那里。
+    home_arrow: 首页 →
+  lang_switcher:
+    note: 部分文章可能未翻译
+  copy_btn:
+    copy: Copy
+    copied: Copied
+  donate:
+    eyebrow: 喜欢这篇文章？
+    title: 请我喝杯咖啡 ☕
+    subtitle: 独立写作，无付费墙、无业配。如果有帮到你，欢迎请我一杯咖啡支持持续创作。
+    cta_paypal: PayPal
+  contact:
+    eyebrow: 有任何问题或指教？
+    title: 欢迎与我联络
+    subtitle: 文章内容如有错误、想交流意见、合作邀约，都欢迎来信。
+    cta: 联络我
+
+jp:
+  nav:
+    home: ホーム
+    list: 記事
+    category: カテゴリー
+    tag: タグ
+    archive: アーカイブ
+    about: 概要
+    contact: お問い合わせ
+    search: 検索
+  drawer:
+    navigate_section: ナビゲーション
+  topbar:
+    search_aria: 検索
+    menu_aria: メニュー
+  footer:
+    read_heading: 読む
+    connect_heading: つながる
+    follow_heading: フォロー
+    rss_link: RSS フィード
+    sitemap_link: Sitemap
+    all_writing: 全ての記事
+    categories: カテゴリー
+    tags: タグ
+    archive: アーカイブ
+    copy_made_with: "© 2018–%Y · ZhgChgLi"
+  home:
+    pinned_ribbon: Pinned
+    pinned_eyebrow: ピン留め
+    pinned_title: 編集者のおすすめ
+    pinned_picks_label: "Editor's picks"
+    featured_eyebrow: Featured
+    read_essay_btn: 続きを読む
+    latest_writing_title: 最新の
+    latest_writing_em: 記事
+    view_all: 全 %d 件
+    by: by
+    min_read: 分
+  list:
+    eyebrow: The Index
+    h1_main: 全ての
+    h1_em: 記事。
+    sub_template: "iOS 開発、オープンソース、効率化、そして旅についての %d 件の記事。"
+    page_of_n: "%p / %t ページ"
+    pinned_count: "%d 件の記事がピン留めされています"
+  categories:
+    eyebrow: カテゴリーで探す
+    h1_count_em: のトピック。
+    filter_label: フィルター
+    essays_suffix: 件
+    view_all_arrow: 全 %d 件を表示 →
+    in_category_eyebrow: 現在のカテゴリー
+    n_essays_in: "%d 件の記事"
+  tags:
+    eyebrow: タグで探す
+    h1_main: タグ
+    h1_em: クラウド。
+    sub: 記事を貫く小さな糸 — 一つを選んで引っ張ってみよう。
+    selected_eyebrow: 選択されたタグ
+    n_essays_tagged: "%d 件の記事"
+  archive:
+    eyebrow: 時系列アーカイブ
+    h1_count_em: 年間の執筆
+    stats_essays: ESSAYS
+    stats_words: WORDS
+    stats_since: SINCE
+    year_eyebrow: 年別アーカイブ
+    year_em: の記事。
+  search:
+    eyebrow: 検索
+    h1_main: アーカイブを
+    h1_em: 検索。
+    placeholder: タイトル・タグ・カテゴリー・本文を検索…
+    popular_label: 人気
+    initial_summary: キーワードを入力して検索
+    indexing: インデックスを読み込み中…
+    results_for: 件の結果
+    not_found_template: "「%s」に一致する記事が見つかりません。別のキーワードを試してみてください。"
+  post:
+    by: by
+    min_read: 分
+    toc_eyebrow: Table of Contents
+    toc_label: 目次
+    toc_count: "· %d セクション"
+    fab_back: 目次へ戻る
+    filed_under: 分類
+    improve_title: GitHub で編集
+    improve_subtitle: この記事を改善
+    medium_origin_title: 本記事は Medium で初公開
+    medium_origin_subtitle: オリジナルを読む
+    share_title: この記事をシェア
+    share_subtitle: リンクをコピー · SNS でシェア
+    copy_link: リンクをコピー
+    author: 著者
+    comments_h: コメント
+    comments_em: ""
+    comments_powered: Powered by giscus
+    related_h: こちらもおすすめ
+  notfound:
+    issue_label: "Issue No.404 · 在庫切れ"
+    h1_main: このページは
+    h1_em: 見つかりませんでした。
+    body: 移動・改名されたか、もともと存在しないかもしれません。京都の小路で迷子になるように — 目的地は見つからなくても、別の良いものに出会えるかも。
+    back_home: ← ホーム
+    search_btn: ⌕ 記事を検索
+    archive_btn: アーカイブへ
+    suggest_h: せっかくですから、
+    suggest_em: 別の記事を読みませんか？
+    all_writing_link: 全ての記事 →
+    error_label: Error 404 · ページが見つかりません
+    poetic: ここにいるけれど、そこにはいない。
+    home_arrow: ホーム →
+  lang_switcher:
+    note: 一部の記事は翻訳されていない場合があります
+  copy_btn:
+    copy: Copy
+    copied: Copied
+  donate:
+    eyebrow: 記事は役に立ちましたか？
+    title: コーヒーをおごる ☕
+    subtitle: 独立した執筆活動です — ペイウォールも広告タイアップもありません。記事が役に立ったなら、一杯のコーヒーで応援してください。
+    cta_paypal: PayPal
+  contact:
+    eyebrow: ご質問・ご意見は？
+    title: お気軽にお問い合わせください
+    subtitle: 記事の誤り、ご意見、コラボのご相談など、いつでもメッセージをお送りください。
+    cta: お問い合わせ

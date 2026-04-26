@@ -1,0 +1,44 @@
+---
+layout: default
+title: Archive
+nav_id: archive
+permalink: /archive/
+---
+{% assign t = site.data.strings[site.i18n.current] %}
+{% assign visible_posts = site.posts | where_exp: 'p', 'p.hidden != true' %}
+{% assign by_year = visible_posts | group_by_exp: 'p', 'p.date | date: "%Y"' %}
+{% assign first_year = visible_posts | last %}
+{% assign first_year = first_year.date | date: '%Y' %}
+{% assign words_total = 0 %}
+{% for p in visible_posts %}
+  {% assign w = p.content | strip_html | size %}
+  {% assign words_total = words_total | plus: w %}
+{% endfor %}
+{% assign years_count = by_year.size %}
+
+<section class="list-hero">
+  <div class="eyebrow">{{ t.archive.eyebrow }}</div>
+  <h1>{{ years_count }} <i>{{ t.archive.h1_count_em }}</i></h1>
+  <div class="stats-row">
+    <div><div class="num">{{ visible_posts.size | prepend: '000' | slice: -3, 3 }}</div><div class="lbl">{{ t.archive.stats_essays }}</div></div>
+    <div><div class="num">{{ words_total | divided_by: 1000 }}k</div><div class="lbl">{{ t.archive.stats_words }}</div></div>
+    <div><div class="num">{{ first_year }}</div><div class="lbl">{{ t.archive.stats_since }}</div></div>
+  </div>
+</section>
+
+<section class="archive-block">
+  {% for yr in by_year %}
+  <div class="archive-year-row">
+    <h2><a href="{{ '/archive/' | append: yr.name | append: '/' | relative_url }}">{{ yr.name }}</a></h2>
+    <div class="archive-list">
+      {% for p in yr.items %}
+      <a href="{{ p.url | relative_url }}">
+        <span class="when">{{ p.date | date: '%b %d' }}</span>
+        <span class="ttl">{{ p.title }}</span>
+        <span class="ar">→</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</section>

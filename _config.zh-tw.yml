@@ -1,0 +1,16 @@
+# Overlay for the Traditional Chinese site (zh-Hant) — production deployment.
+# Identical to base config defaults; kept for symmetry and explicit invocation.
+lang: zh-Hant
+url: https://zhgchg.li
+
+i18n:
+  current: zh-tw
+
+title: "ZhgChgLi Tech & Travel"
+description: >-
+  記錄程式開發、科技觀察與旅途生活。
+  An iOS, web, and automation developer from Taiwan who also loves sharing,
+  traveling, and writing.
+
+giscus:
+  lang: zh-TW

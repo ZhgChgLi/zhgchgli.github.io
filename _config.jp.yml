@@ -1,0 +1,14 @@
+# Overlay for the Japanese site.
+lang: ja
+url: https://ja.zhgchg.li
+
+i18n:
+  current: jp
+
+title: "ZhgChgLi テック & トラベル"
+description: >-
+  iOS 開発、自動化、オープンソース、そして旅の記録。
+  台湾からの iOS / Web デベロッパーによるブログ。
+
+giscus:
+  lang: ja

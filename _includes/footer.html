@@ -1,52 +1,30 @@
-<!-- The Footer -->
-
-<footer
-  aria-label="Site Info"
-  class="
-    d-flex flex-column justify-content-center text-muted
-    flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
-  "
->
-  <p>
-    {{- '©' }}
-    <time>2018 - {{ 'now' | date: '%Y' }}</time>
-
-    {% if site.social.links %}
-      <a href="{{ site.social.links[0] }}">{{ site.social.name }}</a>.
-    {% else %}
-      <em class="fst-normal">{{ site.social.name }}</em>.
-    {% endif %}
-
-    {% if site.data.locales[include.lang].copyright.brief %}
-      <span
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        title="{{ site.data.locales[include.lang].copyright.verbose }}"
-      >
-        {{- site.data.locales[include.lang].copyright.brief -}}
-      </span>
-    {% endif %}
-    <!-- ZhgChgLi Customized Start -->
-        {% include zhgchgli/footer-lastUpdated.html %}
-    <!-- ZhgChgLi Customized End -->
-  </p>
-
-  <p>
-    {%- capture _platform -%}
-      <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>
-    {%- endcapture -%}
-
-    {%- capture _theme -%}
-      <a
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        title="v{{ theme.version }}"
-        href="https://github.com/cotes2020/jekyll-theme-chirpy"
-        target="_blank"
-        rel="noopener"
-      >Chirpy</a>
-    {%- endcapture -%}
-
-    {{ site.data.locales[include.lang].meta | replace: ':PLATFORM', _platform | replace: ':THEME', _theme }}
-  </p>
+<footer class="foot">
+  <div class="foot-inner">
+    <div>
+      <div class="brand-foot"><b>ZhgChg</b><span class="dot">.</span><i>Li</i></div>
+      <div>{{ site.author.bio }}</div>
+      {% assign year = site.time | date: '%Y' %}
+      <div class="copy">{{ t.footer.copy_made_with | replace: '%Y', year }}</div>
+    </div>
+    <div>
+      <h5>{{ t.footer.read_heading }}</h5>
+      <a href="{{ '/posts/' | relative_url }}">{{ t.footer.all_writing }}</a>
+      <a href="{{ '/categories/' | relative_url }}">{{ t.footer.categories }}</a>
+      <a href="{{ '/tags/' | relative_url }}">{{ t.footer.tags }}</a>
+      <a href="{{ '/archive/' | relative_url }}">{{ t.footer.archive }}</a>
+    </div>
+    <div>
+      <h5>{{ t.footer.connect_heading }}</h5>
+      {% for s in site.data.social %}{% unless s.id == 'rss' %}
+        <a href="{{ s.url }}" {% unless s.url contains 'mailto' %}target="_blank" rel="noopener"{% endunless %}>
+          <i class="{{ s.icon }} icon"></i>{{ s.label }}
+        </a>
+      {% endunless %}{% endfor %}
+    </div>
+    <div>
+      <h5>{{ t.footer.follow_heading }}</h5>
+      <a href="{{ '/feed.xml' | relative_url }}"><i class="fa-solid fa-rss icon" style="color:var(--accent)"></i>{{ t.footer.rss_link }}</a>
+      <a href="{{ '/sitemap.xml' | relative_url }}"><i class="fa-solid fa-sitemap icon"></i>{{ t.footer.sitemap_link }}</a>
+    </div>
+  </div>
 </footer>

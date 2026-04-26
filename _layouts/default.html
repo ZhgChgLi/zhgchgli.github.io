@@ -1,0 +1,24 @@
+<!doctype html>
+{% assign t = site.data.strings[site.i18n.current] %}
+{% assign html_lang = site.lang | default: 'zh-Hant' %}
+{% if site.i18n.languages %}
+  {% for lng in site.i18n.languages %}
+    {% if lng.code == site.i18n.current %}{% assign html_lang = lng.iso | default: lng.code %}{% endif %}
+  {% endfor %}
+{% endif %}
+<html lang="{{ html_lang }}">
+<head>
+  {% include head.html %}
+</head>
+<body>
+  {% include topbar.html %}
+  {% include drawer.html %}
+
+  <main>
+    {{ content }}
+  </main>
+
+  {% include footer.html %}
+  {% include scripts.html %}
+</body>
+</html>

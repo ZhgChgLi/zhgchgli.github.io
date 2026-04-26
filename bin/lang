@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Language-aware Jekyll runner.
+# Usage:
+#   bin/lang <lang> [serve|build] [extra jekyll args...]
+# Examples:
+#   bin/lang zh-Hant serve            # local debug, default
+#   bin/lang en build                 # CI build for English site
+#   bin/lang zh-Hant serve --livereload
+#
+# Source posts live in `L10n/posts/<lang>/`. They are copied into `_posts/`
+# (gitignored) before each run so the build sees only one language at a time.
+# Per-language overrides live in `_config.<lang>.yml`, layered on top of
+# the base `_config.yml`.
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+LANG_CODE="${1:-zh-tw}"
+ACTION="${2:-serve}"
+shift 2 2>/dev/null || true
+
+OVERLAY="_config.${LANG_CODE}.yml"
+SRC_POSTS="L10n/posts/${LANG_CODE}"
+
+if [[ ! -f "${OVERLAY}" ]]; then
+  echo "✗ No config overlay found at ${OVERLAY}" >&2
+  echo "  Available languages:" >&2
+  ls _config.*.yml 2>/dev/null | sed 's|_config\.||;s|\.yml||;s|^|    |' >&2
+  exit 1
+fi
+if [[ ! -d "${SRC_POSTS}" ]]; then
+  echo "✗ No source posts directory at ${SRC_POSTS}" >&2
+  exit 1
+fi
+
+# Stage the posts for this language. Subdirectories under L10n/posts/<lang>/
+# are preserved recursively (Jekyll happily reads posts from nested folders
+# inside _posts/, and the nested folder name becomes an automatic category).
+rm -rf _posts
+mkdir -p _posts
+if [[ -d "${SRC_POSTS}" ]] && [[ -n "$(ls -A "${SRC_POSTS}" 2>/dev/null)" ]]; then
+  cp -R "${SRC_POSTS}/." "_posts/"
+fi
+
+post_count=$(find _posts -type f \( -name '*.md' -o -name '*.markdown' \) | wc -l | tr -d ' ')
+
+echo "→ Building ${LANG_CODE} site"
+echo "  posts:  ${SRC_POSTS}/  → _posts/  (${post_count} files, including subdirs)"
+echo "  config: _config.yml + ${OVERLAY}"
+
+exec bundle exec jekyll "${ACTION}" \
+  --config "_config.yml,${OVERLAY}" \
+  "$@"

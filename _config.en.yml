@@ -1,0 +1,14 @@
+# Overlay for the English site.
+lang: en
+url: https://en.zhgchg.li
+
+i18n:
+  current: en
+
+title: "ZhgChgLi Tech & Travel"
+description: >-
+  Notes on iOS engineering, automation, open source, and travel
+  by an iOS / web developer from Taiwan.
+
+giscus:
+  lang: en

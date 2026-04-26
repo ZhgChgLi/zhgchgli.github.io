@@ -3,7 +3,7 @@ name: After Pages Deployment
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ["pages-build-deployment"]
+    workflows: ["Build & Deploy Jekyll site to GitHub Pages"]
     types: [completed]
 
 concurrency:
@@ -13,9 +13,10 @@ concurrency:
 jobs:
   after_deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
 
     steps:
-      - name: Print deployment info
+      - name: Sync redirects to Cloudflare rules list
         env:
           CLOUDFLARE_ACCOUNT_ID: "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
           CLOUDFLARE_LIST_ID: "${{ secrets.CLOUDFLARE_LIST_ID }}"

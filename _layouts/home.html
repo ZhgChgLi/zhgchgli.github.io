@@ -1,0 +1,93 @@
+---
+layout: default
+---
+{% assign t = site.data.strings[site.i18n.current] %}
+{% comment %} Hide posts with frontmatter `hidden: true` from every listing on this page. {% endcomment %}
+{% assign visible_posts = site.posts | where_exp: 'p', 'p.hidden != true' %}
+{% assign pinned_posts = visible_posts | where: 'pin', true %}
+{% assign non_pinned = '' | split: '' %}
+{% for p in visible_posts %}{% unless p.pin %}{% assign non_pinned = non_pinned | push: p %}{% endunless %}{% endfor %}
+{% assign hero = non_pinned | first %}
+{% assign grid = non_pinned | slice: 1, 10 %}
+
+{% if pinned_posts.size > 0 %}
+<section class="section-pinned">
+  <div class="head">
+    <div class="head-l">
+      <span class="pinned-ribbon"><i class="fa-solid fa-thumbtack"></i> {{ t.home.pinned_ribbon }}</span>
+      <h3><i>{{ t.home.pinned_eyebrow }}</i> · {{ t.home.pinned_title }}</h3>
+    </div>
+    <span class="head-r">{{ t.home.pinned_picks_label }} · {{ pinned_posts.size | prepend: '0' | slice: -2, 2 }}</span>
+  </div>
+  <div class="pinned-grid">
+    {% for p in pinned_posts %}
+      <a class="pinned-card" href="{{ p.url | relative_url }}">
+        <div class="cover">
+          {% if p.image.path %}
+            <img src="{{ p.image.path | relative_url }}" alt="" loading="lazy" decoding="async"
+                 {% if p.image.lqip %}lqip="{{ p.image.lqip }}"{% endif %}>
+          {% endif %}
+        </div>
+        <div class="body">
+          <div class="meta"><i class="fa-solid fa-thumbtack" style="font-size:11px"></i> {{ t.home.pinned_ribbon }} · {{ p.categories | first }}</div>
+          <h4>{{ p.title }}</h4>
+          <p class="excerpt">{{ p.description | default: p.excerpt | strip_html | truncate: 110 }}</p>
+          <div class="foot-line">
+            <span>{{ p.date | date: '%Y-%m-%d' }}</span>
+            <span class="more">{{ t.home.read_essay_btn }} <i class="fa-solid fa-arrow-right" style="font-size:10px"></i></span>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if hero %}
+{% assign words = hero.content | strip_html | size %}
+{% assign rt = words | divided_by: 400 | plus: 1 %}
+<section class="section-hero">
+  <a class="cover" href="{{ hero.url | relative_url }}">
+    {% if hero.image.path %}<img src="{{ hero.image.path | relative_url }}" alt="" loading="eager" decoding="async"
+         {% if hero.image.lqip %}lqip="{{ hero.image.lqip }}"{% endif %}>{% endif %}
+  </a>
+  <div>
+    <div class="eyebrow" style="margin-bottom:20px">{{ t.home.featured_eyebrow }} · {{ hero.categories | first }}</div>
+    <h2><a href="{{ hero.url | relative_url }}">{{ hero.title }}</a></h2>
+    <p class="lead">{{ hero.description | default: hero.excerpt | strip_html | truncate: 160 }}</p>
+    <div class="meta">
+      <i class="fa-regular fa-calendar"></i><span>{{ hero.date | date: '%Y-%m-%d' }}</span>
+      <span class="dot-sep"></span>
+      <i class="fa-regular fa-clock"></i><span>{{ rt }} {{ t.home.min_read }}</span>
+      <span class="dot-sep"></span>
+      <i class="fa-regular fa-user"></i><span>{{ t.home.by }} {{ site.author.display_name }}</span>
+    </div>
+    <a class="btn-pill" href="{{ hero.url | relative_url }}">
+      {{ t.home.read_essay_btn }} <i class="fa-solid fa-arrow-right" style="font-size:11px;margin-left:4px"></i>
+    </a>
+  </div>
+</section>
+{% endif %}
+
+<section class="section-latest-head">
+  <h3 class="section-title">{{ t.home.latest_writing_title }} <i>{{ t.home.latest_writing_em }}</i></h3>
+  {% assign view_all = t.home.view_all | replace: '%d', visible_posts.size %}
+  <a class="view-all" href="{{ '/posts/' | relative_url }}">{{ view_all }} <i class="fa-solid fa-arrow-right" style="font-size:10px;margin-left:4px"></i></a>
+</section>
+
+<section class="section-latest">
+  <div class="latest-grid">
+    {% for p in grid %}
+      <a class="latest-card" href="{{ p.url | relative_url }}">
+        <div class="cover">{% if p.image.path %}<img src="{{ p.image.path | relative_url }}" alt="" loading="lazy" decoding="async"
+             {% if p.image.lqip %}lqip="{{ p.image.lqip }}"{% endif %}>{% endif %}</div>
+        <div class="meta">{{ p.categories | first }} · {{ p.date | date: '%Y-%m-%d' }}</div>
+        <h4>{{ p.title }}</h4>
+        <p class="excerpt">{{ p.description | default: p.excerpt | strip_html | truncate: 160 }}</p>
+        <div class="tags">
+          {% for tg in p.tags limit: 3 %}<span class="chip">{{ tg }}</span>{% endfor %}
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>

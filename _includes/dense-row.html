@@ -1,0 +1,19 @@
+<a class="dense-row" href="{{ include.post.url | relative_url }}">
+  <div class="cover">
+    {% if include.post.image.path %}
+      <img src="{{ include.post.image.path | relative_url }}" alt="" loading="lazy" decoding="async"
+           {% if include.post.image.lqip %}lqip="{{ include.post.image.lqip }}"{% endif %}>
+    {% endif %}
+  </div>
+  <div class="body">
+    <div class="top">
+      <span class="cat">{{ include.post.categories | first }}</span>
+      <span class="when">{{ include.post.date | date: '%Y-%m-%d' }}</span>
+    </div>
+    <h4>{{ include.post.title }}</h4>
+    <p class="excerpt">{{ include.post.description | default: include.post.excerpt | strip_html | truncate: 120 }}</p>
+    <div class="tags">
+      {% for t in include.post.tags limit: 2 %}<span class="chip">{{ t }}</span>{% endfor %}
+    </div>
+  </div>
+</a>
