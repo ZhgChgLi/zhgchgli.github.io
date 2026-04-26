@@ -158,7 +158,6 @@ giscus:
   repo_id: R_kgDOHdowLw
   category: General
   category_id: DIC_kwDOHdowL84CU-q5
-  mapping: pathname
   reactions_enabled: 1
   emit_metadata: 0
   input_position: bottom
