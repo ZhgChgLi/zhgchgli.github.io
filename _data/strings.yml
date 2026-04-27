@@ -365,7 +365,7 @@ zh-cn:
     comments_em: · Comments
     comments_powered: ""
     related_h: 你也许会喜欢
-    ai_translation_notice: 本文使用 AI 翻译，如有不妥敬请告知。"
+    ai_translation_notice: "本文使用 AI 翻译，如有不妥敬请告知。"
   notfound:
     issue_label: "Issue No.404 · 缺货中"
     h1_main: 这个页面

@@ -29,9 +29,9 @@ html { font-synthesis: weight style none; }
   --paper: #fefcf8;
   --shadow-card: 0 1px 2px rgba(29,24,19,.04), 0 8px 24px rgba(29,24,19,.06);
 
-  --font-zh: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-  --font-display: "Fraunces", "Noto Serif TC", Georgia, serif;
-  --font-en: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-zh: "Noto Sans TC", "Noto Sans JP", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  --font-display: "Fraunces", "Noto Serif TC", "Noto Sans JP", "Noto Sans SC", Georgia, serif;
+  --font-en: "Inter", "Noto Sans TC", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
 
   --pad-x: 56px;
 }
