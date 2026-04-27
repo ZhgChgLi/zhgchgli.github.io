@@ -613,6 +613,11 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .post-toc-inner .toc-h2 .toc-toggle.spacer { cursor: default; border: none; background: transparent; color: var(--ink-300); font-size: 10px; }
 .post-toc-inner .toc-h2 .toc-toggle.spacer:hover { background: transparent; color: var(--ink-300); }
 
+/* TOC "Jump to bottom" entry — accented to stand out from regular sections */
+.post-toc-inner .toc-jump-bottom .num,
+.post-toc-inner .toc-jump-bottom .label-text { color: var(--accent); }
+.post-toc-inner .toc-jump-bottom .label-text:hover { color: var(--accent-soft); }
+
 /* H3 sublist */
 .post-toc-inner .toc-sub {
   margin: 0 0 4px 28px; padding-left: 0;
