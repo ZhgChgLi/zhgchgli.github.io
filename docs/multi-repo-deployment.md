@@ -13,7 +13,7 @@ that re-builds against the master.
 │  • _layouts/, _includes/, _plugins/, _data/, assets/       │  ← single source of truth
 │  • _config.yml + _config.{zh-tw,zh-cn,en,jp}.yml          │
 │  • L10n/posts/{zh-tw,zh-cn,en,jp}/                        │  ← all translations live here
-│  • bin/lang, bin/generate-photos-json, bin/unify-tags     │
+│  • bin/lang, bin/unify-tags                                │
 │  • .github/workflows/pages.yml      ← deploys zh-tw       │
 └─────┬──────────────────────────────────────────────────────┘
       │ on push (or repository_dispatch)
@@ -47,7 +47,7 @@ that re-builds against the master.
      CNAME at the registrar)
 5. Commit & push. The workflow will:
    - clone the master repo,
-   - run `bin/generate-photos-json` + `bin/lang en build`,
+   - run `bin/lang en build`,
    - upload `_site/` as the Pages artifact and deploy.
 
 That's it — the shell repo never holds posts, theme files, or plugins.

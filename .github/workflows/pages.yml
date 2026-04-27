@@ -58,9 +58,6 @@ jobs:
       - uses: actions/configure-pages@v5
         id: pages
 
-      - name: Generate assets/data/photos.json (LQIP dimensions)
-        run: ./bin/generate-photos-json
-
       - name: Build with bin/lang
         env:
           JEKYLL_ENV: production

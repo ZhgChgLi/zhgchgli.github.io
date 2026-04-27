@@ -90,6 +90,19 @@ jobs:
       - name: Install translator dependencies
         run: pip install -r tools/translators/requirements.txt
 
+      - name: Optimize photos (webp + photos.json)
+        run: python tools/translators/optimize_photos.py
+
+      - name: Generate SEO metadata
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python tools/translators/seo_maker.py
+
+      - name: Generate AIO FAQ metadata
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python tools/translators/aio_maker.py
+
       - name: Translate (en, jp, zh-cn) and unify tags
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
