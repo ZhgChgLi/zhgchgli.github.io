@@ -2,17 +2,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#fefcf8">
 
-{% comment %} Special-case 404: pull localized title from i18n strings since
-   the page's frontmatter title is a static "Page not found" placeholder. {% endcomment %}
-{% if page.url == '/404.html' %}
-  <title>{{ t.notfound.error_label }} · {{ site.title }}</title>
-{% elsif page.title and page.url != "/" %}
-  <title>{{ page.title | strip_html }} · {{ site.title }}</title>
-{% else %}
-  <title>{{ site.title }}</title>
-{% endif %}
+{% seo %}
 
-{% seo title=false %}
+{%- comment -%}
+  Article-specific Open Graph + Twitter meta. jekyll-seo-tag emits the core
+  tags (og:title / og:description / og:image / og:type=article /
+  article:published_time / twitter:card / twitter:image / twitter:title);
+  this block adds the rest so social previews and link unfurling have a
+  complete picture.
+{%- endcomment -%}
+{%- if page.layout == 'post' -%}
+  {%- assign og_desc = page.description | default: page.excerpt | strip_html | normalize_whitespace | truncate: 200 -%}
+  {%- if og_desc -%}<meta property="twitter:description" content="{{ og_desc | escape }}">{%- endif -%}
+
+  {%- if page.last_modified_at -%}
+    <meta property="article:modified_time" content="{{ page.last_modified_at | date_to_xmlschema }}">
+  {%- endif -%}
+
+  {%- assign author_name = site.author.display_name | default: site.author.name -%}
+  {%- if author_name -%}<meta property="article:author" content="{{ author_name }}">{%- endif -%}
+
+  {%- if page.categories.size > 0 -%}
+    <meta property="article:section" content="{{ page.categories | first }}">
+  {%- endif -%}
+
+  {%- for tag in page.tags -%}
+    <meta property="article:tag" content="{{ tag }}">
+  {%- endfor -%}
+
+  {%- if page.image and page.image.path -%}
+    {%- assign img_abs = page.image.path | absolute_url -%}
+    {%- assign img_alt = page.image.alt | default: page.title | strip_html -%}
+    <meta property="og:image:alt" content="{{ img_alt | escape }}">
+    {%- if page.image.width -%}<meta property="og:image:width" content="{{ page.image.width }}">{%- endif -%}
+    {%- if page.image.height -%}<meta property="og:image:height" content="{{ page.image.height }}">{%- endif -%}
+  {%- endif -%}
+
+  {%- if site.author.twitter -%}
+    <meta name="twitter:creator" content="@{{ site.author.twitter }}">
+    <meta name="twitter:site" content="@{{ site.author.twitter }}">
+  {%- endif -%}
+{%- endif -%}
 
 <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
 <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | absolute_url }}">
