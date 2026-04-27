@@ -14,6 +14,13 @@ on:
         description: "Language code (zh-tw, zh-cn, en, jp)"
         required: false
         default: ""
+  # Sibling workflows (e.g. ZMediumToMarkdown) push commits with the default
+  # GITHUB_TOKEN, which does NOT fire `on: push` (anti-recursion guard).
+  # Listen for their completion instead.
+  workflow_run:
+    workflows: ["ZMediumToMarkdown"]
+    types: [completed]
+    branches: [main]
 
 env:
   DEPLOY_LANG: zh-tw
@@ -30,6 +37,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Skip when the upstream ZMediumToMarkdown run failed/was cancelled.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v4
 
