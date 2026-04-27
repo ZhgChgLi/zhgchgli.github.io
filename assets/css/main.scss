@@ -1204,7 +1204,11 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 @media (max-width: 540px) {
   :root { --pad-x: 20px; }
-  .topbar { padding: 0 var(--pad-x); height: 60px; }
+  .topbar { padding: 0 var(--pad-x); height: 56px; }
+  .topbar-inner { height: 56px; }
+  .topbar .right { gap: 8px; }
+  .topbar .icon-btn { width: 32px; height: 32px; font-size: 13px; }
+  .lang-trigger { height: 32px; padding: 0 10px; }
   .topbar .brand { font-size: 18px; }
   .post-body { font-size: 17px; }
   .post-body h2 { font-size: 26px; }
