@@ -13,7 +13,7 @@ layout: compress
 <head>
   {% include head.html %}
 </head>
-<body>
+<body class="layout-{{ page.layout | default: 'default' }}">
   {% include topbar.html %}
   {% include drawer.html %}
 

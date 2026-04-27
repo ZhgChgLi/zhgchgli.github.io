@@ -42,3 +42,20 @@ sitemap: false
   <span style="font-family:var(--font-display)">{{ t.notfound.poetic }}</span>
   <a href="{{ '/' | relative_url }}" style="color:var(--accent)">{{ t.notfound.home_arrow }}</a>
 </section>
+
+<script>
+  // Slug fallback: if the missing URL ends with `-<slug>`, probe /posts/<slug>/
+  // and redirect there when it exists. Posts register a short URL via
+  // _plugins/short_url_redirects.rb, so this catches old / renamed permalinks.
+  (function () {
+    var path = location.pathname.replace(/\/+$/, '');
+    var m = path.match(/-([a-z0-9]{6,})$/i);
+    if (!m) return;
+    var slug = m[1];
+    var target = '/posts/' + slug + '/';
+    if (path === target.replace(/\/+$/, '')) return;
+    fetch(target, { method: 'HEAD' }).then(function (res) {
+      if (res.ok) location.replace(target + location.search + location.hash);
+    }).catch(function () { /* leave the 404 in place */ });
+  })();
+</script>

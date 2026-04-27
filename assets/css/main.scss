@@ -669,7 +669,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
    KKday brand teal so readers can tell at a glance these are bookable
    third-party offers, while still flowing with the body text. Trailing ↗
    marks them as outbound. */
-.post-body a[href*="kkday.com"] {
+.layout-post .post-body a[href*="kkday.com"] {
   --kkday: #26bec9;
   --kkday-soft: #5dd4dc;
 
@@ -688,34 +688,32 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   box-decoration-break: clone;
   overflow-wrap: anywhere;
 }
-.post-body a[href*="kkday.com"]::before {
-  content: "KKday";
+.layout-post .post-body a[href*="kkday.com"]::before {
+  content: "";
   display: inline-block;
-  padding: 1px 6px;
+  width: 1.35em;
+  height: 1.05em;
   margin-right: 6px;
-  background: var(--kkday);
-  color: #fff;
-  font-family: var(--font-en);
-  font-size: 0.78em;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  vertical-align: -0.18em;
+  background-color: var(--kkday);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640' fill='white'><path d='M128 128C92.7 128 64 156.7 64 192L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 192C576 156.7 547.3 128 512 128L128 128zM360 352L488 352C501.3 352 512 362.7 512 376C512 389.3 501.3 400 488 400L360 400C346.7 400 336 389.3 336 376C336 362.7 346.7 352 360 352zM336 264C336 250.7 346.7 240 360 240L488 240C501.3 240 512 250.7 512 264C512 277.3 501.3 288 488 288L360 288C346.7 288 336 277.3 336 264zM212 208C223 208 232 217 232 228L232 232L240 232C251 232 260 241 260 252C260 263 251 272 240 272L192.5 272C185.6 272 180 277.6 180 284.5C180 290.6 184.4 295.8 190.4 296.8L232.1 303.8C257.4 308 276 329.9 276 355.6C276 381.7 257 403.3 232 407.4L232 412.1C232 423.1 223 432.1 212 432.1C201 432.1 192 423.1 192 412.1L192 408.1L168 408.1C157 408.1 148 399.1 148 388.1C148 377.1 157 368.1 168 368.1L223.5 368.1C230.4 368.1 236 362.5 236 355.6C236 349.5 231.6 344.3 225.6 343.3L183.9 336.3C158.5 332 140 310.1 140 284.5C140 255.7 163.2 232.3 192 232L192 228C192 217 201 208 212 208z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 0.78em auto;
   border-radius: 3px;
-  text-transform: none;
-  vertical-align: 1px;
-  white-space: nowrap;
 }
-.post-body a[href*="kkday.com"]::after {
+.layout-post .post-body a[href*="kkday.com"]::after {
   content: "↗";
   font-size: 0.85em;
   color: var(--kkday-soft);
   margin-left: 2px;
 }
-.post-body a[href*="kkday.com"]:hover {
+.layout-post .post-body a[href*="kkday.com"]:hover {
   background: rgba(38, 190, 201, 0.20);
   border-color: var(--kkday);
   color: #074046;
 }
-.post-body a[href*="kkday.com"]:hover::after { color: var(--kkday); }
+.layout-post .post-body a[href*="kkday.com"]:hover::after { color: var(--kkday); }
 .post-body img { margin: 24px auto; cursor: zoom-in; border-radius: 2px; }
 .post-body blockquote {
   border-left: 3px solid var(--accent); padding-left: 24px; margin: 36px 0;
