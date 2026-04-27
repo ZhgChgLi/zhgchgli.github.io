@@ -7,7 +7,8 @@
 #   bin/lang en build                 # CI build for English site
 #   bin/lang zh-Hant serve --livereload
 #
-# Source posts live in `L10n/posts/<lang>/`. They are copied into `_posts/`
+# Source posts live in `L10n/posts/<lang>/`, standalone pages (about, contact)
+# in `L10n/pages/<lang>/`. Both are copied into `_posts/` and `_pages/`
 # (gitignored) before each run so the build sees only one language at a time.
 # Per-language overrides live in `_config.<lang>.yml`, layered on top of
 # the base `_config.yml`.
@@ -21,6 +22,7 @@ shift 2 2>/dev/null || true
 
 OVERLAY="_config.${LANG_CODE}.yml"
 SRC_POSTS="L10n/posts/${LANG_CODE}"
+SRC_PAGES="L10n/pages/${LANG_CODE}"
 
 if [[ ! -f "${OVERLAY}" ]]; then
   echo "✗ No config overlay found at ${OVERLAY}" >&2
@@ -42,10 +44,19 @@ if [[ -d "${SRC_POSTS}" ]] && [[ -n "$(ls -A "${SRC_POSTS}" 2>/dev/null)" ]]; th
   cp -R "${SRC_POSTS}/." "_posts/"
 fi
 
+# Stage standalone pages (about, contact, etc.) the same way.
+rm -rf _pages
+mkdir -p _pages
+if [[ -d "${SRC_PAGES}" ]] && [[ -n "$(ls -A "${SRC_PAGES}" 2>/dev/null)" ]]; then
+  cp -R "${SRC_PAGES}/." "_pages/"
+fi
+
 post_count=$(find _posts -type f \( -name '*.md' -o -name '*.markdown' \) | wc -l | tr -d ' ')
+page_count=$(find _pages -type f \( -name '*.md' -o -name '*.markdown' \) | wc -l | tr -d ' ')
 
 echo "→ Building ${LANG_CODE} site"
 echo "  posts:  ${SRC_POSTS}/  → _posts/  (${post_count} files, including subdirs)"
+echo "  pages:  ${SRC_PAGES}/  → _pages/  (${page_count} files)"
 echo "  config: _config.yml + ${OVERLAY}"
 
 exec bundle exec jekyll "${ACTION}" \
