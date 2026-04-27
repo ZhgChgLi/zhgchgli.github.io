@@ -4,6 +4,11 @@
 
 svg.icon { vertical-align: -0.125em; flex-shrink: 0; }
 
+/* Disable browser synthesised fake-bold / fake-italic — every weight we use
+   ships from Google Fonts as a real glyph. If a weight ever fails to load,
+   prefer snapping to the nearest real weight over rendering an ugly synth. */
+html { font-synthesis: weight style none; }
+
 /* ============================================
    ZhgChgLi · Magazine theme — design tokens
    ============================================ */
@@ -1038,24 +1043,22 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 .post-body div[class*="language-"].highlighter-rouge pre.highlight > code {
   display: block;
-  background: transparent; color: inherit; padding: 0 20px; font-size: inherit;
+  background: transparent; color: inherit; padding: 0; font-size: inherit;
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   min-width: max-content;
 }
-/* When line numbers are on, each line gets a span with data-ln. */
-.post-body pre.highlight > code.ln-on {
-  padding: 0;
-  counter-reset: ln;
-}
+/* Line numbers — every code block goes through wrapLines() so .ln-on is
+   always present. Each line span supplies its own horizontal padding; the
+   gutter (::before) sits behind the padding-left area. */
 .post-body pre.highlight > code.ln-on .ln {
   display: block; position: relative;
-  padding-left: 3em; padding-right: 20px;
+  padding-left: 4em; padding-right: 20px;
   white-space: pre;
 }
 .post-body pre.highlight > code.ln-on .ln::before {
   content: attr(data-ln);
   position: absolute; left: 0; top: 0; bottom: 0;
-  width: 2.2em; padding-right: 0.5em; padding-left: 0;
+  width: 2.5em; padding-right: 0.5em; padding-left: 0;
   text-align: right;
   color: #6c7079;
   background: #1c1f26;
@@ -1067,22 +1070,19 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 
 /* Code toolbar (lang tag + copy) — injected by JS */
 .post-body div.highlighter-rouge .code-toolbar {
-  position: absolute; top: 8px; right: 8px; z-index: 2;
-  display: flex; gap: 6px;
-  pointer-events: none;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 12px;
+  background: #0f1116;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.post-body div.highlighter-rouge .code-toolbar > * { pointer-events: auto; }
 .post-body div.highlighter-rouge .lang-tag {
   font-family: var(--font-en);
   font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-  padding: 4px 8px; border-radius: 3px;
-  color: #b8b3aa;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.06);
+  color: #8b8579;
 }
 .post-body div.highlighter-rouge .copy-btn {
   font-family: var(--font-en); font-size: 11px; letter-spacing: 0.06em;
-  padding: 4px 10px; border-radius: 3px;
+  padding: 3px 10px; border-radius: 3px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.1);
   color: #e6e1d6; cursor: pointer;
@@ -1131,8 +1131,8 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   .post-body td.rouge-gutter { min-width: 40px; padding: 14px 10px 14px 14px; }
   .post-body td.rouge-code { padding: 14px 16px; }
   .post-body div[class*="language-"].highlighter-rouge pre.highlight { font-size: 12.5px; }
-  .post-body pre.highlight > code.ln-on .ln { padding-left: 3.5em; padding-right: 16px; }
-  .post-body pre.highlight > code.ln-on .ln::before { width: 2.2em; padding-right: 0.5em; }
+  .post-body pre.highlight > code.ln-on .ln { padding-left: 3.8em; padding-right: 16px; }
+  .post-body pre.highlight > code.ln-on .ln::before { width: 2.3em; padding-right: 0.4em; }
 }
 
 /* Floating "Go to TOC" button — appears when top TOC is out of view */
