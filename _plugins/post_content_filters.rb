@@ -5,7 +5,7 @@
 
 module ZhgChgLi
   module PostContentFilters
-    PAYPAL_URL = 'https://paypal.me/zhgchgli'.freeze
+    PAYPAL_URL = 'https://www.paypal.com/ncp/payment/CMALMPT8UUTY2'.freeze
     BMAC_URL_RE = %r{https?://(?:www\.)?buymeacoffee\.com/zhgchgli}i
 
     # Author-supplied "any questions, contact me" sentence at the bottom of
