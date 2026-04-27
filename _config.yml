@@ -168,6 +168,11 @@ giscus:
 defaults:
   - scope:
       path: ""
+    values:
+      image:
+        path: /assets/images/zhgchgli_og.jpg
+  - scope:
+      path: ""
       type: posts
     values:
       layout: post
