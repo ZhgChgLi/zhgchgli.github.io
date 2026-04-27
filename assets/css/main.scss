@@ -4,6 +4,26 @@
 
 svg.icon { vertical-align: -0.125em; flex-shrink: 0; }
 
+/* Reading progress bar — fixed thin strip at the top of the viewport on
+   post pages. Width is updated by inline JS in scripts.html based on
+   article scroll position. */
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 1080;
+  pointer-events: none;
+  background: transparent;
+}
+#reading-progress > span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent-soft) 0%, var(--accent) 100%);
+  transition: width 80ms linear;
+  will-change: width;
+}
+
 /* Disable browser synthesised fake-bold / fake-italic — every weight we use
    ships from Google Fonts as a real glyph. If a weight ever fails to load,
    prefer snapping to the nearest real weight over rendering an ugly synth. */

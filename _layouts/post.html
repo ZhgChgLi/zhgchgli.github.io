@@ -1,6 +1,8 @@
 ---
 layout: default
 ---
+<div id="reading-progress" aria-hidden="true"><span></span></div>
+
 {% assign t = site.data.strings[site.i18n.current] %}
 {% assign words = page.content | strip_html | size %}
 {% assign read_time = words | divided_by: 400 | plus: 1 %}
