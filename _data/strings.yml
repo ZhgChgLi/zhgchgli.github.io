@@ -19,7 +19,7 @@ zh-tw:
   footer:
     read_heading: 讀文章
     connect_heading: 聯絡
-    follow_heading: 訂閱
+    follow_heading: 連結
     rss_link: RSS Feed
     sitemap_link: Sitemap
     links_link: 我的連結
@@ -150,7 +150,7 @@ en:
   footer:
     read_heading: Read
     connect_heading: Connect
-    follow_heading: Follow
+    follow_heading: Links
     rss_link: RSS Feed
     sitemap_link: Sitemap
     links_link: All my links
@@ -282,7 +282,7 @@ zh-cn:
   footer:
     read_heading: 阅读
     connect_heading: 联系
-    follow_heading: 订阅
+    follow_heading: 链接
     rss_link: RSS Feed
     sitemap_link: Sitemap
     links_link: 我的链接
@@ -414,7 +414,7 @@ jp:
   footer:
     read_heading: 読む
     connect_heading: つながる
-    follow_heading: フォロー
+    follow_heading: リンク
     rss_link: RSS フィード
     sitemap_link: Sitemap
     links_link: マイリンク集
