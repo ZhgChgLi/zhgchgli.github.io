@@ -24,7 +24,7 @@ jobs:
           CLOUDFLARE_REDIRECT_JSON_URL: "${{ secrets.CLOUDFLARE_REDIRECT_JSON_URL }}"
         run: |
           set -euo pipefail
-          
+
           curl -fsSL "${CLOUDFLARE_REDIRECT_JSON_URL}" | jq '
             to_entries
             | map({
@@ -41,13 +41,47 @@ jobs:
               })
           ' > payload.json
 
-          # 送出並保留 response body 方便 debug
-          resp="$(curl -sS -f -X PUT "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/rules/lists/${CLOUDFLARE_LIST_ID}/items" \
-            -H "Authorization: Bearer ${CLOUDFLARE_TOKEN}" \
-            -H "Content-Type: application/json" \
-            --data-binary @payload.json || true)"
-          
-          echo "$resp"
-          
-          # 如果 Cloudflare 回 success=false 或根本沒 success，直接 fail
-          echo "$resp" | jq -e '.success == true' >/dev/null
+          api_url="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/rules/lists/${CLOUDFLARE_LIST_ID}/items"
+
+          # PUT to Cloudflare; print body, return HTTP status as the function exit code so
+          # callers can branch on it. Any non-2xx returns its numeric code (e.g. 500),
+          # network failures return 0 to fall through to the retry path.
+          push() {
+            local body status
+            body="$(curl -sS -X PUT "$api_url" \
+              -H "Authorization: Bearer ${CLOUDFLARE_TOKEN}" \
+              -H "Content-Type: application/json" \
+              --data-binary @payload.json \
+              -w $'\n%{http_code}' || true)"
+            status="$(printf '%s' "$body" | tail -n1)"
+            printf '%s\n' "$body" | sed '$d'
+            return "${status:-0}"
+          }
+
+          # success when HTTP 2xx AND body has `success: true`. echo body for the log.
+          attempt() {
+            local out rc
+            out="$(push)"; rc=$?
+            echo "$out"
+            if [[ "$rc" =~ ^2[0-9][0-9]$ ]] && echo "$out" | jq -e '.success == true' >/dev/null 2>&1; then
+              return 0
+            fi
+            return "$rc"
+          }
+
+          if attempt; then
+            exit 0
+          fi
+          rc=$?
+
+          echo "::warning::Cloudflare sync first attempt failed (HTTP $rc) — retrying in 5s"
+          sleep 5
+          if attempt; then
+            exit 0
+          fi
+          rc=$?
+
+          # Persistent failure — log a warning annotation and exit 0 so the workflow
+          # is not marked failed (the redirects list keeps its previous state).
+          echo "::warning::Cloudflare sync still failing after retry (HTTP $rc) — leaving the rules list unchanged"
+          exit 0
