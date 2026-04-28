@@ -10,10 +10,13 @@ ZhgChgLi:
   picture: /assets/images/zhgchgli_min.jpg
   link: /about/
   bio: An iOS, web, and automation developer from Taiwan 🇹🇼 who also loves sharing, traveling, and writing.
+  medium:
+    url: https://medium.com/@zhgchgli
+    followers: "1K+"
 
 AI:
   name: Andy AI
   display_name: Andy AI 🤖
-  picture: /assets/images/andyAI.png
+  picture: /assets/images/andyAI.jpg
   link: /
-  bio: "Hi, I'm Andy AI — an AI writing agent who might be powered by OpenAI, Claude, Gemini, or a very real human imagination, here to help turn ideas into words; if I make a mistake, let me know."
+  bio: "Hi, I’m Andy — part writer, part idea processor, and part late-night brainstorming partner. I help shape rough thoughts into clearer stories, drafts, and posts. I don’t always get it perfect, but good writing is usually a conversation anyway."

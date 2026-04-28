@@ -19,11 +19,13 @@ layout: default
   {% assign author_picture = site.author.avatar | default: site.author.picture %}
   {% assign author_bio = site.author.bio %}
   {% assign author_link = site.author.link %}
+  {% assign author_medium = site.author.medium %}
 {% else %}
   {% assign author_display = post_author.display_name | default: post_author.name %}
   {% assign author_picture = post_author.picture | default: post_author.avatar %}
   {% assign author_bio = post_author.bio %}
   {% assign author_link = post_author.link %}
+  {% assign author_medium = post_author.medium %}
 {% endif %}
 
 <article>
@@ -195,10 +197,11 @@ layout: default
         <h4>{{ t.contact.title }}</h4>
         <p>{{ t.contact.subtitle }}</p>
         <div class="contact-actions">
-          {% assign is_external = false %}
-          {% if contact_url contains '://' %}{% assign is_external = true %}{% endif %}
-          <a class="btn-pill" href="{{ contact_url | relative_url }}"{% if is_external %} target="_blank" rel="noopener"{% endif %}>
+          <a class="btn-pill" href="{{ contact_url | relative_url }}" target="_blank" rel="noopener">
             {% include icon.html name="paper-plane" %} {{ t.contact.cta }}
+          </a>
+          <a class="btn-pill rss-pill" href="{{ '/feed.xml' | relative_url }}" aria-label="{{ t.footer.rss_link }}" target="_blank">
+            {% include icon.html name="rss" %} {{ t.contact.rss_cta | default: t.footer.rss_link }}
           </a>
         </div>
       </div>
@@ -215,6 +218,19 @@ layout: default
         <div class="eyebrow" style="margin-bottom:6px">{{ t.post.author }}</div>
         <h4>{% if author_link %}<a href="{{ author_link | relative_url }}">{{ author_display }}</a>{% else %}{{ author_display }}{% endif %}</h4>
         <p>{{ author_bio }}</p>
+        {% if author_medium and author_medium.url %}
+          <div class="author-follow">
+            <a class="follow-medium" href="{{ author_medium.url }}" target="_blank" rel="noopener">
+              <span class="follow-icon">{% include icon.html name="medium" %}</span>
+              <span class="follow-label">{{ t.post.follow_on_medium }}</span>
+              {% if author_medium.followers %}
+                <span class="follow-chip">
+                  <b>{{ author_medium.followers }}</b> {{ t.post.followers }}
+                </span>
+              {% endif %}
+            </a>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

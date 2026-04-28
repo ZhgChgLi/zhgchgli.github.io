@@ -861,6 +861,59 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 .author-card h4 a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .author-card p { font-size: 14px; color: var(--ink-500); line-height: 1.6; margin: 0; }
+.author-card .author-follow { margin-top: 18px; }
+.author-card .follow-medium {
+  position: relative;
+  display: inline-flex; align-items: stretch;
+  border-radius: 999px;
+  background: var(--ink-900);
+  color: #fff;
+  font-weight: 500; letter-spacing: 0.02em;
+  border: 1px solid var(--ink-900);
+  box-shadow: 0 6px 18px -10px rgba(29, 24, 19, 0.55);
+  white-space: nowrap;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+.author-card .follow-medium:hover {
+  color: #fff;
+  background: var(--ink-700);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -10px rgba(29, 24, 19, 0.7);
+}
+.author-card .follow-medium:active { transform: translateY(0); }
+.author-card .follow-medium .follow-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0 4px 0 16px;
+  font-size: 18px;
+}
+.author-card .follow-medium .follow-label {
+  display: inline-flex; align-items: center;
+  padding: 11px 14px 11px 10px;
+  font-size: 14px;
+}
+.author-card .follow-medium .follow-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 0 18px 0 14px;
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 12px; color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.author-card .follow-medium .follow-chip b {
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 16px; font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .author-card .follow-medium { transition: none; }
+}
+@media (max-width: 540px) {
+  .author-card .follow-medium { width: 100%; justify-content: center; white-space: normal; }
+  .author-card .follow-medium .follow-icon { padding-left: 14px; }
+  .author-card .follow-medium .follow-chip { padding: 0 14px 0 12px; }
+}
 
 /* Buy-me-a-coffee donate block (post bottom, before author card) */
 .donate-card {
@@ -918,6 +971,13 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .contact-body p { font-size: 14px; color: var(--ink-700); line-height: 1.65; margin: 0 0 16px; }
 .contact-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .contact-actions i { font-size: 12px; }
+.contact-actions .rss-pill {
+  background: #b85a1c;
+  color: #fff;
+  border-color: #b85a1c;
+}
+.contact-actions .rss-pill:hover { background: #99480f; border-color: #99480f; color: #fff; }
+.contact-actions .rss-pill .icon { font-size: 14px; }
 @media (max-width: 540px) {
   .contact-card { flex-direction: column; text-align: center; padding: 24px; gap: 16px; }
   .contact-actions { justify-content: center; }

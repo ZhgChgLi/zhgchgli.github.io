@@ -22,7 +22,7 @@ zh-tw:
     connect_heading: 聯絡
     follow_heading: 連結
     rss_link: RSS Feed
-    sitemap_link: Sitemap
+    medium_link: Medium
     links_link: 我的連結
     all_writing: 全部文章
     categories: 分類
@@ -36,6 +36,7 @@ zh-tw:
     pinned_title: 編輯精選
     pinned_picks_label: "Editor's picks"
     featured_eyebrow: Featured
+    trending_eyebrow: 熱門
     read_essay_btn: 閱讀全文
     latest_writing_title: 最新
     latest_writing_em: 文章
@@ -99,6 +100,8 @@ zh-tw:
     share_subtitle: 複製連結 · 分享到社群
     copy_link: 複製連結
     author: 作者
+    follow_on_medium: 在 Medium 追蹤我
+    followers: Followers
     comments_h: 留言
     comments_em: · Comments
     comments_powered: ""
@@ -161,6 +164,7 @@ zh-tw:
     title: 歡迎與我聯絡
     subtitle: 文章內容如有錯誤、想交流意見、合作邀約，都歡迎來信。
     cta: 聯絡我
+    rss_cta: 訂閱 RSS
 
 en:
   nav:
@@ -183,7 +187,7 @@ en:
     connect_heading: Connect
     follow_heading: Links
     rss_link: RSS Feed
-    sitemap_link: Sitemap
+    medium_link: Medium
     links_link: All my links
     all_writing: All writing
     categories: Categories
@@ -197,6 +201,7 @@ en:
     pinned_title: "Editor's picks"
     pinned_picks_label: "Editor's picks"
     featured_eyebrow: Featured
+    trending_eyebrow: Trending
     read_essay_btn: Read essay
     latest_writing_title: Latest
     latest_writing_em: writing
@@ -260,6 +265,8 @@ en:
     share_subtitle: Copy link · share to socials
     copy_link: Copy link
     author: Author
+    follow_on_medium: Follow me on Medium
+    followers: Followers
     comments_h: Comments
     comments_em: ""
     comments_powered: ""
@@ -323,6 +330,7 @@ en:
     title: Get in touch
     subtitle: Spotted a mistake, want to discuss, or talk collaboration? Drop me a line.
     cta: Contact me
+    rss_cta: Subscribe via RSS
 
 zh-cn:
   nav:
@@ -345,7 +353,7 @@ zh-cn:
     connect_heading: 联系
     follow_heading: 链接
     rss_link: RSS Feed
-    sitemap_link: Sitemap
+    medium_link: Medium
     links_link: 我的链接
     all_writing: 全部文章
     categories: 分类
@@ -359,6 +367,7 @@ zh-cn:
     pinned_title: 编辑精选
     pinned_picks_label: "Editor's picks"
     featured_eyebrow: Featured
+    trending_eyebrow: 热门
     read_essay_btn: 阅读全文
     latest_writing_title: 最新
     latest_writing_em: 文章
@@ -422,6 +431,8 @@ zh-cn:
     share_subtitle: 复制链接 · 分享到社群
     copy_link: 复制链接
     author: 作者
+    follow_on_medium: 在 Medium 关注我
+    followers: Followers
     comments_h: 留言
     comments_em: · Comments
     comments_powered: ""
@@ -484,6 +495,7 @@ zh-cn:
     title: 欢迎与我联络
     subtitle: 文章内容如有错误、想交流意见、合作邀约，都欢迎来信。
     cta: 联络我
+    rss_cta: 订阅 RSS
 
 jp:
   nav:
@@ -506,7 +518,7 @@ jp:
     connect_heading: つながる
     follow_heading: リンク
     rss_link: RSS フィード
-    sitemap_link: Sitemap
+    medium_link: Medium
     links_link: マイリンク集
     all_writing: 全ての記事
     categories: カテゴリー
@@ -520,6 +532,7 @@ jp:
     pinned_title: 編集者のおすすめ
     pinned_picks_label: "Editor's picks"
     featured_eyebrow: Featured
+    trending_eyebrow: 人気
     read_essay_btn: 続きを読む
     latest_writing_title: 最新の
     latest_writing_em: 記事
@@ -583,6 +596,8 @@ jp:
     share_subtitle: リンクをコピー · SNS でシェア
     copy_link: リンクをコピー
     author: 著者
+    follow_on_medium: Medium でフォロー
+    followers: Followers
     comments_h: コメント
     comments_em: ""
     comments_powered: ""
@@ -646,3 +661,4 @@ jp:
     title: お気軽にお問い合わせください
     subtitle: 記事の誤り、ご意見、コラボのご相談など、いつでもメッセージをお送りください。
     cta: お問い合わせ
+    rss_cta: RSS で購読

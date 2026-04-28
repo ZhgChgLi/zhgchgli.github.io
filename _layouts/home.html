@@ -5,10 +5,38 @@ layout: default
 {% comment %} Hide posts with frontmatter `hidden: true` from every listing on this page. {% endcomment %}
 {% assign visible_posts = site.posts | where_exp: 'p', 'p.hidden != true' %}
 {% assign pinned_posts = visible_posts | where: 'pin', true %}
-{% assign non_pinned = '' | split: '' %}
-{% for p in visible_posts %}{% unless p.pin %}{% assign non_pinned = non_pinned | push: p %}{% endunless %}{% endfor %}
-{% assign hero = non_pinned | first %}
-{% assign grid = non_pinned | slice: 1, 10 %}
+
+{% comment %} Collect pinned URLs so we can exclude them from the hot pick + grid. {% endcomment %}
+{% assign pinned_urls = '' | split: '' %}
+{% for p in pinned_posts %}{% assign pinned_urls = pinned_urls | push: p.url %}{% endfor %}
+
+{% comment %} Hot pick = first weekly-ranking entry not already pinned. {% endcomment %}
+{% assign hot = nil %}
+{% for entry in site.data.rankings.week %}
+  {% unless pinned_urls contains entry.post.url %}
+    {% assign hot = entry.post %}
+    {% break %}
+  {% endunless %}
+{% endfor %}
+
+{% comment %} Fallback: no rankings data → take first non-pinned post (legacy behaviour). {% endcomment %}
+{% if hot == nil %}
+  {% for p in visible_posts %}
+    {% unless pinned_urls contains p.url %}
+      {% assign hot = p %}
+      {% break %}
+    {% endunless %}
+  {% endfor %}
+{% endif %}
+
+{% comment %} Latest grid: skip pinned + hot, fill up to 10 posts in publish order. {% endcomment %}
+{% assign grid = '' | split: '' %}
+{% for p in visible_posts %}
+  {% if grid.size >= 10 %}{% break %}{% endif %}
+  {% if pinned_urls contains p.url %}{% continue %}{% endif %}
+  {% if hot and p.url == hot.url %}{% continue %}{% endif %}
+  {% assign grid = grid | push: p %}
+{% endfor %}
 
 {% if pinned_posts.size > 0 %}
 <section class="section-pinned">
@@ -43,26 +71,26 @@ layout: default
 </section>
 {% endif %}
 
-{% if hero %}
-{% assign words = hero.content | strip_html | size %}
+{% if hot %}
+{% assign words = hot.content | strip_html | size %}
 {% assign rt = words | divided_by: 400 | plus: 1 %}
 <section class="section-hero">
-  <a class="cover" href="{{ hero.url | relative_url }}">
-    {% if hero.image.path %}<img src="{{ hero.image.path | relative_url }}" alt="" loading="eager" decoding="async"
-         {% if hero.image.lqip %}lqip="{{ hero.image.lqip }}"{% endif %}>{% endif %}
+  <a class="cover" href="{{ hot.url | relative_url }}">
+    {% if hot.image.path %}<img src="{{ hot.image.path | relative_url }}" alt="" loading="eager" decoding="async"
+         {% if hot.image.lqip %}lqip="{{ hot.image.lqip }}"{% endif %}>{% endif %}
   </a>
   <div>
-    <div class="eyebrow" style="margin-bottom:20px">{{ t.home.featured_eyebrow }} · {{ hero.categories | first }}</div>
-    <h2><a href="{{ hero.url | relative_url }}">{{ hero.title }}</a></h2>
-    <p class="lead">{{ hero.description | default: hero.excerpt | strip_html | truncate: 160 }}</p>
+    <div class="eyebrow" style="margin-bottom:20px">{{ t.home.trending_eyebrow }} · {{ hot.categories | first }}</div>
+    <h2><a href="{{ hot.url | relative_url }}">{{ hot.title }}</a></h2>
+    <p class="lead">{{ hot.description | default: hot.excerpt | strip_html | truncate: 160 }}</p>
     <div class="meta">
-      {% include icon.html name="calendar" %}<span>{{ hero.date | date: '%Y-%m-%d' }}</span>
+      {% include icon.html name="calendar" %}<span>{{ hot.date | date: '%Y-%m-%d' }}</span>
       <span class="dot-sep"></span>
       {% include icon.html name="clock" %}<span>{{ rt }} {{ t.home.min_read }}</span>
       <span class="dot-sep"></span>
       {% include icon.html name="user" %}<span>{{ t.home.by }} {{ site.author.display_name }}</span>
     </div>
-    <a class="btn-pill" href="{{ hero.url | relative_url }}">
+    <a class="btn-pill" href="{{ hot.url | relative_url }}">
       {{ t.home.read_essay_btn }} <span style="font-size:11px;margin-left:4px">{% include icon.html name="arrow-right" %}</span>
     </a>
   </div>
