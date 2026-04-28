@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<title>ZhgChgLi · OG Image</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="styles/shared.css" />
+<style>
+  html, body { margin:0; padding:0; background:#2a241c; }
+  body {
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-zh);
+  }
+  .og {
+    width: 1200px; height: 630px;
+    background: var(--paper);
+    position: relative; overflow: hidden;
+    color: var(--ink-900);
+    box-shadow: 0 20px 80px rgba(0,0,0,.4);
+  }
+
+  @page {
+    size: 1200px 630px;
+    margin: 0;
+  }
+  @media print {
+    html, body {
+      background: #fff !important;
+      width: 1200px;
+      height: 630px;
+    }
+    body {
+      display: block;
+      min-height: 0;
+    }
+    .og {
+      box-shadow: none !important;
+      width: 1200px;
+      height: 630px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
+    }
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  /* Big italic ghost letters */
+  .ghost {
+    position: absolute; right: -40px; bottom: -120px;
+    font-family: var(--font-display);
+    font-style: italic; font-weight: 300;
+    font-size: 600px; line-height: 0.85;
+    letter-spacing: -0.05em;
+    color: var(--cream-200);
+    user-select: none; pointer-events: none;
+  }
+  /* Diagonal stripe */
+  .stripe {
+    position: absolute; left: -100px; top: -100px;
+    width: 400px; height: 400px;
+    background: var(--accent);
+    transform: rotate(-12deg);
+    opacity: 0.08;
+  }
+  /* Top corner — small crest */
+  .crest {
+    position: absolute; top: 56px; left: 64px;
+    display:flex; align-items:center; gap:14px;
+    font-family: var(--font-display);
+  }
+  .crest .mark {
+    width: 64px; height: 64px;
+    background: var(--ink-900);
+    display:flex; align-items:center; justify-content:center;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .crest .mark img {
+    width: 100%; height: 100%; object-fit: contain;
+    display: block;
+  }
+  .crest .meta-line { line-height:1.4; }
+  .crest .meta-name {
+    font-style: italic; font-weight: 400; font-size: 24px;
+    letter-spacing: -0.01em;
+  }
+  .crest .meta-name b { font-weight: 700; font-style: normal; }
+  .crest .meta-name span { color: var(--accent); }
+  .crest .meta-sub {
+    font-family: var(--font-en);
+    font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-400); margin-top: 2px;
+  }
+
+  /* Top-right issue tag */
+  .issue {
+    position: absolute; top: 64px; right: 64px;
+    text-align: right; font-family: var(--font-en);
+    font-size: 11px; letter-spacing: 0.22em;
+    color: var(--ink-500); text-transform: uppercase;
+  }
+  .issue b {
+    display:block;
+    font-family: var(--font-display);
+    font-style: italic; font-weight: 400;
+    font-size: 26px; letter-spacing: -0.01em;
+    color: var(--accent);
+    margin-top: 4px; text-transform: none;
+  }
+
+  /* Center title */
+  .body {
+    position: absolute; left: 64px; right: 64px; top: 188px;
+    z-index: 2;
+  }
+  .eyebrow-og {
+    font-size: 13px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin-bottom: 22px;
+  }
+  .title {
+    font-family: var(--font-display);
+    font-weight: 500; font-size: 92px; line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink-900);
+    margin: 0 0 24px;
+    max-width: 900px;
+  }
+  .title i { font-weight: 300; color: var(--ink-500); }
+  .lede {
+    font-family: var(--font-display);
+    font-weight: 300; font-size: 26px; line-height: 1.4;
+    color: var(--ink-700);
+    max-width: 720px;
+    margin: 0;
+  }
+
+  /* Bottom strip */
+  .foot {
+    position: absolute; left: 64px; right: 64px; bottom: 56px;
+    display:flex; justify-content:space-between; align-items:flex-end;
+    border-top: 1px solid var(--rule);
+    padding-top: 22px;
+  }
+  .foot .tags {
+    display:flex; gap: 10px; align-items:center;
+    font-size: 14px; color: var(--ink-500);
+    font-family: var(--font-display); font-style: italic;
+  }
+  .foot .tags .dot { width:4px; height:4px; background: var(--ink-300); border-radius:999px; }
+  .foot .url {
+    font-family: var(--font-en);
+    font-size: 14px; letter-spacing: 0.06em;
+    color: var(--ink-700); font-weight: 500;
+    display:flex; align-items:center; gap:8px;
+  }
+  .foot .url .arrow {
+    width: 28px; height: 28px; border-radius: 999px;
+    background: var(--ink-900); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 11px;
+  }
+</style>
+</head>
+<body>
+  <div class="og">
+    <div class="stripe"></div>
+    <div class="ghost">Z</div>
+
+    <div class="crest">
+      <div class="mark"><img src="uploads/android-chrome-512x512.png" alt="ZR" /></div>
+      <div class="meta-line">
+        <div class="meta-name"><b>Zhg</b><i>Chg</i>Li<span>.</span></div>
+        <div class="meta-sub">Est. 2018</div>
+      </div>
+    </div>
+
+    <div class="issue">
+      Harry Li · Taiwan
+      <b>Developer / Writer</b>
+    </div>
+
+    <div class="body">
+      <div class="eyebrow-og">Field Notes · Essay</div>
+      <h1 class="title">
+        ZhgChg<i>Li</i><span style="color:var(--accent)">.</span>
+      </h1>
+      <p class="lede">
+        An iOS, web, and automation developer from Taiwan <i style="font-style:italic; color:var(--ink-500)">who also loves sharing, traveling, and writing.</i>
+      </p>
+    </div>
+
+    <div class="foot">
+      <div class="tags">
+        <span>iOS</span><span class="dot"></span>
+        <span>Automation</span><span class="dot"></span>
+        <span>AI</span><span class="dot"></span>
+        <span>Open Source</span><span class="dot"></span>
+        <span>Travel</span><span class="dot"></span>
+        <span>Life</span>
+      </div>
+      <div class="url">
+        zhgchg.li
+        <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </div>
+  </div>
+<script>
+  (async () => {
+    try {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+    } catch (e) {}
+    setTimeout(() => window.print(), 500);
+  })();
+</script>
+</body>
+</html>

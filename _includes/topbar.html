@@ -8,7 +8,7 @@
         {% assign active = false %}
         {% if page.nav_id == link.id %}{% assign active = true %}{% endif %}
         {% if page.url == link.url %}{% assign active = true %}{% endif %}
-        <a href="{{ link.url | relative_url }}"{% if active %} class="active"{% endif %}>{{ t.nav[link.id] }}</a>
+        <a href="{{ link.url | relative_url }}"{% if active %} class="active"{% endif %} data-nav-id="{{ link.id }}">{{ t.nav[link.id] }}</a>
       {% endfor %}
     </nav>
     <div class="right">

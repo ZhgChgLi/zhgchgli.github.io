@@ -5,6 +5,7 @@ zh-tw:
   nav:
     home: 首頁
     list: 文章
+    trending: 熱門
     category: 分類
     tag: 標籤
     archive: 歸檔
@@ -84,8 +85,8 @@ zh-tw:
   post:
     by: by
     min_read: 分鐘
+    views: 瀏覽
     toc_eyebrow: Table of Contents
-    toc_label: 本文目錄
     toc_count: "· %d 段"
     toc_jump_bottom: 文章底部
     fab_back: 回到目錄
@@ -102,6 +103,35 @@ zh-tw:
     comments_em: · Comments
     comments_powered: ""
     related_h: 你也許會喜歡
+  trending:
+    eyebrow_week: Issue · Weekly Charts
+    eyebrow_month: Issue · Monthly Charts
+    eyebrow_all: Issue · All-Time Charts
+    h1_week_main: 本週
+    h1_week_em: 在讀什麼。
+    h1_month_main: 本月
+    h1_month_em: 最受歡迎。
+    h1_all_main: 歷年
+    h1_all_em: 經典。
+    tab_week: 本週
+    tab_month: 本月
+    tab_all: All time
+    no1_label: No.1 · 本榜冠軍
+    chart_title: Chart
+    chart_subtitle: 排行依瀏覽量 · 每日更新一次
+    views_label_week: 這週瀏覽
+    views_label_month: 本月瀏覽
+    views_label_all: 累計瀏覽
+    read_essay_btn: 閱讀全文
+    empty: 還沒有足夠的瀏覽資料。
+    editor_note_eyebrow: 編輯筆記
+    editor_note_title_main: "數字不是全部，"
+    editor_note_title_em: 但它告訴我們什麼有共鳴。
+    editor_note_body: 這份榜單來自 zhgchg.li 的真實流量資料，每天凌晨更新一次。冷門但精緻的文章不會出現在這裡 —— 但你可以從歸檔慢慢挖。
+    more_eyebrow: 更多閱讀
+    more_archive: 翻翻歸檔
+    more_category: 瀏覽分類
+    more_search: 搜尋特定主題
   notfound:
     issue_label: "Issue No.404 · 缺貨中"
     h1_main: 這個頁面
@@ -136,6 +166,7 @@ en:
   nav:
     home: Home
     list: Writing
+    trending: Trending
     category: Categories
     tag: Tags
     archive: Archive
@@ -215,8 +246,8 @@ en:
   post:
     by: by
     min_read: min read
+    views: views
     toc_eyebrow: Table of Contents
-    toc_label: Contents
     toc_count: "· %d sections"
     toc_jump_bottom: Bottom
     fab_back: Back to TOC
@@ -234,6 +265,35 @@ en:
     comments_powered: ""
     related_h: You may also enjoy
     ai_translation_notice: "This article was AI-translated — please let me know if anything looks off."
+  trending:
+    eyebrow_week: Issue · Weekly Charts
+    eyebrow_month: Issue · Monthly Charts
+    eyebrow_all: Issue · All-Time Charts
+    h1_week_main: What people
+    h1_week_em: are reading this week.
+    h1_month_main: What people
+    h1_month_em: read this month.
+    h1_all_main: The
+    h1_all_em: all-time classics.
+    tab_week: This week
+    tab_month: This month
+    tab_all: All time
+    no1_label: No.1 · Leading the chart
+    chart_title: Chart
+    chart_subtitle: Ranked by page views · refreshed daily
+    views_label_week: Views · 7d
+    views_label_month: Views · 30d
+    views_label_all: Views · all time
+    read_essay_btn: Read essay
+    empty: Not enough view data yet.
+    editor_note_eyebrow: Editor's note
+    editor_note_title_main: "Numbers aren't everything,"
+    editor_note_title_em: but they tell us what resonates.
+    editor_note_body: This chart pulls real traffic data from zhgchg.li and refreshes nightly. Quiet little essays don't show up here — but the archive is a good place to dig.
+    more_eyebrow: Keep reading
+    more_archive: Browse archive
+    more_category: Categories
+    more_search: Search by topic
   notfound:
     issue_label: "Issue No.404 · Out of print"
     h1_main: This page is
@@ -268,6 +328,7 @@ zh-cn:
   nav:
     home: 首页
     list: 文章
+    trending: 热门
     category: 分类
     tag: 标签
     archive: 归档
@@ -347,8 +408,8 @@ zh-cn:
   post:
     by: by
     min_read: 分钟
+    views: 浏览
     toc_eyebrow: Table of Contents
-    toc_label: 本文目录
     toc_count: "· %d 段"
     toc_jump_bottom: 文章底部
     fab_back: 回到目录
@@ -365,7 +426,35 @@ zh-cn:
     comments_em: · Comments
     comments_powered: ""
     related_h: 你也许会喜欢
-    ai_translation_notice: "本文使用 AI 翻译，如有不妥敬请告知。"
+  trending:
+    eyebrow_week: Issue · Weekly Charts
+    eyebrow_month: Issue · Monthly Charts
+    eyebrow_all: Issue · All-Time Charts
+    h1_week_main: 本周
+    h1_week_em: 在读什么。
+    h1_month_main: 本月
+    h1_month_em: 最受欢迎。
+    h1_all_main: 历年
+    h1_all_em: 经典。
+    tab_week: 本周
+    tab_month: 本月
+    tab_all: All time
+    no1_label: No.1 · 本榜冠军
+    chart_title: Chart
+    chart_subtitle: 排行依浏览量 · 每日更新一次
+    views_label_week: 这周浏览
+    views_label_month: 本月浏览
+    views_label_all: 累计浏览
+    read_essay_btn: 阅读全文
+    empty: 暂时还没有足够的浏览数据。
+    editor_note_eyebrow: 编辑笔记
+    editor_note_title_main: "数字不是全部，"
+    editor_note_title_em: 但它告诉我们什么有共鸣。
+    editor_note_body: 这份榜单来自 zhgchg.li 的真实流量数据，每天凌晨更新一次。冷门但精致的文章不会出现在这里 —— 但你可以从归档慢慢挖。
+    more_eyebrow: 更多阅读
+    more_archive: 翻翻归档
+    more_category: 浏览分类
+    more_search: 搜索特定主题
   notfound:
     issue_label: "Issue No.404 · 缺货中"
     h1_main: 这个页面
@@ -400,6 +489,7 @@ jp:
   nav:
     home: ホーム
     list: 記事
+    trending: 人気
     category: カテゴリー
     tag: タグ
     archive: アーカイブ
@@ -479,8 +569,8 @@ jp:
   post:
     by: by
     min_read: 分
+    views: 閲覧
     toc_eyebrow: Table of Contents
-    toc_label: 目次
     toc_count: "· %d セクション"
     toc_jump_bottom: 記事の最後
     fab_back: 目次へ戻る
@@ -498,6 +588,35 @@ jp:
     comments_powered: ""
     related_h: こちらもおすすめ
     ai_translation_notice: "本記事は AI による翻訳です。お気づきの点があればお知らせください。"
+  trending:
+    eyebrow_week: Issue · Weekly Charts
+    eyebrow_month: Issue · Monthly Charts
+    eyebrow_all: Issue · All-Time Charts
+    h1_week_main: 今週
+    h1_week_em: 読まれている記事。
+    h1_month_main: 今月
+    h1_month_em: 人気の記事。
+    h1_all_main: 歴代の
+    h1_all_em: 名作。
+    tab_week: 今週
+    tab_month: 今月
+    tab_all: All time
+    no1_label: No.1 · 首位
+    chart_title: Chart
+    chart_subtitle: 閲覧数で並べ替え · 毎日更新
+    views_label_week: 今週の閲覧
+    views_label_month: 今月の閲覧
+    views_label_all: 累計閲覧
+    read_essay_btn: 記事を読む
+    empty: 閲覧データがまだ十分ではありません。
+    editor_note_eyebrow: 編集ノート
+    editor_note_title_main: "数字が全てではないけれど、"
+    editor_note_title_em: それは何が響いたかを教えてくれる。
+    editor_note_body: このチャートは zhgchg.li の実際のアクセスデータを毎日深夜に更新しています。静かな名作はここには現れませんが、アーカイブをのぞいてみてください。
+    more_eyebrow: もっと読む
+    more_archive: アーカイブを見る
+    more_category: カテゴリー一覧
+    more_search: トピックを検索
   notfound:
     issue_label: "Issue No.404 · 在庫切れ"
     h1_main: このページは

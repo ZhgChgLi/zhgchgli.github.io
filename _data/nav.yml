@@ -3,6 +3,8 @@
   url: /
 - id: list
   url: /posts/
+- id: trending
+  url: /trending/
 - id: category
   url: /categories/
 - id: tag

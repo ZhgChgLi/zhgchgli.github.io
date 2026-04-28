@@ -39,6 +39,7 @@
       };
       if (page === "home") return <window.DirectionA.HomeA {...props} />;
       if (page === "list") return <window.DirectionA.PostListA {...props} />;
+      if (page === "trending") return <window.DirectionA.TrendingA {...props} />;
       if (page === "post") return <window.DirectionA.PostA {...props} />;
       if (page === "category") return <window.DirectionA.CategoryA {...props} />;
       if (page === "tag") return <window.DirectionA.TagA {...props} />;
@@ -59,6 +60,7 @@
     const PAGES_A = [
       ["home", "Home · 首頁"],
       ["list", "Writing · 文章列表"],
+      ["trending", "Trending · 本週熱門"],
       ["post", "Essay · 單篇文章"],
       ["category", "Categories · 分類"],
       ["tag", "Tags · 標籤"],

@@ -1,0 +1,199 @@
+---
+layout: default
+permalink: /trending/
+nav_id: trending
+title: 熱門排行
+description: 依瀏覽量排序的熱門文章 — 本週 / 本月 / All time。
+---
+{% assign t = site.data.strings[site.i18n.current] %}
+{% assign rankings = site.data.rankings %}
+
+<section class="trending-hero" id="trending-hero">
+  <div class="ghost-num" aria-hidden="true">01</div>
+  <div class="hero-inner">
+    <div class="eyebrow trending-eyebrow" data-week="{{ t.trending.eyebrow_week }}" data-month="{{ t.trending.eyebrow_month }}" data-all="{{ t.trending.eyebrow_all }}">
+      {% include icon.html name="chart-line" %}
+      <span>{{ t.trending.eyebrow_week }}</span>
+    </div>
+    <h1 class="trending-h1">
+      <span class="h1-main"
+            data-week="{{ t.trending.h1_week_main }}"
+            data-month="{{ t.trending.h1_month_main }}"
+            data-all="{{ t.trending.h1_all_main }}">{{ t.trending.h1_week_main }}</span>
+      <i class="h1-em"
+         data-week="{{ t.trending.h1_week_em }}"
+         data-month="{{ t.trending.h1_month_em }}"
+         data-all="{{ t.trending.h1_all_em }}">{{ t.trending.h1_week_em }}</i>
+    </h1>
+
+    <div class="trending-tabs" role="tablist">
+      <button class="tab is-active" type="button" data-range="week"  role="tab" aria-selected="true">{{ t.trending.tab_week }}</button>
+      <button class="tab"           type="button" data-range="month" role="tab" aria-selected="false">{{ t.trending.tab_month }}</button>
+      <button class="tab"           type="button" data-range="all"   role="tab" aria-selected="false">{{ t.trending.tab_all }}</button>
+    </div>
+  </div>
+</section>
+
+{% assign tabs = 'week,month,all' | split: ',' %}
+{% for tab in tabs %}
+  {% assign list = rankings[tab] %}
+  {% assign no1 = list | first %}
+  {% assign rest = list | slice: 1, 9 %}
+  {% if tab == 'week' %}
+    {% assign views_label = t.trending.views_label_week %}
+  {% elsif tab == 'month' %}
+    {% assign views_label = t.trending.views_label_month %}
+  {% else %}
+    {% assign views_label = t.trending.views_label_all %}
+  {% endif %}
+
+  <section class="trending-panel" data-range="{{ tab }}"{% unless tab == 'week' %} hidden{% endunless %}>
+    {% if list.size == 0 %}
+      <div class="trending-empty">{{ t.trending.empty }}</div>
+    {% else %}
+      {% assign p = no1.post %}
+      {% assign words = p.content | strip_html | size %}
+      {% assign rt = words | divided_by: 400 | plus: 1 %}
+      <article class="trending-no1">
+        <a class="cover" href="{{ p.url | relative_url }}">
+          {% if p.image.path %}
+            <img src="{{ p.image.path | relative_url }}" alt="" loading="lazy" decoding="async"
+                 {% if p.image.lqip %}lqip="{{ p.image.lqip }}"{% endif %}>
+          {% endif %}
+          <span class="cover-rank" aria-hidden="true">01</span>
+        </a>
+        <div class="body">
+          <div class="eyebrow no1-label">{{ t.trending.no1_label }}</div>
+          <div class="meta-row">
+            <span class="cat">{{ p.categories | first }}</span>
+            <span class="dot-sep"></span>
+            <span class="when">{{ p.date | date: '%Y-%m-%d' }}</span>
+          </div>
+          <h2><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h2>
+          <p class="excerpt">{{ p.description | default: p.excerpt | strip_html | truncate: 180 }}</p>
+          <div class="stats-row">
+            <div class="stat">
+              <div class="num">{{ no1.views | views_plus }}</div>
+              <div class="lbl">{{ views_label }}</div>
+            </div>
+            <a class="btn-pill read-cta" href="{{ p.url | relative_url }}">
+              {{ t.trending.read_essay_btn }} <span style="font-size:11px;margin-left:4px">{% include icon.html name="arrow-right" %}</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      {% if rest.size > 0 %}
+        <div class="chart-head">
+          <h3 class="chart-title">{{ t.trending.chart_title }} <i>· No.2 → No.{{ list.size }}</i></h3>
+          <span class="chart-subtitle">{{ t.trending.chart_subtitle }}</span>
+        </div>
+
+        <ol class="trending-list">
+          {% for entry in rest %}
+            {% assign rp = entry.post %}
+            {% assign rank = forloop.index | plus: 1 %}
+            <li>
+              <a class="row" href="{{ rp.url | relative_url }}">
+                <span class="rank-num" aria-hidden="true">{{ rank | prepend: '0' | slice: -2, 2 }}</span>
+                <span class="rcover">
+                  {% if rp.image.path %}
+                    <img src="{{ rp.image.path | relative_url }}" alt="" loading="lazy" decoding="async"
+                         {% if rp.image.lqip %}lqip="{{ rp.image.lqip }}"{% endif %}>
+                  {% endif %}
+                </span>
+                <span class="rbody">
+                  <span class="eyebrow muted">{{ rp.categories | first }} <span class="sep">/</span> {{ rp.date | date: '%Y-%m-%d' }}</span>
+                  <span class="rtitle">{{ rp.title }}</span>
+                  <span class="rexcerpt">{{ rp.description | default: rp.excerpt | strip_html | truncate: 120 }}</span>
+                </span>
+                <span class="rstats">
+                  <span class="rnum">{{ entry.views | views_plus }}</span>
+                  <span class="rlbl">{{ views_label }}</span>
+                </span>
+              </a>
+            </li>
+          {% endfor %}
+        </ol>
+      {% endif %}
+    {% endif %}
+  </section>
+{% endfor %}
+
+<section class="trending-foot">
+  <div>
+    <div class="eyebrow">{{ t.trending.editor_note_eyebrow }}</div>
+    <h4>{{ t.trending.editor_note_title_main }}<i>{{ t.trending.editor_note_title_em }}</i></h4>
+    <p>{{ t.trending.editor_note_body }}</p>
+  </div>
+  <div>
+    <div class="eyebrow">{{ t.trending.more_eyebrow }}</div>
+    <div class="more-links">
+      <a href="{{ '/archive/' | relative_url }}">
+        <span>{{ t.trending.more_archive }}</span>
+        <span class="ar">{% include icon.html name="arrow-right" %}</span>
+      </a>
+      <a href="{{ '/categories/' | relative_url }}">
+        <span>{{ t.trending.more_category }}</span>
+        <span class="ar">{% include icon.html name="arrow-right" %}</span>
+      </a>
+      <a href="{{ '/search/' | relative_url }}">
+        <span>{{ t.trending.more_search }}</span>
+        <span class="ar">{% include icon.html name="arrow-right" %}</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var hero = document.getElementById('trending-hero');
+  if (!hero) return;
+  var tabs = hero.querySelectorAll('.trending-tabs .tab');
+  var panels = document.querySelectorAll('.trending-panel');
+  var swaps = hero.querySelectorAll('[data-week]');
+
+  var HASH_TO_RANGE = { week: 'week', month: 'month', all: 'all', alltime: 'all', 'all-time': 'all' };
+  var RANGE_TO_HASH = { week: 'week', month: 'month', all: 'alltime' };
+
+  function activate(range) {
+    tabs.forEach(function (t) {
+      var on = t.dataset.range === range;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach(function (p) {
+      if (p.dataset.range === range) p.removeAttribute('hidden');
+      else p.setAttribute('hidden', '');
+    });
+    swaps.forEach(function (el) {
+      var v = el.dataset[range];
+      if (v != null) el.textContent = v;
+    });
+  }
+
+  function rangeFromHash() {
+    var h = (location.hash || '').replace(/^#/, '').toLowerCase();
+    return HASH_TO_RANGE[h] || null;
+  }
+
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () {
+      var range = t.dataset.range;
+      activate(range);
+      var newHash = '#' + RANGE_TO_HASH[range];
+      if (location.hash !== newHash) {
+        history.replaceState(null, '', newHash);
+      }
+    });
+  });
+
+  window.addEventListener('hashchange', function () {
+    var r = rangeFromHash();
+    if (r) activate(r);
+  });
+
+  var initial = rangeFromHash();
+  if (initial && initial !== 'week') activate(initial);
+})();
+</script>

@@ -4,7 +4,8 @@
       <div class="brand-foot"><b>ZhgChg</b><span class="dot">.</span><i>Li</i></div>
       <div>{{ site.author.bio }}</div>
       {% assign year = site.time | date: '%Y' %}
-      <div class="copy">{{ t.footer.copy_made_with | replace: '%Y', year }}</div>
+      {% assign built_at = site.time | date: '%Y-%m-%d %H:%M %z' %}
+      <div class="copy">{{ t.footer.copy_made_with | replace: '%Y', year }} · Site updated: <time datetime="{{ site.time | date_to_xmlschema }}">{{ built_at }}</time></div>
     </div>
     <div>
       <h5>{{ t.footer.read_heading }}</h5>

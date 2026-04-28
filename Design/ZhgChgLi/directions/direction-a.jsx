@@ -13,6 +13,7 @@ function DrawerA({ open, onClose, page, onNav }) {
   const links = [
     { id: "home", label: "Home", zh: "首頁" },
     { id: "list", label: "Writing", zh: "文章" },
+    { id: "trending", label: "Trending", zh: "熱門排行" },
     { id: "category", label: "Categories", zh: "分類" },
     { id: "tag", label: "Tags", zh: "標籤" },
     { id: "archive", label: "Archive", zh: "歸檔" },
@@ -132,7 +133,7 @@ function TopbarA({ page, onNav, onMenu }) {
       </a>
       <nav className="topnav">
         {[
-          ["home","首頁"],["list","文章"],["category","分類"],["tag","標籤"],["archive","歸檔"]
+          ["home","首頁"],["list","文章"],["trending","熱門"],["category","分類"],["tag","標籤"],["archive","歸檔"]
         ].map(([id,l]) => (
           <a key={id} onClick={() => onNav?.(id)} className={page===id?"active":""} style={{cursor:"pointer"}}>{l}</a>
         ))}
@@ -811,6 +812,9 @@ function PostA({ posts, onNav, page }) {
             <span style={{width:3, height:3, background:"var(--ink-300)", borderRadius:999}}></span>
             <i className="fa-regular fa-clock" style={{fontSize:12}}></i>
             <span>{p.readTime} read</span>
+            <span style={{width:3, height:3, background:"var(--ink-300)", borderRadius:999}}></span>
+            <i className="fa-regular fa-eye" style={{fontSize:12}}></i>
+            <span>{(p.views || 12400).toLocaleString()} views</span>
           </div>
         </header>
 
@@ -1556,4 +1560,307 @@ function NotFoundA({ posts, onNav, page }) {
   );
 }
 
-window.DirectionA = { HomeA, PostListA, PostA, CategoryA, TagA, ArchiveA, SearchA, NotFoundA };
+// ============================================
+// A — TRENDING (本週熱門排行榜)
+// ============================================
+function TrendingA({ posts, onNav, page }) {
+  const [drawer, setDrawer] = useStateA(false);
+  const [range, setRange] = useStateA("week");
+
+  // Sort posts by viewsThisWeek (or fallback)
+  const ranked = [...posts]
+    .map((p, i) => ({...p, _id: i, weekly: p.viewsThisWeek || 0, total: p.views || 0}))
+    .sort((a, b) => b.weekly - a.weekly);
+
+  const top = ranked[0];
+  const rest = ranked.slice(1);
+
+  // Aggregate stats
+  const totalWeeklyViews = ranked.reduce((s, p) => s + p.weekly, 0);
+  const totalReaders = Math.round(totalWeeklyViews * 0.62);
+
+  // Bar width helper (relative to the leader)
+  const barW = (v) => Math.max(8, (v / top.weekly) * 100);
+
+  return (
+    <div className="frame" style={{position:"relative", minHeight:"100%"}}>
+      <TopbarA page={page} onNav={onNav} onMenu={() => setDrawer(true)} />
+      <DrawerA open={drawer} onClose={() => setDrawer(false)} page={page} onNav={onNav} />
+
+      {/* Hero / masthead */}
+      <section style={{
+        padding:"80px 56px 40px",
+        background:"var(--cream-50)",
+        borderBottom:"1px solid var(--rule)",
+        position:"relative", overflow:"hidden",
+      }}>
+        {/* Big italic ghost number */}
+        <div aria-hidden style={{
+          position:"absolute", top:-60, right:-30,
+          fontFamily:"var(--font-display)",
+          fontSize:380, fontWeight:300, fontStyle:"italic",
+          color:"var(--cream-200)",
+          lineHeight:0.85, letterSpacing:"-0.05em",
+          pointerEvents:"none", userSelect:"none", zIndex:0,
+        }}>
+          01
+        </div>
+
+        <div style={{position:"relative", zIndex:1}}>
+          <div className="eyebrow" style={{marginBottom:18}}>
+            <i className="fa-solid fa-chart-line" style={{marginRight:8, color:"var(--accent)"}}></i>
+            Issue · Weekly Charts
+          </div>
+          <h1 style={{
+            fontFamily:"var(--font-display)", fontSize:88, lineHeight:0.98,
+            fontWeight:400, margin:"0 0 24px", letterSpacing:"-0.025em",
+            maxWidth:880,
+          }}>
+            What people <i style={{fontWeight:300, color:"var(--ink-500)"}}>are</i> reading<br/>
+            this <i style={{fontWeight:300, color:"var(--accent)"}}>week.</i>
+          </h1>
+
+          {/* Stats row */}
+          <div style={{display:"flex", gap:48, marginTop:36, flexWrap:"wrap"}}>
+            <div>
+              <div style={{fontFamily:"var(--font-display)", fontSize:42, fontWeight:500, letterSpacing:"-0.02em"}}>
+                {totalWeeklyViews.toLocaleString()}
+              </div>
+              <div style={{fontSize:11, color:"var(--ink-500)", letterSpacing:"0.15em", textTransform:"uppercase", marginTop:4}}>
+                Page views · 7d
+              </div>
+            </div>
+            <div>
+              <div style={{fontFamily:"var(--font-display)", fontSize:42, fontWeight:500, letterSpacing:"-0.02em"}}>
+                {totalReaders.toLocaleString()}
+              </div>
+              <div style={{fontSize:11, color:"var(--ink-500)", letterSpacing:"0.15em", textTransform:"uppercase", marginTop:4}}>
+                Unique readers
+              </div>
+            </div>
+            <div>
+              <div style={{fontFamily:"var(--font-display)", fontSize:42, fontWeight:500, letterSpacing:"-0.02em"}}>
+                {ranked.length}
+              </div>
+              <div style={{fontSize:11, color:"var(--ink-500)", letterSpacing:"0.15em", textTransform:"uppercase", marginTop:4}}>
+                Essays charting
+              </div>
+            </div>
+          </div>
+
+          {/* Range tabs */}
+          <div style={{display:"flex", gap:8, marginTop:36}}>
+            {[
+              ["week","本週"],
+              ["month","本月"],
+              ["all","All time"],
+            ].map(([k, l]) => (
+              <button key={k} onClick={() => setRange(k)}
+                className={range===k ? "btn-pill" : "btn-ghost"}
+                style={{fontSize:12}}>
+                {l}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* No.1 — featured */}
+      <section style={{padding:"56px 56px 40px"}}>
+        <div className="eyebrow" style={{marginBottom:18, color:"var(--accent)"}}>No.1 · 本週冠軍</div>
+        <article onClick={() => onNav?.("post")}
+          style={{
+            display:"grid", gridTemplateColumns:"1fr 1fr", gap:48,
+            alignItems:"center", cursor:"pointer",
+            padding:"32px", background:"var(--paper)",
+            border:"1px solid var(--rule)",
+          }}>
+          <div style={{position:"relative", aspectRatio:"4/3", overflow:"hidden", background:"var(--cream-100)"}}>
+            <img src={top.cover} style={{width:"100%", height:"100%", objectFit:"cover"}}/>
+            <div style={{
+              position:"absolute", top:18, left:18,
+              fontFamily:"var(--font-display)", fontStyle:"italic",
+              fontSize:120, lineHeight:0.85, fontWeight:300,
+              color:"var(--paper)", textShadow:"0 2px 24px rgba(0,0,0,0.5)",
+              letterSpacing:"-0.03em",
+            }}>
+              01
+            </div>
+          </div>
+          <div>
+            <div style={{display:"flex", alignItems:"center", gap:10, marginBottom:14}}>
+              <span className="eyebrow" style={{color:"var(--ink-500)"}}>{top.category}</span>
+              <span style={{width:3, height:3, background:"var(--ink-300)", borderRadius:999}}></span>
+              <span style={{fontSize:11, color:"var(--ink-500)", letterSpacing:"0.1em", textTransform:"uppercase"}}>
+                {top.date}
+              </span>
+            </div>
+            <h2 style={{
+              fontFamily:"var(--font-display)", fontSize:38, lineHeight:1.15,
+              fontWeight:500, margin:"0 0 16px", letterSpacing:"-0.015em",
+            }}>
+              {top.title}
+            </h2>
+            <p style={{fontSize:15, lineHeight:1.65, color:"var(--ink-500)", margin:"0 0 24px"}}>
+              {top.excerpt}
+            </p>
+            <div style={{display:"flex", gap:24, alignItems:"baseline", flexWrap:"wrap"}}>
+              <div>
+                <div style={{fontFamily:"var(--font-display)", fontSize:32, fontWeight:500, letterSpacing:"-0.01em"}}>
+                  {top.weekly.toLocaleString()}
+                </div>
+                <div style={{fontSize:10, color:"var(--ink-500)", letterSpacing:"0.15em", textTransform:"uppercase", marginTop:2}}>
+                  Views · 7d
+                </div>
+              </div>
+              <div>
+                <div style={{fontFamily:"var(--font-display)", fontSize:32, fontWeight:500, letterSpacing:"-0.01em", color:"var(--ink-500)"}}>
+                  {top.total.toLocaleString()}
+                </div>
+                <div style={{fontSize:10, color:"var(--ink-500)", letterSpacing:"0.15em", textTransform:"uppercase", marginTop:2}}>
+                  All time
+                </div>
+              </div>
+              <div style={{marginLeft:"auto"}}>
+                <span className="btn-pill" style={{cursor:"pointer"}}>
+                  Read essay <i className="fa-solid fa-arrow-right" style={{fontSize:10, marginLeft:4}}></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      {/* Chart — ranked list with bars */}
+      <section style={{padding:"24px 56px 64px"}}>
+        <div style={{display:"flex", alignItems:"baseline", justifyContent:"space-between", marginBottom:24}}>
+          <h3 style={{fontFamily:"var(--font-display)", fontSize:32, fontWeight:500, margin:0, letterSpacing:"-0.01em"}}>
+            Chart <i style={{fontWeight:300, color:"var(--ink-500)"}}>· No.2 → No.{ranked.length}</i>
+          </h3>
+          <span style={{fontSize:12, color:"var(--ink-500)", letterSpacing:"0.05em"}}>
+            排行依本週瀏覽量 · 每日更新一次 · 統計至 2025-09-12
+          </span>
+        </div>
+
+        <div>
+          {rest.map((p, i) => {
+            const rank = i + 2;
+            return (
+              <article key={p._id} onClick={() => onNav?.("post")}
+                style={{
+                  display:"grid",
+                  gridTemplateColumns:"110px 96px 1fr 180px",
+                  alignItems:"center", gap:32,
+                  padding:"28px 0",
+                  borderTop:"1px solid var(--rule)",
+                  cursor:"pointer",
+                  position:"relative",
+                  transition:"background .15s",
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = "var(--cream-50)"}
+                onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}>
+                {/* Rank — huge italic */}
+                <div style={{
+                  fontFamily:"var(--font-display)", fontStyle:"italic",
+                  fontSize:96, fontWeight:300, color:"var(--ink-900)",
+                  letterSpacing:"-0.04em", lineHeight:0.85,
+                  paddingLeft:8,
+                }}>
+                  {String(rank).padStart(2, "0")}
+                </div>
+                {/* Cover — small square */}
+                <div style={{width:96, height:96, overflow:"hidden", background:"var(--cream-100)"}}>
+                  <img src={p.cover} style={{width:"100%", height:"100%", objectFit:"cover"}}/>
+                </div>
+                {/* Title block */}
+                <div style={{minWidth:0}}>
+                  <div className="eyebrow" style={{color:"var(--ink-500)", marginBottom:10}}>
+                    {p.category} <span style={{margin:"0 8px", color:"var(--ink-300)"}}>/</span> {p.date}
+                  </div>
+                  <h4 style={{
+                    fontFamily:"var(--font-display)", fontSize:22, lineHeight:1.25,
+                    fontWeight:500, margin:"0 0 10px", letterSpacing:"-0.01em",
+                    display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden",
+                  }}>{p.title}</h4>
+                  <p style={{
+                    fontSize:13, lineHeight:1.55, color:"var(--ink-500)", margin:0,
+                    display:"-webkit-box", WebkitLineClamp:1, WebkitBoxOrient:"vertical", overflow:"hidden",
+                  }}>{p.excerpt}</p>
+                </div>
+                {/* Stats — vertical, right aligned */}
+                <div style={{textAlign:"right"}}>
+                  <div style={{
+                    fontFamily:"var(--font-display)", fontSize:36, fontWeight:500,
+                    color:"var(--ink-900)", letterSpacing:"-0.02em", lineHeight:1,
+                  }}>
+                    {p.weekly.toLocaleString()}
+                  </div>
+                  <div style={{fontSize:10, color:"var(--ink-500)", letterSpacing:"0.15em", textTransform:"uppercase", marginTop:6}}>
+                    這週瀏覽
+                  </div>
+                  <div style={{
+                    marginTop:14, paddingTop:10, borderTop:"1px solid var(--rule-soft)",
+                    fontSize:12, color:"var(--ink-400)",
+                  }}>
+                    <span style={{fontFamily:"var(--font-display)", fontStyle:"italic"}}>All time </span>
+                    <span style={{color:"var(--ink-700)", fontWeight:500}}>{(p.total/1000).toFixed(1)}k</span>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Editorial footer note */}
+      <section style={{
+        padding:"40px 56px 80px",
+        borderTop:"1px solid var(--rule)",
+        background:"var(--cream-50)",
+        display:"grid", gridTemplateColumns:"1fr 1fr", gap:48,
+      }}>
+        <div>
+          <div className="eyebrow" style={{marginBottom:14}}>編輯筆記</div>
+          <h4 style={{fontFamily:"var(--font-display)", fontSize:24, fontWeight:500, margin:"0 0 14px", letterSpacing:"-0.01em", lineHeight:1.3}}>
+            數字不是全部，<i style={{fontWeight:300, color:"var(--ink-500)"}}>但它告訴我們什麼有共鳴。</i>
+          </h4>
+          <p style={{fontSize:14, lineHeight:1.7, color:"var(--ink-500)", margin:0}}>
+            這份榜單來自 zhgchg.li 的真實流量資料，每天凌晨更新一次。冷門但精緻的文章不會出現在這裡 —— 但你可以從歸檔慢慢挖。
+          </p>
+        </div>
+        <div>
+          <div className="eyebrow" style={{marginBottom:14}}>更多閱讀</div>
+          <div style={{display:"flex", flexDirection:"column", gap:14}}>
+            <a onClick={() => onNav?.("archive")} style={{
+              display:"flex", justifyContent:"space-between", alignItems:"center",
+              padding:"14px 0", borderBottom:"1px solid var(--rule-soft)",
+              cursor:"pointer", fontSize:15,
+            }}>
+              <span style={{fontFamily:"var(--font-display)", color:"var(--ink-700)"}}>翻翻歸檔 · 8 年的寫作</span>
+              <i className="fa-solid fa-arrow-right" style={{fontSize:11, color:"var(--ink-400)"}}></i>
+            </a>
+            <a onClick={() => onNav?.("category")} style={{
+              display:"flex", justifyContent:"space-between", alignItems:"center",
+              padding:"14px 0", borderBottom:"1px solid var(--rule-soft)",
+              cursor:"pointer", fontSize:15,
+            }}>
+              <span style={{fontFamily:"var(--font-display)", color:"var(--ink-700)"}}>瀏覽分類</span>
+              <i className="fa-solid fa-arrow-right" style={{fontSize:11, color:"var(--ink-400)"}}></i>
+            </a>
+            <a onClick={() => onNav?.("search")} style={{
+              display:"flex", justifyContent:"space-between", alignItems:"center",
+              padding:"14px 0", cursor:"pointer", fontSize:15,
+            }}>
+              <span style={{fontFamily:"var(--font-display)", color:"var(--ink-700)"}}>搜尋特定主題</span>
+              <i className="fa-solid fa-arrow-right" style={{fontSize:11, color:"var(--ink-400)"}}></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <FooterA />
+    </div>
+  );
+}
+
+window.DirectionA = { HomeA, PostListA, PostA, CategoryA, TagA, ArchiveA, SearchA, NotFoundA, TrendingA };

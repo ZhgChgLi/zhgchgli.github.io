@@ -50,6 +50,9 @@ layout: default
       <span class="dot-sep"></span>
       {% include icon.html name="clock" %}
       <span>{{ read_time }} {{ t.post.min_read }}</span>
+      <span class="dot-sep"></span>
+      {% include icon.html name="eye" %}
+      <span>{{ page.views | views_plus }} {{ t.post.views }}</span>
     </div>
   </header>
 
@@ -72,12 +75,12 @@ layout: default
   {% endif %}
 
   {% if page.toc != false %}
-    <aside class="post-toc" id="post-toc" aria-label="{{ t.post.toc_label }}" hidden>
+    <aside class="post-toc" id="post-toc" aria-label="Contents" hidden>
       <div class="post-toc-inner">
         <div class="head">
           <span style="font-size:12px;color:var(--accent)">{% include icon.html name="list-ul" %}</span>
           <span class="eyebrow muted">{{ t.post.toc_eyebrow }}</span>
-          <span class="label">{{ t.post.toc_label }} <i id="post-toc-count"></i></span>
+          <span class="label"><i id="post-toc-count"></i></span>
         </div>
         <div id="post-toc-list"></div>
       </div>

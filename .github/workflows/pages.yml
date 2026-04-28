@@ -21,12 +21,15 @@ on:
     workflows: ["ZMediumToMarkdown"]
     types: [completed]
     branches: [main]
+  # Daily rebuild at 10:00 Asia/Taipei (UTC+8) = 02:00 UTC.
+  schedule:
+    - cron: '0 2 * * *'
 
 env:
   DEPLOY_LANG: zh-tw
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -57,6 +60,29 @@ jobs:
 
       - uses: actions/configure-pages@v5
         id: pages
+
+      - name: Fetch stats JSON (top7 / top30 / total)
+        env:
+          STATS_BASE: https://script.google.com/macros/s/AKfycbxYdtKSRD4DtVCWngh63_FzILDtL6sL--IVXF0HUFbjSTmL3gUgWKHfMDVQj7vq9hoK/exec
+        run: |
+          set -euo pipefail
+          for api in top7 top30 total; do
+            echo "→ fetching $api"
+            curl -fsSL --retry 3 --retry-delay 2 -o "$api.json" "$STATS_BASE?api=$api"
+          done
+
+      - name: Commit fetched stats JSON back to repo
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add top7.json top30.json total.json
+          if git diff --cached --quiet; then
+            echo "no stats changes to commit"
+          else
+            git commit -m "chore: update stats JSON (top7/top30/total)"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
 
       - name: Build with bin/lang
         env:
