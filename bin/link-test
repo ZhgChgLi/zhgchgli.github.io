@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# Run htmlproofer against _site and write the report to ./link.txt.
+#
+# Usage:
+#   bin/link-test           # build _site (zh-tw) then check
+#   bin/link-test --no-build  # use whatever is already in _site
+#   bin/link-test --lang en   # build a different language first
+#
+# CI uses this same entry point — keep it in sync with .github/workflows/link-test.yml.
+
+set -uo pipefail
+
+build=1
+lang="zh-tw"
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --no-build) build=0 ;;
+    --lang) lang="$2"; shift ;;
+    -h|--help)
+      sed -n '2,12p' "$0" | sed 's/^# \?//'
+      exit 0 ;;
+    *) echo "unknown arg: $1" >&2; exit 2 ;;
+  esac
+  shift
+done
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+
+if [[ "$build" == "1" ]]; then
+  echo "→ building site (lang=$lang) …"
+  JEKYLL_ENV=production ./bin/lang "$lang" build
+fi
+
+if [[ ! -d _site ]]; then
+  echo "_site/ not found. Run without --no-build, or jekyll build first." >&2
+  exit 1
+fi
+
+# Header — workflow consumers strip these lines before diffing, see link-test.yml.
+{
+  echo "# LinkTest report"
+  echo "Generated: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+  if commit="$(git rev-parse HEAD 2>/dev/null)"; then
+    echo "Commit:    $commit"
+  fi
+  if [[ -n "${GITHUB_RUN_ID:-}" ]]; then
+    echo "Source:    workflow ${GITHUB_RUN_ID}"
+  else
+    echo "Source:    local"
+  fi
+  echo
+} > link.txt
+
+set +e
+bundle exec htmlproofer _site \
+  --disable-external=true \
+  --enforce-https=false \
+  --ignore-empty-alt=true \
+  --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/" \
+  >> link.txt 2>&1
+status=$?
+set -e
+
+echo
+echo "→ wrote link.txt (htmlproofer exit=$status)"
+exit 0

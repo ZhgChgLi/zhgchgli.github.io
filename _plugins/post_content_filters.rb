@@ -73,6 +73,26 @@ module ZhgChgLi
     # already excluded by MARKDOWN_LINK_RE; `|` confuses GFM table parsing.
     UNESCAPED_PIPE_IN_LINK_RE = /(?<!\\)\|/.freeze
 
+    # Cross-post links written as `../<medium-file-slug>/?`. Medium's exporter
+    # emits these from inside post bodies. Under our permalink scheme
+    # `/posts/<cat>/<title-slug>-<file-slug>/`, `../` resolves to the *current*
+    # post's category dir — a 404 when the target post lives in a different
+    # category. Match Medium-style 8–16 hex hashes only so we don't touch
+    # normal English slugs (`about`, `tools`, etc.).
+    RELATIVE_FILE_SLUG_RE = %r{\.\./([0-9a-f]{8,16})/?}i.freeze
+
+    # Memoised slug → canonical URL map, built lazily once per build.
+    @canonical_url_by_slug = nil
+
+    def self.canonical_url_by_slug(site)
+      return @canonical_url_by_slug if @canonical_url_by_slug
+      @canonical_url_by_slug = site.posts.docs.each_with_object({}) do |p, h|
+        slug = ZhgChgLi::PostPermalinks.file_slug(p).to_s.downcase
+        next if slug.empty?
+        h[slug] = p.url
+      end
+    end
+
     def self.apply(post)
       content = post.content
 
@@ -123,7 +143,17 @@ module ZhgChgLi
         content = new_content
       end
 
-      # 6) Collapse trailing whitespace (from the removals above).
+      # 6) Rewrite `../<file-slug>/` cross-post links to the target post's
+      #    canonical URL — avoids 404s when the target lives in a different
+      #    category (the legacy redirect would otherwise resolve `../` to the
+      #    *current* post's category dir).
+      url_map = canonical_url_by_slug(post.site)
+      content = content.gsub(RELATIVE_FILE_SLUG_RE) do
+        slug = Regexp.last_match(1).to_s.downcase
+        url_map[slug] || Regexp.last_match(0)
+      end
+
+      # 7) Collapse trailing whitespace (from the removals above).
       content = content.sub(/\s+\z/, "\n")
 
       post.content = content

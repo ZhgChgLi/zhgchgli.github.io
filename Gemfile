@@ -13,6 +13,13 @@ end
 
 gem "kramdown-parser-gfm", "~> 1.1"
 
+group :test do
+  # Pin to 4.x: 5.x has an async-task race in process_files that returns 0
+  # links on macOS / older Rubies (regardless of how big the site is).
+  # https://github.com/gjtorikian/html-proofer/issues/771
+  gem "html-proofer", "~> 4.4"
+end
+
 # Ruby 3.x stdlib gems no longer bundled by default
 gem "csv"
 gem "base64"

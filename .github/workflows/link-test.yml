@@ -1,0 +1,109 @@
+name: LinkTest
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Build & Deploy Jekyll site to GitHub Pages"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: "link-test"
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Need full history so the auto-commit step can push back.
+          fetch-depth: 0
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Snapshot previous link.txt
+        run: |
+          if [ -f link.txt ]; then
+            cp link.txt /tmp/old-link.txt
+          else
+            : > /tmp/old-link.txt
+          fi
+
+      - name: Run LinkTest (build + htmlproofer)
+        id: linktest
+        run: |
+          ./bin/link-test --lang zh-tw
+          # Strip volatile lines (timestamp, run id, commit, htmlproofer
+          # timing chatter) from comparison so we only treat real link
+          # findings as a meaningful diff.
+          filter='^(Generated:|Commit:|Source:|Running \[|Checking [0-9]+|.*[Cc]ompleted in [0-9.]+ ?s.*|.*finished successfully)'
+          grep -vE "$filter" link.txt > /tmp/new-link.body
+          grep -vE "$filter" /tmp/old-link.txt > /tmp/old-link.body || true
+          if diff -q /tmp/old-link.body /tmp/new-link.body >/dev/null; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            diff -u /tmp/old-link.body /tmp/new-link.body > /tmp/link-diff.patch || true
+          fi
+
+      - name: Commit link.txt back to repo
+        if: ${{ steps.linktest.outputs.changed == 'true' }}
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add link.txt
+          if git diff --cached --quiet; then
+            echo "no link.txt changes to commit"
+          else
+            git commit -m "chore: update link.txt (LinkTest report)"
+            git push origin HEAD:main
+          fi
+
+      - name: Open issue with diff
+        if: ${{ steps.linktest.outputs.changed == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # Truncate huge content to keep the issue body under GitHub's 65535-char limit.
+          head -c 30000 /tmp/link-diff.patch > /tmp/link-diff.trim
+          head -c 20000 link.txt > /tmp/link-trim.txt
+
+          {
+            echo "LinkTest 偵測到連結報告變更。"
+            echo
+            echo "- Commit: \`${{ github.sha }}\`"
+            echo "- Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo
+            echo "## Diff"
+            echo
+            echo '```diff'
+            cat /tmp/link-diff.trim
+            echo
+            echo '```'
+            echo
+            echo "## 最新 link.txt"
+            echo
+            echo '```'
+            cat /tmp/link-trim.txt
+            echo
+            echo '```'
+          } > /tmp/issue-body.md
+
+          gh issue create \
+            --title "LinkTest: report changed (${{ github.sha }})" \
+            --body-file /tmp/issue-body.md \
+            --label "linktest" || gh issue create \
+            --title "LinkTest: report changed (${{ github.sha }})" \
+            --body-file /tmp/issue-body.md

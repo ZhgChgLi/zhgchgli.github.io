@@ -44,14 +44,19 @@ sitemap: false
 </section>
 
 <script>
-  // Slug fallback: if the missing URL ends with `-<slug>`, probe /posts/<slug>/
-  // and redirect there when it exists. Posts register a short URL via
-  // _plugins/short_url_redirects.rb, so this catches old / renamed permalinks.
+  // Slug fallback: probe /posts/<slug>/ when the missing URL's last path
+  // segment looks like (or ends with) a known short slug — covers both
+  //   /posts/<cat>/<title>-<slug>/    (canonical permalink, pre-rename)
+  //   /posts/<cat>/<slug>/            (cross-category bare-slug link)
+  // Posts register `/posts/<slug>/` via _plugins/short_url_redirects.rb so
+  // this catches both old / renamed and category-mismatched permalinks.
   (function () {
     var path = location.pathname.replace(/\/+$/, '');
-    var m = path.match(/-([a-z0-9]{6,})$/i);
-    if (!m) return;
-    var slug = m[1];
+    var lastSeg = path.split('/').pop() || '';
+    // The slug is whatever follows the last '-' (or the whole segment when
+    // there's no '-'), so it works for both URL shapes above.
+    var slug = lastSeg.split('-').pop();
+    if (!/^[a-z0-9]{6,}$/i.test(slug)) return;
     var target = '/posts/' + slug + '/';
     if (path === target.replace(/\/+$/, '')) return;
     fetch(target, { method: 'HEAD' }).then(function (res) {

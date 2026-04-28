@@ -13,7 +13,7 @@ Hi, I’m [**Harry**](/about/){:target="_blank"}.
 
 Since 2018, I’ve been consistently writing and sharing content about **iOS development, RPA automation, and CI/CD**, along with life stories, product reviews, and travel experiences.
 
-By the end of 2025, I’ve published [**120+ articles**, totaling **hundreds of thousands of words**](/archives/){:target="_blank"}.
+By the end of 2025, I’ve published [**120+ articles**, totaling **hundreds of thousands of words**](/archive/){:target="_blank"}.
 
 In addition to writing, I actively develop and maintain [**several open-source projects**](https://github.com/ZhgChgLi){:target="_blank"}, including: 
 - [**ZMarkupParser**](https://github.com/ZhgChgLi/ZMarkupParser){:target="_blank"} – A library for parsing HTML and converting it into NSAttributedString
