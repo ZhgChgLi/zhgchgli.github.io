@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-label="114 年度綜合所得稅課稅級距與累進差額">
+  <defs>
+    <style>
+      .bg { fill: #0b1220; }
+      .card { fill: #111b33; stroke: #2a3a66; stroke-width: 2; rx: 14; }
+      .title { fill: #e6f0ff; font: 700 28px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .subtitle { fill: #9fb3e6; font: 500 14px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .rate { fill: #ffffff; font: 800 28px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; }
+      .range { fill: #e6f0ff; font: 700 14px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; }
+      .progressive { fill: #ffcc66; font: 600 13px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; }
+      .formula { fill: #c7d5ff; font: 600 16px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; }
+      .b1 { fill: #1e3a5f; }
+      .b2 { fill: #1e4d6b; }
+      .b3 { fill: #2d6a8f; }
+      .b4 { fill: #3d8bb3; }
+      .b5 { fill: #5dadd6; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="560" rx="24"/>
+
+  <text class="title" x="40" y="58">114 年度綜合所得稅課稅級距（2026/5 申報適用）</text>
+  <text class="subtitle" x="40" y="86">應納稅額 = 綜合所得淨額 × 稅率 − 累進差額。資料來源：財政部賦稅署。</text>
+
+  <!-- Bracket 1: 5% -->
+  <rect class="b1" x="60" y="380" width="180" height="80" rx="10"/>
+  <text class="rate" x="120" y="425" text-anchor="middle">5%</text>
+  <text class="range" x="150" y="475" text-anchor="middle">0 – 59 萬</text>
+  <text class="progressive" x="150" y="494" text-anchor="middle">累進差額 0</text>
+
+  <!-- Bracket 2: 12% -->
+  <rect class="b2" x="260" y="320" width="180" height="140" rx="10"/>
+  <text class="rate" x="320" y="395" text-anchor="middle">12%</text>
+  <text class="range" x="350" y="475" text-anchor="middle">59 – 133 萬</text>
+  <text class="progressive" x="350" y="494" text-anchor="middle">累進差額 41,300</text>
+
+  <!-- Bracket 3: 20% -->
+  <rect class="b3" x="460" y="240" width="180" height="220" rx="10"/>
+  <text class="rate" x="520" y="355" text-anchor="middle">20%</text>
+  <text class="range" x="550" y="475" text-anchor="middle">133 – 266 萬</text>
+  <text class="progressive" x="550" y="494" text-anchor="middle">累進差額 147,700</text>
+
+  <!-- Bracket 4: 30% -->
+  <rect class="b4" x="660" y="160" width="180" height="300" rx="10"/>
+  <text class="rate" x="720" y="315" text-anchor="middle">30%</text>
+  <text class="range" x="750" y="475" text-anchor="middle">266 – 498 萬</text>
+  <text class="progressive" x="750" y="494" text-anchor="middle">累進差額 413,700</text>
+
+  <!-- Bracket 5: 40% -->
+  <rect class="b5" x="860" y="100" width="180" height="360" rx="10"/>
+  <text class="rate" x="920" y="285" text-anchor="middle">40%</text>
+  <text class="range" x="950" y="475" text-anchor="middle">498 萬以上</text>
+  <text class="progressive" x="950" y="494" text-anchor="middle">累進差額 911,700</text>
+
+  <!-- Baseline -->
+  <line x1="60" y1="460" x2="1140" y2="460" stroke="#2a3a66" stroke-width="2"/>
+
+  <!-- Note -->
+  <text class="formula" x="40" y="540">提醒：上方累進差額為 113/114 年度公告值；計算前請對照當年度財政部公告。</text>
+
+</svg>

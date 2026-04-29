@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="2026 網路報稅完整教學封面">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="55%" stop-color="#16264f"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3d8bb3"/>
+      <stop offset="100%" stop-color="#1e4d6b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f6f8ff"/>
+      <stop offset="100%" stop-color="#dfe6f5"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#56d364" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#56d364" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      .h1 { fill: #ffffff; font: 800 68px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; letter-spacing: -1px; }
+      .h2 { fill: #ffcc66; font: 800 44px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; }
+      .sub { fill: #c7d5ff; font: 500 22px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; }
+      .pill { fill: #1f2b4d; stroke: #2a3a66; stroke-width: 2; }
+      .pillText { fill: #e6f0ff; font: 700 18px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; }
+      .badge { fill: #56d364; }
+      .badgeText { fill: #062e0e; font: 800 22px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; }
+      .cardLabel { fill: #ffffff; font: 700 16px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; opacity: 0.85; }
+      .cardName { fill: #ffffff; font: 800 22px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; }
+      .paperHead { fill: #1e3a5f; font: 800 22px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; }
+      .paperLine { stroke: #2a3a66; stroke-width: 3; opacity: 0.45; }
+      .checkmark { stroke: #56d364; stroke-width: 5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .accent { fill: #56d364; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1200" height="630" fill="url(#bgGrad)"/>
+  <ellipse cx="950" cy="450" rx="380" ry="280" fill="url(#glow)"/>
+
+  <!-- Top badge: 2026 -->
+  <rect class="badge" x="80" y="80" width="180" height="50" rx="25"/>
+  <text class="badgeText" x="170" y="114" text-anchor="middle">2026 報稅</text>
+
+  <!-- Title -->
+  <text class="h1" x="80" y="220">網路報稅</text>
+  <text class="h1" x="80" y="298">完整教學</text>
+
+  <!-- Subtitle highlight -->
+  <text class="h2" x="80" y="370">自然人憑證　×　行動憑證</text>
+  <text class="sub" x="80" y="408">114 年度新制 / 申報時程 / 退稅 3 批次</text>
+
+  <!-- Tag pills bottom-left -->
+  <g>
+    <rect class="pill" x="80" y="470" width="160" height="44" rx="22"/>
+    <text class="pillText" x="160" y="498" text-anchor="middle">5/1 – 6/1</text>
+
+    <rect class="pill" x="252" y="470" width="170" height="44" rx="22"/>
+    <text class="pillText" x="337" y="498" text-anchor="middle">6 種驗證方式</text>
+
+    <rect class="pill" x="434" y="470" width="160" height="44" rx="22"/>
+    <text class="pillText" x="514" y="498" text-anchor="middle">試算範例</text>
+  </g>
+
+  <!-- Source line -->
+  <text class="sub" x="80" y="560" style="font-size:18px; opacity:0.7;">資料來源：財政部 · MOICA · 各區國稅局</text>
+
+  <!-- Right side illustration: stacked card + paper -->
+  <!-- Tax Form Paper -->
+  <g transform="translate(720, 110) rotate(-6)">
+    <rect width="320" height="420" rx="14" fill="url(#paperGrad)" stroke="#9fb3e6" stroke-width="2"/>
+    <text class="paperHead" x="28" y="56">綜合所得稅</text>
+    <text class="paperHead" x="28" y="86" style="font-size:16px; fill:#3d4d75; font-weight:600;">114 年度結算申報</text>
+    <line class="paperLine" x1="28" y1="110" x2="292" y2="110"/>
+    <line class="paperLine" x1="28" y1="148" x2="270" y2="148"/>
+    <line class="paperLine" x1="28" y1="186" x2="240" y2="186"/>
+    <line class="paperLine" x1="28" y1="224" x2="280" y2="224"/>
+    <line class="paperLine" x1="28" y1="262" x2="220" y2="262"/>
+    <line class="paperLine" x1="28" y1="300" x2="260" y2="300"/>
+    <!-- Approved stamp -->
+    <circle cx="240" cy="360" r="42" fill="none" stroke="#d44848" stroke-width="3" opacity="0.85"/>
+    <text x="240" y="356" text-anchor="middle" fill="#d44848" font="800 14px sans-serif" style="font: 800 14px -apple-system,sans-serif; opacity:0.9;">電子申報</text>
+    <text x="240" y="376" text-anchor="middle" fill="#d44848" font="800 16px sans-serif" style="font: 800 18px -apple-system,sans-serif; opacity:0.9;">完成</text>
+  </g>
+
+  <!-- Citizen Digital Certificate Card (front) -->
+  <g transform="translate(820, 360) rotate(8)">
+    <rect width="300" height="190" rx="16" fill="url(#cardGrad)" stroke="#5dadd6" stroke-width="2"/>
+    <!-- Chip -->
+    <rect x="28" y="34" width="46" height="36" rx="6" fill="#f0c860" stroke="#a47a1a" stroke-width="1.5"/>
+    <line x1="28" y1="46" x2="74" y2="46" stroke="#a47a1a" stroke-width="1"/>
+    <line x1="28" y1="58" x2="74" y2="58" stroke="#a47a1a" stroke-width="1"/>
+    <line x1="51" y1="34" x2="51" y2="70" stroke="#a47a1a" stroke-width="1"/>
+    <!-- Card text -->
+    <text class="cardLabel" x="92" y="50">CITIZEN DIGITAL CERTIFICATE</text>
+    <text class="cardName" x="92" y="80">自然人憑證</text>
+    <!-- NFC waves -->
+    <g transform="translate(238, 128)" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.85" stroke-linecap="round">
+      <path d="M0 0 a14 14 0 0 1 14 14"/>
+      <path d="M-8 8 a22 22 0 0 1 22 22" opacity="0.7"/>
+      <path d="M-16 16 a30 30 0 0 1 30 30" opacity="0.5"/>
+    </g>
+    <text class="cardLabel" x="28" y="166">TP07-XXXX-XXXX-XXXX</text>
+  </g>
+
+  <!-- Floating check icon -->
+  <g transform="translate(1060, 90)">
+    <circle r="34" fill="#56d364" opacity="0.18"/>
+    <circle r="22" fill="#56d364"/>
+    <path class="checkmark" d="M-10 0 L-3 8 L11 -8" stroke="#062e0e"/>
+  </g>
+
+</svg>

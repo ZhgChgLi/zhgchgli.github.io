@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-label="2026 綜合所得稅申報與退稅完整時程">
+  <defs>
+    <style>
+      .bg { fill: #0b1220; }
+      .card { fill: #111b33; stroke: #2a3a66; stroke-width: 2; rx: 18; }
+      .title { fill: #e6f0ff; font: 700 28px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .text { fill: #c7d5ff; font: 500 16px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .label { fill: #e6f0ff; font: 700 18px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .hint { fill: #9fb3e6; font: 500 13px -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+      .accent { fill: #56d364; }
+      .warn { fill: #ffcc66; }
+      .danger { fill: #ff8a80; }
+      .pill { fill: #1f2b4d; stroke: #2a3a66; stroke-width: 2; rx: 999; }
+      .line { stroke: #2a3a66; stroke-width: 4; fill: none; }
+      .dotline { stroke: #2a3a66; stroke-width: 2; stroke-dasharray: 6 6; fill: none; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="560" rx="24"/>
+
+  <text class="title" x="40" y="58">2026 綜合所得稅（114 年度）申報與退稅完整時程</text>
+  <text class="hint" x="40" y="88">資料來源：財政部、各區國稅局公告；以官方為準。</text>
+
+  <!-- Main timeline line -->
+  <line class="line" x1="80" y1="280" x2="1140" y2="280"/>
+
+  <!-- Node: 5/1 開放 -->
+  <circle cx="140" cy="280" r="14" class="accent"/>
+  <rect class="card" x="40" y="120" width="220" height="120" rx="14"/>
+  <text class="label" x="60" y="150">2026/5/1（五）</text>
+  <text class="text" x="60" y="178">申報期間開始</text>
+  <text class="hint" x="60" y="202">勞動節為國定假日</text>
+  <text class="hint" x="60" y="220">國稅局臨櫃不受理</text>
+  <text class="hint" x="60" y="238">網路/手機申報照常</text>
+  <line class="dotline" x1="140" y1="240" x2="140" y2="266"/>
+
+  <!-- Node: 5/10 -->
+  <circle cx="320" cy="280" r="10" class="warn"/>
+  <rect class="card" x="270" y="320" width="180" height="80" rx="14"/>
+  <text class="label" x="285" y="350">5/10 前</text>
+  <text class="text" x="285" y="376">二維條碼/人工</text>
+  <text class="text" x="285" y="394">申報並繳清稅款</text>
+  <line class="dotline" x1="320" y1="290" x2="320" y2="320"/>
+
+  <!-- Node: 5/31 週日 -->
+  <circle cx="520" cy="280" r="10" class="danger"/>
+  <rect class="card" x="470" y="320" width="180" height="80" rx="14"/>
+  <text class="label" x="485" y="350">5/31（日）</text>
+  <text class="text" x="485" y="376">原截止日適逢週日</text>
+  <text class="text" x="485" y="394">依法順延一日</text>
+  <line class="dotline" x1="520" y1="290" x2="520" y2="320"/>
+
+  <!-- Node: 6/1 截止 -->
+  <circle cx="660" cy="280" r="14" class="danger"/>
+  <rect class="card" x="600" y="120" width="220" height="120" rx="14"/>
+  <text class="label" x="620" y="150">2026/6/1（一）</text>
+  <text class="text" x="620" y="178">申報截止日</text>
+  <text class="hint" x="620" y="202">建議下午 5 點前完成</text>
+  <text class="hint" x="620" y="220">系統繁忙易塞車</text>
+  <text class="hint" x="620" y="238">提早三日最保險</text>
+  <line class="dotline" x1="660" y1="240" x2="660" y2="266"/>
+
+  <!-- Node: 7/31 第一批退稅 -->
+  <circle cx="850" cy="280" r="14" class="accent"/>
+  <rect class="card" x="780" y="320" width="220" height="160" rx="14"/>
+  <text class="label" x="800" y="350">2026/7/31</text>
+  <text class="text" x="800" y="376">第 1 批退稅入帳</text>
+  <text class="hint" x="800" y="402">適用：6/1 前完成網路</text>
+  <text class="hint" x="800" y="420">/手機申報、稅額試算</text>
+  <text class="hint" x="800" y="438">線上登錄/電話回復、</text>
+  <text class="hint" x="800" y="456">5/11 前紙本回復者</text>
+  <line class="dotline" x1="850" y1="290" x2="850" y2="320"/>
+
+  <!-- Node: 10/31 第二批 -->
+  <circle cx="1020" cy="280" r="12" class="accent"/>
+  <rect class="card" x="960" y="120" width="200" height="120" rx="14"/>
+  <text class="label" x="980" y="150">2026/10/31</text>
+  <text class="text" x="980" y="178">第 2 批退稅入帳</text>
+  <text class="hint" x="980" y="202">5/11 後人工申報</text>
+  <text class="hint" x="980" y="220">紙本回復案件</text>
+  <line class="dotline" x1="1020" y1="240" x2="1020" y2="266"/>
+
+  <!-- Node: 隔年 1月 第三批 -->
+  <circle cx="1130" cy="280" r="10" class="warn"/>
+  <text class="label" x="1075" y="500">2027/1/20</text>
+  <text class="text" x="1075" y="524">第 3 批退稅</text>
+  <text class="hint" x="1075" y="544">逾期或更正案件</text>
+  <line class="dotline" x1="1130" y1="290" x2="1130" y2="478"/>
+
+</svg>
