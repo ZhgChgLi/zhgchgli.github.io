@@ -68,6 +68,33 @@
     });
   })();
 </script>
+{%- if site.google_analytics -%}
+<script>
+  // Track link clicks to GA4: sends `click` event with link URL/domain and an
+  // `outbound` flag. Uses capture phase so it fires even when other handlers
+  // stopPropagation, and covers middle-click / cmd-click via `auxclick`.
+  (function () {
+    if (typeof window.gtag !== 'function') return;
+    function handler(e) {
+      var a = e.target && e.target.closest && e.target.closest('a[href]');
+      if (!a) return;
+      var href = a.getAttribute('href');
+      if (!href || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) return;
+      var url;
+      try { url = new URL(a.href, window.location.href); } catch (_) { return; }
+      var outbound = url.host !== window.location.host;
+      gtag('event', 'click', {
+        link_url: url.href,
+        link_domain: url.host,
+        link_text: (a.innerText || a.textContent || '').trim().slice(0, 100),
+        outbound: outbound
+      });
+    }
+    document.addEventListener('click', handler, true);
+    document.addEventListener('auxclick', handler, true);
+  })();
+</script>
+{%- endif -%}
 {%- if page.layout == 'post' -%}
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
 <script>
