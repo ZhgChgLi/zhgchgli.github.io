@@ -1,0 +1,17 @@
+---
+layout: report-shell
+permalink: /reports/
+title: Reports
+description: Tripezgo — 月度精選快報。
+---
+
+{% assign reports = site.reports | sort: "month" | reverse %}
+{% assign report = reports | first %}
+
+{% if report %}
+  {% include report-content.html report=report is_home=true %}
+{% else %}
+  <main class="empty-state">
+    <h1>尚未建立快報</h1>
+  </main>
+{% endif %}

@@ -1,0 +1,215 @@
+---
+layout: compress
+---
+<!doctype html>
+<html lang="{{ site.lang | default: 'zh-Hant-TW' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% assign latest_reports = site.reports | sort: "month" | reverse %}
+    {% assign latest_report = latest_reports | first %}
+    {% assign seo_report = nil %}
+    {% if page.collection == "reports" %}
+      {% assign seo_report = page %}
+    {% elsif page.url == "/reports/" and latest_report %}
+      {% assign seo_report = latest_report %}
+    {% endif %}
+    {% assign seo_title = page.seo_title | default: seo_report.title | default: page.title | default: site.title %}
+    {% assign raw_description = page.description | default: seo_report.intro | default: site.description %}
+    {% assign seo_description = raw_description | strip_html | normalize_whitespace | truncate: 155 %}
+    {% assign canonical_url = page.url | absolute_url %}
+    {% assign seo_type = "website" %}
+    {% if page.collection == "reports" %}{% assign seo_type = "article" %}{% endif %}
+    {% assign seo_image = page.image | default: seo_report.hero_image %}
+    {% unless seo_image %}
+      {% assign first_seo_product = seo_report.products | first %}
+      {% assign seo_image = first_seo_product.image %}
+    {% endunless %}
+    {% assign seo_image_url = seo_image %}
+    {% if seo_image_url and seo_image_url contains "://" %}
+      {% assign seo_image_url = seo_image_url %}
+    {% elsif seo_image_url %}
+      {% assign seo_image_url = seo_image_url | absolute_url %}
+    {% endif %}
+    <title>{% if seo_title == site.title %}Tripezgo{% else %}{{ seo_title }} | Tripezgo{% endif %}</title>
+    <meta name="description" content="{{ seo_description }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta property="og:locale" content="{{ site.lang | default: 'zh-Hant-TW' }}">
+    <meta property="og:type" content="{{ seo_type }}">
+    <meta property="og:site_name" content="Tripezgo">
+    <meta property="og:title" content="{{ seo_title }}">
+    <meta property="og:description" content="{{ seo_description }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    {% if seo_image_url %}
+      <meta property="og:image" content="{{ seo_image_url }}">
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:image" content="{{ seo_image_url }}">
+    {% else %}
+      <meta name="twitter:card" content="summary">
+    {% endif %}
+    <meta name="twitter:title" content="{{ seo_title }}">
+    <meta name="twitter:description" content="{{ seo_description }}">
+    {% if seo_report %}
+      <meta property="article:published_time" content="{{ seo_report.month | date_to_xmlschema }}">
+      {% if seo_report.last_modified_at %}<meta property="article:modified_time" content="{{ seo_report.last_modified_at | date_to_xmlschema }}">{% endif %}
+      <meta property="article:author" content="{{ seo_report.author | default: 'Tripezgo' }}">
+      <meta property="article:section" content="Travel Deals">
+    {% endif %}
+    {% comment %} JSON-LD structured data for SEO {% endcomment %}
+    {% assign breadcrumb_items = "" | split: "" %}
+    {% if page.url == "/reports/" %}
+      {% assign is_latest_index = true %}
+    {% endif %}
+    <script type="application/ld+json">
+      [
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Tripezgo", "item": "https://tripezgo.com" },
+            { "@type": "ListItem", "position": 2, "name": "Reports", "item": {{ '/reports/' | absolute_url | jsonify }} }
+            {% if page.collection == "reports" %},
+            { "@type": "ListItem", "position": 3, "name": {{ seo_report.title | jsonify }}, "item": {{ canonical_url | jsonify }} }
+            {% elsif page.url == "/reports/archive/" %},
+            { "@type": "ListItem", "position": 3, "name": "歷期回顧", "item": {{ canonical_url | jsonify }} }
+            {% endif %}
+          ]
+        }
+        {% if seo_report and seo_report.products %}
+        ,{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": {{ seo_report.title | jsonify }},
+          "description": {{ seo_description | jsonify }},
+          "image": {% if seo_image_url %}[{{ seo_image_url | jsonify }}]{% else %}[]{% endif %},
+          "datePublished": {{ seo_report.month | date_to_xmlschema | jsonify }},
+          {% if seo_report.last_modified_at %}"dateModified": {{ seo_report.last_modified_at | date_to_xmlschema | jsonify }},{% endif %}
+          "author": { "@type": "Organization", "name": {{ seo_report.author | default: 'Tripezgo' | jsonify }}, "url": "https://tripezgo.com" },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Tripezgo",
+            "url": "https://tripezgo.com",
+            "logo": { "@type": "ImageObject", "url": {{ '/assets/img/favicons/apple-touch-icon.png' | absolute_url | jsonify }} }
+          },
+          "mainEntityOfPage": { "@type": "WebPage", "@id": {{ canonical_url | jsonify }} },
+          "isPartOf": { "@type": "WebSite", "name": "Tripezgo", "url": "https://tripezgo.com" }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "name": {{ seo_report.title | jsonify }},
+          "numberOfItems": {{ seo_report.products.size }},
+          "itemListElement": [
+            {% for product in seo_report.products %}
+              {% assign product_image = product.image %}
+              {% unless product_image contains "://" %}{% assign product_image = product_image | absolute_url %}{% endunless %}
+              {% assign sale_num = product.sale_price | remove: "NT$" | remove: "," | remove: " " | strip %}
+              {% assign orig_num = product.price | remove: "NT$" | remove: "," | remove: " " | strip %}
+              {
+                "@type": "ListItem",
+                "position": {{ forloop.index }},
+                "item": {
+                  "@type": "Product",
+                  "name": {{ product.name | jsonify }},
+                  "description": {{ product.description | jsonify }},
+                  "image": {{ product_image | jsonify }},
+                  "url": {{ product.url | jsonify }},
+                  {% if product.tags %}"keywords": {{ product.tags | join: "," | jsonify }},{% endif %}
+                  "brand": { "@type": "Brand", "name": "KKday" },
+                  "offers": {
+                    "@type": "Offer",
+                    "priceCurrency": "TWD",
+                    "price": {{ sale_num | jsonify }},
+                    {% assign valid_until = product.offer_ends_at | default: seo_report.offer_ends_at %}
+                    {% if valid_until %}"priceValidUntil": {{ valid_until | date_to_xmlschema | jsonify }},{% endif %}
+                    "availability": "https://schema.org/InStock",
+                    "url": {{ product.url | jsonify }}
+                  }
+                }
+              }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+          ]
+        }
+        {% endif %}
+      ]
+    </script>
+    <link rel="icon" type="image/x-icon" href="{{ '/assets/img/favicons/favicon.ico' | relative_url }}">
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://image.kkday.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,400&family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/css/report.css' | relative_url }}">
+  </head>
+  <body data-accent="ember" data-pairing="editorial" data-density="comfortable" data-numbered="true">
+    <header class="masthead">
+      <div class="wrap masthead-inner">
+        <a class="logo" href="https://tripezgo.com" target="_blank" rel="noopener" aria-label="Tripezgo 官網">
+          <span class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 44 28">
+              <path d="M4 22 Q22 2 40 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="4" cy="22" r="2.4" fill="currentColor"/>
+              <circle cx="40" cy="22" r="2.4" fill="var(--accent)"/>
+              <line x1="22" y1="22" x2="22" y2="9" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="1.5 2"/>
+            </svg>
+          </span>
+          <span class="logo-word">tripezgo</span>
+        </a>
+        <div class="mast-meta">
+          <span class="dot"></span>
+          <span>Monthly Dispatch</span>
+          <span>·</span>
+          <span>by {{ page.author | default: 'Tripezgo' }}</span>
+        </div>
+        <nav class="mast-nav" aria-label="主要導覽">
+          <a href="{{ '/reports/' | relative_url }}">本期快報</a>
+          <a href="{{ '/reports/archive/' | relative_url }}">歷期回顧</a>
+          <a href="https://tripezgo.com" target="_blank" rel="noopener">Tripezgo 官網</a>
+          <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+        </nav>
+      </div>
+    </header>
+
+    {{ content }}
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="foot-grid">
+          <div class="foot-brand">
+            <a class="logo" href="https://tripezgo.com" target="_blank" rel="noopener" aria-label="Tripezgo 官網">
+              <span class="logo-mark" aria-hidden="true">
+                <svg viewBox="0 0 44 28">
+                  <path d="M4 22 Q22 2 40 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="4" cy="22" r="2.4" fill="currentColor"/>
+                  <circle cx="40" cy="22" r="2.4" fill="var(--accent)"/>
+                </svg>
+              </span>
+              <span class="logo-word">tripezgo</span>
+            </a>
+            <p>Tripezgo — 月度精選快報。商品價格與優惠以合作平台頁面為準。</p>
+          </div>
+          <div>
+            <h4>快報</h4>
+            <ul>
+              <li><a href="{{ '/reports/' | relative_url }}">本期快報</a></li>
+              <li><a href="{{ '/reports/archive/' | relative_url }}">歷期回顧</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>主站</h4>
+            <ul>
+              <li><a href="https://tripezgo.com" target="_blank" rel="noopener">Tripezgo 官網</a></li>
+              <li><a href="{{ '/' | relative_url }}">{{ site.title }}</a></li>
+              <li><a href="mailto:service@tripezgo.com">聯絡</a></li>
+            </ul>
+          </div>
+        </div>
+        <p class="foot-disclaimer">本快報內容由 Tripezgo 整理；商品文字與圖片版權歸原合作平台所有，本站僅為聯盟行銷夥伴。</p>
+        <div class="foot-bottom">
+          <span>© {{ site.time | date: "%Y" }} Tripezgo</span>
+          <span>Updated at: {{ site.time | date: "%Y-%m-%d"}}</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

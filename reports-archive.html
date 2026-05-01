@@ -1,0 +1,80 @@
+---
+layout: report-shell
+permalink: /reports/archive/
+title: 歷期回顧
+description: Tripezgo 歷期月度快報完整回顧。
+---
+
+{% assign reports = site.reports | sort: "month" | reverse %}
+
+<main class="report-page archive-page">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <aside class="hero-stamp" aria-hidden="true">
+        <span class="num">All</span>
+        <span class="label">MONTHLY ARCHIVE</span>
+      </aside>
+      <div class="hero-body">
+        <div class="eyebrow-row">
+          <span class="accent">Archive</span>
+          <span class="rule"></span>
+          <span>每月快報・完整回顧</span>
+        </div>
+        <h1>歷期回顧</h1>
+        <p class="hero-copy">
+          收錄歷期 Tripezgo 月度精選快報，回顧每個月的編輯選物。
+          <span class="hero-copy-sig">— Tripezgo 編輯</span>
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#archive-list">瀏覽歷期月刊 <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="{{ '/reports/' | relative_url }}">回到最新快報</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section deal-section" id="archive-list" aria-labelledby="archive-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="kicker">§ 01 · Past Issues</span>
+          <h2 id="archive-title">歷期月刊一覽</h2>
+          <p>依月份倒序排列，點擊任一期即可查看當月完整商品清單。</p>
+        </div>
+        <div class="aside">共 <b>{{ reports.size }} 期</b></div>
+      </div>
+
+      {% if reports.size > 0 %}
+        <div class="deal-grid archive-grid">
+          {% for report in reports %}
+            {% assign cover_product = report.products | first %}
+            {% assign cover_image = report.hero_image | default: cover_product.image %}
+            {% unless cover_image contains "://" %}
+              {% assign cover_image = cover_image | relative_url %}
+            {% endunless %}
+            <article class="deal archive-card">
+              <a class="deal-photo" href="{{ report.url | relative_url }}" aria-label="查看 {{ report.title }}">
+                <span class="deal-num">{{ report.month | date: "%Y.%m" }}</span>
+                {% if cover_image %}
+                  <img src="{{ cover_image }}" alt="{{ report.title }}" loading="lazy">
+                {% endif %}
+              </a>
+              <div class="deal-body">
+                <div class="deal-meta">
+                  <span class="country">Vol. {{ report.month | date: "%m" }}</span>
+                  <span class="sep">/</span>
+                  <span>{{ report.products.size | default: 0 }} 件商品</span>
+                </div>
+                <h4>{{ report.title }}</h4>
+                <p class="deal-desc">{{ report.intro | strip_html | normalize_whitespace | truncate: 90 }}</p>
+                <a class="deal-cta" href="{{ report.url | relative_url }}">查看當月精選 <span class="arrow">→</span></a>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>尚未有任何月刊資料。</p>
+      {% endif %}
+    </div>
+  </section>
+</main>

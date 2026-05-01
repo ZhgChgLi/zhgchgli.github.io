@@ -179,6 +179,21 @@ defaults:
       author: ZhgChgLi
       comments: true
       toc: true
+  - scope:
+      path: ""
+      type: reports
+    values:
+      layout: report
+      author: Tripezgo
+      hidden: true
+      sitemap: true
+      rss: false
+
+# Reports collection — magazine-style monthly dispatches.
+collections:
+  reports:
+    output: true
+    permalink: /reports/:name/
 
 # Standalone Markdown pages (about, contact, etc.) live under _pages/.
 # Jekyll skips _underscore-prefixed dirs by default; explicitly include it.

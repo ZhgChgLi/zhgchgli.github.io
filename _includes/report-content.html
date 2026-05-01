@@ -1,0 +1,175 @@
+{% assign report = include.report %}
+{% assign products = report.products | default: empty %}
+{% assign articles = report.articles | default: empty %}
+{% assign use_post_fallback = false %}
+{% if articles.size == 0 %}
+  {% assign use_post_fallback = true %}
+  {% assign articles = site.posts | where_exp: "p", "p.categories contains 'Z 度旅行遊記'" | where_exp: "p", "p.hidden != true" %}
+{% endif %}
+{% assign hero_image = report.hero_image %}
+{% assign hero_image_src = hero_image %}
+{% unless hero_image_src contains "://" %}
+  {% assign hero_image_src = hero_image_src | relative_url %}
+{% endunless %}
+{% assign issue_number = report.issue | default: report.month | date: "%m" %}
+{% assign issue_label = report.month | date: "%B ISSUE" | upcase %}
+{% assign product_groups = products | group_by: "category" %}
+{% assign deal_number = 0 %}
+
+<main class="report-page">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <aside class="hero-stamp" aria-hidden="true">
+        <span class="num">{{ issue_number }}</span>
+        <span class="label">{{ issue_label }}</span>
+      </aside>
+
+      <div class="hero-body">
+        <div class="eyebrow-row">
+          <span class="accent">Vol. {{ issue_number }}</span>
+          <span class="rule"></span>
+          <span>{{ report.month | date: "%Y.%m" }} · 本月精選 · by {{ report.author | default: 'Tripezgo' }}</span>
+        </div>
+        <h1>{{ report.title }}</h1>
+        <p class="hero-copy" id="notes">
+          {{ report.intro }}
+          <span class="hero-copy-sig">— {{ report.author | default: 'Tripezgo' }} 編輯</span>
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#deals">查看本月精選 <span class="arrow" aria-hidden="true">→</span></a>
+          {% if articles.size > 0 %}<a class="btn btn-ghost" href="#articles">延伸閱讀</a>{% endif %}
+          {% unless include.is_home %}
+            <a class="btn btn-ghost" href="{{ '/reports/' | relative_url }}">回到最新快報</a>
+          {% endunless %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section deal-section" id="deals" aria-labelledby="deals-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="kicker">§ 01 · Limited Deals</span>
+          <h2 id="deals-title">本月值得快速下手</h2>
+          <p>精選交通、住宿、票券與在地體驗，價格與優惠以商品頁即時資訊為準。</p>
+        </div>
+        <div class="aside">本月收錄 <b>{{ products.size }} 件</b></div>
+      </div>
+
+      {% for group in product_groups %}
+        {% assign group_name = group.name | default: "本月精選" %}
+        {% assign first_product = group.items | first %}
+        <div class="cat-group">
+          <header class="cat-head">
+            <div class="cat-title-row">
+              <h3 class="cat-title">{{ group_name }}</h3>
+              <span class="cat-title-en">{{ first_product.category_en | default: "Deals" }}</span>
+            </div>
+            <p class="cat-hint">{{ first_product.category_hint | default: "本月編輯挑選，適合優先比價與下手。" }}</p>
+            <span class="cat-count">{{ group.items.size | prepend: "00" | slice: -2, 2 }} 件</span>
+          </header>
+
+          <div class="deal-grid">
+            {% for product in group.items %}
+              {% assign deal_number = deal_number | plus: 1 %}
+              {% assign product_image = product.image %}
+              {% unless product_image contains "://" %}
+                {% assign product_image = product_image | relative_url %}
+              {% endunless %}
+              {% assign sale_num = product.sale_price | remove: "NT$" | remove: "," | remove: " " | strip | plus: 0 %}
+              {% assign orig_num = product.price | remove: "NT$" | remove: "," | remove: " " | strip | plus: 0 %}
+              {% assign has_discount = false %}
+              {% assign discount_pct = 0 %}
+              {% if orig_num > 0 and sale_num > 0 and orig_num > sale_num %}
+                {% assign has_discount = true %}
+                {% assign saved = orig_num | minus: sale_num %}
+                {% assign discount_pct = saved | times: 100 | divided_by: orig_num %}
+              {% endif %}
+              <article class="deal{% if has_discount %} has-discount{% endif %}" itemscope itemtype="https://schema.org/Product">
+                <meta itemprop="name" content="{{ product.name }}">
+                <meta itemprop="image" content="{{ product_image }}">
+                <a class="deal-photo" href="{{ product.url }}" target="_blank" rel="noopener noreferrer sponsored" aria-label="查看 {{ product.name }}">
+                  <span class="deal-num">№ {{ deal_number | prepend: "00" | slice: -2, 2 }}</span>
+                  <img src="{{ product_image }}" alt="{{ product.name }}" loading="lazy">
+                </a>
+                <div class="deal-body">
+                  <div class="deal-meta">
+                    <span class="country">{{ product.tags | first | default: "精選" }}</span>
+                    <span class="sep">/</span>
+                    <span>{{ product.meta | default: product.category | default: "旅遊商品" }}</span>
+                  </div>
+                  <h4 itemprop="name">{{ product.name }}</h4>
+                  <p class="deal-desc" itemprop="description">{{ product.description }}</p>
+                  {% if product.tags %}
+                    <div class="deal-tags" aria-label="{{ product.name }} 標籤">
+                      {% for tag in product.tags %}<span>{{ tag }}</span>{% endfor %}
+                    </div>
+                  {% endif %}
+                  <div class="deal-prices" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                    <meta itemprop="priceCurrency" content="TWD">
+                    <meta itemprop="price" content="{{ sale_num }}">
+                    <meta itemprop="availability" content="https://schema.org/InStock">
+                    <meta itemprop="url" content="{{ product.url }}">
+                    <div class="deal-prices-main">
+                      <span class="sale">{{ product.sale_price }}</span>
+                      {% if has_discount %}<span class="orig">{{ product.price }}</span>{% endif %}
+                    </div>
+                    {% if has_discount %}
+                      <span class="save" aria-label="現省 {{ discount_pct }}%">省 {{ discount_pct }}%</span>
+                    {% endif %}
+                  </div>
+                  <a class="deal-cta" href="{{ product.url }}" target="_blank" rel="noopener noreferrer sponsored" itemprop="url">立即查看商品 <span class="arrow">→</span></a>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% if articles.size > 0 %}
+  <section class="section articles-section" id="articles" aria-labelledby="articles-title">
+    <div class="wrap">
+      <div class="section-head simple-head">
+        <div>
+          <span class="kicker">§ 02 · Further Reading</span>
+          <h2 id="articles-title">延伸旅遊文章</h2>
+        </div>
+        <div class="aside">{{ articles.size }}+ 篇</div>
+      </div>
+
+      <div class="article-grid" data-random-articles data-random-limit="3">
+        {% for article in articles %}
+          {% if use_post_fallback %}
+            {% assign article_title = article.title %}
+            {% assign article_url = article.url %}
+            {% assign article_source = article.categories | first | default: "旅遊文章" %}
+            {% assign article_image = article.image.path | default: article.image %}
+            {% if article_image == nil or article_image == "" %}
+              {% assign article_image = "/assets/images/zhgchgli_og.jpg" %}
+            {% endif %}
+          {% else %}
+            {% assign article_title = article.title %}
+            {% assign article_url = article.url %}
+            {% assign article_source = article.source | default: "旅遊文章" %}
+            {% assign article_image = article.image %}
+          {% endif %}
+          {% unless article_image contains "://" %}
+            {% assign article_image = article_image | relative_url %}
+          {% endunless %}
+          <a class="article" href="{{ article_url }}" target="_blank" rel="noopener noreferrer"{% if forloop.index > 3 %} hidden{% endif %}>
+            <div class="article-photo">
+              <span class="article-tag">{{ article_source }}</span>
+              <img src="{{ article_image }}" alt="{{ article_title }}" loading="lazy">
+            </div>
+            <h3>{{ article_title }}</h3>
+            <span class="readmore">Read more →</span>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+</main>
