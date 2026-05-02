@@ -56,6 +56,9 @@ sitemap: false
     // The slug is whatever follows the last '-' (or the whole segment when
     // there's no '-'), so it works for both URL shapes above.
     var slug = lastSeg.split('-').pop();
+    // Strip language suffix like `_en`, `_zh-tw`, `_ja` so URLs such as
+    // /posts/<slug>_en/ fall back to the canonical /posts/<slug>/.
+    slug = slug.replace(/_[a-z]{2}(-[a-z]{2})?$/i, '');
     if (!/^[a-z0-9]{6,}$/i.test(slug)) return;
     var target = '/posts/' + slug + '/';
     if (path === target.replace(/\/+$/, '')) return;
