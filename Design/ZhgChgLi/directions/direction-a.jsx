@@ -779,6 +779,54 @@ function HashHeading({ id, tag: Tag = "h2", style, children }) {
 // ---------- A: Back to Top — REMOVED (kept for reference, not rendered)
 // (component deleted — using sticky TOC + browser scroll affordances instead)
 
+// ---------- A: "Written by Human, not AI" Badge ----------
+function HumanBadge() {
+  return (
+    <div style={{
+      display:"inline-flex", alignItems:"stretch",
+      border:"1px solid var(--ink-900)",
+      background:"var(--paper)",
+      fontFamily:"var(--font-display)",
+    }}>
+      {/* Left mark — solid block with hand icon */}
+      <div style={{
+        background:"var(--ink-900)", color:"var(--paper)",
+        display:"flex", alignItems:"center", justifyContent:"center",
+        padding:"0 14px",
+        borderRight:"1px solid var(--ink-900)",
+      }}>
+        <i className="fa-solid fa-hand" style={{fontSize:14}}></i>
+      </div>
+      {/* Right text block */}
+      <div style={{padding:"8px 14px 8px 14px", display:"flex", flexDirection:"column", gap:2}}>
+        <div style={{
+          fontSize:9, letterSpacing:"0.22em", textTransform:"uppercase",
+          color:"var(--ink-500)", fontFamily:"-apple-system, sans-serif",
+          fontWeight:600,
+        }}>
+          Authentic Writing
+        </div>
+        <div style={{
+          fontSize:13, fontStyle:"italic", color:"var(--ink-900)",
+          letterSpacing:"-0.005em", lineHeight:1,
+          display:"flex", alignItems:"baseline", gap:6,
+        }}>
+          <span style={{fontWeight:500}}>Written by</span>
+          <span style={{
+            fontWeight:500, color:"var(--accent)",
+            borderBottom:"2px solid var(--accent)", paddingBottom:1,
+          }}>
+            human
+          </span>
+          <span style={{fontWeight:300, color:"var(--ink-500)"}}>
+            <span style={{textDecoration:"line-through", color:"var(--ink-400)"}}>not&nbsp;AI</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ============================================
 // A — POST (single)
 // ============================================
@@ -805,7 +853,16 @@ function PostA({ posts, onNav, page }) {
           </p>
           <div style={{display:"flex", gap:18, alignItems:"center", justifyContent:"center", fontSize:13, color:"var(--ink-500)", flexWrap:"wrap"}}>
             <img src="https://avatars.githubusercontent.com/u/7194691?v=4" style={{width:32, height:32, borderRadius:999}}/>
-            <span>by Harry Li</span>
+            <span style={{display:"inline-flex", alignItems:"center", gap:6}}>
+              by Harry Li
+              <span title="Verified author" aria-label="Verified" style={{
+                display:"inline-flex", alignItems:"center", justifyContent:"center",
+                width:16, height:16, borderRadius:999,
+                background:"#1d9bf0", color:"#fff", flexShrink:0,
+              }}>
+                <i className="fa-solid fa-check" style={{fontSize:8, fontWeight:900}}></i>
+              </span>
+            </span>
             <span style={{width:3, height:3, background:"var(--ink-300)", borderRadius:999}}></span>
             <i className="fa-regular fa-calendar" style={{fontSize:12}}></i>
             <span>{p.date}</span>
@@ -820,8 +877,11 @@ function PostA({ posts, onNav, page }) {
 
         <div style={{padding:"0 56px"}}>
           <img src={p.cover} style={{width:"100%", maxHeight:520, objectFit:"cover", borderRadius:2}}/>
-          <div style={{textAlign:"center", fontSize:11, color:"var(--ink-400)", marginTop:10, letterSpacing:"0.05em"}}>
-            上架前一晚的辦公室 · Photographed by Harry, 2025
+          <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginTop:10, gap:16, flexWrap:"wrap"}}>
+            <div style={{fontSize:11, color:"var(--ink-400)", letterSpacing:"0.05em"}}>
+              上架前一晚的辦公室 · Photographed by Harry, 2025
+            </div>
+            <HumanBadge />
           </div>
         </div>
 

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>Favicon Explorations · ZhgChgLi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #faf7f2;
+    --cream-50: #f5f1e8;
+    --cream-100: #ede5d3;
+    --ink-900: #1a1817;
+    --ink-700: #3d3833;
+    --ink-500: #6b635a;
+    --ink-400: #8f867c;
+    --ink-300: #b8b0a4;
+    --rule: #d8d0c0;
+    --rule-soft: #e6dfd0;
+    --accent: #c1502e;
+    --font-display: "Fraunces", Georgia, serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink-900);
+    font-family: -apple-system, "Helvetica Neue", sans-serif;
+  }
+  .page { max-width: 1280px; margin: 0 auto; padding: 64px 56px 96px; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-500); font-weight: 500;
+  }
+  h1 {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 64px; letter-spacing: -0.025em; line-height: 1;
+    margin: 18px 0 14px;
+  }
+  h1 i { font-weight: 300; color: var(--ink-500); }
+  .lede { color: var(--ink-500); max-width: 640px; line-height: 1.6; margin: 0 0 56px; font-size: 15px; }
+
+  .legend {
+    display: flex; gap: 28px; align-items: center;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 18px 0; margin-bottom: 56px;
+    font-size: 12px; color: var(--ink-500);
+  }
+  .legend strong { color: var(--ink-900); font-weight: 500; }
+
+  .grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  }
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 32px 32px 28px;
+    display: flex; flex-direction: column; gap: 22px;
+  }
+  .card-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--rule-soft);
+  }
+  .card-head h3 {
+    font-family: var(--font-display); font-size: 24px;
+    font-weight: 500; margin: 0; letter-spacing: -0.01em;
+  }
+  .card-head h3 i { font-weight: 300; color: var(--ink-500); }
+  .card-head .num {
+    font-family: var(--font-display); font-style: italic; font-weight: 300;
+    font-size: 32px; color: var(--ink-300); letter-spacing: -0.02em;
+  }
+  .card-note {
+    font-size: 13px; line-height: 1.6; color: var(--ink-500); margin: 0;
+  }
+
+  /* Showcase row: large preview + size ladder */
+  .showcase {
+    display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: center;
+  }
+  .big {
+    width: 200px; height: 200px;
+    border: 1px solid var(--rule); background: var(--cream-50);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .big::after {
+    content: "200";
+    position: absolute; bottom: 6px; right: 8px;
+    font-family: var(--font-mono); font-size: 9px; color: var(--ink-400);
+    letter-spacing: 0.1em;
+  }
+
+  .ladder { display: flex; flex-direction: column; gap: 18px; }
+  .row { display: flex; align-items: center; gap: 14px; }
+  .swatch {
+    border: 1px solid var(--rule); background: var(--cream-50);
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .label {
+    font-family: var(--font-mono); font-size: 10px; color: var(--ink-400);
+    letter-spacing: 0.08em; min-width: 56px;
+  }
+  .row .desc { font-size: 12px; color: var(--ink-500); line-height: 1.5; }
+
+  /* Browser tab mock */
+  .tab-mock {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--cream-100); border: 1px solid var(--rule);
+    padding: 8px 16px 8px 12px;
+    border-radius: 8px 8px 0 0; max-width: 280px;
+    margin-top: 16px;
+  }
+  .tab-mock .t-fav { width: 16px; height: 16px; flex-shrink: 0; }
+  .tab-mock .t-title {
+    font-size: 12px; color: var(--ink-700);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .tab-mock .t-x { color: var(--ink-400); margin-left: auto; font-size: 14px; }
+
+  /* Dark variant chip */
+  .dark-chip {
+    width: 32px; height: 32px;
+    background: #0f0d0c; border: 1px solid var(--ink-900);
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+
+  .meta-row {
+    display: flex; gap: 18px; padding-top: 16px;
+    border-top: 1px solid var(--rule-soft);
+    font-size: 11px; color: var(--ink-500);
+  }
+  .meta-row span strong { color: var(--ink-900); font-weight: 500; }
+
+  hr.sect {
+    border: none; border-top: 1px solid var(--rule);
+    margin: 80px 0 56px;
+  }
+  h2.sect-title {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 32px; letter-spacing: -0.015em;
+    margin: 0 0 6px;
+  }
+  h2.sect-title i { font-weight: 300; color: var(--ink-500); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="eyebrow">Brand · Favicon Exploration</div>
+  <h1>Six new <i>favicons.</i></h1>
+  <p class="lede">
+    Built from your existing ZR-in-hexagon mark. The original's gritty texture won't survive at 16×16 — these refine the silhouette while keeping it recognisable. Each option shown at 200/64/32/16 px, plus a browser-tab mock and a dark-mode chip.
+  </p>
+
+  <div class="legend">
+    <span class="eyebrow">Reference</span>
+    <span>The original mark, for comparison →</span>
+    <img src="uploads/ZR_B.png" style="width:48px;height:48px;background:#0f0d0c;padding:4px;border:1px solid var(--rule);"/>
+    <span style="margin-left:auto;color:var(--ink-400);font-family:var(--font-mono);font-size:11px;">ZR · hexagon · monogram</span>
+  </div>
+
+  <!-- ============================================
+       OPTION 01 — Refined original (clean lines, no grit)
+  ============================================ -->
+  <div class="grid">
+    <div class="card">
+      <div class="card-head">
+        <h3>Refined hex <i>· cleaned up.</i></h3>
+        <span class="num">01</span>
+      </div>
+      <p class="card-note">
+        The closest to your original — same hexagonal frame, same ZR monogram, but with crisp geometric strokes instead of distressed grunge. Survives at small sizes; reads instantly as the same brand.
+      </p>
+      <div class="showcase">
+        <div class="big">
+          <!-- big 200 -->
+          <svg viewBox="0 0 100 100" width="160" height="160">
+            <defs>
+              <clipPath id="hex01"><polygon points="50,4 90,28 90,72 50,96 10,72 10,28"/></clipPath>
+            </defs>
+            <polygon points="50,6 88,29 88,71 50,94 12,71 12,29"
+              fill="none" stroke="#1a1817" stroke-width="5" stroke-linejoin="miter"/>
+            <g font-family="Fraunces, Georgia, serif" font-weight="700" font-size="42" fill="#1a1817" letter-spacing="-2">
+              <text x="50" y="62" text-anchor="middle">ZR</text>
+            </g>
+          </svg>
+        </div>
+        <div class="ladder">
+          <div class="row">
+            <span class="label">64 px</span>
+            <div class="swatch" style="width:64px;height:64px;">
+              <svg viewBox="0 0 100 100" width="48" height="48">
+                <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="none" stroke="#1a1817" stroke-width="5"/>
+                <text x="50" y="62" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="42" fill="#1a1817" letter-spacing="-2">ZR</text>
+              </svg>
+            </div>
+            <div class="desc">Default tab / app icon size.</div>
+          </div>
+          <div class="row">
+            <span class="label">32 px</span>
+            <div class="swatch" style="width:32px;height:32px;">
+              <svg viewBox="0 0 100 100" width="26" height="26">
+                <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="none" stroke="#1a1817" stroke-width="6"/>
+                <text x="50" y="62" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="42" fill="#1a1817" letter-spacing="-2">ZR</text>
+              </svg>
+            </div>
+            <div class="desc">Retina favicon.</div>
+          </div>
+          <div class="row">
+            <span class="label">16 px</span>
+            <div class="swatch" style="width:16px;height:16px;">
+              <svg viewBox="0 0 100 100" width="14" height="14">
+                <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="none" stroke="#1a1817" stroke-width="8"/>
+                <text x="50" y="64" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="44" fill="#1a1817" letter-spacing="-2">ZR</text>
+              </svg>
+            </div>
+            <div class="desc">Bookmark / classic favicon.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-mock">
+        <svg class="t-fav" viewBox="0 0 100 100">
+          <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="none" stroke="#1a1817" stroke-width="8"/>
+          <text x="50" y="64" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="44" fill="#1a1817" letter-spacing="-2">ZR</text>
+        </svg>
+        <span class="t-title">ZhgChgLi · Writing</span>
+        <span class="t-x">×</span>
+      </div>
+      <div class="meta-row">
+        <span><strong>Stroke:</strong> 1.6px @ 16</span>
+        <span><strong>Mono?</strong> Yes</span>
+        <span><strong>Risk:</strong> Lowest</span>
+      </div>
+    </div>
+
+    <!-- ============================================
+         OPTION 02 — Solid filled hex (high contrast)
+    ============================================ -->
+    <div class="card">
+      <div class="card-head">
+        <h3>Solid hex <i>· inverted.</i></h3>
+        <span class="num">02</span>
+      </div>
+      <p class="card-note">
+        Filled hexagon, knockout ZR. The most legible at 16×16 — solid shapes always beat strokes at tiny sizes. Strong on light browser chrome.
+      </p>
+      <div class="showcase">
+        <div class="big">
+          <svg viewBox="0 0 100 100" width="160" height="160">
+            <polygon points="50,4 90,27 90,73 50,96 10,73 10,27" fill="#1a1817"/>
+            <text x="50" y="64" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="44" fill="#faf7f2" letter-spacing="-2">ZR</text>
+          </svg>
+        </div>
+        <div class="ladder">
+          <div class="row">
+            <span class="label">64 px</span>
+            <div class="swatch" style="width:64px;height:64px;">
+              <svg viewBox="0 0 100 100" width="48" height="48">
+                <polygon points="50,4 90,27 90,73 50,96 10,73 10,27" fill="#1a1817"/>
+                <text x="50" y="64" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="44" fill="#faf7f2" letter-spacing="-2">ZR</text>
+              </svg>
+            </div>
+            <div class="desc">High-contrast wallop.</div>
+          </div>
+          <div class="row">
+            <span class="label">32 px</span>
+            <div class="swatch" style="width:32px;height:32px;">
+              <svg viewBox="0 0 100 100" width="26" height="26">
+                <polygon points="50,4 90,27 90,73 50,96 10,73 10,27" fill="#1a1817"/>
+                <text x="50" y="64" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="44" fill="#faf7f2" letter-spacing="-2">ZR</text>
+              </svg>
+            </div>
+            <div class="desc">Holds up well.</div>
+          </div>
+          <div class="row">
+            <span class="label">16 px</span>
+            <div class="swatch" style="width:16px;height:16px;">
+              <svg viewBox="0 0 100 100" width="14" height="14">
+                <polygon points="50,4 90,27 90,73 50,96 10,73 10,27" fill="#1a1817"/>
+                <text x="50" y="66" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="48" fill="#faf7f2" letter-spacing="-2">ZR</text>
+              </svg>
+            </div>
+            <div class="desc">Most legible at 16.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-mock">
+        <svg class="t-fav" viewBox="0 0 100 100">
+          <polygon points="50,4 90,27 90,73 50,96 10,73 10,27" fill="#1a1817"/>
+          <text x="50" y="66" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="48" fill="#faf7f2" letter-spacing="-2">ZR</text>
+        </svg>
+        <span class="t-title">ZhgChgLi · Writing</span>
+        <span class="t-x">×</span>
+      </div>
+      <div class="meta-row">
+        <span><strong>Fill:</strong> Ink #1a1817</span>
+        <span><strong>Mono?</strong> Yes</span>
+        <span><strong>Risk:</strong> Low</span>
+      </div>
+    </div>
+
+    <!-- ============================================
+         OPTION 03 — Editorial serif Z (no hex)
+    ============================================ -->
+    <div class="card">
+      <div class="card-head">
+        <h3>Editorial <i>· just Z.</i></h3>
+        <span class="num">03</span>
+      </div>
+      <p class="card-note">
+        Drops the hex frame, leans hard into the new editorial brand: a single italic Fraunces "Z" on cream paper. Personal, literary, not a tech logo. Sets the brand apart from generic developer marks.
+      </p>
+      <div class="showcase">
+        <div class="big">
+          <svg viewBox="0 0 100 100" width="160" height="160">
+            <rect width="100" height="100" fill="#faf7f2"/>
+            <text x="50" y="78" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="500" font-size="92" fill="#1a1817" letter-spacing="-3">Z</text>
+            <circle cx="78" cy="74" r="3.5" fill="#c1502e"/>
+          </svg>
+        </div>
+        <div class="ladder">
+          <div class="row">
+            <span class="label">64 px</span>
+            <div class="swatch" style="width:64px;height:64px;background:#faf7f2;">
+              <svg viewBox="0 0 100 100" width="56" height="56">
+                <text x="50" y="78" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="500" font-size="92" fill="#1a1817" letter-spacing="-3">Z</text>
+                <circle cx="78" cy="74" r="3.5" fill="#c1502e"/>
+              </svg>
+            </div>
+            <div class="desc">Italic serif Z + accent dot.</div>
+          </div>
+          <div class="row">
+            <span class="label">32 px</span>
+            <div class="swatch" style="width:32px;height:32px;background:#faf7f2;">
+              <svg viewBox="0 0 100 100" width="28" height="28">
+                <text x="50" y="78" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="600" font-size="92" fill="#1a1817" letter-spacing="-3">Z</text>
+                <circle cx="78" cy="74" r="5" fill="#c1502e"/>
+              </svg>
+            </div>
+            <div class="desc">Bumped weight to hold.</div>
+          </div>
+          <div class="row">
+            <span class="label">16 px</span>
+            <div class="swatch" style="width:16px;height:16px;background:#faf7f2;">
+              <svg viewBox="0 0 100 100" width="14" height="14">
+                <text x="50" y="80" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="700" font-size="100" fill="#1a1817" letter-spacing="-3">Z</text>
+                <circle cx="80" cy="74" r="8" fill="#c1502e"/>
+              </svg>
+            </div>
+            <div class="desc">Dot becomes anchor at 16.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-mock">
+        <svg class="t-fav" viewBox="0 0 100 100">
+          <text x="50" y="80" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="700" font-size="100" fill="#1a1817" letter-spacing="-3">Z</text>
+          <circle cx="80" cy="74" r="8" fill="#c1502e"/>
+        </svg>
+        <span class="t-title">ZhgChgLi · Writing</span>
+        <span class="t-x">×</span>
+      </div>
+      <div class="meta-row">
+        <span><strong>Type:</strong> Fraunces italic</span>
+        <span><strong>Mono?</strong> No (uses accent)</span>
+        <span><strong>Risk:</strong> Higher — biggest departure</span>
+      </div>
+    </div>
+
+    <!-- ============================================
+         OPTION 04 — Hex + dot (minimal)
+    ============================================ -->
+    <div class="card">
+      <div class="card-head">
+        <h3>Hex + accent dot <i>· minimal.</i></h3>
+        <span class="num">04</span>
+      </div>
+      <p class="card-note">
+        Strips the ZR letterforms entirely — just the hexagonal silhouette as a solid fill, with a small accent-coloured dot. Iconic, abstract, unmistakable in a row of tabs.
+      </p>
+      <div class="showcase">
+        <div class="big">
+          <svg viewBox="0 0 100 100" width="160" height="160">
+            <polygon points="50,8 86,29 86,71 50,92 14,71 14,29" fill="#1a1817"/>
+            <circle cx="50" cy="50" r="9" fill="#c1502e"/>
+          </svg>
+        </div>
+        <div class="ladder">
+          <div class="row">
+            <span class="label">64 px</span>
+            <div class="swatch" style="width:64px;height:64px;">
+              <svg viewBox="0 0 100 100" width="48" height="48">
+                <polygon points="50,8 86,29 86,71 50,92 14,71 14,29" fill="#1a1817"/>
+                <circle cx="50" cy="50" r="9" fill="#c1502e"/>
+              </svg>
+            </div>
+            <div class="desc">Pure shape language.</div>
+          </div>
+          <div class="row">
+            <span class="label">32 px</span>
+            <div class="swatch" style="width:32px;height:32px;">
+              <svg viewBox="0 0 100 100" width="26" height="26">
+                <polygon points="50,8 86,29 86,71 50,92 14,71 14,29" fill="#1a1817"/>
+                <circle cx="50" cy="50" r="11" fill="#c1502e"/>
+              </svg>
+            </div>
+            <div class="desc">Dot scales up slightly.</div>
+          </div>
+          <div class="row">
+            <span class="label">16 px</span>
+            <div class="swatch" style="width:16px;height:16px;">
+              <svg viewBox="0 0 100 100" width="14" height="14">
+                <polygon points="50,8 86,29 86,71 50,92 14,71 14,29" fill="#1a1817"/>
+                <circle cx="50" cy="50" r="14" fill="#c1502e"/>
+              </svg>
+            </div>
+            <div class="desc">Reads as "hex with eye".</div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-mock">
+        <svg class="t-fav" viewBox="0 0 100 100">
+          <polygon points="50,8 86,29 86,71 50,92 14,71 14,29" fill="#1a1817"/>
+          <circle cx="50" cy="50" r="14" fill="#c1502e"/>
+        </svg>
+        <span class="t-title">ZhgChgLi · Writing</span>
+        <span class="t-x">×</span>
+      </div>
+      <div class="meta-row">
+        <span><strong>Fill:</strong> Ink + accent dot</span>
+        <span><strong>Mono?</strong> No</span>
+        <span><strong>Risk:</strong> Med — drops monogram</span>
+      </div>
+    </div>
+
+    <!-- ============================================
+         OPTION 05 — Z slash (geometric ligature)
+    ============================================ -->
+    <div class="card">
+      <div class="card-head">
+        <h3>Z slash <i>· geometric.</i></h3>
+        <span class="num">05</span>
+      </div>
+      <p class="card-note">
+        Reduces the ZR to a single bold Z stroke that doubles as a hexagon corner — the diagonal echoes the original mark's angularity. Custom, geometric, holds at any size.
+      </p>
+      <div class="showcase">
+        <div class="big">
+          <svg viewBox="0 0 100 100" width="160" height="160">
+            <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="#1a1817"/>
+            <!-- bold Z made from rectangles -->
+            <rect x="28" y="32" width="44" height="9" fill="#faf7f2"/>
+            <rect x="28" y="59" width="44" height="9" fill="#faf7f2"/>
+            <polygon points="28,68 72,32 72,41 36,68" fill="#faf7f2"/>
+          </svg>
+        </div>
+        <div class="ladder">
+          <div class="row">
+            <span class="label">64 px</span>
+            <div class="swatch" style="width:64px;height:64px;">
+              <svg viewBox="0 0 100 100" width="48" height="48">
+                <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="#1a1817"/>
+                <rect x="28" y="32" width="44" height="9" fill="#faf7f2"/>
+                <rect x="28" y="59" width="44" height="9" fill="#faf7f2"/>
+                <polygon points="28,68 72,32 72,41 36,68" fill="#faf7f2"/>
+              </svg>
+            </div>
+            <div class="desc">Angular Z reads cleanly.</div>
+          </div>
+          <div class="row">
+            <span class="label">32 px</span>
+            <div class="swatch" style="width:32px;height:32px;">
+              <svg viewBox="0 0 100 100" width="26" height="26">
+                <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="#1a1817"/>
+                <rect x="26" y="32" width="48" height="11" fill="#faf7f2"/>
+                <rect x="26" y="57" width="48" height="11" fill="#faf7f2"/>
+                <polygon points="26,68 74,32 74,43 36,68" fill="#faf7f2"/>
+              </svg>
+            </div>
+            <div class="desc">Slightly heavier strokes.</div>
+          </div>
+          <div class="row">
+            <span class="label">16 px</span>
+            <div class="swatch" style="width:16px;height:16px;">
+              <svg viewBox="0 0 100 100" width="14" height="14">
+                <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="#1a1817"/>
+                <rect x="22" y="30" width="56" height="13" fill="#faf7f2"/>
+                <rect x="22" y="57" width="56" height="13" fill="#faf7f2"/>
+                <polygon points="22,70 78,30 78,43 36,70" fill="#faf7f2"/>
+              </svg>
+            </div>
+            <div class="desc">Z is unmistakable.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-mock">
+        <svg class="t-fav" viewBox="0 0 100 100">
+          <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="#1a1817"/>
+          <rect x="22" y="30" width="56" height="13" fill="#faf7f2"/>
+          <rect x="22" y="57" width="56" height="13" fill="#faf7f2"/>
+          <polygon points="22,70 78,30 78,43 36,70" fill="#faf7f2"/>
+        </svg>
+        <span class="t-title">ZhgChgLi · Writing</span>
+        <span class="t-x">×</span>
+      </div>
+      <div class="meta-row">
+        <span><strong>Form:</strong> Geometric Z</span>
+        <span><strong>Mono?</strong> Yes</span>
+        <span><strong>Risk:</strong> Low</span>
+      </div>
+    </div>
+
+    <!-- ============================================
+         OPTION 06 — Stamp (rectangular editorial)
+    ============================================ -->
+    <div class="card">
+      <div class="card-head">
+        <h3>Stamp <i>· editorial mark.</i></h3>
+        <span class="num">06</span>
+      </div>
+      <p class="card-note">
+        A small rectangular "stamp" — like a publisher's colophon. ZR italic on cream, accent rule beneath. Different shape language from the hex; pairs naturally with the editorial site direction.
+      </p>
+      <div class="showcase">
+        <div class="big">
+          <svg viewBox="0 0 100 100" width="160" height="160">
+            <rect x="10" y="20" width="80" height="60" fill="#faf7f2" stroke="#1a1817" stroke-width="3"/>
+            <text x="50" y="58" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="600" font-size="34" fill="#1a1817" letter-spacing="-1.5">ZR</text>
+            <rect x="22" y="68" width="56" height="3" fill="#c1502e"/>
+          </svg>
+        </div>
+        <div class="ladder">
+          <div class="row">
+            <span class="label">64 px</span>
+            <div class="swatch" style="width:64px;height:64px;background:var(--paper);">
+              <svg viewBox="0 0 100 100" width="56" height="56">
+                <rect x="10" y="20" width="80" height="60" fill="#faf7f2" stroke="#1a1817" stroke-width="3"/>
+                <text x="50" y="58" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="600" font-size="34" fill="#1a1817" letter-spacing="-1.5">ZR</text>
+                <rect x="22" y="68" width="56" height="3" fill="#c1502e"/>
+              </svg>
+            </div>
+            <div class="desc">Reads as a stamp / cartouche.</div>
+          </div>
+          <div class="row">
+            <span class="label">32 px</span>
+            <div class="swatch" style="width:32px;height:32px;background:var(--paper);">
+              <svg viewBox="0 0 100 100" width="28" height="28">
+                <rect x="6" y="22" width="88" height="56" fill="#faf7f2" stroke="#1a1817" stroke-width="5"/>
+                <text x="50" y="60" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="700" font-size="38" fill="#1a1817" letter-spacing="-1.5">ZR</text>
+                <rect x="20" y="68" width="60" height="4" fill="#c1502e"/>
+              </svg>
+            </div>
+            <div class="desc">Heavier stroke, bigger text.</div>
+          </div>
+          <div class="row">
+            <span class="label">16 px</span>
+            <div class="swatch" style="width:16px;height:16px;background:var(--paper);">
+              <svg viewBox="0 0 100 100" width="14" height="14">
+                <rect x="2" y="22" width="96" height="56" fill="#faf7f2" stroke="#1a1817" stroke-width="8"/>
+                <text x="50" y="64" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="700" font-size="44" fill="#1a1817" letter-spacing="-2">ZR</text>
+                <rect x="14" y="68" width="72" height="6" fill="#c1502e"/>
+              </svg>
+            </div>
+            <div class="desc">Border + text + rule still legible.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-mock">
+        <svg class="t-fav" viewBox="0 0 100 100">
+          <rect x="2" y="22" width="96" height="56" fill="#faf7f2" stroke="#1a1817" stroke-width="8"/>
+          <text x="50" y="64" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="700" font-size="44" fill="#1a1817" letter-spacing="-2">ZR</text>
+          <rect x="14" y="68" width="72" height="6" fill="#c1502e"/>
+        </svg>
+        <span class="t-title">ZhgChgLi · Writing</span>
+        <span class="t-x">×</span>
+      </div>
+      <div class="meta-row">
+        <span><strong>Form:</strong> Rectangular stamp</span>
+        <span><strong>Mono?</strong> No</span>
+        <span><strong>Risk:</strong> Higher — new shape</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sect"/>
+
+  <h2 class="sect-title">Side-by-side <i>at favicon size.</i></h2>
+  <p class="lede" style="margin-bottom:32px;">Six tabs in a browser, each with one option. This is what your users will actually see most of the time.</p>
+
+  <div style="display:flex; gap:0; align-items:flex-end; border-bottom:1px solid var(--rule); padding-bottom:0;">
+    <div class="tab-mock" style="margin:0; border-right:none; border-radius:8px 8px 0 0;">
+      <svg class="t-fav" viewBox="0 0 100 100">
+        <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="none" stroke="#1a1817" stroke-width="8"/>
+        <text x="50" y="64" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="44" fill="#1a1817" letter-spacing="-2">ZR</text>
+      </svg>
+      <span class="t-title">01 Refined</span>
+    </div>
+    <div class="tab-mock" style="margin:0; border-right:none; border-radius:8px 8px 0 0;">
+      <svg class="t-fav" viewBox="0 0 100 100">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27" fill="#1a1817"/>
+        <text x="50" y="66" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="48" fill="#faf7f2" letter-spacing="-2">ZR</text>
+      </svg>
+      <span class="t-title">02 Solid</span>
+    </div>
+    <div class="tab-mock" style="margin:0; border-right:none; border-radius:8px 8px 0 0;">
+      <svg class="t-fav" viewBox="0 0 100 100">
+        <text x="50" y="80" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="700" font-size="100" fill="#1a1817" letter-spacing="-3">Z</text>
+        <circle cx="80" cy="74" r="8" fill="#c1502e"/>
+      </svg>
+      <span class="t-title">03 Editorial</span>
+    </div>
+    <div class="tab-mock" style="margin:0; border-right:none; border-radius:8px 8px 0 0;">
+      <svg class="t-fav" viewBox="0 0 100 100">
+        <polygon points="50,8 86,29 86,71 50,92 14,71 14,29" fill="#1a1817"/>
+        <circle cx="50" cy="50" r="14" fill="#c1502e"/>
+      </svg>
+      <span class="t-title">04 Dot</span>
+    </div>
+    <div class="tab-mock" style="margin:0; border-right:none; border-radius:8px 8px 0 0;">
+      <svg class="t-fav" viewBox="0 0 100 100">
+        <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="#1a1817"/>
+        <rect x="22" y="30" width="56" height="13" fill="#faf7f2"/>
+        <rect x="22" y="57" width="56" height="13" fill="#faf7f2"/>
+        <polygon points="22,70 78,30 78,43 36,70" fill="#faf7f2"/>
+      </svg>
+      <span class="t-title">05 Z slash</span>
+    </div>
+    <div class="tab-mock" style="margin:0; border-radius:8px 8px 0 0;">
+      <svg class="t-fav" viewBox="0 0 100 100">
+        <rect x="2" y="22" width="96" height="56" fill="#faf7f2" stroke="#1a1817" stroke-width="8"/>
+        <text x="50" y="64" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="700" font-size="44" fill="#1a1817" letter-spacing="-2">ZR</text>
+        <rect x="14" y="68" width="72" height="6" fill="#c1502e"/>
+      </svg>
+      <span class="t-title">06 Stamp</span>
+    </div>
+  </div>
+
+  <hr class="sect"/>
+
+  <h2 class="sect-title">Dark mode <i>variants.</i></h2>
+  <p class="lede" style="margin-bottom:32px;">Each option also needs to read on dark Safari/Chrome chrome. Inverted versions below.</p>
+
+  <div style="display:flex; gap:18px; flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <div class="dark-chip" style="width:64px;height:64px;">
+        <svg viewBox="0 0 100 100" width="48" height="48">
+          <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="none" stroke="#faf7f2" stroke-width="5"/>
+          <text x="50" y="62" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="42" fill="#faf7f2" letter-spacing="-2">ZR</text>
+        </svg>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-500);margin-top:8px;letter-spacing:0.05em;">01</div>
+    </div>
+    <div style="text-align:center;">
+      <div class="dark-chip" style="width:64px;height:64px;">
+        <svg viewBox="0 0 100 100" width="48" height="48">
+          <polygon points="50,4 90,27 90,73 50,96 10,73 10,27" fill="#faf7f2"/>
+          <text x="50" y="66" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="48" fill="#0f0d0c" letter-spacing="-2">ZR</text>
+        </svg>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-500);margin-top:8px;letter-spacing:0.05em;">02</div>
+    </div>
+    <div style="text-align:center;">
+      <div class="dark-chip" style="width:64px;height:64px;">
+        <svg viewBox="0 0 100 100" width="56" height="56">
+          <text x="50" y="78" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="500" font-size="92" fill="#faf7f2" letter-spacing="-3">Z</text>
+          <circle cx="78" cy="74" r="3.5" fill="#c1502e"/>
+        </svg>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-500);margin-top:8px;letter-spacing:0.05em;">03</div>
+    </div>
+    <div style="text-align:center;">
+      <div class="dark-chip" style="width:64px;height:64px;">
+        <svg viewBox="0 0 100 100" width="48" height="48">
+          <polygon points="50,8 86,29 86,71 50,92 14,71 14,29" fill="#faf7f2"/>
+          <circle cx="50" cy="50" r="9" fill="#c1502e"/>
+        </svg>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-500);margin-top:8px;letter-spacing:0.05em;">04</div>
+    </div>
+    <div style="text-align:center;">
+      <div class="dark-chip" style="width:64px;height:64px;">
+        <svg viewBox="0 0 100 100" width="48" height="48">
+          <polygon points="50,6 88,29 88,71 50,94 12,71 12,29" fill="#faf7f2"/>
+          <rect x="28" y="32" width="44" height="9" fill="#0f0d0c"/>
+          <rect x="28" y="59" width="44" height="9" fill="#0f0d0c"/>
+          <polygon points="28,68 72,32 72,41 36,68" fill="#0f0d0c"/>
+        </svg>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-500);margin-top:8px;letter-spacing:0.05em;">05</div>
+    </div>
+    <div style="text-align:center;">
+      <div class="dark-chip" style="width:64px;height:64px;">
+        <svg viewBox="0 0 100 100" width="56" height="56">
+          <rect x="10" y="20" width="80" height="60" fill="#0f0d0c" stroke="#faf7f2" stroke-width="3"/>
+          <text x="50" y="58" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="600" font-size="34" fill="#faf7f2" letter-spacing="-1.5">ZR</text>
+          <rect x="22" y="68" width="56" height="3" fill="#c1502e"/>
+        </svg>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-500);margin-top:8px;letter-spacing:0.05em;">06</div>
+    </div>
+  </div>
+
+  <hr class="sect"/>
+
+  <h2 class="sect-title">My pick <i>· if you ask me.</i></h2>
+  <p class="lede" style="margin-bottom:0;">
+    <strong style="color:var(--ink-900);">Option 02 (Solid hex)</strong> for pure favicon legibility — solid shapes always win at 16×16. <strong style="color:var(--ink-900);">Option 03 (Editorial Z)</strong> if the brand identity matters more than recognising the old mark; it pairs perfectly with the new editorial site direction. Pick 01 if you want minimal change.
+  </p>
+
+</div>
+</body>
+</html>

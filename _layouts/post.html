@@ -20,12 +20,14 @@ layout: default
   {% assign author_bio = site.author.bio %}
   {% assign author_link = site.author.link %}
   {% assign author_medium = site.author.medium %}
+  {% assign author_verified = site.author.verified %}
 {% else %}
   {% assign author_display = post_author.display_name | default: post_author.name %}
   {% assign author_picture = post_author.picture | default: post_author.avatar %}
   {% assign author_bio = post_author.bio %}
   {% assign author_link = post_author.link %}
   {% assign author_medium = post_author.medium %}
+  {% assign author_verified = post_author.verified %}
 {% endif %}
 
 <article>
@@ -45,7 +47,7 @@ layout: default
       {% if author_link %}<a href="{{ author_link | relative_url }}">{% endif %}
       <img src="{{ author_picture | relative_url }}" alt="{{ author_display }}">
       {% if author_link %}</a>{% endif %}
-      <span>{{ t.post.by }} {% if author_link %}<a href="{{ author_link | relative_url }}">{{ author_display }}</a>{% else %}{{ author_display }}{% endif %}</span>
+      <span class="byline-author">{{ t.post.by }} {% if author_link %}<a href="{{ author_link | relative_url }}">{{ author_display }}</a>{% else %}{{ author_display }}{% endif %}{% if author_verified %}<span class="verified-badge" role="img" aria-label="Verified author" title="Verified author">{% include icon.html name="check" %}</span>{% endif %}</span>
       <span class="dot-sep"></span>
       {% include icon.html name="calendar" %}
       <span><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y-%m-%d' }}</time></span>
@@ -65,6 +67,21 @@ layout: default
       <img src="{{ cover_url }}" alt="{{ page.title }}" decoding="async"
            {% if page.image.lqip %}lqip="{{ page.image.lqip }}"{% endif %}>
     </div>
+    {% if author_verified %}
+    <div class="post-credit">
+      <div class="authentic-badge" role="img" aria-label="Authentic writing — written by human, not AI">
+        <div class="ab-mark">{% include icon.html name="hand" %}</div>
+        <div class="ab-text">
+          <div class="ab-eyebrow">Authentic Writing</div>
+          <div class="ab-line">
+            <span class="ab-prefix">Written by</span>
+            <span class="ab-human">human</span>
+            <span class="ab-strike">not&nbsp;AI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
   {% endif %}
 
   {% if t.post.ai_translation_notice %}

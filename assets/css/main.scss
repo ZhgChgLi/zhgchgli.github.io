@@ -604,6 +604,20 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .post-hero .byline a { color: inherit; transition: color 0.15s ease; }
 .post-hero .byline a:hover { color: var(--accent); }
 .post-hero .byline a:hover img { opacity: 0.8; }
+.post-hero .byline .byline-author {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.verified-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 16px; height: 16px; border-radius: 999px;
+  background: #1d9bf0; color: #fff;
+  flex-shrink: 0;
+  vertical-align: -1px;
+}
+.verified-badge svg.icon {
+  width: 10px; height: 10px;
+  stroke: currentColor; stroke-width: 3.5;
+}
 
 .ai-translation-notice {
   max-width: 920px; margin: 56px auto 0; padding: 0 var(--pad-x);
@@ -655,6 +669,59 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 @media (max-width: 860px) { .post-cover { height: 320px; } }
 @media (max-width: 540px) { .post-cover { height: 240px; } }
+
+/* Below-cover row: AUTHENTIC WRITING badge, right-aligned */
+.post-credit {
+  max-width: 920px;
+  margin: 12px auto 0;
+  padding: 0 var(--pad-x);
+  display: flex; align-items: center; justify-content: flex-end;
+}
+.authentic-badge {
+  display: inline-flex; align-items: stretch;
+  border: 1px solid var(--ink-900);
+  background: var(--paper);
+  font-family: var(--font-display);
+  flex-shrink: 0;
+}
+.authentic-badge .ab-mark {
+  background: var(--ink-900); color: var(--paper);
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 14px;
+}
+.authentic-badge .ab-mark svg.icon { width: 14px; height: 14px; }
+.authentic-badge .ab-text {
+  padding: 8px 14px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.authentic-badge .ab-eyebrow {
+  font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-500);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 600;
+}
+.authentic-badge .ab-line {
+  font-size: 13px; font-style: italic;
+  color: var(--ink-900);
+  letter-spacing: -0.005em; line-height: 1;
+  display: flex; align-items: baseline; gap: 6px;
+}
+.authentic-badge .ab-prefix { font-weight: 500; }
+.authentic-badge .ab-human {
+  font-weight: 500; color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 1px;
+}
+.authentic-badge .ab-strike {
+  font-weight: 300;
+  color: var(--ink-400);
+  text-decoration: line-through;
+}
+@media (max-width: 540px) {
+  .post-credit { justify-content: center; }
+  .authentic-badge .ab-mark { padding: 0 10px; }
+  .authentic-badge .ab-text { padding: 7px 12px; }
+}
 
 /* TOC at top of article */
 .post-toc {

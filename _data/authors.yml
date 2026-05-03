@@ -9,6 +9,7 @@ ZhgChgLi:
   display_name: ZhgChgLi
   picture: /assets/images/zhgchgli_min.jpg
   link: /about/
+  verified: true
   bio: An iOS, web, and automation developer from Taiwan 🇹🇼 who also loves sharing, traveling, and writing.
   medium:
     url: https://medium.com/@zhgchgli
