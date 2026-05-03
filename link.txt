@@ -1,14 +1,14 @@
 # LinkTest report
-Generated: 2026-05-01T04:20:56Z
-Commit:    fc77192e7625cc6cb97eb14108a7f9d7e91fdc9b
-Source:    workflow 25202013051
+Generated: 2026-05-03T13:51:19Z
+Commit:    a37b24cc1cb15658692ef125aafc7a28c8504856
+Source:    workflow 25280907608
 
 Running 3 checks (Scripts, Links, Images) in ["_site"] on *.html files...
 
 
-Checking 617 internal links
+Checking 620 internal links
 Checking internal link hashes in 5 files
-Ran on 1009 files!
+Ran on 1015 files!
 
 
 HTML-Proofer finished successfully.
