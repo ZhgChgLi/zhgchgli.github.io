@@ -68,8 +68,17 @@ permalink: /search/
       '</a>';
     }).join('');
   }
+  function syncUrl(qstr) {
+    try {
+      var url = new URL(location.href);
+      if (qstr) url.searchParams.set('q', qstr);
+      else url.searchParams.delete('q');
+      history.replaceState(null, '', url.toString());
+    } catch (e) {}
+  }
   function search(qstr) {
     qstr = (qstr || '').trim();
+    syncUrl(qstr);
     if (!qstr) {
       summary.innerHTML = escapeHtml(STRINGS.initialSummary);
       results.innerHTML = '';
