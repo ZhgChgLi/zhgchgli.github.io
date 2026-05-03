@@ -30,20 +30,106 @@
   })();
 </script>
 <script>
-  // Language switcher dropdown
+  // Language switcher dropdown + browser-language hint
   (function () {
+    // Map a navigator preference (e.g. "zh-TW", "en-US", "ja") to one of the
+    // site's language codes. Pure "zh" is intentionally unmatched — ambiguous
+    // between Hant/Hans, and we'd rather show nothing than guess wrong.
+    function matchPref(pref, items) {
+      var p = (pref || '').toLowerCase();
+      if (!p) return null;
+      var primary = p.split('-')[0];
+      // Chinese: require a region/script subtag to disambiguate.
+      if (primary === 'zh') {
+        if (p === 'zh') return null;
+        var hans = /(^|-)(cn|sg|hans)(-|$)/.test(p);
+        var hant = /(^|-)(tw|hk|mo|hant)(-|$)/.test(p);
+        for (var i = 0; i < items.length; i++) {
+          var iso = (items[i].getAttribute('hreflang') || '').toLowerCase();
+          if (hans && iso.indexOf('zh-hans') === 0) return items[i];
+          if (hant && iso.indexOf('zh-hant') === 0) return items[i];
+        }
+        return null;
+      }
+      // Non-Chinese: match by primary subtag against item hreflang.
+      for (var j = 0; j < items.length; j++) {
+        var iso2 = (items[j].getAttribute('hreflang') || '').toLowerCase();
+        if (iso2 === p || iso2.split('-')[0] === primary) return items[j];
+      }
+      return null;
+    }
+
     document.querySelectorAll('[data-lang-switcher]').forEach(function (root) {
       var trig = root.querySelector('.lang-trigger');
       var menu = root.querySelector('.lang-menu');
       if (!trig || !menu) return;
+      var hint = root.querySelector('.lang-hint');
+      var hintText = root.querySelector('.lang-hint-text');
+      var hintClose = root.querySelector('.lang-hint-close');
+      var dot = root.querySelector('.lang-dot');
+      var current = root.getAttribute('data-current') || '';
+
       function close() { menu.hidden = true; trig.classList.remove('open'); trig.setAttribute('aria-expanded', 'false'); }
-      function open() { menu.hidden = false; trig.classList.add('open'); trig.setAttribute('aria-expanded', 'true'); }
+      function open() {
+        menu.hidden = false; trig.classList.add('open'); trig.setAttribute('aria-expanded', 'true');
+        // Opening the menu acknowledges the hint — hide it for this match.
+        hideHint(true);
+      }
+      function hideHint(persist) {
+        if (!hint) return;
+        hint.hidden = true;
+        if (dot) dot.hidden = true;
+        if (persist && hint.dataset.target) {
+          try { localStorage.setItem('lang-hint-dismissed:' + hint.dataset.target, '1'); } catch (_) {}
+        }
+      }
+
       trig.addEventListener('click', function (e) {
         e.stopPropagation();
         if (menu.hidden) open(); else close();
       });
       document.addEventListener('click', function (e) { if (!root.contains(e.target)) close(); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+
+      // ---- Browser-language hint ----
+      if (!hint || !hintText) return;
+      var prefs = (navigator.languages && navigator.languages.length)
+        ? navigator.languages : (navigator.language ? [navigator.language] : []);
+      if (!prefs.length) return;
+      var items = root.querySelectorAll('.lang-item');
+      var match = null;
+      for (var i = 0; i < prefs.length; i++) {
+        match = matchPref(prefs[i], items);
+        if (match) break;
+      }
+      if (!match) return;
+      var targetCode = match.getAttribute('data-code');
+      if (!targetCode || targetCode === current) return;
+      try {
+        if (localStorage.getItem('lang-hint-dismissed:' + targetCode)) return;
+      } catch (_) {}
+
+      var label = match.getAttribute('data-label') || targetCode;
+      var tmpl = root.getAttribute('data-suggest') || '{lang}';
+      hintText.textContent = tmpl.replace('{lang}', label);
+      hint.dataset.target = targetCode;
+      hint.hidden = false;
+      if (dot) dot.hidden = false;
+
+      // Click anywhere on the hint (except the close button) jumps to the
+      // matched language using the menu link's href — so it inherits the
+      // per-page translation routing already computed by Liquid.
+      hint.addEventListener('click', function (e) {
+        if (hintClose && hintClose.contains(e.target)) return;
+        try { localStorage.setItem('lang-hint-dismissed:' + targetCode, '1'); } catch (_) {}
+        window.location.href = match.href;
+      });
+      if (hintClose) {
+        hintClose.addEventListener('click', function (e) {
+          e.stopPropagation();
+          hideHint(true);
+        });
+      }
     });
   })();
 </script>

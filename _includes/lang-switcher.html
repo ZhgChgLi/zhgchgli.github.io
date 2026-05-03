@@ -5,12 +5,20 @@
 {% for lng in site.i18n.languages %}
   {% if lng.code == current %}{% assign cur_lang = lng %}{% endif %}
 {% endfor %}
-<div class="lang-switcher" data-lang-switcher>
+<div class="lang-switcher" data-lang-switcher
+     data-current="{{ current }}"
+     data-suggest="{{ t.lang_switcher.suggest }}"
+     data-dismiss="{{ t.lang_switcher.dismiss }}">
   <button type="button" class="lang-trigger" aria-haspopup="menu" aria-expanded="false">
     {% include icon.html name="globe" %}
     <span class="short">{{ cur_lang.short | default: 'EN' }}</span>
     {% include icon.html name="chevron-down" class="chev" %}
+    <span class="lang-dot" aria-hidden="true" hidden></span>
   </button>
+  <div class="lang-hint" role="status" hidden>
+    <span class="lang-hint-text"></span>
+    <button type="button" class="lang-hint-close" aria-label="{{ t.lang_switcher.dismiss }}">&times;</button>
+  </div>
   <div class="lang-menu" role="menu" hidden>
     {% for lng in site.i18n.languages %}
       {% if lng.code == current %}
@@ -27,7 +35,7 @@
            expectation for static pages like /about/, /tags/, etc.). {% endcomment %}
         {% assign href = clean_path | prepend: lng.url %}
       {% endif %}
-      <a class="lang-item{% if lng.code == current %} is-active{% endif %}" href="{{ href }}" hreflang="{{ lng.iso | default: lng.code }}" role="menuitem">
+      <a class="lang-item{% if lng.code == current %} is-active{% endif %}" href="{{ href }}" hreflang="{{ lng.iso | default: lng.code }}" data-code="{{ lng.code }}" data-label="{{ lng.label }}" role="menuitem">
         <span class="label">{{ lng.label }}</span>
         {% if lng.code == current %}{% include icon.html name="check" class="tick" %}{% endif %}
       </a>

@@ -151,6 +151,8 @@ zh-tw:
     home_arrow: 首頁 →
   lang_switcher:
     note: 部分文章可能未翻譯
+    suggest: 您的瀏覽器偏好 {lang}，要切換嗎？
+    dismiss: 關閉提示
   copy_btn:
     copy: Copy
     copied: Copied
@@ -317,6 +319,8 @@ en:
     home_arrow: Home →
   lang_switcher:
     note: Some essays may not be translated
+    suggest: Your browser prefers {lang}. Switch?
+    dismiss: Dismiss
   copy_btn:
     copy: Copy
     copied: Copied
@@ -482,6 +486,8 @@ zh-cn:
     home_arrow: 首页 →
   lang_switcher:
     note: 部分文章可能未翻译
+    suggest: 您的浏览器偏好 {lang}，要切换吗？
+    dismiss: 关闭提示
   copy_btn:
     copy: Copy
     copied: Copied
@@ -648,6 +654,8 @@ jp:
     home_arrow: ホーム →
   lang_switcher:
     note: 一部の記事は翻訳されていない場合があります
+    suggest: ブラウザの設定言語は {lang} です。切り替えますか？
+    dismiss: 閉じる
   copy_btn:
     copy: Copy
     copied: Copied

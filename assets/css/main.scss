@@ -196,10 +196,52 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 32px 0; }
   color: var(--ink-400);
 }
 .lang-note svg.icon { margin-right: 5px; vertical-align: -2px; }
+.lang-trigger { position: relative; }
+.lang-dot {
+  position: absolute; top: 6px; right: 8px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px var(--paper);
+}
+.lang-hint {
+  position: absolute; top: calc(100% + 8px); right: 0;
+  background: var(--paper); border: 1px solid var(--rule);
+  box-shadow: var(--shadow-card);
+  border-radius: 4px;
+  padding: 10px 32px 10px 14px;
+  font-size: 12px; line-height: 1.45;
+  color: var(--ink-700);
+  max-width: 260px; min-width: 220px;
+  cursor: pointer;
+  z-index: 60;
+  animation: lang-hint-in .25s ease-out both;
+}
+.lang-hint::before {
+  content: ''; position: absolute; top: -5px; right: 18px;
+  width: 8px; height: 8px;
+  background: var(--paper);
+  border-left: 1px solid var(--rule);
+  border-top: 1px solid var(--rule);
+  transform: rotate(45deg);
+}
+.lang-hint-close {
+  position: absolute; top: 4px; right: 6px;
+  width: 22px; height: 22px;
+  background: transparent; border: 0; padding: 0;
+  color: var(--ink-400); font-size: 16px; line-height: 1;
+  cursor: pointer; border-radius: 50%;
+}
+.lang-hint-close:hover { color: var(--ink-700); background: var(--cream-50); }
+@keyframes lang-hint-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 @media (max-width: 540px) {
   .lang-trigger { padding: 0 10px; font-size: 11px; }
   .lang-trigger .short { display: none; }
   .lang-menu { right: -8px; min-width: 180px; }
+  .lang-hint { right: -8px; max-width: 220px; min-width: 200px; }
+  .lang-dot { top: 4px; right: 6px; }
 }
 
 /* ============================================
@@ -785,6 +827,18 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 .layout-post .post-body a[href*="kkday.com"]:hover::after { color: var(--kkday); }
 .post-body img { margin: 32px auto; cursor: zoom-in; border-radius: 2px; }
+.post-body iframe,
+.post-body .embed-video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  margin: 32px auto;
+  border: 0;
+  border-radius: 2px;
+  background: #000;
+}
 .post-body blockquote {
   border-left: 3px solid var(--accent); padding-left: 24px; margin: 40px 0;
   font-size: 22px; color: var(--ink-700); line-height: 1.6;
