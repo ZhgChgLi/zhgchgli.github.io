@@ -110,8 +110,13 @@
       } catch (_) {}
 
       var label = match.getAttribute('data-label') || targetCode;
-      var tmpl = root.getAttribute('data-suggest') || '{lang}';
+      // Use the *matched* language's strings so the prompt is in a tongue
+      // the visitor actually reads — showing a Chinese hint to an English
+      // visitor would be self-defeating.
+      var tmpl = match.getAttribute('data-suggest') || '{lang}';
+      var dismissLabel = match.getAttribute('data-dismiss') || '';
       hintText.textContent = tmpl.replace('{lang}', label);
+      if (hintClose && dismissLabel) hintClose.setAttribute('aria-label', dismissLabel);
       hint.dataset.target = targetCode;
       hint.hidden = false;
       if (dot) dot.hidden = false;
