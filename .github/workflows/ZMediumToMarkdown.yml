@@ -40,8 +40,8 @@ jobs:
 
       - name: Update unlisted posts
         env:
-          MIRO_MEDIUM_HOST: ${{ secrets.MIRO_MEDIUM_HOST }}
           MEDIUM_HOST: ${{ secrets.MEDIUM_HOST }}
+          MEDIUM_HOST_SECRET: ${{ secrets.MEDIUM_HOST_SECRET }}
         run: |
           if [[ ! -f unlist.txt ]]; then
             echo "❌ unlist.txt not found in repo root"
@@ -54,22 +54,20 @@ jobs:
             | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' \
             | awk 'NF && $0 !~ /^[[:space:]]*#/' \
             | while IFS= read -r line; do
-                echo "▶ ZMediumToMarkdown -k '$line'"
-                ZMediumToMarkdown -k "$line" \
+                echo "▶ ZMediumToMarkdown --jekyll -p '$line'"
+                ZMediumToMarkdown --jekyll -p "$line" \
                   --cookie_uid "${{ secrets.MEDIUM_COOKIE_UID }}" \
-                  --cookie_sid "${{ secrets.MEDIUM_COOKIE_SID }}" \
-                  -j zhgchgli
+                  --cookie_sid "${{ secrets.MEDIUM_COOKIE_SID }}"
               done
 
       - name: Fetch latest posts
         env:
-          MIRO_MEDIUM_HOST: ${{ secrets.MIRO_MEDIUM_HOST }}
           MEDIUM_HOST: ${{ secrets.MEDIUM_HOST }}
+          MEDIUM_HOST_SECRET: ${{ secrets.MEDIUM_HOST_SECRET }}
         run: |
-          ZMediumToMarkdown \
+          ZMediumToMarkdown --jekyll -u zhgchgli \
             --cookie_uid "${{ secrets.MEDIUM_COOKIE_UID }}" \
-            --cookie_sid "${{ secrets.MEDIUM_COOKIE_SID }}" \
-            -j zhgchgli
+            --cookie_sid "${{ secrets.MEDIUM_COOKIE_SID }}"
 
       - name: Move fetched posts back to L10n/posts/zh-tw/
         run: |
@@ -123,6 +121,15 @@ jobs:
         run: |
           python tools/translators/aio_maker.py en
           python tools/translators/aio_maker.py jp
+
+      # Pull (with rebase) right before pushing so we don't lose any commits
+      # the remote picked up while this job was running. Without this, a
+      # parallel push (e.g. from after-pages-deploy) makes the auto-commit
+      # action's push fail.
+      - name: Pull latest before push
+        run: |
+          git fetch origin "${GITHUB_REF_NAME}"
+          git rebase "origin/${GITHUB_REF_NAME}" || git rebase --abort
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
