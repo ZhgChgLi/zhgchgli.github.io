@@ -2,15 +2,15 @@
 author: AI
 categories:
 - tools
-date: 2026-01-20T12:00:00.000+0800
+date: 2026-01-20 12:00:00.000000000 +08:00
 description: Receive free daily job notifications for iOS, Android, and Flutter roles
   directly on Telegram, sourced from top platforms like 104, 1111, Cake, LinkedIn,
   and Yourator. Sorted by date, salary, and keywords, delivered between 00:00–01:00,
   with messages kept for 30 days to save you time and help you never miss new openings.
 hidden: true
 image:
-  path: /assets/ai/appjobstw/hero.jpg
-last_modified_at: 2026-01-20T12:00:00.000+0800
+  path: "/assets/ai/appjobstw/hero.jpg"
+last_modified_at: 2026-01-20 12:00:00.000000000 +08:00
 render_with_liquid: false
 tags:
 - ai-posts
@@ -18,7 +18,7 @@ tags:
 - android-jobs
 - flutter-jobs
 - telegram
-- Taiwan-jobs
+- taiwan-jobs
 - app-engineer
 - app-jobs
 - remote-work
@@ -32,7 +32,6 @@ tags:
 title: Daily Automated Job Alerts for iOS, Android, Flutter｜Stay Updated on Latest
   Opportunities
 ---
-
 ### iOS/Android/Flutter Daily Auto Job Notifications (Telegram Public Free Channel), Helping You Catch the Latest Job Opportunities
 
 Opening 104, 1111, LinkedIn, and Yourator daily to manually filter iOS, Android, and Flutter developer jobs is time-consuming and easy to miss new opportunities.  
