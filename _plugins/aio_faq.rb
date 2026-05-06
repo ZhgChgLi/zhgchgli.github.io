@@ -18,7 +18,12 @@ module ZhgChgLi
     end
   end
 
-  Jekyll::Hooks.register :site, :post_read do |site|
+  # Runs at :site, :pre_render — i.e. AFTER all :post_read hooks (notably
+  # short_url_redirects.rb, which sets post.data['permalink']) AND after
+  # generators have computed post.url. Reading post.url any earlier would
+  # memoize @url against the global :slug permalink, defeating the
+  # permalink override and turning /<file-slug>/ into a self-redirect.
+  Jekyll::Hooks.register :site, :pre_render do |site|
     aio_data = AioData.load(site)
     base = (site.config['url'] || '').sub(%r{/\z}, '')
     site.posts.docs.each do |post|
