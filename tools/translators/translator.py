@@ -2,18 +2,30 @@
 """
 Translate zh-tw posts → en or jp via OpenAI.
 
-Optimization vs. the original script: only processes a post when its target
-file does NOT exist yet. To force re-translation of a single post, delete the
-target file.
+Per-post cache at tools/translators/cache/{target}/{sub}/{filename}.json:
+    {"source_hash": "...", "translations": {"<original block>": "<translated>"}}
+
+- source_hash covers only fields that affect the translated output:
+  post.content + title + description + sorted(tags) + sorted(categories).
+  Cover image / author / date / last_modified_at are excluded — swapping
+  them does not retrigger translation.
+- If the source hash matches and the dst file exists, the post is skipped
+  (zero API calls).
+- Otherwise summary / SEO / taxonomy regenerate, but each Markdown block is
+  looked up in `translations` first; only blocks whose original text is new
+  or changed actually call OpenAI.
+
+To force a full re-translation, delete the matching cache JSON.
 
 Usage:
     pip install -r tools/translators/requirements.txt
     OPENAI_API_KEY=sk-...
-    python tools/translators/translator.py en
-    python tools/translators/translator.py jp
+    python3 tools/translators/translator.py en
+    python3 tools/translators/translator.py jp
 """
 import argparse
 import concurrent.futures
+import hashlib
 import json
 import os
 import sys
@@ -27,6 +39,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 SRC_LANG = "zh-tw"
 SUBDIRS = ["zmediumtomarkdown", "ai"]
 MODEL = "gpt-4.1-mini"
+CACHE_ROOT = os.path.join(ROOT, "tools", "translators", "cache")
 
 # --- Per-target language profile -----------------------------------------------
 
@@ -98,16 +111,60 @@ def prompt_translate(target_label):
     )
 
 
+def compute_source_hash(post):
+    payload = json.dumps(
+        [
+            post.content,
+            post.get("title", "") or "",
+            post.get("description", "") or "",
+            sorted(post.get("tags") or []),
+            sorted(post.get("categories") or []),
+        ],
+        ensure_ascii=False,
+        sort_keys=True,
+    )
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def cache_path(target, sub, filename):
+    return os.path.join(CACHE_ROOT, target, sub, filename + ".json")
+
+
+def load_cache(path):
+    if os.path.exists(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {}
+
+
+def save_cache(path, data):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2, sort_keys=True)
+
+
 class Renderer(MarkdownRenderer):
-    def __init__(self, client, summary, translate_prompt, *a, **kw):
+    def __init__(self, client, summary, translate_prompt, old_translations, new_translations, *a, **kw):
         super().__init__(*a, **kw)
         self.client = client
         self.summary = summary
         self.translate_prompt = translate_prompt
+        self.old_translations = old_translations
+        self.new_translations = new_translations
 
     def _translate(self, text):
         if not text or not text.strip():
             return text
+        if text in self.new_translations:
+            return self.new_translations[text]
+        if text in self.old_translations:
+            out = self.old_translations[text]
+            self.new_translations[text] = out
+            print(f"  ⊕ cached: {text[:40].strip()}…")
+            return out
         resp = self.client.chat.completions.create(
             model=MODEL,
             messages=[
@@ -119,6 +176,7 @@ class Renderer(MarkdownRenderer):
         )
         out = resp.choices[0].message.content.strip()
         print(f"  → {text[:40].strip()}…  ⇒  {out[:40].strip()}…")
+        self.new_translations[text] = out
         return out
 
     def block_quote(self, token, state):
@@ -140,13 +198,10 @@ class Renderer(MarkdownRenderer):
         return self._translate(super().heading(token, state)) + "\n\n"
 
 
-def process_file(filename, src_dir, dst_dir, profile, api_key):
+def process_file(filename, src_dir, dst_dir, profile, api_key, target, sub):
     src_path = os.path.join(src_dir, filename)
     dst_path = os.path.join(dst_dir, filename)
-
-    if os.path.exists(dst_path):
-        print(f"⏭  exists, skip: {filename}")
-        return
+    cache_p = cache_path(target, sub, filename)
 
     try:
         with open(src_path, "r", encoding="utf-8") as f:
@@ -155,8 +210,16 @@ def process_file(filename, src_dir, dst_dir, profile, api_key):
         print(f"✗ read failed: {filename} — {e}")
         return
 
+    src_hash = compute_source_hash(post)
+    cache = load_cache(cache_p)
+
+    if cache.get("source_hash") == src_hash and os.path.exists(dst_path):
+        print(f"⏭  unchanged, skip: {filename}")
+        return
+
     client = OpenAI(api_key=api_key)
-    print(f"… translating: {filename}")
+    old_translations = cache.get("translations") or {}
+    print(f"… translating: {filename} (cached blocks: {len(old_translations)})")
 
     summary_resp = client.chat.completions.create(
         model=MODEL,
@@ -168,11 +231,14 @@ def process_file(filename, src_dir, dst_dir, profile, api_key):
     )
     summary = summary_resp.choices[0].message.content.strip()
 
+    new_translations = {}
     md = mistune.create_markdown(
         renderer=Renderer(
             client=client,
             summary=summary,
             translate_prompt=prompt_translate(profile["lang_label_translate"]),
+            old_translations=old_translations,
+            new_translations=new_translations,
         )
     )
     post.content = md(post.content).replace("|", r"\\|")
@@ -212,7 +278,10 @@ def process_file(filename, src_dir, dst_dir, profile, api_key):
     os.makedirs(dst_dir, exist_ok=True)
     with open(dst_path, "w", encoding="utf-8") as f:
         f.write(frontmatter.dumps(post))
-    print(f"✓ wrote {dst_path}")
+
+    save_cache(cache_p, {"source_hash": src_hash, "translations": new_translations})
+    reused = sum(1 for k in new_translations if k in old_translations)
+    print(f"✓ wrote {dst_path} (blocks: {len(new_translations)}, reused: {reused})")
 
 
 def main():
@@ -236,7 +305,7 @@ def main():
         files = [f for f in os.listdir(src_dir) if f.endswith(".md") or f.endswith(".markdown")]
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as ex:
-            futures = [ex.submit(process_file, f, src_dir, dst_dir, profile, api_key) for f in files]
+            futures = [ex.submit(process_file, f, src_dir, dst_dir, profile, api_key, args.target, sub) for f in files]
             for fut in concurrent.futures.as_completed(futures):
                 try:
                     fut.result()

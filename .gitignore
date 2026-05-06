@@ -20,3 +20,6 @@ _posts/*.markdown
 assets/data/photos.json
 assets/.DS_Store
 .DS_Store
+
+# Translator local venv (cache/ is tracked so re-runs reuse translations)
+tools/translators/.venv/

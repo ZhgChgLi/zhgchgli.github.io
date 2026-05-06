@@ -1,8 +1,19 @@
 # Translators
 
-Localizes posts in `L10n/posts/zh-tw/` into other languages. **Only writes a
-target file when one doesn't already exist** — re-runs are safe and free
-(skipped files cost zero API calls).
+Localizes posts in `L10n/posts/zh-tw/` into other languages. en/jp use a
+**per-post cache** at `tools/translators/cache/{target}/{sub}/{filename}.json`
+with shape `{"source_hash": "...", "translations": {<original block>: <translated>}}`.
+
+- `source_hash` covers `post.content + title + description + sorted(tags) +
+  sorted(categories)` — fields that actually affect translation. Cover image
+  / author / date / `last_modified_at` are excluded; swapping them does not
+  retrigger translation.
+- If the source hash matches and the target `.md` exists → skipped (zero API).
+- If anything changed, summary / SEO / taxonomy regenerate, but each Markdown
+  block is looked up in `translations` first and only re-translated when its
+  original text is new or changed.
+
+The cache is committed to git so re-runs across machines reuse translations.
 
 | Script | Target | Mechanism | Cost |
 |---|---|---|---|
@@ -14,7 +25,7 @@ target file when one doesn't already exist** — re-runs are safe and free
 ## Setup
 
 ```bash
-python -m venv tools/translators/.venv
+python3 -m venv tools/translators/.venv
 source tools/translators/.venv/bin/activate
 pip install -r tools/translators/requirements.txt
 ```
@@ -22,17 +33,17 @@ pip install -r tools/translators/requirements.txt
 ## Run
 
 ```bash
-# Only translates posts that don't yet have a target file.
-OPENAI_API_KEY=sk-... python tools/translators/translator.py en
-OPENAI_API_KEY=sk-... python tools/translators/translator.py jp
-python tools/translators/translator_cn.py
+OPENAI_API_KEY=sk-... python3 tools/translators/translator.py en
+OPENAI_API_KEY=sk-... python3 tools/translators/translator.py jp
+python3 tools/translators/translator_cn.py
 ```
 
 ## Re-translate a single post
 
-Delete the corresponding target file and re-run:
+Delete the cache JSON (and optionally the target `.md`) and re-run:
 
 ```bash
+rm tools/translators/cache/en/zmediumtomarkdown/2024-02-19-2724f02f6e7.md.json
 rm L10n/posts/en/zmediumtomarkdown/2024-02-19-2724f02f6e7.md
-python tools/translators/translator.py en
+python3 tools/translators/translator.py en
 ```

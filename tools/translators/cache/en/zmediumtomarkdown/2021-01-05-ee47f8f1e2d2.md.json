@@ -1,0 +1,15 @@
+{
+  "source_hash": "36f7224743b16951678c3adfcad387834b9f78a947ef10c5a3aa9c601cd2ff8f",
+  "translations": {
+    "### [2021–01–31] 文章公告：文章編修完成\n\n": "### [2021–01–31] Article Announcement: Article Revision Completed",
+    "### [舊]AVPlayer 邊播邊 Cache 實戰\n\n": "### [Old] AVPlayer Streaming and Caching Practice",
+    "**新增內容：** 約 60%\n\n": "**New Content:** About 60%",
+    "**變更內容：** 約 30%\n\n": "**Changes:** About 30%",
+    "*[Post](https://zhgchgli.medium.com/avplayer-%E9%82%8A%E6%92%AD%E9%82%8A-cache-%E5%AF%A6%E6%88%B0-ee47f8f1e2d2){:target=\"_blank\"} converted from Medium by [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"}.*\n\n": "*[Post](https://zhgchgli.medium.com/avplayer-%E9%82%8A%E6%92%AD%E9%82%8A-cache-%E5%AF%A6%E6%88%B0-ee47f8f1e2d2){:target=\"_blank\"} converted from Medium by [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"}.*",
+    "> [Complete Guide to Implementing Local Cache with AVPlayer Click to View](../6ce488898003/)\n\n": "> [Complete Guide to Implementing Local Cache with AVPlayer Click to View](../6ce488898003/)",
+    "[AVPlayer 實踐本地 Cache 功能大全 點我查看](../6ce488898003/)\n\n": "[Complete Guide to Implementing Local Cache with AVPlayer Click to View](../6ce488898003/)",
+    "在此要先對所有已讀原本文章的朋友深深一鞠躬道歉，因為自己的魯莽沒有徹底研究完成就發表文章；導致部分內容有誤、浪費您寶貴的時間。\n\n": "Here, I want to deeply apologize to all friends who have read the original article, as I hastily published it without thorough research; this caused some errors and wasted your valuable time.",
+    "摸清 AVPlayer/AVQueuePlayer with AVURLAsset 實作 AVAssetResourceLoaderDelegate 的脈絡\n\n": "Understanding the Workflow of Implementing AVAssetResourceLoaderDelegate with AVPlayer/AVQueuePlayer and AVURLAsset",
+    "目前已從頭把脈絡梳理完成，重新撰寫了篇文章；內含完整專案程式共大家參考，謝謝！\n\n": "The entire context has been reviewed from the beginning, and a new article has been rewritten; it includes the complete project code for everyone’s reference. Thank you!"
+  }
+}

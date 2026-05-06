@@ -1,0 +1,31 @@
+{
+  "source_hash": "a24c2b4090557c2a3039d5e5a78aeac0b19df7d43bba875c1b8837380723cb2f",
+  "translations": {
+    "![[ZReviewsBot](https://github.com/ZhgChgLi/ZReviewsBot){:target=\"_blank\"}](/assets/33f6aabb744f/1*FEz6o4JJ-ZyyC7JPqFcKJA.png)\n\n": "![[ZReviewsBot](https://github.com/ZhgChgLi/ZReviewsBot){:target=\"_blank\"}](/assets/33f6aabb744f/1*FEz6o4JJ-ZyyC7JPqFcKJA.png)",
+    "![](/assets/33f6aabb744f/1*1JfLrDYEhoJ7Q_mfnTmzlw.jpeg)\n\n": "![](/assets/33f6aabb744f/1*1JfLrDYEhoJ7Q_mfnTmzlw.jpeg)",
+    "### Flow\n\n": "### Flow",
+    "### TL;DR [2022/08/10] Update:\n\n": "### TL;DR [2022/08/10] Update:",
+    "### ZReviewsBot — Slack App Review 通知機器人\n\n": "### ZReviewsBot — Slack App Review Notification Bot",
+    "### [2022/07/20 Update]\n\n": "### [2022/07/20 Update]",
+    "### [ZhgChgLi](https://github.com/ZhgChgLi){:target=\"_blank\"} / [ZReviewsBot](https://github.com/ZhgChgLi/ZReviewsBot){:target=\"_blank\"}\n\n": "### [ZhgChgLi](https://github.com/ZhgChgLi){:target=\"_blank\"} / [ZReviewsBot](https://github.com/ZhgChgLi/ZReviewsBot){:target=\"_blank\"}",
+    "### 延伸閱讀\n\n": "### Further Reading",
+    "### 起源\n\n": "### Origin",
+    "*[Post](https://medium.com/zrealm-ios-dev/zreviewsbot-slack-app-review-%E9%80%9A%E7%9F%A5%E6%A9%9F%E5%99%A8%E4%BA%BA-33f6aabb744f){:target=\"_blank\"} converted from Medium by [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"}.*\n\n": "*[Post](https://medium.com/zrealm-ios-dev/zreviewsbot-slack-app-review-%E9%80%9A%E7%9F%A5%E6%A9%9F%E5%99%A8%E4%BA%BA-33f6aabb744f){:target=\"_blank\"} converted from Medium by [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"}.*",
+    "- [[Productivity Tool] Abandon Chrome and Embrace the Sidekick Browser](../118e924a1477/)\n\n": "- [[Productivity Tool] Abandon Chrome and Embrace the Sidekick Browser](../118e924a1477/)",
+    "- ✅ Track iOS app reviews using updated and more reliable API endpoints ([Technical Details](../cb0c68c33994/))\n\n- ✅ Supports dual-platform review tracking for iOS & Android\n\n- ✅ Supports keyword notification skip feature (prevents spam and ad flooding)\n\n- ✅ Customizable settings, as you wish\n\n- ✅ Supports deploying scheduled automation bots using Github Action\n\n": "- ✅ Track iOS app reviews using updated and more reliable API endpoints ([Technical Details](../cb0c68c33994/))\n\n- ✅ Supports dual-platform review tracking for iOS & Android\n\n- ✅ Supports keyword notification skip feature (prevents spam and ad flooding)\n\n- ✅ Customizable settings, as you wish\n\n- ✅ Supports deploying scheduled automation bots using Github Action",
+    "====\n\n": "====",
+    "[App Store Connect API 現已支援 讀取和管理 Customer Reviews](../f1365e51902c/) ，此機器人將於後續更新實作，取代掉使用 Fastlane — Spaceship 去後台拿評價的方式。\n\n": "[App Store Connect API now supports reading and managing Customer Reviews](../f1365e51902c/). This bot will implement this in future updates to replace the current method of fetching reviews from the backend using Fastlane — Spaceship.",
+    "[ZReviewsBot](https://github.com/ZhgChgLi/ZReviewsBot){:target=\"_blank\"}\n\n": "[ZReviewsBot](https://github.com/ZhgChgLi/ZReviewsBot){:target=\"_blank\"}",
+    "[ZReviewsBot](https://github.com/ZhgChgLi/ZReviewsBot){:target=\"_blank\"} 為免費、開源專案，幫助您的 App 團隊自動追蹤 App Store (iOS) 及 Google Play (Android) 平台上 App 的最新評價，並發送到指定 Slack Channel 方便您即時了解當前 App 狀況。\n\n": "[ZReviewsBot](https://github.com/ZhgChgLi/ZReviewsBot){:target=\"_blank\"} is a free, open-source project that helps your app team automatically track the latest reviews of your app on the App Store (iOS) and Google Play (Android) platforms, and send them to a designated Slack channel for real-time updates on your app’s status.",
+    "[[生產力工具] 拋棄 Chrome 投入 Sidekick 瀏覽器的懷抱](../118e924a1477/)\n": "[[Productivity Tool] Abandon Chrome and Embrace the Sidekick Browser](../118e924a1477/)",
+    "✅ 使用更新、更可靠的 API Endpoint 追蹤 iOS App 評價 ( [技術細節](../cb0c68c33994/) )\n": "✅ Track iOS app reviews using updated and more reliable API endpoints ([Technical Details](../cb0c68c33994/))",
+    "✅ 客製化設定，隨心所欲\n": "✅ Customizable settings, as you wish",
+    "✅ 支援使用 Github Action 部署 Schedule 自動機器人\n": "✅ Supports deploying scheduled automation bots using Github Action",
+    "✅ 支援關鍵字通知略過功能 (防洗版廣告騷擾)\n": "✅ Supports keyword notification skip feature (prevents spam and ad flooding)",
+    "✅ 支援雙平台評價追蹤 iOS & Android\n": "✅ Supports dual-platform review tracking for iOS & Android",
+    "免費開源的 iOS & Android APP 最新評價追蹤 Slack Bot\n\n": "Free and Open Source iOS & Android App Latest Review Tracking Slack Bot",
+    "有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact){:target=\"_blank\"} 。\n\n": "If you have any questions or feedback, feel free to [contact me](https://www.zhgchg.li/contact){:target=\"_blank\"}.",
+    "現已改用全新的 [App Store Connect API](../f1365e51902c/) 重新設計 App Reviews Bot，並更名重新推出「 [ZReviewTender — 免費開源的 App Reviews 監控機器人](../e36e48bb9265/) 」。\n\n": "The App Reviews Bot has been redesigned using the brand-new [App Store Connect API](../f1365e51902c/) and relaunched as \"[ZReviewTender — Free and Open Source App Reviews Monitoring Bot](../e36e48bb9265/)\".",
+    "繼上一篇「 [AppStore APP’s Reviews Slack Bot 那些事](../cb0c68c33994/) 」研究並完成了新的 iOS 評價撈取工具，想了想好像蠻適合當 Side Project Open Source 出來給有相同問題的朋友使用。\n\n": "Following the previous study \"[AppStore APP’s Reviews Slack Bot 那些事](../cb0c68c33994/),\" I completed a new iOS review fetching tool. I thought it would be suitable as a side project open source for others facing the same issue."
+  }
+}

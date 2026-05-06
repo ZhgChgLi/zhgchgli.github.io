@@ -1,0 +1,30 @@
+{
+  "source_hash": "5f2b6e8cd49454b1970f6c45d8599a270d2311614ac47aff0d24875d729e145b",
+  "translations": {
+    "![左修正前/右修正後](/assets/6012b7b4f612/1*zwbk9bi9RKQ-MEuzlQHosA.jpeg)\n\n": "![Left before correction / Right after correction](/assets/6012b7b4f612/1*zwbk9bi9RKQ-MEuzlQHosA.jpeg)",
+    "### iOS tintAdjustmentMode 屬性\n\n": "### iOS tintAdjustmentMode Property",
+    "### 問題修正前後比較\n\n": "### Comparison Before and After Fix",
+    "#### *上述問題不是什麼BUG而是系統本身機制即是如此：*\n\n": "#### *The above issue is not a bug but a system mechanism:*",
+    "#### 問題修正\n\n": "#### Issue Fix",
+    "#### 結束！\n\n": "#### Done!",
+    "**.Automatic** ：視圖的 **tintAdjustmentMode** 與包覆的父視圖設定一致\n": "**.Automatic**: The view's **tintAdjustmentMode** matches the enclosing parent view's setting",
+    "**.Dimmed** ：將 **tintColor** 改為低飽和度、暗淡的顏色（就是灰色啦！）\n": "**.Dimmed**: changes the **tintColor** to a low saturation, dim color (which is gray!).",
+    "**.Normal** ： **預設模式** ，正常顯示設定的 **tintColor**\n": "**.Normal**: **Default mode**, displays the set **tintColor** normally",
+    "*[Post](https://medium.com/zrealm-ios-dev/%E9%A1%A7%E5%B0%8F%E4%BA%8B%E6%88%90%E5%A4%A7%E4%BA%8B-1-ios-tintadjustmentmode-%E5%B1%AC%E6%80%A7-6012b7b4f612){:target=\"_blank\"} converted from Medium by [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"}.*\n\n": "*[Post](https://medium.com/zrealm-ios-dev/%E9%A1%A7%E5%B0%8F%E4%BA%8B%E6%88%90%E5%A4%A7%E4%BA%8B-1-ios-tintadjustmentmode-%E5%B1%AC%E6%80%A7-6012b7b4f612){:target=\"_blank\"} converted from Medium by [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"}.*",
+    "*在Present UIAlertController時會將本頁Root ViewController上View的 **tintAdjustmentMode** 改為 **Dimmed** （所以準確來說也不叫顏色設定「失效」，只是 **tintAdjustmentMode** 模式更改）*\n\n": "*When presenting a UIAlertController, the **tintAdjustmentMode** of the Root ViewController's view on the current page is changed to **Dimmed** (so technically, the color setting is not \"invalid,\" it's just that the **tintAdjustmentMode** mode is changed)*",
+    "1. **.Automatic**: The view's **tintAdjustmentMode** matches the enclosing parent view's setting\n\n2. **.Normal**: **Default mode**, displays the set **tintColor** normally\n\n3. **.Dimmed**: changes the **tintColor** to a low saturation, dim color (which is gray!).\n\n": "1. **.Automatic**: The view's **tintAdjustmentMode** follows the setting of its enclosing parent view.\n\n2. **.Normal**: **Default mode**, displays the set **tintColor** normally.\n\n3. **.Dimmed**: changes the **tintColor** to a low saturation, dimmed color (which appears gray!).",
+    "> *When presenting a UIAlertController, the **tintAdjustmentMode** of the Root ViewController's view on the current page is changed to **Dimmed** (so technically, the color setting is not \"invalid,\" it's just that the **tintAdjustmentMode** mode is changed)*\n\n": "> *When presenting a UIAlertController, the **tintAdjustmentMode** of the Root ViewController's view on the current page is set to **Dimmed** (so technically, the color setting is not \"invalid,\" it's just that the **tintAdjustmentMode** is changed)*",
+    "Present UIAlertController 時本頁上的 Image Assets (Render as template) .tintColor 設定失效問題\n\n": "Issue with .tintColor on Image Assets (Render as template) Becoming Ineffective When Presenting UIAlertController",
+    "```swift\nextension UIButton { \n   override func tintColorDidChange() {\n        self.tintAdjustmentMode = .normal //永遠保持normal\n    }\n}\n```\n\n": "```swift\nextension UIButton { \n   override func tintColorDidChange() {\n        self.tintAdjustmentMode = .normal // Always keep normal\n    }\n}\n```",
+    "extension example\n\n": "extension example",
+    "ㄧ樣不囉唆解釋，直接上比較圖．\n\n": "No fuss, just straight to the comparison images.",
+    "不是什麼大問題，不改也沒差，但就是礙眼\n\n": "It's not a big issue, and it works fine without fixing, but it just looks annoying.",
+    "但有時我們希望ICON顏色能保持ㄧ致則只需在UIView中tintColorDidChange事件保持tintAdjustmentMode設定ㄧ致：\n\n": "However, sometimes we want the ICON color to remain consistent, so we only need to keep the tintAdjustmentMode setting consistent in the UIView's tintColorDidChange event:",
+    "其實每一個頁面遇到present UIAlertController、action sheet、popover…都會將本頁view的tintAdjustmentMode改為灰色，但我在這個頁面才發現\n\n": "Actually, every page sets its view's tintAdjustmentMode to dimmed when presenting UIAlertController, action sheet, popover, etc., but I only noticed it on this page.",
+    "可以看到左方ICON圖在有Present UIAlertController時tintColor顏色設定失效，另外當Present的視窗關閉後就會恢復顏色設定顯示正常．\n\n": "You can see that the tintColor of the icon on the left becomes ineffective when a UIAlertController is presented. However, once the presented window is closed, the tintColor returns to normal and displays correctly.",
+    "左修正前/右修正後\n\n": "Left: Before correction / Right: After correction",
+    "有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact){:target=\"_blank\"} 。\n\n": "If you have any questions or feedback, feel free to [contact me](https://www.zhgchg.li/contact){:target=\"_blank\"} .",
+    "查找了一陣子資料才發現跟這個屬性有關係，設定之後就解決我的小疑惑．\n\n": "After searching for a while, I found out it is related to this property. Setting it resolved my little doubt.",
+    "首先介紹一下 **tintAdjustmentMode** 的屬性設置，此屬性控制了 **tintColor** 的顯示模式，此屬性有三個枚舉可設定：\n\n": "First, let's introduce the **tintAdjustmentMode** property. This property controls the display mode of the **tintColor** and has three possible enum values:"
+  }
+}
