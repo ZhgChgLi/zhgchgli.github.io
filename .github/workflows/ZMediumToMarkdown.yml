@@ -122,9 +122,6 @@ jobs:
           python tools/translators/aio_maker.py en
           python tools/translators/aio_maker.py jp
 
-      # Commit our generated output (translator / seo / aio) and push.
-      # If the remote moved while this job was running (e.g. parallel
-      # after-pages-deploy commit), rebase on top and try again.
       - name: Commit and push fetched posts
         run: |
           set -e
@@ -138,15 +135,5 @@ jobs:
           fi
           git commit -m "Update fetched posts." \
             --author="ZMediumToMarkdown <zhgchgli@gmail.com>"
-
-          for attempt in 1 2 3; do
-            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
-              exit 0
-            fi
-            echo "push #$attempt rejected, rebasing on remote and retrying"
-            git fetch origin "${GITHUB_REF_NAME}"
-            git rebase "origin/${GITHUB_REF_NAME}"
-          done
-
-          echo "::error::failed to push after 3 attempts"
-          exit 1
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
