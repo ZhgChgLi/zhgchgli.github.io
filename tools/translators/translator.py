@@ -2,20 +2,15 @@
 """
 Translate zh-tw posts → en or jp via OpenAI.
 
+Skip rule: if the destination file already exists, the post is skipped
+(zero API calls). To re-translate, delete the destination file first.
+
 Per-post cache at tools/translators/cache/{target}/{sub}/{filename}.json:
     {"source_hash": "...", "translations": {"<original block>": "<translated>"}}
 
-- source_hash covers only fields that affect the translated output:
-  post.content + title + description + sorted(tags) + sorted(categories).
-  Cover image / author / date / last_modified_at are excluded — swapping
-  them does not retrigger translation.
-- If the source hash matches and the dst file exists, the post is skipped
-  (zero API calls).
-- Otherwise summary / SEO / taxonomy regenerate, but each Markdown block is
-  looked up in `translations` first; only blocks whose original text is new
-  or changed actually call OpenAI.
-
-To force a full re-translation, delete the matching cache JSON.
+When a post does need translating, each Markdown block is looked up in
+`translations` first (keyed by original text), so unchanged blocks reuse
+prior output and only new / changed blocks call OpenAI.
 
 Usage:
     pip install -r tools/translators/requirements.txt
@@ -210,12 +205,12 @@ def process_file(filename, src_dir, dst_dir, profile, api_key, target, sub):
         print(f"✗ read failed: {filename} — {e}")
         return
 
+    if os.path.exists(dst_path):
+        print(f"⏭  exists, skip: {filename}")
+        return
+
     src_hash = compute_source_hash(post)
     cache = load_cache(cache_p)
-
-    if cache.get("source_hash") == src_hash and os.path.exists(dst_path):
-        print(f"⏭  unchanged, skip: {filename}")
-        return
 
     client = OpenAI(api_key=api_key)
     old_translations = cache.get("translations") or {}
