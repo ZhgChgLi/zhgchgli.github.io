@@ -20,6 +20,7 @@ module ZhgChgLi
 
   Jekyll::Hooks.register :site, :post_read do |site|
     aio_data = AioData.load(site)
+    base = (site.config['url'] || '').sub(%r{/\z}, '')
     site.posts.docs.each do |post|
       slug = post.data['slug'] || post.basename_without_ext.sub(/^\d{4}-\d{2}-\d{2}-/, '')
       faqs = aio_data[slug]
@@ -28,6 +29,7 @@ module ZhgChgLi
       payload = {
         '@context'   => 'https://schema.org',
         '@type'      => 'FAQPage',
+        'url'        => "#{base}#{post.url}",
         'mainEntity' => faqs
       }
       post.data['aioFaqs'] = JSON.generate(payload)
