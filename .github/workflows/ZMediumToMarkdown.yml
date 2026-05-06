@@ -126,10 +126,23 @@ jobs:
       # the remote picked up while this job was running. Without this, a
       # parallel push (e.g. from after-pages-deploy) makes the auto-commit
       # action's push fail.
+      #
+      # Earlier steps (translator / seo_maker / aio_maker) leave unstaged
+      # output behind. Stash them before rebasing, pop after, so the rebase
+      # has a clean tree.
       - name: Pull latest before push
         run: |
+          set -e
+          stashed=0
+          if ! git diff --quiet || ! git diff --cached --quiet || [ -n "$(git ls-files --others --exclude-standard)" ]; then
+            git stash push --include-untracked -m "pre-rebase autostash"
+            stashed=1
+          fi
           git fetch origin "${GITHUB_REF_NAME}"
           git rebase "origin/${GITHUB_REF_NAME}" || git rebase --abort
+          if [ "$stashed" = 1 ]; then
+            git stash pop
+          fi
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
