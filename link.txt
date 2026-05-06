@@ -1,14 +1,27 @@
 # LinkTest report
-Generated: 2026-05-03T13:51:19Z
-Commit:    a37b24cc1cb15658692ef125aafc7a28c8504856
-Source:    workflow 25280907608
+Generated: 2026-05-06T10:02:34Z
+Commit:    23fa0dc7999fb756f7461285c98ca4aed9797527
+Source:    workflow 25428691608
 
 Running 3 checks (Scripts, Links, Images) in ["_site"] on *.html files...
 
 
-Checking 620 internal links
+Checking 614 internal links
 Checking internal link hashes in 5 files
-Ran on 1015 files!
+Ran on 1010 files!
 
 
-HTML-Proofer finished successfully.
+For the Images check, the following failures were found:
+
+* At _site/posts/zrealm-dev/plane-so-免費開源-self-hosted-專案管理工具-類-asana-jira-功能完整解析-9d0f23784359/index.html:570:
+
+  internal image /assets/og-image-DL-1GVBU.png does not exist
+
+For the Links check, the following failures were found:
+
+* At _site/posts/zrealm-dev/ios-nsattributedstring-html-render-自行實現-解決閃退與效能瓶頸-a8c2d26cc734/index.html:686:
+
+  'a' tag is missing a reference
+
+
+HTML-Proofer found 2 failures!
