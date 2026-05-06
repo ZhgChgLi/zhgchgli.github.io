@@ -1,49 +1,14 @@
 # LinkTest report
-Generated: 2026-05-06T16:27:52Z
-Commit:    55fbf274bd98b7d867edc8bfd495536eb899bab9
-Source:    workflow 25447692579
+Generated: 2026-05-06T17:14:06Z
+Commit:    744f97cf0daf9259a812c66d29e0012e34981c98
+Source:    workflow 25449958339
 
 Running 3 checks (Scripts, Links, Images) in ["_site"] on *.html files...
 
 
-Checking 603 internal links
+Checking 614 internal links
 Checking internal link hashes in 5 files
-Ran on 984 files!
+Ran on 1010 files!
 
 
-For the Links > Internal check, the following failures were found:
-
-* At _site/posts/zrealm-dev/google-offerwall-廣告-內容創作者快速轉換流量為收益的獎勵牆方案-ba132457e6a5/index.html:522:
-
-  internally linking to ../cefdf4d41746/, which does not exist
-
-* At _site/posts/zrealm-dev/plane-so-docker-自架教學-完整設定-備份還原與-nginx-反向代理實作-9903c9783a97/index.html:395:
-
-  internally linking to ../9d0f23784359/, which does not exist
-
-* At _site/posts/zrealm-dev/plane-so-docker-自架教學-完整設定-備份還原與-nginx-反向代理實作-9903c9783a97/index.html:596:
-
-  internally linking to ../9d0f23784359/, which does not exist
-
-* At _site/posts/zrealm-dev/plane-so-docker-自架教學-完整設定-備份還原與-nginx-反向代理實作-9903c9783a97/index.html:1099:
-
-  internally linking to ../9d0f23784359/, which does not exist
-
-* At _site/posts/zrealm-dev/手工打造高效-html-解析器-swift-轉換-html-字串成-nsattributedstring-技術詳解-2724f02f6e7/index.html:389:
-
-  internally linking to ../a8c2d26cc734/, which does not exist
-
-* At _site/posts/zrealm-dev/手工打造高效-html-解析器-swift-轉換-html-字串成-nsattributedstring-技術詳解-2724f02f6e7/index.html:433:
-
-  internally linking to ../a8c2d26cc734/, which does not exist
-
-* At _site/posts/zrealm-dev/手工打造高效-html-解析器-swift-轉換-html-字串成-nsattributedstring-技術詳解-2724f02f6e7/index.html:444:
-
-  internally linking to ../a8c2d26cc734/, which does not exist
-
-* At _site/posts/zrealm-dev/手工打造高效-html-解析器-swift-轉換-html-字串成-nsattributedstring-技術詳解-2724f02f6e7/index.html:446:
-
-  internally linking to ../a8c2d26cc734/, which does not exist
-
-
-HTML-Proofer found 8 failures!
+HTML-Proofer finished successfully.
