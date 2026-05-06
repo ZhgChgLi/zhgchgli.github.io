@@ -1,0 +1,30 @@
+{
+  "source_hash": "5f2b6e8cd49454b1970f6c45d8599a270d2311614ac47aff0d24875d729e145b",
+  "translations": {
+    "![左修正前/右修正後](/assets/6012b7b4f612/1*zwbk9bi9RKQ-MEuzlQHosA.jpeg)\n\n": "![左修正前/右修正後](/assets/6012b7b4f612/1*zwbk9bi9RKQ-MEuzlQHosA.jpeg)",
+    "### iOS tintAdjustmentMode 屬性\n\n": "### iOS tintAdjustmentMode プロパティ",
+    "### 問題修正前後比較\n\n": "### 問題修正前後比較",
+    "#### *上述問題不是什麼BUG而是系統本身機制即是如此：*\n\n": "#### *上記の問題はバグではなく、システムの仕組みそのものです：*",
+    "#### 問題修正\n\n": "#### 問題修正",
+    "#### 結束！\n\n": "#### 終わり！",
+    "**.Automatic** ：視圖的 **tintAdjustmentMode** 與包覆的父視圖設定一致\n": "**.Automatic** ：ビューの **tintAdjustmentMode** は親ビューの設定に従います",
+    "**.Dimmed** ：將 **tintColor** 改為低飽和度、暗淡的顏色（就是灰色啦！）\n": "**.Dimmed** ：**tintColor** を低彩度で暗い色（つまりグレー）に変更します。",
+    "**.Normal** ： **預設模式** ，正常顯示設定的 **tintColor**\n": "**.Normal** ： **デフォルトモード** で、設定された **tintColor** を通常表示します",
+    "*[Post](https://medium.com/zrealm-ios-dev/%E9%A1%A7%E5%B0%8F%E4%BA%8B%E6%88%90%E5%A4%A7%E4%BA%8B-1-ios-tintadjustmentmode-%E5%B1%AC%E6%80%A7-6012b7b4f612){:target=\"_blank\"} converted from Medium by [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"}.*\n\n": "*[Post](https://medium.com/zrealm-ios-dev/%E9%A1%A7%E5%B0%8F%E4%BA%8B%E6%88%90%E5%A4%A7%E4%BA%8B-1-ios-tintadjustmentmode-%E5%B1%AC%E6%80%A7-6012b7b4f612){:target=\"_blank\"} Mediumから[ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"_blank\"}によってMarkdownに変換されました。*",
+    "*在Present UIAlertController時會將本頁Root ViewController上View的 **tintAdjustmentMode** 改為 **Dimmed** （所以準確來說也不叫顏色設定「失效」，只是 **tintAdjustmentMode** 模式更改）*\n\n": "*UIAlertControllerをPresentすると、本ページのRoot ViewControllerのViewの**tintAdjustmentMode**が**Dimmed**に変更されます（正確には色設定が「無効」になるわけではなく、**tintAdjustmentMode**のモードが変わるだけです）*",
+    "1. **.Automatic** ：ビューの **tintAdjustmentMode** は親ビューの設定に従います\n\n2. **.Normal** ： **デフォルトモード** で、設定された **tintColor** を通常表示します\n\n3. **.Dimmed** ：**tintColor** を低彩度で暗い色（つまりグレー）に変更します。\n\n": "1. **.Automatic** ：ビューの **tintAdjustmentMode** は親ビューの設定に従います\n\n2. **.Normal** ：**デフォルトモード** で、設定された **tintColor** を通常表示します\n\n3. **.Dimmed** ：**tintColor** を低彩度で暗い色（つまりグレー）に変更します。",
+    "> *UIAlertControllerをPresentすると、本ページのRoot ViewControllerのViewの**tintAdjustmentMode**が**Dimmed**に変更されます（正確には色設定が「無効」になるわけではなく、**tintAdjustmentMode**のモードが変わるだけです）*\n\n": "> *UIAlertControllerをPresentすると、本ページのRoot ViewControllerのViewの**tintAdjustmentMode**が**Dimmed**に変更されます（正確には色設定が「無効」になるわけではなく、**tintAdjustmentMode**のモードが変わるだけです）*",
+    "Present UIAlertController 時本頁上的 Image Assets (Render as template) .tintColor 設定失效問題\n\n": "Present UIAlertController 時、本ページ上の Image Assets（Render as template）の .tintColor 設定が無効になる問題",
+    "```swift\nextension UIButton { \n   override func tintColorDidChange() {\n        self.tintAdjustmentMode = .normal //永遠保持normal\n    }\n}\n```\n\n": "```swift\nextension UIButton { \n   override func tintColorDidChange() {\n        self.tintAdjustmentMode = .normal // 常にnormalを維持する\n    }\n}\n```",
+    "extension example\n\n": "extensionの例",
+    "ㄧ樣不囉唆解釋，直接上比較圖．\n\n": "同じく余計な説明はせず、比較図を直接示します。",
+    "不是什麼大問題，不改也沒差，但就是礙眼\n\n": "大した問題ではなく、直さなくても問題ありませんが、見た目が気になります。",
+    "但有時我們希望ICON顏色能保持ㄧ致則只需在UIView中tintColorDidChange事件保持tintAdjustmentMode設定ㄧ致：\n\n": "しかし、アイコンの色を一貫して保ちたい場合は、UIViewのtintColorDidChangeイベント内でtintAdjustmentModeを一定に設定するだけで良いです：",
+    "其實每一個頁面遇到present UIAlertController、action sheet、popover…都會將本頁view的tintAdjustmentMode改為灰色，但我在這個頁面才發現\n\n": "実は、どのページでもUIAlertController、アクションシート、ポップオーバーを表示すると、そのページのviewのtintAdjustmentModeがグレーに変更されますが、私はこのページで初めて気づきました。",
+    "可以看到左方ICON圖在有Present UIAlertController時tintColor顏色設定失效，另外當Present的視窗關閉後就會恢復顏色設定顯示正常．\n\n": "左側のアイコンは、UIAlertControllerを表示しているときにtintColorの色設定が無効になることがわかります。さらに、表示しているウィンドウが閉じると色設定が元に戻り、正常に表示されます。",
+    "左修正前/右修正後\n\n": "左修正前 / 右修正後",
+    "有任何問題及指教歡迎 [與我聯絡](https://www.zhgchg.li/contact){:target=\"_blank\"} 。\n\n": "ご質問やご意見がありましたら、ぜひ [お問い合わせ](https://www.zhgchg.li/contact){:target=\"_blank\"} ください。",
+    "查找了一陣子資料才發現跟這個屬性有關係，設定之後就解決我的小疑惑．\n\n": "しばらく調べた結果、このプロパティに関係していることがわかり、設定したら私の小さな疑問が解決しました。",
+    "首先介紹一下 **tintAdjustmentMode** 的屬性設置，此屬性控制了 **tintColor** 的顯示模式，此屬性有三個枚舉可設定：\n\n": "まずは **tintAdjustmentMode** のプロパティ設定について紹介します。このプロパティは **tintColor** の表示モードを制御し、以下の3つの列挙型が設定可能です："
+  }
+}
