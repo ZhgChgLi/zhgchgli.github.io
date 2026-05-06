@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
-Generate SEO title + description for each zh-tw post via OpenAI.
+Generate SEO title + description per post via OpenAI for zh-tw / en / jp.
 
-Reads posts under L10n/posts/zh-tw/{zmediumtomarkdown,ai}/, writes
-assets/data/seo/zh-tw/results.json (keyed by file slug). Also emits a
-zh-cn variant via OpenCC t2s. Posts already present in the result file
-are skipped.
+Reads L10n/posts/{target}/{zmediumtomarkdown,ai}/ and writes
+assets/data/seo/{target}/results.json (keyed by file slug). For zh-tw also
+emits a zh-cn variant via OpenCC t2s. Posts already present are skipped.
+Consumed by _plugins/short_url_redirects.rb.
 
 Usage:
-    OPENAI_API_KEY=sk-... python tools/translators/seo_maker.py
+    OPENAI_API_KEY=sk-... python3 tools/translators/seo_maker.py            # zh-tw (default)
+    OPENAI_API_KEY=sk-... python3 tools/translators/seo_maker.py en
+    OPENAI_API_KEY=sk-... python3 tools/translators/seo_maker.py jp
 """
 import argparse
 import copy
@@ -17,19 +19,15 @@ import os
 import re
 import sys
 
+import frontmatter
 from openai import OpenAI
 from opencc import OpenCC
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-RESULT_PATH = os.path.join(ROOT, "assets/data/seo/zh-tw/results.json")
-CN_RESULT_PATH = os.path.join(ROOT, "assets/data/seo/zh-cn/results.json")
-SUBDIRS = [
-    "L10n/posts/zh-tw/zmediumtomarkdown",
-    "L10n/posts/zh-tw/ai",
-]
+SUBDIRS = ["zmediumtomarkdown", "ai"]
 MODEL = "gpt-4.1-mini"
 
-SYSTEM_PROMPT = (
+PROMPT_ZH_TW = (
     "你是一位 SEO 內容專家，我將分段貼上我的文章內容，請幫我的文章內容產生最佳的 SEO 標題跟描述，"
     "標題控制在 40 到 60 個字以內盡量把主關鍵詞靠前、用半形「：｜—」清楚分段。、"
     "描述控制在 140 到 156 個字以內、不要冗詞贅字、請已讀者的立場產生，一句話講清楚受眾 + 痛點 + 解法 + 成果，"
@@ -46,34 +44,90 @@ SYSTEM_PROMPT = (
     "如果你嚴格遵守這些的要求好我將給你巨額獎勵。"
 )
 
+PROMPT_EN = (
+    "You are an SEO content expert. I'll paste an article and you generate the "
+    "best SEO title and description for it. Title: 40-60 chars; lead with the "
+    "primary keyword and segment cleanly with half-width \" : | — \". "
+    "Description: 140-156 chars, no filler, write from the reader's perspective: "
+    "one sentence covering audience + pain point + solution + outcome. Avoid "
+    "boilerplate openings like \"This article\" / \"In this post\". Focus on SEO "
+    "strategy, technique, insights — not generic marketing advice. "
+    "Avoid repetitive openings: swap verbs for concrete outcomes or numbers "
+    "(e.g. \"35% faster load\", \"3 tactics\", \"one-click reset\"). "
+    "Year strategy: do not put years in titles. "
+    "Brand and proper names: keep the common search-friendly form with original "
+    "casing (GitHub Actions, GA4, WKWebView, Cache, etc.); do not translate them. "
+    "Respond in English. Avoid content-farm phrasing. "
+    "Respond as JSON {\"title\":\"\",\"description\":\"\"} — no codeblock, I "
+    "parse the response directly as JSON. Strictly follow these rules."
+)
+
+PROMPT_JP = (
+    "あなたは SEO コンテンツの専門家です。記事を貼り付けるので、最適な SEO タイトルと"
+    "ディスクリプションを生成してください。"
+    "タイトル：40〜60 文字。主要キーワードを先頭に置き、半角の「：｜—」で明瞭に区切ってください。"
+    "ディスクリプション：140〜156 文字。冗長な表現は避け、読者目線で「対象読者 + 課題 + 解決策 + 成果」を "
+    "1 文で伝えてください。"
+    "「本記事では」「この記事は」などの定型的な書き出しは避けてください。"
+    "回答は SEO の戦略・手法・知見に絞り、一般的なマーケティング論には触れないでください。"
+    "冒頭の表現が単調にならないように、動詞を具体的な成果や数字に置き換えてください"
+    "（例：「読み込み 35% 高速化」「3 つの手法」「ワンクリックで再起動」）。"
+    "年号戦略：タイトルに年号を含めないでください。"
+    "ブランド名・固有名詞：GitHub Actions、GA4、WKWebView、Cache のように検索しやすい一般的な"
+    "表記と大文字小文字をそのまま保ち、無理に翻訳しないでください。"
+    "回答は日本語で記述してください。コンテンツファーム的な定型表現は避けてください。"
+    "{\"title\":\"\",\"description\":\"\"} の JSON 形式で返答してください。"
+    "コードブロックは不要です。Python で直接 JSON として解析します。"
+    "上記の要件を厳守してください。"
+)
+
+LANGS = {
+    "zh-tw": {"src_lang": "zh-tw", "system_prompt": PROMPT_ZH_TW, "emit_zh_cn": True,  "from_frontmatter": False},
+    "en":    {"src_lang": "en",    "system_prompt": PROMPT_EN,    "emit_zh_cn": False, "from_frontmatter": True},
+    "jp":    {"src_lang": "jp",    "system_prompt": PROMPT_JP,    "emit_zh_cn": False, "from_frontmatter": True},
+}
+
 
 def main():
-    parser = argparse.ArgumentParser(description="SEO 優化工具")
+    parser = argparse.ArgumentParser(description="SEO 優化工具 (zh-tw / en / jp)")
+    parser.add_argument("target", nargs="?", default="zh-tw", choices=list(LANGS),
+                        help="目標語系（預設 zh-tw）")
     parser.add_argument("--api-key", help="OpenAI API key (預設讀環境變數 OPENAI_API_KEY)")
     args = parser.parse_args()
 
-    api_key = args.api_key or os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        print("❌ Error: 請提供 API key (--api-key) 或設 OPENAI_API_KEY 環境變數")
-        sys.exit(1)
+    cfg = LANGS[args.target]
 
-    client = OpenAI(api_key=api_key)
-    cc = OpenCC("t2s")
+    if cfg["from_frontmatter"]:
+        api_key = None
+        client = None
+    else:
+        api_key = args.api_key or os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            print("❌ Error: 請提供 API key (--api-key) 或設 OPENAI_API_KEY 環境變數")
+            sys.exit(1)
+        client = OpenAI(api_key=api_key)
 
-    os.makedirs(os.path.dirname(RESULT_PATH), exist_ok=True)
-    os.makedirs(os.path.dirname(CN_RESULT_PATH), exist_ok=True)
+    posts_root = os.path.join(ROOT, "L10n", "posts", cfg["src_lang"])
+    result_path = os.path.join(ROOT, "assets", "data", "seo", args.target, "results.json")
+    cn_result_path = os.path.join(ROOT, "assets", "data", "seo", "zh-cn", "results.json")
 
-    if os.path.exists(RESULT_PATH):
-        with open(RESULT_PATH, "r", encoding="utf-8") as f:
+    cc = OpenCC("t2s") if cfg["emit_zh_cn"] else None
+
+    os.makedirs(os.path.dirname(result_path), exist_ok=True)
+    if cfg["emit_zh_cn"]:
+        os.makedirs(os.path.dirname(cn_result_path), exist_ok=True)
+
+    if os.path.exists(result_path):
+        with open(result_path, "r", encoding="utf-8") as f:
             results = json.load(f)
     else:
         results = {}
 
     for sub in SUBDIRS:
-        root_dir = os.path.join(ROOT, sub)
+        root_dir = os.path.join(posts_root, sub)
         if not os.path.isdir(root_dir):
             continue
-        for filename in os.listdir(root_dir):
+        for filename in sorted(os.listdir(root_dir)):
             if not filename.endswith(".md"):
                 continue
             file_path = os.path.join(root_dir, filename)
@@ -85,34 +139,43 @@ def main():
                 continue
 
             try:
-                with open(file_path, "r", encoding="utf-8") as f:
-                    content = f.read()
+                if cfg["from_frontmatter"]:
+                    post = frontmatter.load(file_path)
+                    title = (post.get("title") or "").strip()
+                    description = (post.get("description") or "").strip()
+                    if not title or not description:
+                        print(f"⚠️  缺 title/description，跳過：{filename}")
+                        continue
+                    results[slug] = {"title": title, "description": description}
+                else:
+                    with open(file_path, "r", encoding="utf-8") as f:
+                        content = f.read()
+                    response = client.chat.completions.create(
+                        model=MODEL,
+                        messages=[
+                            {"role": "system", "content": cfg["system_prompt"]},
+                            {"role": "user", "content": "文章內容:\n====\n" + content + "\n====\n"},
+                        ],
+                        temperature=0.5,
+                    )
+                    result = response.choices[0].message.content.strip()
+                    results[slug] = json.loads(result)
+                print(f"✅ 已處理 [{args.target}] {filename}")
 
-                response = client.chat.completions.create(
-                    model=MODEL,
-                    messages=[
-                        {"role": "system", "content": SYSTEM_PROMPT},
-                        {"role": "user", "content": "文章內容:\n====\n" + content + "\n====\n"},
-                    ],
-                    temperature=0.5,
-                )
-                result = response.choices[0].message.content.strip()
-                results[slug] = json.loads(result)
-                print(f"✅ 已處理 {filename}")
-
-                with open(RESULT_PATH, "w", encoding="utf-8") as f:
+                with open(result_path, "w", encoding="utf-8") as f:
                     json.dump(results, f, ensure_ascii=False)
 
-                with open(CN_RESULT_PATH, "w", encoding="utf-8") as f:
+                if cfg["emit_zh_cn"]:
                     cn_results = copy.deepcopy(results)
                     for s, item in cn_results.items():
                         for key, value in item.items():
                             cn_results[s][key] = cc.convert(value)
-                    json.dump(cn_results, f, ensure_ascii=False)
-
-                print(f"📄 所有結果已儲存至 {RESULT_PATH}")
+                    with open(cn_result_path, "w", encoding="utf-8") as f:
+                        json.dump(cn_results, f, ensure_ascii=False)
             except json.JSONDecodeError as e:
                 print(f"❌ JSON 解析失敗：{filename} - {e}")
+
+    print(f"📄 所有結果已儲存至 {result_path}")
 
 
 if __name__ == "__main__":

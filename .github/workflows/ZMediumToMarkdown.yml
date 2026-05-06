@@ -112,6 +112,18 @@ jobs:
           python tools/translators/translator_cn.py
           ./bin/unify-tags
 
+      - name: Generate SEO metadata (en, jp) from translated frontmatter
+        run: |
+          python tools/translators/seo_maker.py en
+          python tools/translators/seo_maker.py jp
+
+      - name: Generate AIO FAQ metadata (en, jp)
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python tools/translators/aio_maker.py en
+          python tools/translators/aio_maker.py jp
+
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update fetched posts."
