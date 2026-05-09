@@ -35,6 +35,12 @@ Per-post cache lives at `tools/translators/cache/typo_check/{sub}/{filename}.jso
 with shape `{"source_hash": "...", "blocks": {<original block>: <fixed or same>}}`.
 A matching `source_hash` skips the file entirely (zero API calls).
 
+The repo ships with the cache **pre-seeded** for every existing zh-tw post
+(via `python typo_checker.py --seed`), so on the first workflow run all
+existing articles are skipped and only newly-fetched or content-updated
+articles trigger OpenAI calls. To force a re-check of a single post, delete
+its cache JSON and re-run.
+
 ## Setup
 
 ```bash

@@ -221,11 +221,59 @@ def process_file(filename, src_dir, sub, api_key):
     save_cache(cache_p, {"source_hash": new_hash, "blocks": blocks_cache})
 
 
+def seed_file(filename, src_dir, sub):
+    """Pre-populate cache so old files are treated as already-checked.
+
+    Writes the current source_hash with an empty blocks map. Future runs will
+    short-circuit on the source_hash match (zero API). If the file is later
+    updated, source_hash mismatches and the normal check path runs.
+    """
+    src_path = os.path.join(src_dir, filename)
+    cache_p = cache_path(sub, filename)
+    if os.path.exists(cache_p):
+        return False  # don't overwrite existing cache
+    try:
+        with open(src_path, "r", encoding="utf-8") as f:
+            post = frontmatter.load(f)
+    except Exception as e:
+        print(f"✗ seed read failed: {filename} — {e}")
+        return False
+    save_cache(cache_p, {
+        "source_hash": compute_hash(post.content),
+        "blocks": {},
+        "seeded": True,
+    })
+    return True
+
+
 def main():
     parser = argparse.ArgumentParser(description="Check typos in zh-tw posts via OpenAI.")
     parser.add_argument("--api-key", help="OpenAI API key (or env OPENAI_API_KEY)")
     parser.add_argument("--max-workers", type=int, default=5)
+    parser.add_argument(
+        "--seed",
+        action="store_true",
+        help=(
+            "Seed cache for all current files without calling OpenAI. Use this "
+            "once when introducing the checker so existing articles are treated "
+            "as already-clean; only future fetches/updates trigger checks."
+        ),
+    )
     args = parser.parse_args()
+
+    if args.seed:
+        seeded = 0
+        for sub in SUBDIRS:
+            src_dir = os.path.join(ROOT, "L10n", "posts", SRC_LANG, sub)
+            if not os.path.isdir(src_dir):
+                continue
+            for f in sorted(os.listdir(src_dir)):
+                if not f.endswith((".md", ".markdown")):
+                    continue
+                if seed_file(f, src_dir, sub):
+                    seeded += 1
+        print(f"🌱 seeded {seeded} file(s) into typo_check cache (no API calls)")
+        return
 
     api_key = args.api_key or os.getenv("OPENAI_API_KEY")
     if not api_key:
