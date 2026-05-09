@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: zmedium-to-markdown
@@ -91,6 +92,11 @@ jobs:
       - name: Optimize photos (webp + photos.json)
         run: python tools/translators/optimize_photos.py
 
+      - name: Typo & duplicate-character check (zh-tw)
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python tools/translators/typo_checker.py
+
       - name: Generate SEO metadata
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -137,3 +143,42 @@ jobs:
             --author="ZMediumToMarkdown <zhgchgli@gmail.com>"
           git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Open issue for typo fixes
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -e
+          if [[ ! -f .typo-fixes.json ]]; then
+            echo "no report file — nothing to do"
+            exit 0
+          fi
+          fixes_count=$(jq '[.files[].changes | length] | add // 0' .typo-fixes.json)
+          file_count=$(jq '.files | length' .typo-fixes.json)
+          if [[ "$fixes_count" -eq 0 ]]; then
+            echo "no typo fixes this run — skip issue"
+            exit 0
+          fi
+          today=$(date -u +%Y-%m-%d)
+          title="[typo-checker] ${today}: ${file_count} 個檔案 / ${fixes_count} 處自動修正"
+          {
+            echo "本次 ZMediumToMarkdown 排程在 zh-tw 文章中偵測到並 **已自動 commit** 以下錯字／重複字修正，請 review。"
+            echo
+            jq -r '
+              .files[] |
+              "## " + .file,
+              (.changes[] | "- `" + .before + "` → `" + .after + "`" + (if (.reason // "") | (. != "" and . != "cached") then " — " + .reason else "" end)),
+              ""
+            ' .typo-fixes.json
+            echo
+            echo "---"
+            echo
+            echo "若有誤判請手動 revert 對應 commit，並在此 issue 留言以便調整 \`tools/translators/typo_checker.py\` prompt。"
+            echo
+            echo "🔁 Workflow run: ${RUN_URL}"
+          } > .typo-fixes.body.md
+          gh issue create -R "$REPO" -t "$title" -F .typo-fixes.body.md -l typo-checker || \
+            gh issue create -R "$REPO" -t "$title" -F .typo-fixes.body.md

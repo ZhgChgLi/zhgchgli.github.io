@@ -23,3 +23,6 @@ assets/.DS_Store
 
 # Translator local venv (cache/ is tracked so re-runs reuse translations)
 tools/translators/.venv/
+
+# typo_checker.py per-run report (consumed by workflow to open issue)
+/.typo-fixes.json
