@@ -1,4 +1,120 @@
 <script>
+  // Theme toggle — single-button cycle Auto → Light → Dark → Auto.
+  // The FOUC script in head.html has already applied data-theme to <html>;
+  // this script wires up the click handler, syncs labels, swaps the meta
+  // theme-color tag, and pushes setConfig messages to the giscus iframe
+  // when comments are mounted.
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+
+    var ORDER = ['auto', 'light', 'dark'];
+    var STORAGE_KEY = 'theme-preference';
+    var THEME_COLORS = { light: '#fefcf8', dark: '#16110d' };
+
+    // i18n: rendered at build time from _data/strings.yml for the current
+    // language. JSON.stringify via Liquid's `jsonify` filter keeps quote
+    // escaping correct across all 4 languages.
+    var TOOLTIP = {
+      auto:  {{ t.topbar.theme_title.auto  | jsonify }},
+      light: {{ t.topbar.theme_title.light | jsonify }},
+      dark:  {{ t.topbar.theme_title.dark  | jsonify }}
+    };
+    var ARIA = {
+      auto:  {{ t.topbar.theme_aria.auto  | jsonify }},
+      light: {{ t.topbar.theme_aria.light | jsonify }},
+      dark:  {{ t.topbar.theme_aria.dark  | jsonify }}
+    };
+
+    // Runtime origin (not Liquid's site.url) so the URL works on dev /
+    // preview hosts as well as production zhgchg.li. giscus's iframe at
+    // giscus.app loads the CSS via the user's browser, which can reach
+    // any host the user can reach (including localhost).
+    var GISCUS_LIGHT = window.location.origin + '/assets/css/giscus.css';
+    var GISCUS_DARK  = window.location.origin + '/assets/css/giscus-dark.css';
+
+    var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+    function getCurrent() {
+      var t = document.documentElement.dataset.theme;
+      return (t === 'light' || t === 'dark' || t === 'auto') ? t : 'auto';
+    }
+
+    function effectiveScheme(theme) {
+      if (theme === 'light') return 'light';
+      if (theme === 'dark')  return 'dark';
+      return mq && mq.matches ? 'dark' : 'light';
+    }
+
+    // theme-color drives mobile chrome. In auto mode we restore the dual
+    // <meta media=...> tags so the OS handles flips natively; otherwise
+    // a single fixed tag locks the chrome to the chosen scheme.
+    function updateMetaThemeColor(theme) {
+      var head = document.head;
+      head.querySelectorAll('meta[name="theme-color"]').forEach(function (m) { m.remove(); });
+      if (theme === 'auto') {
+        ['light', 'dark'].forEach(function (mode) {
+          var m = document.createElement('meta');
+          m.name = 'theme-color';
+          m.media = '(prefers-color-scheme: ' + mode + ')';
+          m.content = THEME_COLORS[mode];
+          head.appendChild(m);
+        });
+      } else {
+        var m = document.createElement('meta');
+        m.name = 'theme-color';
+        m.content = THEME_COLORS[theme];
+        head.appendChild(m);
+      }
+    }
+
+    function syncGiscus(theme) {
+      var iframe = document.querySelector('iframe.giscus-frame');
+      if (!iframe || !iframe.contentWindow) return;
+      var url = effectiveScheme(theme) === 'dark' ? GISCUS_DARK : GISCUS_LIGHT;
+      iframe.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: url } } },
+        'https://giscus.app'
+      );
+    }
+
+    function setTheme(t) {
+      document.documentElement.dataset.theme = t;
+      try { localStorage.setItem(STORAGE_KEY, t); } catch (_) {}
+      btn.setAttribute('title', TOOLTIP[t]);
+      btn.setAttribute('aria-label', ARIA[t]);
+      updateMetaThemeColor(t);
+      syncGiscus(t);
+    }
+
+    btn.addEventListener('click', function () {
+      var cur = getCurrent();
+      setTheme(ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length]);
+    });
+
+    // Initial labels — FOUC script already applied data-theme; just refresh chips.
+    var initial = getCurrent();
+    btn.setAttribute('title', TOOLTIP[initial]);
+    btn.setAttribute('aria-label', ARIA[initial]);
+
+    // System scheme flip while in auto: re-push giscus theme. The dual
+    // theme-color meta tags handle their own swap via media= so no need.
+    if (mq) {
+      var onMqChange = function () { if (getCurrent() === 'auto') syncGiscus('auto'); };
+      if (mq.addEventListener) mq.addEventListener('change', onMqChange);
+      else if (mq.addListener) mq.addListener(onMqChange);
+    }
+
+    // First message from giscus → guarantees the iframe is reachable;
+    // re-push current theme as a safety net in case the initial bake-in
+    // (in giscus.html) raced with the FOUC script. Idempotent.
+    window.addEventListener('message', function (e) {
+      if (e.origin !== 'https://giscus.app') return;
+      if (e.data && e.data.giscus) syncGiscus(getCurrent());
+    });
+  })();
+</script>
+<script>
   (function () {
     var btn = document.getElementById('menu-btn');
     var drawer = document.getElementById('drawer');

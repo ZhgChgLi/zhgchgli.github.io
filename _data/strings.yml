@@ -17,6 +17,14 @@ zh-tw:
   topbar:
     search_aria: 搜尋
     menu_aria: 選單
+    theme_aria:
+      auto: 切換主題（目前：自動）
+      light: 切換主題（目前：淺色）
+      dark: 切換主題（目前：深色）
+    theme_title:
+      auto: 主題：自動跟隨系統（點擊切換為淺色）
+      light: 主題：淺色（點擊切換為深色）
+      dark: 主題：深色（點擊切換為自動）
   footer:
     read_heading: 讀文章
     connect_heading: 聯絡
@@ -184,6 +192,14 @@ en:
   topbar:
     search_aria: Search
     menu_aria: Menu
+    theme_aria:
+      auto: "Toggle theme (current: auto)"
+      light: "Toggle theme (current: light)"
+      dark: "Toggle theme (current: dark)"
+    theme_title:
+      auto: "Theme: auto (system) — click for light"
+      light: "Theme: light — click for dark"
+      dark: "Theme: dark — click for auto"
   footer:
     read_heading: Read
     connect_heading: Connect
@@ -352,6 +368,14 @@ zh-cn:
   topbar:
     search_aria: 搜索
     menu_aria: 菜单
+    theme_aria:
+      auto: 切换主题（当前：自动）
+      light: 切换主题（当前：浅色）
+      dark: 切换主题（当前：深色）
+    theme_title:
+      auto: 主题：自动跟随系统（点击切换为浅色）
+      light: 主题：浅色（点击切换为深色）
+      dark: 主题：深色（点击切换为自动）
   footer:
     read_heading: 阅读
     connect_heading: 联系
@@ -519,6 +543,14 @@ jp:
   topbar:
     search_aria: 検索
     menu_aria: メニュー
+    theme_aria:
+      auto: テーマ切り替え（現在：自動）
+      light: テーマ切り替え（現在：ライト）
+      dark: テーマ切り替え（現在：ダーク）
+    theme_title:
+      auto: "テーマ：自動（クリックでライトへ）"
+      light: "テーマ：ライト（クリックでダークへ）"
+      dark: "テーマ：ダーク（クリックで自動へ）"
   footer:
     read_heading: 読む
     connect_heading: つながる

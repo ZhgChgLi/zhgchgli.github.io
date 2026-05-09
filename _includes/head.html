@@ -1,6 +1,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#fefcf8">
+
+{%- comment -%}
+  Theme bootstrap — must run before the stylesheet loads to avoid FOUC.
+  Reads localStorage and writes data-theme onto <html> so the right
+  token set is applied on first paint. The :not() guard in main.scss
+  treats a missing attribute as "auto", so failure modes (private mode
+  / SSR-cached pages with stale storage) degrade to system preference.
+{%- endcomment -%}
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('theme-preference');
+      if (t !== 'light' && t !== 'dark' && t !== 'auto') t = 'auto';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {
+      document.documentElement.dataset.theme = 'auto';
+    }
+  })();
+</script>
+
+{%- comment -%}
+  theme-color drives the mobile browser chrome (status bar / address bar
+  tint). Dual-tag with media= lets the browser pick the right one in
+  Auto mode without any JS; theme-toggle.js will overwrite this with a
+  single explicit tag when the user picks Light or Dark.
+{%- endcomment -%}
+<meta name="theme-color" content="#fefcf8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16110d" media="(prefers-color-scheme: dark)">
 
 {% seo %}
 

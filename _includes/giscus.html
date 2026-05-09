@@ -1,17 +1,43 @@
-<script src="https://giscus.app/client.js"
-        data-repo="{{ site.giscus.repo }}"
-        data-repo-id="{{ site.giscus.repo_id }}"
-        data-category="{{ site.giscus.category }}"
-        data-category-id="{{ site.giscus.category_id }}"
-        data-mapping="specific"
-        data-term="{{ page.discussion_id | default: page.slug | default: page.url }}"
-        data-strict="0"
-        data-reactions-enabled="{{ site.giscus.reactions_enabled | default: '1' }}"
-        data-emit-metadata="{{ site.giscus.emit_metadata | default: '0' }}"
-        data-input-position="{{ site.giscus.input_position | default: 'bottom' }}"
-        data-theme="{{ '/assets/css/giscus.css' | absolute_url }}"
-        data-lang="{{ site.giscus.lang | default: 'zh-TW' }}"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
+{%- comment -%}
+  giscus mounts via dynamic script injection so its initial data-theme
+  picks the right light/dark CSS based on <html data-theme> at render
+  time. (A static <script data-theme="..."> would bake in one URL at
+  build time; dark-mode users would see a flash of light comments
+  before scripts.html could send setConfig.) Subsequent toggle changes
+  are applied to the iframe via setConfig postMessage from scripts.html.
+{%- endcomment -%}
+<script>
+  (function () {
+    var t = document.documentElement.dataset.theme || 'auto';
+    var dark = t === 'dark' || (t === 'auto' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    // Use window.location.origin (runtime) instead of Liquid's
+    // `absolute_url` (build-time site.url) so dev / preview hosts work.
+    // Production canonical URL is https://zhgchg.li either way.
+    var themeUrl = window.location.origin
+      + (dark ? '/assets/css/giscus-dark.css' : '/assets/css/giscus.css');
+
+    var s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    var attrs = {
+      'data-repo':              '{{ site.giscus.repo }}',
+      'data-repo-id':           '{{ site.giscus.repo_id }}',
+      'data-category':          '{{ site.giscus.category }}',
+      'data-category-id':       '{{ site.giscus.category_id }}',
+      'data-mapping':           'specific',
+      'data-term':              '{{ page.discussion_id | default: page.slug | default: page.url | escape }}',
+      'data-strict':            '0',
+      'data-reactions-enabled': '{{ site.giscus.reactions_enabled | default: "1" }}',
+      'data-emit-metadata':     '{{ site.giscus.emit_metadata | default: "0" }}',
+      'data-input-position':    '{{ site.giscus.input_position | default: "bottom" }}',
+      'data-theme':             themeUrl,
+      'data-lang':              '{{ site.giscus.lang | default: "zh-TW" }}',
+      'data-loading':           'lazy'
+    };
+    Object.keys(attrs).forEach(function (k) { s.setAttribute(k, attrs[k]); });
+    s.crossOrigin = 'anonymous';
+    s.async = true;
+
+    var here = document.currentScript;
+    here.parentNode.insertBefore(s, here);
+  })();
 </script>

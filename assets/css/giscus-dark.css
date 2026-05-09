@@ -1,0 +1,183 @@
+/*!
+ * Custom giscus DARK theme — matches ZhgChgLi warm-espresso dark palette.
+ * Mirrors giscus.css structure with dark token overrides + brighter
+ * syntax colors so code blocks remain legible on the dark Primer canvas.
+ * Loaded via theme-toggle.js setConfig postMessage.
+ */
+
+main {
+  /* ---- site tokens (mirrors :root[data-theme="dark"] in main.scss) ---- */
+  --cream-50:  #1f1814;
+  --cream-100: #2a221c;
+  --cream-200: #3a2f26;
+  --ink-900:   #f4ece0;
+  --ink-700:   #dccfbd;
+  --ink-500:   #a89a87;
+  --ink-400:   #857668;
+  --paper:     #16110d;
+  --accent:    #d76a44;
+  --accent-soft: #e89773;
+  /* Borders are intentionally stronger in dark mode (vs the 0.14 / 0.07
+     site tokens) — adjacent dark surfaces are hard to separate by hue
+     alone, so the rules here carry more weight. */
+  --rule:      rgba(244, 236, 224, 0.22);
+  --rule-soft: rgba(244, 236, 224, 0.12);
+
+  /* ---- giscus / Primer surface ----
+     Comment cards & the reply box need to sit on a *lighter* surface
+     than the page so they read as elevated panels, not page bg. */
+  --color-canvas-default: var(--cream-50);
+  --color-canvas-overlay: var(--cream-100);
+  --color-canvas-inset: var(--paper);
+  --color-canvas-subtle: var(--cream-100);
+
+  /* ---- text ---- */
+  --color-fg-default: var(--ink-900);
+  --color-fg-muted: #c0b3a0;          /* brightened for placeholder / muted UI */
+  --color-fg-subtle: var(--ink-500);
+  --color-fg-on-emphasis: #ffffff;
+
+  /* ---- borders ---- */
+  --color-border-default: var(--rule);
+  --color-border-muted: var(--rule-soft);
+
+  /* ---- accent ---- */
+  --color-accent-fg: var(--accent);
+  --color-accent-emphasis: var(--accent);
+  --color-accent-muted: rgba(215, 106, 68, 0.4);
+  --color-accent-subtle: rgba(215, 106, 68, 0.12);
+
+  /* ---- neutral ---- */
+  --color-neutral-emphasis-plus: var(--ink-900);
+  --color-neutral-emphasis: var(--ink-700);
+  --color-neutral-muted: rgba(244, 236, 224, 0.10);
+  --color-neutral-subtle: rgba(244, 236, 224, 0.05);
+
+  /* ---- buttons ----
+     Buttons sit on the comment-card surface (--cream-50), so their bg
+     needs to be a different tone (lighter cream-100) to read as
+     interactive. Selected tabs use cream-200 to stand out from
+     non-selected. */
+  --color-btn-text: var(--ink-900);
+  --color-btn-bg: var(--cream-100);
+  --color-btn-border: var(--rule);
+  --color-btn-shadow: 0 0 transparent;
+  --color-btn-inset-shadow: 0 0 transparent;
+  --color-btn-hover-bg: var(--cream-200);
+  --color-btn-hover-border: var(--rule);
+  --color-btn-active-bg: var(--cream-200);
+  --color-btn-active-border: var(--accent);
+  --color-btn-selected-bg: var(--cream-200);
+  --color-btn-counter-bg: var(--cream-200);
+
+  --color-btn-primary-text: #ffffff;
+  --color-btn-primary-bg: var(--accent);
+  --color-btn-primary-border: var(--accent);
+  --color-btn-primary-shadow: 0 0 transparent;
+  --color-btn-primary-inset-shadow: 0 0 transparent;
+  --color-btn-primary-hover-bg: #c25a37;
+  --color-btn-primary-hover-border: #c25a37;
+  --color-btn-primary-selected-bg: #b14e2c;
+  --color-btn-primary-selected-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
+  --color-btn-primary-disabled-text: rgba(255, 255, 255, 0.6);
+  --color-btn-primary-disabled-bg: var(--accent-soft);
+  --color-btn-primary-disabled-border: var(--accent-soft);
+  --color-btn-primary-icon: #ffffff;
+  --color-btn-primary-counter-bg: rgba(255, 255, 255, 0.2);
+
+  /* ---- input ----
+     Textarea + the comment-input recess. Use --paper so the field
+     reads as recessed against its --cream-50 / --cream-100 container. */
+  --color-input-bg: var(--paper);
+  --color-input-contrast-bg: var(--cream-100);
+
+  /* ---- timeline / hovercard ---- */
+  --color-timeline-badge-bg: var(--cream-100);
+  --color-timeline-text: var(--ink-700);
+
+  /* ---- markdown body ---- */
+  --color-fg-link: var(--accent);
+  --color-fg-link-hover: var(--accent-soft);
+
+  /* ---- syntax (warm dark — token colors brightened so they read on
+            cream-50 inset surfaces; mirror prism-tomorrow-ish) ---- */
+  --color-prettylights-syntax-comment: #857668;
+  --color-prettylights-syntax-constant: #f78c6c;
+  --color-prettylights-syntax-entity: #c792ea;
+  --color-prettylights-syntax-storage-modifier-import: #f4ece0;
+  --color-prettylights-syntax-entity-tag: #b9d77c;
+  --color-prettylights-syntax-keyword: #c792ea;
+  --color-prettylights-syntax-string: #b9d77c;
+  --color-prettylights-syntax-variable: #ffcb6b;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #ff6b6b;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #b9d77c;
+  --color-prettylights-syntax-markup-list: #ffcb6b;
+  --color-prettylights-syntax-markup-heading: #82aaff;
+  --color-prettylights-syntax-markup-italic: #f4ece0;
+  --color-prettylights-syntax-markup-bold: #f4ece0;
+  --color-prettylights-syntax-markup-deleted-text: #ff8888;
+  --color-prettylights-syntax-markup-deleted-bg: rgba(255, 107, 107, 0.12);
+  --color-prettylights-syntax-markup-inserted-text: #b9e88c;
+  --color-prettylights-syntax-markup-inserted-bg: rgba(120, 200, 120, 0.12);
+  --color-prettylights-syntax-markup-changed-text: #f78c6c;
+  --color-prettylights-syntax-markup-changed-bg: rgba(247, 140, 108, 0.12);
+  --color-prettylights-syntax-markup-ignored-text: #857668;
+  --color-prettylights-syntax-markup-ignored-bg: rgba(244, 236, 224, 0.05);
+  --color-prettylights-syntax-meta-diff-range: #c792ea;
+  --color-prettylights-syntax-brackethighlighter-angle: #a89a87;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #857668;
+  --color-prettylights-syntax-constant-other-reference-link: #82aaff;
+}
+
+main .pagination-loader-container {
+  background-image: none;
+}
+
+/* Card surfaces in dark mode rely on bg differentiation as well as
+   borders — adjacent dark hues are hard for the eye to separate via
+   thin rules alone. Push cards one elevation step above the iframe
+   body (--cream-100 over --cream-50) so they read as panels. */
+main .gsc-comment,
+main .gsc-comment-box,
+main .gsc-reply-box {
+  background-color: var(--cream-100);
+  border-color: var(--rule);
+}
+
+/* The author + meta header strip inside each comment uses a slightly
+   different surface in Primer; align it to the elevated card bg. */
+main .gsc-comment-header {
+  background-color: var(--cream-200);
+  border-bottom-color: var(--rule);
+}
+
+main .gsc-comment-box-tabs button[aria-selected="true"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+main .gsc-reactions-popover {
+  background: var(--cream-50);
+  border: 1px solid var(--rule);
+}
+
+/* Textarea — the dashed default border on focus is a Primer
+   accessibility marker; replace with our accent ring so it doesn't
+   look like a placeholder dashed box. */
+main .gsc-comment-box-textarea:focus,
+main .gsc-comment-box-textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-color: transparent;
+}
+
+/* Placeholder text — bump contrast since it sits on the recessed
+   --paper input bg. */
+main .gsc-comment-box-textarea::placeholder {
+  color: var(--ink-400);
+  opacity: 1;
+}

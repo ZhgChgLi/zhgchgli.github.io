@@ -13,6 +13,12 @@
     </nav>
     <div class="right">
       {% include lang-switcher.html %}
+      <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="{{ t.topbar.theme_aria.auto }}" title="{{ t.topbar.theme_title.auto }}">
+        {%- comment -%} Three icons; only the one matching <html data-theme> is shown via CSS in main.scss. {%- endcomment -%}
+        <span class="ti-auto" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg></span>
+        <span class="ti-light" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+        <span class="ti-dark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+      </button>
       <a class="icon-btn" href="{{ '/search/' | relative_url }}" aria-label="{{ t.topbar.search_aria }}">
         {% include icon.html name="magnifying-glass" %}
       </a>

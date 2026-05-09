@@ -60,6 +60,55 @@ html { font-synthesis: weight style none; }
   --pad-x: 56px;
 }
 
+/* ============================================
+   Dark mode tokens
+   ============================================
+   Three-state theming controlled by <html data-theme="auto|light|dark">,
+   set by an inline FOUC-prevention script in head.html.
+     light explicit → no dark selector matches; light tokens stay.
+     dark  explicit → :root[data-theme="dark"] applies dark tokens.
+     auto / unset   → falls into the :not() branch under
+                      prefers-color-scheme: dark.
+   The :not() guard intentionally also matches a missing data-theme
+   attribute (initial paint before the FOUC script runs, or older URLs
+   bookmarked before the toggle existed). ============================ */
+@mixin dark-tokens {
+  --paper:        #16110d;
+  --cream-50:     #1f1814;
+  --cream-100:    #2a221c;
+  --cream-200:    #3a2f26;
+  --cream-300:    #4a3d31;
+  --ink-900:      #f4ece0;
+  --ink-700:      #dccfbd;
+  --ink-500:      #a89a87;
+  --ink-400:      #857668;
+  --ink-300:      #5d5247;
+  --rule:         rgba(244, 236, 224, 0.14);
+  --rule-soft:    rgba(244, 236, 224, 0.07);
+  --accent:       #d76a44;
+  --accent-soft:  #e89773;
+  --shadow-card:  0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .5);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) { @include dark-tokens; }
+}
+:root[data-theme="dark"] { @include dark-tokens; }
+:root[data-theme="light"] { color-scheme: light; }
+
+/* Theme toggle icon — CSS-only swap driven by <html data-theme>.
+   The button always renders all three SVGs; whichever matches the
+   current state is shown. Falls through to "auto" icon when the
+   attribute is absent (FOUC script disabled / private mode). */
+.theme-toggle .ti-auto,
+.theme-toggle .ti-light,
+.theme-toggle .ti-dark { display: none; }
+:root[data-theme="auto"]  .theme-toggle .ti-auto,
+:root[data-theme="light"] .theme-toggle .ti-light,
+:root[data-theme="dark"]  .theme-toggle .ti-dark,
+:root:not([data-theme])   .theme-toggle .ti-auto { display: inline-flex; }
+
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: var(--paper); }
 
@@ -310,13 +359,13 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 32px 0; }
 .btn-pill {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 18px; border-radius: 999px;
-  background: var(--ink-900); color: #fff;
+  background: var(--ink-900); color: var(--paper);
   font-size: 13px; letter-spacing: 0.02em;
   border: 1px solid var(--ink-900);
   cursor: pointer;
   font-family: inherit;
 }
-.btn-pill:hover { background: var(--ink-700); color: #fff; }
+.btn-pill:hover { background: var(--ink-700); color: var(--paper); }
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 18px; border-radius: 999px;
@@ -574,7 +623,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   color: var(--ink-700); font-size: 13px;
 }
 .pager a:hover { background: var(--cream-50); }
-.pager .current { background: var(--ink-900); color: #fff; border-color: var(--ink-900); }
+.pager .current { background: var(--ink-900); color: var(--paper); border-color: var(--ink-900); }
 .pager .gap { border: none; }
 
 /* ============================================
@@ -952,7 +1001,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   border: 1px solid var(--rule);
 }
-.post-action .badge.dark { background: var(--ink-900); border-color: var(--ink-900); color: #fff; }
+.post-action .badge.dark { background: var(--ink-900); border-color: var(--ink-900); color: var(--paper); }
 .post-action .badge.warm { background: rgba(177,78,44,0.1); border: none; color: var(--accent); }
 .post-action .t1 { font-size: 14px; font-weight: 500; line-height: 1.3; }
 .post-action .t2 { font-size: 12px; color: var(--ink-400); margin-top: 2px; }
@@ -995,7 +1044,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   display: inline-flex; align-items: stretch;
   border-radius: 999px;
   background: var(--ink-900);
-  color: #fff;
+  color: var(--paper);
   font-weight: 500; letter-spacing: 0.02em;
   border: 1px solid var(--ink-900);
   box-shadow: 0 6px 18px -10px rgba(29, 24, 19, 0.55);
@@ -1003,7 +1052,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
 }
 .author-card .follow-medium:hover {
-  color: #fff;
+  color: var(--paper);
   background: var(--ink-700);
   transform: translateY(-1px);
   box-shadow: 0 10px 24px -10px rgba(29, 24, 19, 0.7);
@@ -1028,7 +1077,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   line-height: 1;
 }
 .author-card .follow-medium .follow-chip b {
-  color: #fff;
+  color: var(--paper);
   font-family: var(--font-display);
   font-size: 16px; font-weight: 600;
   letter-spacing: -0.01em;
@@ -1087,7 +1136,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .contact-icon {
   flex-shrink: 0;
   width: 64px; height: 64px; border-radius: 999px;
-  background: var(--ink-900); color: #fff;
+  background: var(--ink-900); color: var(--paper);
   display: flex; align-items: center; justify-content: center;
   font-size: 22px;
 }
@@ -1394,7 +1443,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   position: fixed; right: 24px; bottom: 24px; z-index: 70;
   display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 16px; border-radius: 999px;
-  background: var(--ink-900); color: #fff;
+  background: var(--ink-900); color: var(--paper);
   border: 1px solid var(--ink-900);
   font-size: 12px; letter-spacing: 0.06em;
   cursor: pointer;
@@ -1469,7 +1518,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 .trending-tabs .tab:hover { background: var(--cream-50); color: var(--ink-900); }
 .trending-tabs .tab.is-active {
-  background: var(--ink-900); color: #fff; border-color: var(--ink-900);
+  background: var(--ink-900); color: var(--paper); border-color: var(--ink-900);
 }
 
 .trending-panel { padding: 0 var(--pad-x); }
@@ -1629,6 +1678,146 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .trending-foot .more-links a:hover { color: var(--accent); }
 .trending-foot .more-links a:last-child { border-bottom: none; }
 .trending-foot .more-links .ar { font-size: 11px; color: var(--ink-400); }
+
+/* ============================================
+   Dark mode component overrides
+   ============================================
+   Token swaps cover ~95% of surfaces. The cases below adjust components
+   whose hardcoded values or visual intensity don't carry over cleanly to
+   a dark page. Applied via the same @media / [data-theme="dark"]
+   pattern as dark-tokens above. ============================ */
+@mixin dark-overrides {
+  /* Drawer overlay — semi-transparent ink barely shows on a dark page;
+     pure black at higher opacity restores the "panel above content" feel. */
+  .drawer-overlay { background: rgba(0, 0, 0, 0.55); }
+
+  /* AI translation notice — the warm peach (#fdf2e9) doesn't have a
+     graceful dark equivalent. Use an accent-tinted overlay + accent-soft
+     text to keep the "rust soft chip" intent. */
+  .ai-translation-notice .inner {
+    background: rgba(215, 106, 68, 0.12);
+    color: var(--accent-soft);
+  }
+  .ai-translation-notice svg.icon { color: var(--accent-soft); }
+
+  /* Post cover — full-saturation imagery overpowers a dark page. Dim the
+     blur layer and deepen the bottom gradient so the cover grounds into
+     the page rather than glaring at the reader. */
+  .post-cover .blur { opacity: 0.55; }
+  .post-cover .blur::after {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.55));
+  }
+
+  /* Inline post images — most posts here are tech writeups whose images
+     are white-bg screenshots, charts, and UI mockups. Wrap each image
+     in a warm cream mat (Instapaper-style) so they don't strobe against
+     the dark page while preserving the original colors of the content. */
+  .post-body img {
+    background: #f0e9dc;
+    padding: 8px;
+    border-radius: 8px;
+  }
+
+  /* Code block — the highlight palette is permanently dark by design
+     (Material Tomorrow tokens). Against --paper #16110d, the original
+     #16181d container melts into the page. Deepen one notch and add a
+     hairline ring to keep the inset feel. */
+  .post-body div[class*="language-"].highlighter-rouge {
+    background: #0d0a07;
+    border: 1px solid var(--rule);
+  }
+  .post-body pre.highlight > code.ln-on .ln::before {
+    background: #14110d;
+    border-right-color: rgba(244, 236, 224, 0.10);
+  }
+  .post-body div.highlighter-rouge .code-toolbar {
+    background: #0a0805;
+    border-bottom-color: rgba(244, 236, 224, 0.08);
+  }
+
+  /* Inline <code> — cream-100 chip is invisible on dark; a low-alpha
+     warm overlay reads softly without competing. */
+  :not(pre) > code {
+    background: rgba(244, 236, 224, 0.08);
+  }
+
+  /* KKday affiliate links — bump background opacity and flip text to the
+     brighter teal so the chip reads on a dark surface while staying
+     KKday-branded. */
+  .layout-post .post-body a[href*="kkday.com"] {
+    background: rgba(38, 190, 201, 0.18);
+    border-color: rgba(38, 190, 201, 0.42);
+    color: #5dd4dc;
+  }
+  .layout-post .post-body a[href*="kkday.com"]:hover {
+    background: rgba(38, 190, 201, 0.32);
+    border-color: #26bec9;
+    color: #a0e6eb;
+  }
+
+  /* RSS pill hover — give it somewhere brighter to go. */
+  .contact-actions .rss-pill:hover {
+    background: #d97a3c;
+    border-color: #d97a3c;
+  }
+
+  /* Authentic Writing badge — outer border was --ink-900 which is now
+     the lightest cream; against light-cream text inside it the border
+     becomes invisible. Use --ink-700 instead so the box still reads. */
+  .authentic-badge { border-color: var(--ink-700); }
+
+  /* Follow chip — divider + text use rgba(white, alpha) which inverts
+     wrong when the parent background flips. Switch to dark-with-alpha. */
+  .author-card .follow-medium .follow-chip {
+    border-left-color: rgba(0, 0, 0, 0.20);
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  /* Donate card — accent tints at 8-10% drown on a dark page. Bump them
+     so the warm gradient remains a recognisable "donation block". */
+  .donate-card {
+    background: linear-gradient(135deg, rgba(215, 106, 68, 0.12), rgba(232, 151, 115, 0.16));
+    border-color: rgba(215, 106, 68, 0.32);
+  }
+
+  /* GLightbox description panel — uses --paper which is now near-black;
+     lighten one step so caption text retains contrast on the lightbox. */
+  .glightbox-clean .gslide-description { background: var(--cream-100); }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) { @include dark-overrides; }
+}
+:root[data-theme="dark"] { @include dark-overrides; }
+
+/* ============================================
+   Report layout — opt out of dark mode
+   ============================================
+   The Tripezgo report layouts (.layout-report / .layout-report-shell)
+   are a separate magazine system using `data-accent="ember"` and were
+   intentionally excluded from this dark mode pass. Force the light
+   token set on these layouts regardless of <html data-theme>. Body
+   selector wins over :root[data-theme="dark"] because both have
+   spec (0,1,1) and body declarations come later in the cascade. */
+body.layout-report,
+body.layout-report-shell {
+  --paper:        #fefcf8;
+  --cream-50:     #fbf7f1;
+  --cream-100:    #f6efe4;
+  --cream-200:    #ede2cf;
+  --cream-300:    #ddc9a8;
+  --ink-900:      #1d1813;
+  --ink-700:      #3d342a;
+  --ink-500:      #6b5e51;
+  --ink-400:      #8a7e70;
+  --ink-300:      #b3a999;
+  --rule:         rgba(29, 24, 19, 0.12);
+  --rule-soft:    rgba(29, 24, 19, 0.06);
+  --accent:       #b14e2c;
+  --accent-soft:  #d6885f;
+  --shadow-card:  0 1px 2px rgba(29, 24, 19, .04), 0 8px 24px rgba(29, 24, 19, .06);
+  color-scheme: light;
+}
 
 /* ============================================
    RWD breakpoints
