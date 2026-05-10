@@ -43,6 +43,12 @@ jobs:
         env:
           MEDIUM_HOST: ${{ secrets.MEDIUM_HOST }}
           MEDIUM_HOST_SECRET: ${{ secrets.MEDIUM_HOST_SECRET }}
+          # ZMediumToMarkdown >= 4.0.0 ships a first-run Terms-of-Use gate
+          # that refuses to run on a non-TTY stream unless this env var is
+          # set (or --accept-terms is passed). CI is non-TTY by definition;
+          # without this, exit 2 here would also break the dependent
+          # pages.yml deploy.
+          ZMTM_TOS_ACCEPTED: "1"
         run: |
           if [[ ! -f unlist.txt ]]; then
             echo "❌ unlist.txt not found in repo root"
@@ -65,6 +71,9 @@ jobs:
         env:
           MEDIUM_HOST: ${{ secrets.MEDIUM_HOST }}
           MEDIUM_HOST_SECRET: ${{ secrets.MEDIUM_HOST_SECRET }}
+          # See note on the previous step — ZMediumToMarkdown >= 4.0.0
+          # Terms-of-Use gate escape hatch for non-TTY runners.
+          ZMTM_TOS_ACCEPTED: "1"
         run: |
           ZMediumToMarkdown --jekyll -u zhgchgli \
             --cookie_uid "${{ secrets.MEDIUM_COOKIE_UID }}" \
