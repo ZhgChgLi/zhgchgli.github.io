@@ -157,7 +157,7 @@ jobs:
           git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
 
-      - name: Open issue for typo fixes
+      - name: Open issue for typo / sentence findings
         if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -165,33 +165,36 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -e
-          if [[ ! -f .typo-fixes.json ]]; then
+          if [[ ! -f .typo-report.json ]]; then
             echo "no report file — nothing to do"
             exit 0
           fi
-          fixes_count=$(jq '[.files[].changes | length] | add // 0' .typo-fixes.json)
-          file_count=$(jq '.files | length' .typo-fixes.json)
-          if [[ "$fixes_count" -eq 0 ]]; then
-            echo "no typo fixes this run — skip issue"
+          issue_count=$(jq '[.files[].issues | length] | add // 0' .typo-report.json)
+          file_count=$(jq '.files | length' .typo-report.json)
+          if [[ "$issue_count" -eq 0 ]]; then
+            echo "no issues this run — skip"
             exit 0
           fi
           today=$(date -u +%Y-%m-%d)
-          title="[typo-checker] ${today}: ${file_count} 個檔案 / ${fixes_count} 處自動修正"
+          title="[typo-checker] ${today}: ${file_count} 個檔案 / ${issue_count} 處待 review"
           {
-            echo "本次 ZMediumToMarkdown 排程在 zh-tw 文章中偵測到並 **已自動 commit** 以下錯字／重複字修正，請 review。"
+            echo "本次 ZMediumToMarkdown 排程在 zh-tw 文章中偵測到下列校對問題，**未自動修改原文**，請 review 後手動處理。"
             echo
             jq -r '
               .files[] |
               "## " + .file,
-              (.changes[] | "- `" + .before + "` → `" + .after + "`" + (if (.reason // "") | (. != "" and . != "cached") then " — " + .reason else "" end)),
+              (.issues[] |
+                "- **[" + (.type // "?") + "]** `" + (.quote // "") + "`"
+                + (if (.suggestion // "") != "" then " → `" + .suggestion + "`" else "" end)
+                + (if (.reason // "") != "" then " — " + .reason else "" end)),
               ""
-            ' .typo-fixes.json
+            ' .typo-report.json
             echo
             echo "---"
             echo
-            echo "若有誤判請手動 revert 對應 commit，並在此 issue 留言以便調整 \`tools/translators/typo_checker.py\` prompt。"
+            echo "若有誤判請忽略，並在此 issue 留言以便調整 \`tools/translators/typo_checker.py\` prompt。"
             echo
             echo "🔁 Workflow run: ${RUN_URL}"
-          } > .typo-fixes.body.md
-          gh issue create -R "$REPO" -t "$title" -F .typo-fixes.body.md -l typo-checker || \
-            gh issue create -R "$REPO" -t "$title" -F .typo-fixes.body.md
+          } > .typo-report.body.md
+          gh issue create -R "$REPO" -t "$title" -F .typo-report.body.md -l typo-checker || \
+            gh issue create -R "$REPO" -t "$title" -F .typo-report.body.md

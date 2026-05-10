@@ -1,22 +1,23 @@
 #!/usr/bin/env python3
 """
-Typo & duplicate-character checker for zh-tw posts.
+Typo & sentence-quality reporter for zh-tw posts.
 
-Iterates L10n/posts/zh-tw/{zmediumtomarkdown,ai}/, splits each post into
-Markdown blocks (via mistune), and asks OpenAI to flag only:
+Iterates L10n/posts/zh-tw/{zmediumtomarkdown,ai}/, sends each post's full
+body to OpenAI and asks the model to list:
   1. obvious typos (homophone / shape-similar / dropped chars)
-  2. obvious duplicate characters or phrases (e.g. 「首先先」「的的」)
+  2. obvious duplicate characters or phrases
+  3. serious sentence problems (broken grammar, missing subject/object,
+     contradictory or unintelligible sentences)
 
-The model is instructed to leave tone, style, ordering, intentional
-reduplication (e.g. 一步一步), and ambiguous variants (度過/渡過, 計畫/計劃)
-untouched. Code blocks, frontmatter, URLs, and Markdown structure are
-never modified.
-
-When a fix is applied the file is rewritten in place and the change is
-recorded in `.typo-fixes.json` at repo root for the workflow to consume.
+The script never modifies source files. Findings are written to
+`.typo-report.json` at repo root for the workflow to surface as a GitHub
+issue.
 
 Per-post cache at tools/translators/cache/typo_check/{sub}/{filename}.json:
-    {"source_hash": "...", "blocks": {"<original block>": "<fixed or same>"}}
+    {"source_hash": "..."}
+A matching hash means the article was already reviewed at this version;
+the script skips it without calling OpenAI. Editing the file invalidates
+the cache and triggers a re-check on the next run.
 
 Usage:
     pip install -r tools/translators/requirements.txt
@@ -31,8 +32,6 @@ import sys
 import threading
 
 import frontmatter
-import mistune
-from mistune.renderers.markdown import MarkdownRenderer
 from openai import OpenAI
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -40,37 +39,42 @@ SRC_LANG = "zh-tw"
 SUBDIRS = ["zmediumtomarkdown", "ai"]
 MODEL = "gpt-4.1-mini"
 CACHE_ROOT = os.path.join(ROOT, "tools", "translators", "cache", "typo_check")
-FIXES_REPORT = os.path.join(ROOT, ".typo-fixes.json")
+REPORT_PATH = os.path.join(ROOT, ".typo-report.json")
 
 SYSTEM_PROMPT = (
-    "你是正體中文校稿員，專門抓「明顯的打字錯誤」與「重複字／詞」。"
-    "我會給你一段 Markdown 文字片段。請只在 100% 確定的情況下做出修正。"
+    "你是正體中文校稿員，幫我校對一整篇 Markdown 文章。"
+    "請只回報「100% 確定」是問題的地方，寧可漏報也不要誤報。"
     "\n\n"
-    "可以修正的範圍："
-    "\n1. 重複字／詞：明顯多打了字（例：「首先先」→「首先」、「的的」→「的」、"
-    "「米家米家」→「米家」、「你問我問我他」→「你問我、我問他」、「token 帶入帶入」→「token 帶入」）"
-    "\n2. 同音／形近誤字：明顯打錯字（例：「頗析」→「解析」、「米加」→「米家」、"
-    "「要馬」→「要嘛」（但「要馬上」是合理用法請保留）、「甚是是」→「甚至是」）"
-    "\n3. 漏字：明顯漏掉常用字"
+    "要回報的問題類別："
+    "\n1. typo：明顯的同音／形近誤字、漏字（例：「頗析」應為「解析」、「米加」應為「米家」、"
+    "「甚是是」應為「甚至是」）"
+    "\n2. duplicate：明顯多打的重複字／詞（例：「首先先」、「的的」、「米家米家」、"
+    "「token 帶入帶入」）"
+    "\n3. sentence：嚴重的語句問題——文法明顯錯誤、缺主詞／受詞導致語意不通、自相矛盾、"
+    "或讀起來完全不知所云的句子。**只回報嚴重問題**，不要回報風格、贅字、語氣偏好、"
+    "標點細節或可讀性建議。"
     "\n\n"
-    "嚴格保留、不要動的："
-    "\n- 強調用疊字：「一步一步」「一個一個」「一層一層」「很多很多」「很少很少」「好多好多」「好長好長」"
-    "「考驗考驗」「研究研究」「嘗試嘗試」「意思意思」「活動活動」「熊本熊本尊」「還有還有」「啊啊啊啊」"
-    "「又又又」「滾滾滾」「走著走著」"
-    "\n- 作者語氣詞：「其實」「基本上」「事實上」「個人覺得」「我個人」「個人認為」「可以說是」"
-    "「為了要」「然後再」「簡單來說」"
+    "嚴格保留、不要回報的："
+    "\n- 強調用疊字：「一步一步」「一個一個」「很多很多」「考驗考驗」「研究研究」「啊啊啊啊」等"
+    "\n- 作者語氣詞：「其實」「基本上」「事實上」「個人覺得」「可以說是」「為了要」「然後再」"
+    "「簡單來說」"
     "\n- 兩寫皆通的字：度過／渡過、計畫／計劃、啟用／啓用、做為／作為、藉由／籍由"
     "\n- Markdown 格式、URL、連結文字、檔案路徑、code block、HTML 標籤、`{:target=...}`"
-    "\n- 任何不 100% 確定的情況一律保留"
+    "\n- 任何文體／風格／節奏／可讀性層面的「建議」"
+    "\n- 任何不 100% 確定的情況"
     "\n\n"
-    "請以 JSON 格式回應（不要加 codeblock）："
-    '\n{"fixed": "<修正後的整段內容，若無修改就回傳原文>", '
-    '"changes": [{"before": "<原文片段>", "after": "<修正後>", "reason": "<簡短說明>"}]}'
-    "\n\n沒有任何問題時請回應 {\"fixed\": \"<原文>\", \"changes\": []}。"
+    "請以 JSON 格式回應（不要包 codeblock）："
+    '\n{"issues": ['
+    '{"type": "typo|duplicate|sentence", '
+    '"quote": "<原文中出現問題的片段，請逐字節錄、不要改寫>", '
+    '"suggestion": "<建議改成什麼，sentence 類可給簡述>", '
+    '"reason": "<10～30 字說明為何是問題>"}'
+    "]}"
+    "\n沒有任何問題時請回應 {\"issues\": []}。"
 )
 
-_fixes_lock = threading.Lock()
-_fixes_report = []
+_report_lock = threading.Lock()
+_report = []
 
 
 def compute_hash(text):
@@ -97,81 +101,7 @@ def save_cache(path, data):
         json.dump(data, f, ensure_ascii=False, indent=2, sort_keys=True)
 
 
-class TypoCheckRenderer(MarkdownRenderer):
-    """Walks Markdown blocks; checks each via OpenAI unless cached."""
-
-    def __init__(self, client, blocks_cache, file_changes, *a, **kw):
-        super().__init__(*a, **kw)
-        self.client = client
-        self.blocks_cache = blocks_cache  # original -> fixed (may be unchanged)
-        self.file_changes = file_changes  # list of {"before","after","reason"}
-
-    def _check(self, text):
-        if not text or not text.strip():
-            return text
-        # Cache hit: reuse prior verdict
-        if text in self.blocks_cache:
-            cached = self.blocks_cache[text]
-            if cached != text:
-                # already-known fix - record so the issue captures it on first
-                # surfacing of the file on this run too
-                self.file_changes.append({
-                    "before": text,
-                    "after": cached,
-                    "reason": "cached",
-                })
-            return cached
-        # Call OpenAI
-        try:
-            resp = self.client.chat.completions.create(
-                model=MODEL,
-                messages=[
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": text},
-                ],
-                temperature=0,
-            )
-            raw = resp.choices[0].message.content.strip()
-            parsed = json.loads(raw)
-        except Exception as e:
-            print(f"  ! check failed for block ({len(text)} chars): {e}")
-            self.blocks_cache[text] = text
-            return text
-
-        fixed = parsed.get("fixed", text) or text
-        changes = parsed.get("changes") or []
-        if changes and fixed != text:
-            for c in changes:
-                self.file_changes.append({
-                    "before": str(c.get("before", "")),
-                    "after": str(c.get("after", "")),
-                    "reason": str(c.get("reason", "")),
-                })
-            print(f"  ✎ fixed block: {len(changes)} change(s)")
-            self.blocks_cache[text] = fixed
-            return fixed
-        # No change → cache as clean
-        self.blocks_cache[text] = text
-        return text
-
-    def block_quote(self, token, state):
-        return self._check(super().block_quote(token, state)) + "\n\n"
-
-    def list(self, token, state):
-        return self._check(super().list(token, state)) + "\n\n"
-
-    def block_code(self, token, state):
-        # Never check or modify code blocks
-        return super().block_code(token, state) + "\n\n"
-
-    def paragraph(self, token, state):
-        return self._check(super().paragraph(token, state)) + "\n\n"
-
-    def heading(self, token, state):
-        return self._check(super().heading(token, state)) + "\n\n"
-
-
-def process_file(filename, src_dir, sub, api_key):
+def review_post(filename, src_dir, sub, api_key):
     src_path = os.path.join(src_dir, filename)
     cache_p = cache_path(sub, filename)
 
@@ -184,54 +114,58 @@ def process_file(filename, src_dir, sub, api_key):
 
     src_hash = compute_hash(post.content)
     cache = load_cache(cache_p)
-
-    # Skip if file content hash matches cache and no fixes were stashed.
     if cache.get("source_hash") == src_hash:
-        # Already checked this exact content. Nothing to do.
+        return  # already reviewed at this exact content
+
+    print(f"… reviewing: {sub}/{filename}")
+    client = OpenAI(api_key=api_key)
+    try:
+        resp = client.chat.completions.create(
+            model=MODEL,
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": post.content},
+            ],
+            temperature=0,
+            response_format={"type": "json_object"},
+        )
+        parsed = json.loads(resp.choices[0].message.content)
+    except Exception as e:
+        # Don't update cache on failure — retry next run.
+        print(f"  ! review failed for {filename}: {e}", file=sys.stderr)
         return
 
-    print(f"… checking: {sub}/{filename}")
-    client = OpenAI(api_key=api_key)
-    blocks_cache = dict(cache.get("blocks") or {})
-    file_changes = []
+    issues = parsed.get("issues") or []
+    cleaned = []
+    for it in issues:
+        if not isinstance(it, dict):
+            continue
+        cleaned.append({
+            "type": str(it.get("type", "")),
+            "quote": str(it.get("quote", "")),
+            "suggestion": str(it.get("suggestion", "")),
+            "reason": str(it.get("reason", "")),
+        })
 
-    md = mistune.create_markdown(
-        renderer=TypoCheckRenderer(
-            client=client,
-            blocks_cache=blocks_cache,
-            file_changes=file_changes,
-        )
-    )
-    new_content = md(post.content).replace("|", r"\\|")
-
-    if file_changes and new_content != post.content:
-        post.content = new_content
-        with open(src_path, "w", encoding="utf-8") as f:
-            f.write(frontmatter.dumps(post))
-        new_hash = compute_hash(new_content)
-        with _fixes_lock:
-            _fixes_report.append({
+    if cleaned:
+        with _report_lock:
+            _report.append({
                 "file": os.path.relpath(src_path, ROOT),
-                "changes": file_changes,
+                "issues": cleaned,
             })
-        print(f"✓ wrote fixes: {filename} ({len(file_changes)} change(s))")
+        print(f"⚠ {filename}: {len(cleaned)} issue(s)")
     else:
-        new_hash = src_hash
+        print(f"✓ {filename}: clean")
 
-    save_cache(cache_p, {"source_hash": new_hash, "blocks": blocks_cache})
+    save_cache(cache_p, {"source_hash": src_hash})
 
 
 def seed_file(filename, src_dir, sub):
-    """Pre-populate cache so old files are treated as already-checked.
-
-    Writes the current source_hash with an empty blocks map. Future runs will
-    short-circuit on the source_hash match (zero API). If the file is later
-    updated, source_hash mismatches and the normal check path runs.
-    """
+    """Pre-populate cache so old files are treated as already-reviewed."""
     src_path = os.path.join(src_dir, filename)
     cache_p = cache_path(sub, filename)
     if os.path.exists(cache_p):
-        return False  # don't overwrite existing cache
+        return False
     try:
         with open(src_path, "r", encoding="utf-8") as f:
             post = frontmatter.load(f)
@@ -240,14 +174,15 @@ def seed_file(filename, src_dir, sub):
         return False
     save_cache(cache_p, {
         "source_hash": compute_hash(post.content),
-        "blocks": {},
         "seeded": True,
     })
     return True
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Check typos in zh-tw posts via OpenAI.")
+    parser = argparse.ArgumentParser(
+        description="Review zh-tw posts for typos and serious sentence issues via OpenAI."
+    )
     parser.add_argument("--api-key", help="OpenAI API key (or env OPENAI_API_KEY)")
     parser.add_argument("--max-workers", type=int, default=5)
     parser.add_argument(
@@ -256,7 +191,7 @@ def main():
         help=(
             "Seed cache for all current files without calling OpenAI. Use this "
             "once when introducing the checker so existing articles are treated "
-            "as already-clean; only future fetches/updates trigger checks."
+            "as already-reviewed; only future fetches/updates trigger checks."
         ),
     )
     parser.add_argument(
@@ -264,17 +199,19 @@ def main():
         nargs="+",
         metavar="PATH",
         help=(
-            "Only process the given post paths (relative to repo root or absolute). "
+            "Only review the given post paths (relative to repo root or absolute). "
             "Paths must live under L10n/posts/zh-tw/{zmediumtomarkdown,ai}/. "
             "Used by CI to limit checking to files that actually changed."
         ),
     )
     args = parser.parse_args()
 
+    base = os.path.join(ROOT, "L10n", "posts", SRC_LANG)
+
     if args.seed:
         seeded = 0
         for sub in SUBDIRS:
-            src_dir = os.path.join(ROOT, "L10n", "posts", SRC_LANG, sub)
+            src_dir = os.path.join(base, sub)
             if not os.path.isdir(src_dir):
                 continue
             for f in sorted(os.listdir(src_dir)):
@@ -290,8 +227,6 @@ def main():
         print("✗ Missing OpenAI key. Pass --api-key or set OPENAI_API_KEY.", file=sys.stderr)
         sys.exit(1)
 
-    # Build (sub, filename, src_dir) targets — either from --files or by walking SUBDIRS.
-    base = os.path.join(ROOT, "L10n", "posts", SRC_LANG)
     targets = []
     if args.files:
         for raw in args.files:
@@ -315,19 +250,18 @@ def main():
                         targets.append((sub, f, src_dir))
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.max_workers) as ex:
-        futures = [ex.submit(process_file, fn, sd, sub, api_key) for sub, fn, sd in targets]
+        futures = [ex.submit(review_post, fn, sd, sub, api_key) for sub, fn, sd in targets]
         for fut in concurrent.futures.as_completed(futures):
             try:
                 fut.result()
             except Exception as e:
                 print(f"✗ task error: {e}", file=sys.stderr)
 
-    # Always write the report (even if empty) so the workflow has a stable
-    # file to read.
-    with open(FIXES_REPORT, "w", encoding="utf-8") as f:
-        json.dump({"files": _fixes_report}, f, ensure_ascii=False, indent=2)
-    total_changes = sum(len(item["changes"]) for item in _fixes_report)
-    print(f"📝 report: {len(_fixes_report)} file(s), {total_changes} change(s) → {FIXES_REPORT}")
+    # Always write the report (even if empty) so the workflow has a stable file to read.
+    with open(REPORT_PATH, "w", encoding="utf-8") as f:
+        json.dump({"files": _report}, f, ensure_ascii=False, indent=2)
+    total_issues = sum(len(item["issues"]) for item in _report)
+    print(f"📝 report: {len(_report)} file(s), {total_issues} issue(s) → {REPORT_PATH}")
 
 
 if __name__ == "__main__":

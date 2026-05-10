@@ -21,19 +21,22 @@ The cache is committed to git so re-runs across machines reuse translations.
 | `translator.py jp` | `L10n/posts/jp/` | OpenAI GPT-4.1-mini | API tokens |
 | `translator_jp.py` | (alias) | Calls `translator.py jp` | — |
 | `translator_cn.py` | `L10n/posts/zh-cn/` | OpenCC (Traditional → Simplified) | Free, deterministic |
-| `typo_checker.py` | `L10n/posts/zh-tw/` (in-place) | OpenAI GPT-4.1-mini | API tokens |
+| `typo_checker.py` | `L10n/posts/zh-tw/` (read-only) | OpenAI GPT-4.1-mini | API tokens |
 
 `typo_checker.py` runs **after fetch, before translation** in
-`.github/workflows/ZMediumToMarkdown.yml`. It walks each Markdown block via
-mistune, asks the model to flag only obvious typos and duplicate
-characters / phrases (intentional reduplication and ambiguous variants are
-skipped by the prompt), rewrites the file in place when fixes apply, and
-emits `.typo-fixes.json` at repo root. The workflow's final step opens a
-GitHub issue listing every change so changes can be reviewed.
+`.github/workflows/ZMediumToMarkdown.yml`. It sends each post's full body
+to the model and asks it to flag obvious typos, duplicate characters /
+phrases, and serious sentence problems (broken grammar, missing
+subject/object, unintelligible sentences). The script **never modifies the
+source files** — it emits `.typo-report.json` at repo root and the
+workflow's final step opens a GitHub issue listing every finding for
+manual review. The CI step also restricts itself to posts with a working-tree
+diff via `--files`, so unchanged articles aren't re-reviewed.
 
 Per-post cache lives at `tools/translators/cache/typo_check/{sub}/{filename}.json`
-with shape `{"source_hash": "...", "blocks": {<original block>: <fixed or same>}}`.
-A matching `source_hash` skips the file entirely (zero API calls).
+with shape `{"source_hash": "..."}`. A matching `source_hash` skips the
+file entirely (zero API calls); editing the file invalidates the cache and
+triggers a fresh review on the next run.
 
 The repo ships with the cache **pre-seeded** for every existing zh-tw post
 (via `python typo_checker.py --seed`), so on the first workflow run all
