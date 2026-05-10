@@ -95,7 +95,20 @@ jobs:
       - name: Typo & duplicate-character check (zh-tw)
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: python tools/translators/typo_checker.py
+        run: |
+          # `-m` modified tracked files, `-o --exclude-standard` new untracked
+          # files — together this is "what differs from HEAD in the worktree".
+          mapfile -t changed < <(
+            git ls-files -mo --exclude-standard -- \
+              'L10n/posts/zh-tw/*.md' 'L10n/posts/zh-tw/*.markdown'
+          )
+          if (( ${#changed[@]} == 0 )); then
+            echo "▶ no zh-tw post changes — skip typo checker"
+            exit 0
+          fi
+          printf '▶ checking %d changed zh-tw post(s):\n' "${#changed[@]}"
+          printf '  - %s\n' "${changed[@]}"
+          python tools/translators/typo_checker.py --files "${changed[@]}"
 
       - name: Generate SEO metadata
         env:

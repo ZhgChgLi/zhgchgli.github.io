@@ -259,6 +259,16 @@ def main():
             "as already-clean; only future fetches/updates trigger checks."
         ),
     )
+    parser.add_argument(
+        "--files",
+        nargs="+",
+        metavar="PATH",
+        help=(
+            "Only process the given post paths (relative to repo root or absolute). "
+            "Paths must live under L10n/posts/zh-tw/{zmediumtomarkdown,ai}/. "
+            "Used by CI to limit checking to files that actually changed."
+        ),
+    )
     args = parser.parse_args()
 
     if args.seed:
@@ -280,18 +290,37 @@ def main():
         print("✗ Missing OpenAI key. Pass --api-key or set OPENAI_API_KEY.", file=sys.stderr)
         sys.exit(1)
 
-    for sub in SUBDIRS:
-        src_dir = os.path.join(ROOT, "L10n", "posts", SRC_LANG, sub)
-        if not os.path.isdir(src_dir):
-            continue
-        files = sorted(f for f in os.listdir(src_dir) if f.endswith((".md", ".markdown")))
-        with concurrent.futures.ThreadPoolExecutor(max_workers=args.max_workers) as ex:
-            futures = [ex.submit(process_file, f, src_dir, sub, api_key) for f in files]
-            for fut in concurrent.futures.as_completed(futures):
-                try:
-                    fut.result()
-                except Exception as e:
-                    print(f"✗ task error: {e}", file=sys.stderr)
+    # Build (sub, filename, src_dir) targets — either from --files or by walking SUBDIRS.
+    base = os.path.join(ROOT, "L10n", "posts", SRC_LANG)
+    targets = []
+    if args.files:
+        for raw in args.files:
+            p = os.path.normpath(raw if os.path.isabs(raw) else os.path.join(ROOT, raw))
+            parts = os.path.relpath(p, base).split(os.sep)
+            if (
+                p.endswith((".md", ".markdown"))
+                and os.path.isfile(p)
+                and len(parts) == 2
+                and parts[0] in SUBDIRS
+            ):
+                targets.append((parts[0], parts[1], os.path.join(base, parts[0])))
+            else:
+                print(f"… skip: {raw}", file=sys.stderr)
+    else:
+        for sub in SUBDIRS:
+            src_dir = os.path.join(base, sub)
+            if os.path.isdir(src_dir):
+                for f in sorted(os.listdir(src_dir)):
+                    if f.endswith((".md", ".markdown")):
+                        targets.append((sub, f, src_dir))
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=args.max_workers) as ex:
+        futures = [ex.submit(process_file, fn, sd, sub, api_key) for sub, fn, sd in targets]
+        for fut in concurrent.futures.as_completed(futures):
+            try:
+                fut.result()
+            except Exception as e:
+                print(f"✗ task error: {e}", file=sys.stderr)
 
     # Always write the report (even if empty) so the workflow has a stable
     # file to read.
