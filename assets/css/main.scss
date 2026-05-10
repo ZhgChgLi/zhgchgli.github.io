@@ -1037,9 +1037,11 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   font-family: var(--font-en); font-weight: 400; font-size: 16px;
   color: var(--ink-300); padding-right: 8px; user-select: none; border: none;
 }
-.post-body h2:hover .heading-anchor,
-.post-body h3:hover .heading-anchor,
-.post-body h4:hover .heading-anchor { opacity: 1; }
+@media (hover: hover) {
+  .post-body h2:hover .heading-anchor,
+  .post-body h3:hover .heading-anchor,
+  .post-body h4:hover .heading-anchor { opacity: 1; }
+}
 
 /* Tags row + share + author */
 .post-tail { max-width: 920px; margin: 0 auto; padding: 0 var(--pad-x); }
