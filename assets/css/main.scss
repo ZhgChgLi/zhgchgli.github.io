@@ -970,23 +970,23 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .post-body a:not(.glightbox):has(> img)::after {
   content: "";
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 32px;
-  height: 32px;
+  top: -8px;
+  right: -8px;
+  width: 16px;
+  height: 16px;
   pointer-events: none;
   transition: transform .18s ease, background-color .18s ease;
 }
 .post-body a:not(.glightbox):has(> img)::before {
   background: var(--accent);
-  border: 2px solid #fff;
+  border: 1px solid #fff;
   border-radius: 999px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
 }
 .post-body a:not(.glightbox):has(> img)::after {
   background: #fff;
-  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M15 3h6v6'/><path d='M10 14 21 3'/><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/></svg>") no-repeat center / 16px 16px;
-          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M15 3h6v6'/><path d='M10 14 21 3'/><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/></svg>") no-repeat center / 16px 16px;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M15 3h6v6'/><path d='M10 14 21 3'/><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/></svg>") no-repeat center / 10px 10px;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M15 3h6v6'/><path d='M10 14 21 3'/><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/></svg>") no-repeat center / 10px 10px;
 }
 .post-body a:not(.glightbox):has(> img):hover {
   outline-color: var(--accent);
