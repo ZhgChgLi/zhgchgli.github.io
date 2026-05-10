@@ -943,6 +943,64 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 .layout-post .post-body a[href*="kkday.com"]:hover::after { color: var(--kkday); }
 .post-body img { margin: 32px auto; cursor: zoom-in; border-radius: 2px; }
+
+/* Images that wrap a real navigational link (NOT the auto-injected GLightbox
+   zoom anchor) — give a clear "click to open" affordance: pointer cursor,
+   accent-tinted ring, and a corner badge with an "open in new" icon.
+   ::before = filled accent disc, ::after = white arrow glyph on top. */
+.post-body a:not(.glightbox):has(> img) {
+  display: block;
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin: 32px auto;
+  border-bottom: 0;
+  border-radius: 4px;
+  outline: 2px solid rgba(177, 78, 44, 0.28);
+  outline-offset: 3px;
+  transition: outline-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.post-body a:not(.glightbox):has(> img) > img {
+  display: block;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.post-body a:not(.glightbox):has(> img)::before,
+.post-body a:not(.glightbox):has(> img)::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  transition: transform .18s ease, background-color .18s ease;
+}
+.post-body a:not(.glightbox):has(> img)::before {
+  background: var(--accent);
+  border: 2px solid #fff;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+}
+.post-body a:not(.glightbox):has(> img)::after {
+  background: #fff;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M15 3h6v6'/><path d='M10 14 21 3'/><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/></svg>") no-repeat center / 16px 16px;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M15 3h6v6'/><path d='M10 14 21 3'/><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/></svg>") no-repeat center / 16px 16px;
+}
+.post-body a:not(.glightbox):has(> img):hover {
+  outline-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.10);
+}
+.post-body a:not(.glightbox):has(> img):hover::before,
+.post-body a:not(.glightbox):has(> img):hover::after {
+  transform: scale(1.08);
+}
+.post-body a:not(.glightbox):has(> img):focus-visible {
+  outline-color: var(--accent);
+  outline-width: 3px;
+}
 .post-body iframe,
 .post-body .embed-video {
   display: block;
