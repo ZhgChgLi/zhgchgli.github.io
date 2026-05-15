@@ -113,17 +113,42 @@ layout: default
   </div>
 
   {% comment %} In-body sponsored slot. Rendered hidden here;
-     _plugins/post_middle_ad.rb clones it to the right anchors inside
-     #post-body at build time (after section 1, every 3 sections after
-     that, plus after the last section — deduped). `hidden` is the
-     safety net if the plugin is disabled. {% endcomment %}
+     _plugins/post_middle_ad.rb clones it to up to 6 positions inside
+     #post-body at build time. `hidden` is the safety net if the
+     plugin is disabled.
+
+     Selection: scan _data/active_ad.yml for entries whose start..end
+     range covers today; if any match, pick one at random and use it
+     to replace BOTH primary and fallback site-wide. Otherwise render
+     AdSense + house fallback. {% endcomment %}
+  {%- assign _ad_today = "now" | date: "%Y-%m-%d" -%}
+  {%- assign _ad_matches = "" | split: "" -%}
+  {%- if site.data.active_ad and site.data.active_ad.ads -%}
+    {%- for _ad in site.data.active_ad.ads -%}
+      {%- assign _s = _ad.start | date: "%Y-%m-%d" -%}
+      {%- assign _e = _ad.end   | date: "%Y-%m-%d" -%}
+      {%- if _s and _e and _s <= _ad_today and _ad_today <= _e -%}
+        {%- assign _ad_matches = _ad_matches | push: _ad -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- assign active_ad = _ad_matches | sample -%}
   <div class="post-promo post-promo-middle" hidden>
-    <div class="post-promo-primary">
-      {% include ad-sponsored-card-middle.html %}
-    </div>
-    <div class="post-promo-fallback" hidden>
-      {% include ad-fallback-card.html %}
-    </div>
+    {% if active_ad %}
+      <div class="post-promo-primary">
+        {% include ad-active-card.html %}
+      </div>
+      <div class="post-promo-fallback" hidden>
+        {% include ad-active-card.html %}
+      </div>
+    {% else %}
+      <div class="post-promo-primary">
+        {% include ad-sponsored-card-middle.html %}
+      </div>
+      <div class="post-promo-fallback" hidden>
+        {% include ad-fallback-card.html %}
+      </div>
+    {% endif %}
   </div>
 
   <div id="post-bottom" style="height: 64px"></div>

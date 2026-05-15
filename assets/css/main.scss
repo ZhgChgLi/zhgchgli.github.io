@@ -1174,67 +1174,199 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .post-promo-card ins.adsbygoogle,
 .post-promo-card iframe { max-width: 100% !important; }
 
-/* House-promo fallback — assets/js/promo-fallback.js swaps to this when AdSense
-   is blocked or returns unfilled. Same paper sub-card pattern as
-   .post-promo-card so it visually slots into the same outer cream frame. */
+/* House-promo fallback — assets/js/promo-fallback.js swaps to this when
+   AdSense is blocked or returns unfilled. The .house-promo-card wrapper
+   keeps the same top + bottom eyebrow chrome as the AdSense slot; the
+   middle is an editorial hero card so it reads as intentional content
+   rather than a missing ad. */
 .house-promo-card {
   display: block;
-  padding: 32px 28px;
-  background: var(--paper);
+  font-family: var(--font-zh);
+}
+.house-promo-card .post-promo-eyebrow { text-align: left; }
+
+.house-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;            /* horizontally centers every child block */
+  margin: 18px 0 26px;
+  padding: 56px 32px 48px;
+  background: linear-gradient(160deg, var(--cream-50) 0%, var(--cream-100) 100%);
   border: 1px solid var(--rule);
   border-radius: 4px;
   text-align: center;
-  font-family: var(--font-zh);
+  overflow: hidden;
 }
-.house-promo-card .post-promo-eyebrow { margin-bottom: 24px; text-align: left; }
-.house-promo-card h4 {
-  font-family: var(--font-display); font-size: 22px; font-weight: 500;
-  line-height: 1.3; letter-spacing: -0.01em;
-  margin: 0 0 10px; color: var(--ink-900);
+/* Top accent bar — small editorial detail to anchor the eye. */
+.house-hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%;
+  width: 64px; height: 3px;
+  background: var(--accent);
+  transform: translateX(-50%);
 }
-.house-promo-card p {
-  font-size: 14px; line-height: 1.65; color: var(--ink-500);
-  margin: 0 auto 22px; max-width: 460px;
+/* Soft warm glow off the top-right corner so the card feels alive. */
+.house-hero::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 85% 0%, rgba(177, 78, 44, 0.10), transparent 55%);
+  pointer-events: none;
 }
-.house-promo-cta {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 20px;
+.house-hero > * { position: relative; z-index: 1; }
+
+.house-hero-tag {
+  display: inline-block;
+  font-family: var(--font-en); font-weight: 600;
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.house-hero-title {
+  font-family: var(--font-display);
+  font-size: 30px; font-weight: 500;
+  line-height: 1.2; letter-spacing: -0.015em;
+  margin: 0 0 14px; color: var(--ink-900);
+}
+.house-hero-desc {
+  font-family: var(--font-display);
+  font-size: 16px; line-height: 1.7; color: var(--ink-500);
+  margin: 0 0 28px;
+  max-width: 380px;
+  text-align: center;
+}
+.house-hero-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 13px 30px;
   background: var(--accent); color: var(--paper);
   border: 1px solid var(--accent);
   font-family: var(--font-zh); font-size: 14px; font-weight: 500;
+  letter-spacing: 0.04em;
   text-decoration: none; border-radius: 999px;
-  transition: background .15s, border-color .15s;
+  transition: background .15s, border-color .15s, transform .15s;
 }
-.house-promo-cta:hover { background: var(--accent-soft); border-color: var(--accent-soft); }
-.house-promo-cta svg { width: 13px; height: 13px; }
+.house-hero-cta:hover {
+  background: var(--accent-soft); border-color: var(--accent-soft);
+  transform: translateY(-1px);
+}
+.house-hero-cta svg { width: 13px; height: 13px; }
 
-/* Beat .post-body a defaults so the pill button doesn't get an underline
-   or accent text colour from the article anchor styling. */
-.post-body .house-promo-cta,
-.post-body .house-promo-cta:hover {
+/* Beat .post-body a defaults so the pill CTA keeps its filled-button
+   look when the card sits inside #post-body. */
+.post-body .house-hero-cta,
+.post-body .house-hero-cta:hover {
   color: var(--paper); background: var(--accent);
   border: 1px solid var(--accent);
 }
-.post-body .house-promo-cta:hover {
+.post-body .house-hero-cta:hover {
   background: var(--accent-soft); border-color: var(--accent-soft);
 }
 
 @media (max-width: 540px) {
-  .post-promo-card,
-  .house-promo-card { padding: 24px 18px; }
-  .house-promo-card h4 { font-size: 19px; }
-  .house-promo-card p { font-size: 13px; margin-bottom: 18px; }
+  .house-hero { padding: 44px 22px 36px; margin: 14px 0 22px; }
+  .house-hero-title { font-size: 24px; }
+  .house-hero-desc { font-size: 14px; margin-bottom: 22px; }
+  .house-hero-cta { padding: 12px 24px; font-size: 13px; }
+}
+
+/* Active sponsor card — the whole hero is one clickable link to the
+   sponsor's URL. Editorial tile look (image on top, body below) so it
+   reads as content, not a banner. Driven by _data/active_ad.yml. */
+.active-promo-card {
+  display: block;
+  font-family: var(--font-zh);
+}
+.active-promo-card .post-promo-eyebrow { text-align: left; }
+
+.active-hero {
+  display: block;
+  position: relative;
+  margin: 18px 0 26px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+.active-hero:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(177, 78, 44, 0.12);
+}
+.active-hero-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  overflow: hidden;
+  background: var(--cream-100);
+}
+.active-hero-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.active-hero-body {
+  display: block;
+  padding: 24px 28px 26px;
+}
+.active-hero-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 500;
+  line-height: 1.3; letter-spacing: -0.01em;
+  color: var(--ink-900);
+  margin-bottom: 8px;
+}
+.active-hero-desc {
+  display: block;
+  font-size: 14px; line-height: 1.65; color: var(--ink-500);
+  margin-bottom: 16px;
+}
+.active-hero-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-en); font-weight: 600;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent);
+}
+.active-hero-cta svg { width: 12px; height: 12px; }
+
+/* Beat .post-body a defaults so the wrapping link doesn't pick up
+   underline / accent text colour from the article anchor styling.
+   Restore the card's own 1px border-bottom (the .post-body a rule
+   would otherwise tint it accent-pink). */
+.post-body .active-hero,
+.post-body .active-hero:hover {
+  color: inherit;
+  border-bottom: 1px solid var(--rule);
+}
+.post-body .active-hero:hover { border-color: var(--accent); }
+.post-body .active-hero .active-hero-title { color: var(--ink-900); }
+.post-body .active-hero .active-hero-desc  { color: var(--ink-500); }
+.post-body .active-hero .active-hero-cta   { color: var(--accent); }
+
+/* Defeat .post-body img defaults (margin/cursor for inline article
+   images) — the hero image fills its frame, no margins, no zoom. */
+.post-body .active-hero-image img {
+  margin: 0;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+@media (max-width: 540px) {
+  .active-hero-image { aspect-ratio: 16 / 9; }
+  .active-hero-body  { padding: 20px 22px 22px; }
+  .active-hero-title { font-size: 19px; }
+  .active-hero-desc  { font-size: 13px; margin-bottom: 14px; }
 }
 
 .post-promo-card {
   display: block;
   position: relative;
-  padding: 32px 28px;
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
   font-family: var(--font-zh);
-  overflow: hidden;          /* keep AdSense iframes from overflowing the card */
+  overflow: hidden;          /* keep AdSense iframes from overflowing the column */
 }
 .post-promo-eyebrow {
   display: flex; align-items: center; gap: 12px;

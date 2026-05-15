@@ -1,0 +1,39 @@
+{%- comment -%}
+  Active sponsor card — replaces both AdSense (.post-promo-primary) and
+  the house fallback (.post-promo-fallback) for the whole site whenever
+  the layout has selected one ad whose start..end range covers today.
+
+  Caller MUST set `active_ad` (one item from site.data.active_ad.ads)
+  before including. Resolved in _layouts/post.html. Same eyebrow-top +
+  bottom layout as the other in-article slots so every cloned position
+  lines up visually.
+{%- endcomment -%}
+{%- assign ad = active_ad -%}
+
+<aside class="active-promo-card">
+  <div class="post-promo-eyebrow">
+    <span>{{ t.post.ad_label }}</span>
+    <span class="rule" aria-hidden="true"></span>
+  </div>
+
+  <a class="active-hero" href="{{ ad.cta_url }}" target="_blank" rel="sponsored noopener">
+    {%- if ad.image and ad.image != '' -%}
+    <div class="active-hero-image">
+      <img src="{{ ad.image | relative_url }}" alt="{{ ad.title }}" decoding="async">
+    </div>
+    {%- endif -%}
+    <div class="active-hero-body">
+      <div class="active-hero-title">{{ ad.title }}</div>
+      {% if ad.desc and ad.desc != '' %}<div class="active-hero-desc">{{ ad.desc }}</div>{% endif %}
+      <span class="active-hero-cta">
+        <span>{{ ad.cta_text | default: t.post.house_ad_cta_primary }}</span>
+        {% include icon.html name="arrow-right" %}
+      </span>
+    </div>
+  </a>
+
+  <div class="post-promo-eyebrow">
+    <span class="rule" aria-hidden="true"></span>
+    <a class="post-promo-eyebrow-cta" href="{{ '/ads/' | relative_url }}" target="_blank">{{ t.post.ads_inquire }} →</a>
+  </div>
+</aside>

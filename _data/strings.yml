@@ -164,7 +164,7 @@ zh-tw:
     q_ctr: CTR
     q_position: 平均排名
     pricing_h: 刊登方案
-    placement_desc: "版位：文章內容區塊。第一章節後顯示 1 次，爾後每 3 個章節顯示 1 次，最後一個章節後再顯示 1 次（重複位置會自動去重；最少 1 次）。"
+    placement_desc: "版位：文章內容區塊。每篇文章顯示 1–6 次。"
     pricing_terms_h: 共通條款
     pricing_t1: 全部已發佈與未來新文皆刊出
     pricing_t2: 全語系刊登（zh-tw / en / zh-cn / jp 同步）
@@ -408,7 +408,7 @@ en:
     q_ctr: CTR
     q_position: Avg. position
     pricing_h: Pricing
-    placement_desc: "Placement: in-article slot. Renders after section 1, then every 3 sections after that, plus after the last section (deduped — minimum once)."
+    placement_desc: "Placement: in-article slot. Shown 1–6 times per post."
     pricing_terms_h: Common terms
     pricing_t1: Runs across all published and future articles
     pricing_t2: All language editions — zh-tw / en / zh-cn / jp
@@ -653,7 +653,7 @@ zh-cn:
     q_ctr: CTR
     q_position: 平均排名
     pricing_h: 刊登方案
-    placement_desc: "版位：文章内容区块。第一章节后显示 1 次，尔后每 3 个章节显示 1 次，最后一个章节后再显示 1 次（重复位置会自动去重；最少 1 次）。"
+    placement_desc: "版位：文章内容区块。每篇文章显示 1–6 次。"
     pricing_terms_h: 共通条款
     pricing_t1: 全部已发布与未来新文皆刊出
     pricing_t2: 全语系刊登（zh-tw / en / zh-cn / jp 同步）
@@ -897,7 +897,7 @@ jp:
     q_ctr: CTR
     q_position: 平均掲載順位
     pricing_h: プラン
-    placement_desc: "掲載位置：記事内コンテンツ枠。第 1 章直後、以降は 3 章ごと、および最終章直後に表示（重複位置は自動で重複排除、最少 1 回）。"
+    placement_desc: "掲載位置：記事内コンテンツ枠。1 記事につき 1〜6 回表示。"
     pricing_terms_h: 共通条件
     pricing_t1: 公開済みおよび将来公開する全記事に掲載
     pricing_t2: 全言語版に掲載（zh-tw / en / zh-cn / jp）

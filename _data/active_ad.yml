@@ -1,0 +1,20 @@
+# Active sponsor ads. Each entry is one running campaign.
+# When at least one entry's date range covers today (start <= today <= end),
+# it replaces BOTH the AdSense slot and the house fallback in every post,
+# at the same per-post placement count as AdSense (1–6 slots, see
+# _plugins/post_middle_ad.rb).
+# If multiple entries match, one is picked at random per build.
+# When no entry matches, posts revert to AdSense + house fallback.
+#
+# Date format: ISO "YYYY-MM-DD" (Asia/Taipei). Inclusive on both ends.
+# To disable everything: empty `ads:` list, or set every entry's `end`
+# to a past date.
+
+ads:
+  # - start: "2026-05-01"
+  #   end:   "2026-06-30"
+  #   title: "範例：某品牌贊助訊息"
+  #   desc:  "一段描述贊助商產品或服務的副文案。"
+  #   cta_text: "了解更多"
+  #   cta_url:  "https://zhgchg.li"
+  #   image:    "/assets/images/zhgchgli_og.jpg"

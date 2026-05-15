@@ -1,18 +1,27 @@
 {%- comment -%}
   House ad — shown by assets/js/promo-fallback.js when AdSense is blocked
   by an ad blocker, returns "unfilled", or its script never loads.
-  Edit freely; only requirement is the outer `.house-promo-card` class.
+  Same eyebrow-top / CTA-bottom layout as ad-sponsored-card-middle.html.
 {%- endcomment -%}
 
 <aside class="house-promo-card">
   <div class="post-promo-eyebrow">
     <span>{{ t.post.ad_label }}</span>
     <span class="rule" aria-hidden="true"></span>
+  </div>
+
+  <div class="house-hero">
+    <span class="house-hero-tag">{{ t.post.house_ad_eyebrow }}</span>
+    <h4 class="house-hero-title">{{ t.post.house_ad_title }}</h4>
+    <p class="house-hero-desc">{{ t.post.house_ad_desc }}</p>
+    <a class="house-hero-cta" href="{{ '/ads/' | relative_url }}" target="_blank">
+      <span>{{ t.post.house_ad_cta_primary }}</span>
+      {% include icon.html name="arrow-right" %}
+    </a>
+  </div>
+
+  <div class="post-promo-eyebrow">
+    <span class="rule" aria-hidden="true"></span>
     <a class="post-promo-eyebrow-cta" href="{{ '/ads/' | relative_url }}" target="_blank">{{ t.post.ads_inquire }} →</a>
   </div>
-  <h4>{{ t.post.house_ad_title }}</h4>
-  <p>{{ t.post.house_ad_desc }}</p>
-  <a class="btn-pill house-promo-cta" href="{{ '/ads/' | relative_url }}" target="_blank">
-    {{ t.post.house_ad_cta_primary }} {% include icon.html name="arrow-right" %}
-  </a>
 </aside>
