@@ -5,7 +5,7 @@
 # Pairs with:
 #   _includes/ad-sponsored-card-middle.html — markup (user-editable)
 #   _layouts/post.html                     — emits the placeholder
-#                                            <div class="post-ad post-ad-middle" hidden>
+#                                            <div class="post-promo post-promo-middle" hidden>
 #
 # Insertion cadence (per Ads sales sheet):
 #   * After the 1st <h3> section.
@@ -17,12 +17,12 @@ require 'nokogiri'
 
 module ZhgChgLi
   module PostMiddleAd
-    AD_SELECTOR  = 'div.post-ad.post-ad-middle'
+    AD_SELECTOR  = 'div.post-promo.post-promo-middle'
     BODY_SELECTOR = '#post-body'
 
     def self.process(html)
       return html unless html.is_a?(String)
-      return html unless html.include?('post-ad-middle') && html.include?('id="post-body"')
+      return html unless html.include?('post-promo-middle') && html.include?('id="post-body"')
 
       doc = Nokogiri::HTML5(html, max_errors: -1)
       ad   = doc.at_css(AD_SELECTOR)

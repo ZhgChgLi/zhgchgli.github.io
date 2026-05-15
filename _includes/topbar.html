@@ -5,6 +5,7 @@
     </a>
     <nav class="topnav" aria-label="Main">
       {% for link in site.data.nav %}
+        {% if link.id == 'ads' %}{% continue %}{% endif %}
         {% assign active = false %}
         {% if page.nav_id == link.id %}{% assign active = true %}{% endif %}
         {% if page.url == link.url %}{% assign active = true %}{% endif %}

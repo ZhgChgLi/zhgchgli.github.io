@@ -12,7 +12,8 @@
 
   <div class="nav-section">{{ t.drawer.navigate_section }}</div>
   <nav class="nav">
-    {% for link in site.data.nav %}
+    {% assign drawer_nav = site.data.nav | where_exp: 'l', 'l.id != "ads"' %}
+    {% for link in drawer_nav %}
       {% assign active = false %}
       {% if page.nav_id == link.id %}{% assign active = true %}{% endif %}
       {% if page.url == link.url %}{% assign active = true %}{% endif %}

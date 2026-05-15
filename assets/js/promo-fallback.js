@@ -1,4 +1,4 @@
-// Ad fallback — swap each .post-ad-middle from AdSense → house ad when:
+// Promo fallback — swap each .post-promo-middle from AdSense → house ad when:
 //   - the AdSense script never loaded (blocked by uBlock / AdBlock / Brave)
 //   - or AdSense returned data-ad-status="unfilled"
 //   - or the <ins class="adsbygoogle"> element has 0 visible height
@@ -24,18 +24,18 @@
   }
 
   function swapWrapper(wrapper) {
-    var primary  = wrapper.querySelector(".post-ad-primary");
-    var fallback = wrapper.querySelector(".post-ad-fallback");
+    var primary  = wrapper.querySelector(".post-promo-primary");
+    var fallback = wrapper.querySelector(".post-promo-fallback");
     if (!primary || !fallback) return;
     if (fallback.dataset.shown === "1") return;     // idempotent
     primary.hidden = true;
     fallback.hidden = false;
     fallback.dataset.shown = "1";
-    wrapper.classList.add("post-ad-using-fallback");
+    wrapper.classList.add("post-promo-using-fallback");
   }
 
   ready(function () {
-    var wrappers = document.querySelectorAll(".post-ad-middle");
+    var wrappers = document.querySelectorAll(".post-promo-middle");
     if (!wrappers.length) return;
 
     setTimeout(function () {

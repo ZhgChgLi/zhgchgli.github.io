@@ -6,16 +6,18 @@
   內中間那個 <h3> 之後，避免前端 JS 移動造成版面閃動。
   若文章沒有任何 h3，這個版位會在 build 時被移除。
 
-  要替換成自己的廣告程式碼（AdSense / 自家業配 / 聯盟）：
-    直接覆寫底下整段 .post-ad-card 即可。
+  外層 class 故意不含 "ad" 字眼，避免被廣告攔截外掛
+  (uBlock / AdBlock / Brave) 用 [class*="ad"] 直接整塊抹掉。
+  內層 <ins class="adsbygoogle"> 是 AdSense 規範必填——
+  若被擋掉，assets/js/promo-fallback.js 會切換到 house ad。
   ============================================================
 {%- endcomment -%}
 
-<aside class="post-ad-card" data-ad-slot="middle">
-  <div class="post-ad-eyebrow">
+<aside class="post-promo-card" data-slot="middle">
+  <div class="post-promo-eyebrow">
     <span>{{ t.post.ad_label }}</span>
     <span class="rule" aria-hidden="true"></span>
-    <a class="post-ad-eyebrow-cta" href="{{ '/ads/' | relative_url }}" target="_blank">{{ t.post.ads_inquire }} →</a>
+    <a class="post-promo-eyebrow-cta" href="{{ '/ads/' | relative_url }}" target="_blank">{{ t.post.ads_inquire }} →</a>
   </div>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3184248473087645"
