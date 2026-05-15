@@ -117,7 +117,12 @@ zh-tw:
     related_h: 你也許會喜歡
     ads_inquire: 我要刊登
     ads_support_note: 獨立寫作、免費觀看，敬請支持本站廣告。
-    ad_label: "Advertisement · 廣告"
+    ad_label: "獨立寫作、免費觀看，請支持本站廣告"
+    house_ad_eyebrow: "FOR SPONSORS · 給品牌方"
+    house_ad_title: "在這裡刊登你的廣告"
+    house_ad_desc: "支持我的創作，刊登您的贊助廣告"
+    house_ad_cta_primary: "了解刊登方案"
+    house_ad_cta_secondary: "寄信洽詢"
   ads:
     eyebrow: ZhgChgLi · Sponsorship
     hero_h1: 在 ZhgChgLi 刊登廣告
@@ -356,7 +361,12 @@ en:
     related_h: You may also enjoy
     ads_inquire: Advertise here
     ads_support_note: Independent writing, free to read — your support of these ads keeps the site going.
-    ad_label: Advertisement
+    ad_label: "Independent writing, free to read — please support these ads"
+    house_ad_eyebrow: "FOR SPONSORS"
+    house_ad_title: "Your brand could be here."
+    house_ad_desc: "Support my writing — sponsor a slot here."
+    house_ad_cta_primary: "See the rate card"
+    house_ad_cta_secondary: "Email me"
   ads:
     eyebrow: ZhgChgLi · Sponsorship
     hero_h1: Advertise on ZhgChgLi
@@ -596,7 +606,12 @@ zh-cn:
     related_h: 你也许会喜欢
     ads_inquire: 我要刊登
     ads_support_note: 独立写作、免费观看，敬请支持本站广告。
-    ad_label: "Advertisement · 广告"
+    ad_label: "独立写作、免费观看，请支持本站广告"
+    house_ad_eyebrow: "FOR SPONSORS · 给品牌方"
+    house_ad_title: "在这里刊登你的广告"
+    house_ad_desc: "支持我的创作，刊登您的赞助广告"
+    house_ad_cta_primary: "了解刊登方案"
+    house_ad_cta_secondary: "写信洽询"
   ads:
     eyebrow: ZhgChgLi · Sponsorship
     hero_h1: 在 ZhgChgLi 刊登广告
@@ -835,7 +850,12 @@ jp:
     related_h: こちらもおすすめ
     ads_inquire: 広告掲載について
     ads_support_note: 個人で書いている無料コンテンツです。広告のご閲覧で運営をご支援ください。
-    ad_label: "Advertisement · 広告"
+    ad_label: "個人で書いている無料コンテンツです、広告のご閲覧で運営をご支援ください"
+    house_ad_eyebrow: "FOR SPONSORS · 広告主の方へ"
+    house_ad_title: "この枠にあなたの広告を"
+    house_ad_desc: "私の創作活動を応援、スポンサー広告を掲載しませんか"
+    house_ad_cta_primary: "プランを見る"
+    house_ad_cta_secondary: "メールで問い合わせ"
   ads:
     eyebrow: ZhgChgLi · Sponsorship
     hero_h1: ZhgChgLi に広告を掲載

@@ -1,0 +1,18 @@
+{%- comment -%}
+  House ad — shown by assets/js/ad-fallback.js when AdSense is blocked
+  by an ad blocker, returns "unfilled", or its script never loads.
+  Edit freely; only requirement is the outer `.house-ad-card` class.
+{%- endcomment -%}
+
+<aside class="house-ad-card">
+  <div class="post-ad-eyebrow">
+    <span>{{ t.post.ad_label }}</span>
+    <span class="rule" aria-hidden="true"></span>
+    <a class="post-ad-eyebrow-cta" href="{{ '/ads/' | relative_url }}" target="_blank">{{ t.post.ads_inquire }} →</a>
+  </div>
+  <h4>{{ t.post.house_ad_title }}</h4>
+  <p>{{ t.post.house_ad_desc }}</p>
+  <a class="btn-pill house-ad-cta" href="{{ '/ads/' | relative_url }}" target="_blank">
+    {{ t.post.house_ad_cta_primary }} {% include icon.html name="arrow-right" %}
+  </a>
+</aside>

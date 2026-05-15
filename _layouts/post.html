@@ -118,10 +118,11 @@ layout: default
      that, plus after the last section — deduped). `hidden` is the
      safety net if the plugin is disabled. {% endcomment %}
   <div class="post-ad post-ad-middle" hidden>
-    {% include ad-sponsored-card-middle.html %}
-    <div class="post-ad-foot">
-      <span class="post-ad-support">{{ t.post.ads_support_note }}</span>
-      <a href="{{ '/ads' | relative_url }}">{{ t.post.ads_inquire }} →</a>
+    <div class="post-ad-primary">
+      {% include ad-sponsored-card-middle.html %}
+    </div>
+    <div class="post-ad-fallback" hidden>
+      {% include ad-fallback-card.html %}
     </div>
   </div>
 

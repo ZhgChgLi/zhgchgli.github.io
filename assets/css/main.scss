@@ -1158,15 +1158,12 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
    Markup lives in _includes/ad-sponsored-card-*.html. The framed look
    (cream bg + border) is shared across all three slots so readers can
    tell at a glance "this is an ad, supported by …". */
+/* Single-card frame: .post-ad is just the centering wrapper; the visible
+   border / padding / bg lives on .post-ad-card / .house-ad-card. */
 .post-ad {
   max-width: 760px;
   margin: 40px auto;
-  padding: 14px 16px 10px;
-  background: var(--cream-50);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
   box-sizing: border-box;
-  overflow: hidden;          /* keep AdSense iframes from overflowing */
 }
 .post-ad-toc    { margin: 32px auto 0; }
 .post-ad-end    { margin: 56px auto 24px; }
@@ -1177,10 +1174,67 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .post-ad-card ins.adsbygoogle,
 .post-ad-card iframe { max-width: 100% !important; }
 
+/* House-ad fallback — assets/js/ad-fallback.js swaps to this when AdSense
+   is blocked or returns unfilled. Same paper sub-card pattern as
+   .post-ad-card so it visually slots into the same outer cream frame. */
+.house-ad-card {
+  display: block;
+  padding: 32px 28px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  text-align: center;
+  font-family: var(--font-zh);
+}
+.house-ad-card .post-ad-eyebrow { margin-bottom: 24px; text-align: left; }
+.house-ad-card h4 {
+  font-family: var(--font-display); font-size: 22px; font-weight: 500;
+  line-height: 1.3; letter-spacing: -0.01em;
+  margin: 0 0 10px; color: var(--ink-900);
+}
+.house-ad-card p {
+  font-size: 14px; line-height: 1.65; color: var(--ink-500);
+  margin: 0 auto 22px; max-width: 460px;
+}
+.house-ad-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px;
+  background: var(--accent); color: var(--paper);
+  border: 1px solid var(--accent);
+  font-family: var(--font-zh); font-size: 14px; font-weight: 500;
+  text-decoration: none; border-radius: 999px;
+  transition: background .15s, border-color .15s;
+}
+.house-ad-cta:hover { background: var(--accent-soft); border-color: var(--accent-soft); }
+.house-ad-cta svg { width: 13px; height: 13px; }
+
+/* Beat .post-body a defaults so the pill button doesn't get an underline
+   or accent text colour from the article anchor styling. */
+.post-body .house-ad-cta,
+.post-body .house-ad-cta:hover {
+  color: var(--paper); background: var(--accent);
+  border: 1px solid var(--accent);
+}
+.post-body .house-ad-cta:hover {
+  background: var(--accent-soft); border-color: var(--accent-soft);
+}
+
+@media (max-width: 540px) {
+  .post-ad-card,
+  .house-ad-card { padding: 24px 18px; }
+  .house-ad-card h4 { font-size: 19px; }
+  .house-ad-card p { font-size: 13px; margin-bottom: 18px; }
+}
+
 .post-ad-card {
   display: block;
   position: relative;
+  padding: 32px 28px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
   font-family: var(--font-zh);
+  overflow: hidden;          /* keep AdSense iframes from overflowing the card */
 }
 .post-ad-eyebrow {
   display: flex; align-items: center; gap: 12px;
@@ -1194,6 +1248,20 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   background-image: linear-gradient(to right, var(--rule) 50%, transparent 50%);
   background-size: 6px 1px; background-repeat: repeat-x;
 }
+.post-ad-eyebrow .post-ad-eyebrow-cta {
+  font-family: var(--font-en); font-weight: 600;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none; white-space: nowrap;
+  transition: color .15s;
+}
+.post-ad-eyebrow .post-ad-eyebrow-cta:hover { color: var(--ink-900); }
+/* Beat .post-body a defaults when the eyebrow CTA renders inside #post-body */
+.post-body .post-ad-eyebrow .post-ad-eyebrow-cta,
+.post-body .post-ad-eyebrow .post-ad-eyebrow-cta:hover {
+  color: var(--accent); border-bottom: none;
+}
+.post-body .post-ad-eyebrow .post-ad-eyebrow-cta:hover { color: var(--ink-900); }
 .post-ad-card-body {
   display: grid;
   grid-template-columns: 220px 1fr auto;
@@ -1213,14 +1281,12 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   border-bottom: 1px solid var(--rule);
 }
 
-/* Footer for every ad slot: "support this site" note on the left,
-   "我要刊登 →" inquire link on the right. */
+/* "我要刊登 →" inquire link sitting above each ad slot. The support
+   note has been folded into the in-card "Advertisement · …" eyebrow,
+   so this strip carries only the action link. */
 .post-ad-foot {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
-  justify-content: space-between;
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px dashed var(--rule);
+  display: flex; justify-content: flex-end; align-items: center;
+  margin-bottom: 10px;
   font-family: var(--font-en);
   font-size: 11px;
   letter-spacing: 0.04em;
