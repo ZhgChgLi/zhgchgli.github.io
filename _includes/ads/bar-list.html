@@ -3,12 +3,12 @@
     include.rows         — array of objects with `users`, `pct`, and a label field
     include.label_field  — name of the field to read for the label (e.g. "country")
 {%- endcomment -%}
-<div class="ads-bars">
+<div class="sponsor-bars">
   {% for r in include.rows %}
-  <div class="ads-bar">
-    <span class="ads-bar-label">{{ r[include.label_field] }}</span>
-    <div class="ads-bar-track"><div class="ads-bar-fill" style="width:{{ r.pct }}%"></div></div>
-    <span class="ads-bar-value">{{ r.users | views_plus | replace: '+', '' }} · {{ r.pct }}%</span>
+  <div class="sponsor-bar">
+    <span class="sponsor-bar-label">{{ r[include.label_field] }}</span>
+    <div class="sponsor-bar-track"><div class="sponsor-bar-fill" style="width:{{ r.pct }}%"></div></div>
+    <span class="sponsor-bar-value">{{ r.users | views_plus | replace: '+', '' }} · {{ r.pct }}%</span>
   </div>
   {% endfor %}
 </div>

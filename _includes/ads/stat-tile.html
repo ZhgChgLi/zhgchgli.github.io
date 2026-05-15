@@ -6,9 +6,9 @@
     include.fmt          — "int" (integer with commas) or "pct" (multiply by 100)
     include.delta_label  — small caption next to the delta arrow
 {%- endcomment -%}
-<div class="ads-stat">
-  <div class="ads-stat-label">{{ include.label }}</div>
-  <div class="ads-stat-value">
+<div class="sponsor-stat">
+  <div class="sponsor-stat-label">{{ include.label }}</div>
+  <div class="sponsor-stat-value">
     {%- if include.fmt == "pct" -%}
       {{ include.cur | times: 100 | round: 1 }}%
     {%- else -%}
@@ -18,7 +18,7 @@
   {%- if include.prv and include.prv != 0 -%}
     {%- assign delta_pct = include.cur | minus: include.prv | times: 100.0 | divided_by: include.prv -%}
     {%- assign delta_round = delta_pct | round: 1 -%}
-    <div class="ads-stat-delta {% if delta_pct >= 0 %}up{% else %}down{% endif %}">
+    <div class="sponsor-stat-delta {% if delta_pct >= 0 %}up{% else %}down{% endif %}">
       <span class="arrow">{% if delta_pct >= 0 %}▲{% else %}▼{% endif %}</span>
       {%- if delta_pct >= 0 -%}{{ delta_round }}%{%- else -%}{{ delta_round | times: -1 }}%{%- endif -%}
       <span class="muted"> · {{ include.delta_label }}</span>

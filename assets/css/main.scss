@@ -1362,14 +1362,14 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 
 /* /ads/ page — sponsorship sales sheet with live GA4 stats */
-.ads-hero { margin-bottom: 8px; position: relative; }
-.ads-hero-lede {
+.sponsor-hero { margin-bottom: 8px; position: relative; }
+.sponsor-hero-lede {
   font-family: var(--font-display);
   font-size: 18px; line-height: 1.7;
   color: var(--ink-700);
   margin: 0;
 }
-.ads-support-note {
+.sponsor-support-note {
   display: flex; align-items: flex-start; gap: 8px;
   margin: 16px 0 0;
   padding: 12px 16px;
@@ -1377,9 +1377,9 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   border-left: 3px solid var(--accent);
   font-size: 13px; line-height: 1.65; color: var(--ink-500);
 }
-.ads-support-note svg { color: var(--accent); margin-top: 3px; flex-shrink: 0; }
+.sponsor-support-note svg { color: var(--accent); margin-top: 3px; flex-shrink: 0; }
 
-.ads-demo-flag {
+.sponsor-demo-flag {
   display: inline-block;
   margin-top: 14px;
   padding: 3px 10px;
@@ -1391,25 +1391,25 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   border-radius: 2px;
 }
 
-.ads-section { margin: 56px 0 0; }
-.ads-section-h {
+.sponsor-section { margin: 56px 0 0; }
+.sponsor-section-h {
   font-family: var(--font-display); font-size: 22px; font-weight: 500;
   letter-spacing: -0.005em; line-height: 1.3;
   margin: 0 0 18px; color: var(--ink-900);
   padding-bottom: 10px; border-bottom: 1px solid var(--rule);
 }
 
-.ads-na {
+.sponsor-na {
   padding: 18px 22px;
   background: var(--cream-50); border: 1px dashed var(--rule);
   font-size: 13px; color: var(--ink-500); margin: 0;
 }
 
 /* 4-up stat tiles */
-.ads-stats-row {
+.sponsor-stats-row {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
 }
-.ads-stat {
+.sponsor-stat {
   padding: 18px 20px;
   background: var(--paper);
   border: 1px solid var(--rule);
@@ -1417,91 +1417,91 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   display: flex; flex-direction: column; gap: 6px;
   min-width: 0;
 }
-.ads-stat-label {
+.sponsor-stat-label {
   font-family: var(--font-en); font-weight: 600;
   font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--ink-500);
 }
-.ads-stat-value {
+.sponsor-stat-value {
   font-family: var(--font-display); font-weight: 500;
   font-size: 32px; line-height: 1.1;
   color: var(--ink-900);
   letter-spacing: -0.01em;
 }
-.ads-stat-delta {
+.sponsor-stat-delta {
   font-family: var(--font-en); font-size: 11px; font-weight: 600;
   letter-spacing: 0.02em;
   display: flex; align-items: baseline; gap: 4px;
 }
-.ads-stat-delta.up   { color: #2f7d52; }
-.ads-stat-delta.down { color: #b14e2c; }
-.ads-stat-delta .arrow { font-size: 10px; }
-.ads-stat-delta .muted { color: var(--ink-400); font-weight: 400; letter-spacing: 0.04em; }
+.sponsor-stat-delta.up   { color: #2f7d52; }
+.sponsor-stat-delta.down { color: #b14e2c; }
+.sponsor-stat-delta .arrow { font-size: 10px; }
+.sponsor-stat-delta .muted { color: var(--ink-400); font-weight: 400; letter-spacing: 0.04em; }
 
 @media (max-width: 760px) {
-  .ads-stats-row { grid-template-columns: repeat(2, 1fr); }
-  .ads-stat-value { font-size: 26px; }
+  .sponsor-stats-row { grid-template-columns: repeat(2, 1fr); }
+  .sponsor-stat-value { font-size: 26px; }
 }
 @media (max-width: 380px) {
-  .ads-stats-row { grid-template-columns: 1fr; }
+  .sponsor-stats-row { grid-template-columns: 1fr; }
 }
 
 /* Chart + bar list rows */
-.ads-chart-row {
+.sponsor-chart-row {
   display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: 24px; align-items: start;
 }
-.ads-chart-row-doughnut {
+.sponsor-chart-row-doughnut {
   grid-template-columns: minmax(0, 200px) minmax(0, 1fr);
 }
-.ads-chart-wrap {
+.sponsor-chart-wrap {
   position: relative; width: 100%; height: 320px;
   background: var(--paper); border: 1px solid var(--rule);
   padding: 16px; box-sizing: border-box;
 }
-.ads-chart-wrap-doughnut { height: 200px; padding: 12px; }
+.sponsor-chart-wrap-doughnut { height: 200px; padding: 12px; }
 @media (max-width: 760px) {
-  .ads-chart-row { grid-template-columns: 1fr; }
-  .ads-chart-row-doughnut { grid-template-columns: 1fr; }
-  .ads-chart-wrap { height: 280px; }
-  .ads-chart-wrap-doughnut { height: 220px; max-width: 280px; margin: 0 auto; }
+  .sponsor-chart-row { grid-template-columns: 1fr; }
+  .sponsor-chart-row-doughnut { grid-template-columns: 1fr; }
+  .sponsor-chart-wrap { height: 280px; }
+  .sponsor-chart-wrap-doughnut { height: 220px; max-width: 280px; margin: 0 auto; }
 }
 
 /* Percent-bar list (SSR fallback + always-visible reading view) */
-.ads-bars { display: flex; flex-direction: column; gap: 8px; }
-.ads-bar {
+.sponsor-bars { display: flex; flex-direction: column; gap: 8px; }
+.sponsor-bar {
   display: grid;
   grid-template-columns: minmax(80px, 130px) minmax(0, 1fr) auto;
   gap: 12px; align-items: center;
   font-size: 13px; color: var(--ink-700);
 }
-.ads-bar-label { font-weight: 500; color: var(--ink-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ads-bar-track {
+.sponsor-bar-label { font-weight: 500; color: var(--ink-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sponsor-bar-track {
   height: 8px;
   background: var(--cream-100);
   border-radius: 999px; overflow: hidden;
 }
-.ads-bar-fill {
+.sponsor-bar-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--accent-soft), var(--accent));
   border-radius: 999px;
 }
-.ads-bar-value {
+.sponsor-bar-value {
   font-family: var(--font-en); font-size: 11px; color: var(--ink-500);
   white-space: nowrap; font-variant-numeric: tabular-nums;
 }
 @media (max-width: 540px) {
-  .ads-bar { grid-template-columns: minmax(70px, 100px) minmax(0, 1fr) auto; gap: 8px; font-size: 12px; }
-  .ads-bar-value { font-size: 10px; }
+  .sponsor-bar { grid-template-columns: minmax(70px, 100px) minmax(0, 1fr) auto; gap: 8px; font-size: 12px; }
+  .sponsor-bar-value { font-size: 10px; }
 }
 
 /* Two-up sections (browser/os, age/gender) */
-.ads-two-up {
+.sponsor-two-up {
   display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
 }
-.ads-two-up .ads-section { margin-top: 56px; }
+.sponsor-two-up .sponsor-section { margin-top: 56px; }
 @media (max-width: 760px) {
-  .ads-two-up { grid-template-columns: 1fr; gap: 0; }
+  .sponsor-two-up { grid-template-columns: 1fr; gap: 0; }
 }
 
 /* Top posts: reuse .trending-list visuals (rank + cover + body + stats),
@@ -1510,18 +1510,18 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
      - .post-body img { margin, cursor, radius } on the rcover thumbnail
    so the row reads as a clickable card with a real 96×96 thumb, not a
    centred article image. */
-.post-body .ads-top-list .row,
-.post-body .ads-top-list .row:hover {
+.post-body .sponsor-top-list .row,
+.post-body .sponsor-top-list .row:hover {
   color: var(--ink-900);
   border-bottom: none;
 }
-.post-body .ads-top-list li:last-child .row {
+.post-body .sponsor-top-list li:last-child .row {
   border-bottom: 1px solid var(--rule);
 }
-.post-body .ads-top-list .rtitle,
-.post-body .ads-top-list .rexcerpt,
-.post-body .ads-top-list .eyebrow { color: inherit; }
-.post-body .ads-top-list .rcover img {
+.post-body .sponsor-top-list .rtitle,
+.post-body .sponsor-top-list .rexcerpt,
+.post-body .sponsor-top-list .eyebrow { color: inherit; }
+.post-body .sponsor-top-list .rcover img {
   margin: 0;
   cursor: pointer;
   border-radius: 0;
@@ -1531,34 +1531,34 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
    No.1 callout. Selectors are prefixed with .post-body so we beat
    `.trending-list .rank-num` on specificity (it's defined LATER in
    the file — without the prefix, source order makes 96px win). */
-.post-body .ads-top-list .rank-num {
+.post-body .sponsor-top-list .rank-num {
   font-size: 24px; padding-left: 0;
   font-family: var(--font-en); font-weight: 600;
   letter-spacing: 0.02em; line-height: 1;
   font-variant-numeric: tabular-nums;
   color: var(--ink-400);
 }
-.post-body .ads-top-list .row {
+.post-body .sponsor-top-list .row {
   grid-template-columns: 36px 80px 1fr 120px;
   gap: 18px; padding: 18px 0;
 }
-.post-body .ads-top-list .rcover { width: 80px; height: 80px; }
-.post-body .ads-top-list .rtitle { font-size: 17px; -webkit-line-clamp: 2; }
-.post-body .ads-top-list .rexcerpt { -webkit-line-clamp: 1; }
-.post-body .ads-top-list .rnum { font-size: 24px; }
+.post-body .sponsor-top-list .rcover { width: 80px; height: 80px; }
+.post-body .sponsor-top-list .rtitle { font-size: 17px; -webkit-line-clamp: 2; }
+.post-body .sponsor-top-list .rexcerpt { -webkit-line-clamp: 1; }
+.post-body .sponsor-top-list .rnum { font-size: 24px; }
 @media (max-width: 760px) {
-  .post-body .ads-top-list .row { grid-template-columns: 28px 64px 1fr; gap: 12px; padding: 16px 0; }
-  .post-body .ads-top-list .rank-num { font-size: 18px; }
-  .post-body .ads-top-list .rcover { width: 64px; height: 64px; }
-  .post-body .ads-top-list .rtitle { font-size: 15px; }
-  .post-body .ads-top-list .rstats { display: none; }
+  .post-body .sponsor-top-list .row { grid-template-columns: 28px 64px 1fr; gap: 12px; padding: 16px 0; }
+  .post-body .sponsor-top-list .rank-num { font-size: 18px; }
+  .post-body .sponsor-top-list .rcover { width: 64px; height: 64px; }
+  .post-body .sponsor-top-list .rtitle { font-size: 15px; }
+  .post-body .sponsor-top-list .rstats { display: none; }
 }
 
 /* Pricing — 3 plan cards */
-.ads-plans {
+.sponsor-plans {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
 }
-.ads-plan {
+.sponsor-plan {
   display: flex; flex-direction: column; gap: 12px;
   padding: 24px 22px;
   background: var(--paper);
@@ -1566,11 +1566,11 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   border-top: 2px solid var(--ink-900);
   position: relative;
 }
-.ads-plan-best {
+.sponsor-plan-best {
   border-top-color: var(--accent);
   background: linear-gradient(180deg, rgba(177,78,44,0.03), var(--paper) 60%);
 }
-.ads-plan-best::before {
+.sponsor-plan-best::before {
   content: "Best value";
   position: absolute; top: -10px; right: 16px;
   padding: 2px 8px;
@@ -1578,111 +1578,111 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   font-family: var(--font-en); font-size: 9px; font-weight: 700;
   letter-spacing: 0.18em; text-transform: uppercase;
 }
-.ads-plan-name {
+.sponsor-plan-name {
   font-family: var(--font-display); font-size: 17px; font-weight: 500;
   color: var(--ink-900); letter-spacing: -0.005em;
 }
-.ads-plan-price {
+.sponsor-plan-price {
   display: flex; align-items: baseline; gap: 8px;
   padding-bottom: 10px; border-bottom: 1px solid var(--rule);
 }
-.ads-plan-price .num {
+.sponsor-plan-price .num {
   font-family: var(--font-display); font-size: 32px; font-weight: 500;
   color: var(--accent); letter-spacing: -0.01em; line-height: 1;
 }
-.ads-plan-best .ads-plan-price .num { font-size: 38px; }
-.ads-plan-price .unit {
+.sponsor-plan-best .sponsor-plan-price .num { font-size: 38px; }
+.sponsor-plan-price .unit {
   font-family: var(--font-en); font-size: 12px; color: var(--ink-500);
   letter-spacing: 0.04em;
 }
-.ads-pricing-terms {
+.sponsor-pricing-terms {
   margin-top: 24px;
   padding: 18px 22px;
   background: var(--cream-50); border: 1px solid var(--rule);
 }
-.ads-pricing-terms .eyebrow { margin-bottom: 10px; }
-.ads-pricing-terms ul {
+.sponsor-pricing-terms .eyebrow { margin-bottom: 10px; }
+.sponsor-pricing-terms ul {
   list-style: none; padding: 0; margin: 0;
   display: flex; flex-direction: column; gap: 6px;
 }
-.ads-pricing-terms li {
+.sponsor-pricing-terms li {
   position: relative; padding-left: 18px;
   font-size: 13px; line-height: 1.6; color: var(--ink-700);
 }
-.ads-pricing-terms li::before {
+.sponsor-pricing-terms li::before {
   content: ""; position: absolute; left: 0; top: 10px;
   width: 8px; height: 1px; background: var(--accent);
 }
 @media (max-width: 760px) {
-  .ads-plans { grid-template-columns: 1fr; }
-  .ads-plan-mid::before { right: auto; left: 16px; }
+  .sponsor-plans { grid-template-columns: 1fr; }
+  .sponsor-plan-mid::before { right: auto; left: 16px; }
 }
 
 /* Section lede paragraph (sits between section h2 and the data) */
-.ads-section-lede {
+.sponsor-section-lede {
   font-size: 13px; color: var(--ink-500); margin: -10px 0 18px; line-height: 1.65;
 }
 
 /* Search Console — top queries table */
-.ads-queries {
+.sponsor-queries {
   width: 100%; border-collapse: collapse;
   font-size: 13px; color: var(--ink-700);
   background: var(--paper);
   border: 1px solid var(--rule);
 }
-.ads-queries th, .ads-queries td {
+.sponsor-queries th, .sponsor-queries td {
   padding: 10px 14px;
   border-bottom: 1px solid var(--rule-soft);
   text-align: left;
 }
-.ads-queries thead th {
+.sponsor-queries thead th {
   font-family: var(--font-en); font-weight: 600;
   font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--ink-500);
   background: var(--cream-50);
   border-bottom: 1px solid var(--rule);
 }
-.ads-queries .q-num {
+.sponsor-queries .q-num {
   text-align: right;
   font-variant-numeric: tabular-nums;
   font-family: var(--font-en);
   font-size: 12px;
   white-space: nowrap;
 }
-.ads-queries thead .q-num { font-family: var(--font-en); }
-.ads-queries tbody tr:last-child td { border-bottom: none; }
-.ads-queries tbody tr:hover { background: var(--cream-50); }
-.ads-queries .q-name {
+.sponsor-queries thead .q-num { font-family: var(--font-en); }
+.sponsor-queries tbody tr:last-child td { border-bottom: none; }
+.sponsor-queries tbody tr:hover { background: var(--cream-50); }
+.sponsor-queries .q-name {
   font-weight: 500; color: var(--ink-900);
   word-break: break-word;
 }
 @media (max-width: 540px) {
-  .ads-queries th, .ads-queries td { padding: 8px 10px; }
-  .ads-queries .q-num { font-size: 11px; }
-  .ads-queries thead th:nth-child(3),
-  .ads-queries tbody td:nth-child(3) { display: none; }
+  .sponsor-queries th, .sponsor-queries td { padding: 8px 10px; }
+  .sponsor-queries .q-num { font-size: 11px; }
+  .sponsor-queries thead th:nth-child(3),
+  .sponsor-queries tbody td:nth-child(3) { display: none; }
 }
 
 /* Contact CTA */
-.ads-contact-lede {
+.sponsor-contact-lede {
   font-size: 14px; color: var(--ink-500); line-height: 1.7;
   margin: 0 0 16px;
 }
-.ads-contact-actions {
+.sponsor-contact-actions {
   display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
 }
 /* Override .post-body a defaults so the pill button reads as a button,
    not an underlined link. Same idea as .post-promo-card-body earlier. */
-.post-body .ads-contact-btn,
-.post-body .ads-contact-btn:hover {
+.post-body .sponsor-contact-btn,
+.post-body .sponsor-contact-btn:hover {
   color: var(--paper);
   background: var(--accent);
   border: 1px solid var(--accent);
 }
-.post-body .ads-contact-btn:hover {
+.post-body .sponsor-contact-btn:hover {
   background: var(--accent-soft); border-color: var(--accent-soft);
 }
-.ads-contact-btn {
+.sponsor-contact-btn {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 22px;
   background: var(--accent); border: 1px solid var(--accent);
@@ -1692,12 +1692,12 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   border-radius: 999px;
   transition: background .15s, border-color .15s;
 }
-.ads-contact-btn:hover {
+.sponsor-contact-btn:hover {
   background: var(--accent-soft); border-color: var(--accent-soft);
 }
-.ads-contact-btn svg { width: 14px; height: 14px; }
+.sponsor-contact-btn svg { width: 14px; height: 14px; }
 
-.ads-updated {
+.sponsor-updated {
   margin-top: 56px;
   font-family: var(--font-en); font-size: 11px;
   color: var(--ink-400); letter-spacing: 0.06em;
@@ -1705,8 +1705,8 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 
 /* Override .post-body a styling for the ad-page links sitting inside .post-body */
-.post-body .ads-page-row,
-.post-body .ads-page-row:hover { color: inherit; border-bottom: 1px solid var(--rule); }
+.post-body .sponsor-page-row,
+.post-body .sponsor-page-row:hover { color: inherit; border-bottom: 1px solid var(--rule); }
 
 /* Buy-me-a-coffee donate block (post bottom, before author card) */
 .donate-card {

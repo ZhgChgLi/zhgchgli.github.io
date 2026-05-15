@@ -1,4 +1,4 @@
-// /ads/ page chart initialization. Reads window.__adsStats (server-rendered
+// /ads/ page chart initialization. Reads window.__sponsorStats (server-rendered
 // JSON of site.data.ads_stats) and renders Chart.js charts for the country
 // bar, devices doughnut, age doughnut, and gender doughnut.
 //
@@ -7,7 +7,7 @@
 // enhancement on top.
 
 (function () {
-  if (!window.__adsStats) return;
+  if (!window.__sponsorStats) return;
 
   function ready(fn) {
     if (document.readyState !== "loading") fn();
@@ -20,8 +20,8 @@
       return;
     }
 
-    var stats  = window.__adsStats || {};
-    var labels = window.__adsLabels || {};
+    var stats  = window.__sponsorStats || {};
+    var labels = window.__sponsorLabels || {};
     var css    = getComputedStyle(document.documentElement);
     var accent = (css.getPropertyValue("--accent") || "#b14e2c").trim();
     var ink900 = (css.getPropertyValue("--ink-900") || "#1d1813").trim();
