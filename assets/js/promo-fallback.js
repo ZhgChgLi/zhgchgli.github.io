@@ -33,16 +33,17 @@
   }
 
   // Final decision after MutationObserver gave up (or never had a chance).
+  // Single source of truth = data-ad-status. AdSense sets it to "filled"
+  // or "unfilled" once it has decided. Anything else after the timeout
+  // (no attribute, slot collapsed, slot reserved height but iframe empty)
+  // counts as a failed fill — swap to house ad.
   function settle(wrap, ins) {
     if (typeof window.adsbygoogle === "undefined") {
       swapWrapper(wrap);
       return;
     }
-    var status = ins.getAttribute("data-ad-status");
-    if (status === "filled") return;
-    if (status === "unfilled") { swapWrapper(wrap); return; }
-    // No status set yet but the slot collapsed → treat as failed.
-    if (ins.offsetHeight < 30) swapWrapper(wrap);
+    if (ins.getAttribute("data-ad-status") === "filled") return;
+    swapWrapper(wrap);
   }
 
   // Start the fill-or-fallback watch for one slot. Called when the slot
