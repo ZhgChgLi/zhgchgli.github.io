@@ -73,7 +73,7 @@ jobs:
 
       - name: Fetch ads stats JSON (for /ads/ page)
         env:
-          ADS_STATS_URL: http://https//script.google.com/macros/s/AKfycbw1TowznLUc09sz-Ach6iK0yUwFGyRWF-wBYAKZjlIoNI92bsVTtA7hOtVHLzjrP30Ldg/exec
+          ADS_STATS_URL: https://script.google.com/macros/s/AKfycbw1TowznLUc09sz-Ach6iK0yUwFGyRWF-wBYAKZjlIoNI92bsVTtA7hOtVHLzjrP30Ldg/exec
         run: |
           set -euo pipefail
           if [[ -z "${ADS_STATS_URL}" ]]; then
