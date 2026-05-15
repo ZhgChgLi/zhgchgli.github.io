@@ -169,15 +169,15 @@ zh-tw:
     pricing_t1: 全部已發佈與未來新文皆刊出
     pricing_t2: 全語系刊登（zh-tw / en / zh-cn / jp 同步）
     pricing_t3: PayPal 線上收款 · 確認後寄送付款連結
-    pricing_t4: 贊助刊登性質，恕不接受中途退款
+    pricing_t4: 贊助刊登性質，恕不接受中途退款、無法保證點擊轉換與瀏覽量
     plans:
       - duration: 7 日
-        price: "NT$1,000"
+        price: "$39 USD"
       - duration: 30 日
-        price: "NT$3,000"
+        price: "$99 USD"
         best: true
       - duration: 60 日
-        price: "NT$5,000"
+        price: "$179 USD"
     contact_h: 意者來信
     contact_lede: "請來信告知欲刊登的素材（圖文 / 連結 / 期間），確認後提供 PayPal 付款連結。"
     contact_cta: 寄信洽詢
@@ -413,15 +413,15 @@ en:
     pricing_t1: Runs across all published and future articles
     pricing_t2: All language editions — zh-tw / en / zh-cn / jp
     pricing_t3: PayPal — invoice sent after confirmation
-    pricing_t4: Sponsorship — no mid-term refunds
+    pricing_t4: Sponsorship — no mid-term refunds; clicks and views are not guaranteed
     plans:
       - duration: 7 days
-        price: "NT$1,000"
+        price: "$39 USD"
       - duration: 30 days
-        price: "NT$3,000"
+        price: "$99 USD"
         best: true
       - duration: 60 days
-        price: "NT$5,000"
+        price: "$179 USD"
     contact_h: Get in touch
     contact_lede: "Email me your creative (image / copy / link / window). I'll confirm and send you a PayPal invoice."
     contact_cta: Email me
@@ -658,15 +658,15 @@ zh-cn:
     pricing_t1: 全部已发布与未来新文皆刊出
     pricing_t2: 全语系刊登（zh-tw / en / zh-cn / jp 同步）
     pricing_t3: PayPal 在线收款 · 确认后寄送付款链接
-    pricing_t4: 赞助刊登性质，恕不接受中途退款
+    pricing_t4: 赞助刊登性质，恕不接受中途退款、无法保证点击转换与浏览量
     plans:
       - duration: 7 日
-        price: "NT$1,000"
+        price: "$39 USD"
       - duration: 30 日
-        price: "NT$3,000"
+        price: "$99 USD"
         best: true
       - duration: 60 日
-        price: "NT$5,000"
+        price: "$179 USD"
     contact_h: 意者来信
     contact_lede: "请来信告知欲刊登的素材（图文 / 链接 / 期间），确认后提供 PayPal 付款链接。"
     contact_cta: 写信洽询
@@ -902,15 +902,15 @@ jp:
     pricing_t1: 公開済みおよび将来公開する全記事に掲載
     pricing_t2: 全言語版に掲載（zh-tw / en / zh-cn / jp）
     pricing_t3: PayPal オンライン決済・確認後に請求書をお送りします
-    pricing_t4: スポンサー掲載のため、期間途中の返金はお受けできません
+    pricing_t4: スポンサー掲載のため、期間途中の返金はお受けできません。また、クリック数や閲覧数は保証いたしかねます
     plans:
       - duration: 7 日間
-        price: "NT$1,000"
+        price: "$39 USD"
       - duration: 30 日間
-        price: "NT$3,000"
+        price: "$99 USD"
         best: true
       - duration: 60 日間
-        price: "NT$5,000"
+        price: "$179 USD"
     contact_h: お問い合わせ
     contact_lede: "掲載素材（画像 / コピー / リンク / 期間）をメールでお送りください。確認後、PayPal の請求書をお送りします。"
     contact_cta: メールで問い合わせ
