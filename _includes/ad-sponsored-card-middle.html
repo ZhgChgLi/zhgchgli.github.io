@@ -20,15 +20,20 @@
     <a class="post-promo-eyebrow-cta" href="{{ '/ads/' | relative_url }}" target="_blank">{{ t.post.ads_inquire }} →</a>
   </div>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3184248473087645"
-      crossorigin="anonymous"></script>
+  {%- comment -%}
+    adsbygoogle.js loader is in _includes/head.html (one copy per page).
+    `data-cfasync="false"` keeps Cloudflare Rocket Loader from rewriting
+    the inline push() script's type, which would defer it past the moment
+    the <ins> is in the DOM and break the second slot with
+    "TagError: All ins elements ... already have ads".
+  {%- endcomment -%}
   <ins class="adsbygoogle"
       style="display:block; text-align:center;"
       data-ad-layout="in-article"
       data-ad-format="fluid"
       data-ad-client="ca-pub-3184248473087645"
       data-ad-slot="2238325724"></ins>
-  <script>
+  <script data-cfasync="false">
       (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </aside>
