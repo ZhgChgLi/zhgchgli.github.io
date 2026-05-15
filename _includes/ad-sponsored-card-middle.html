@@ -1,0 +1,31 @@
+{%- comment -%}
+  ============================================================
+  Sponsored card · 位置 ② 文章中段（中間那個 h3 下方）
+  ------------------------------------------------------------
+  由 _plugins/post_middle_ad.rb 在 build 時插入到 #post-body
+  內中間那個 <h3> 之後，避免前端 JS 移動造成版面閃動。
+  若文章沒有任何 h3，這個版位會在 build 時被移除。
+
+  要替換成自己的廣告程式碼（AdSense / 自家業配 / 聯盟）：
+    直接覆寫底下整段 .post-ad-card 即可。
+  ============================================================
+{%- endcomment -%}
+
+<aside class="post-ad-card" data-ad-slot="middle">
+  <div class="post-ad-eyebrow">
+    <span>{{ t.post.ad_label }}</span>
+    <span class="rule" aria-hidden="true"></span>
+  </div>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3184248473087645"
+      crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+      style="display:block; text-align:center;"
+      data-ad-layout="in-article"
+      data-ad-format="fluid"
+      data-ad-client="ca-pub-3184248473087645"
+      data-ad-slot="2238325724"></ins>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</aside>

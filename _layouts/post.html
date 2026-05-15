@@ -112,6 +112,19 @@ layout: default
     </div>
   </div>
 
+  {% comment %} In-body sponsored slot. Rendered hidden here;
+     _plugins/post_middle_ad.rb clones it to the right anchors inside
+     #post-body at build time (after section 1, every 3 sections after
+     that, plus after the last section — deduped). `hidden` is the
+     safety net if the plugin is disabled. {% endcomment %}
+  <div class="post-ad post-ad-middle" hidden>
+    {% include ad-sponsored-card-middle.html %}
+    <div class="post-ad-foot">
+      <span class="post-ad-support">{{ t.post.ads_support_note }}</span>
+      <a href="{{ '/ads' | relative_url }}">{{ t.post.ads_inquire }} →</a>
+    </div>
+  </div>
+
   <div id="post-bottom" style="height: 64px"></div>
 
   {% if page.tags.size > 0 %}

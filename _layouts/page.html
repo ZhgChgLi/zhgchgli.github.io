@@ -9,7 +9,7 @@ layout: default
   {% endif %}
 </section>
 
-<div class="post-shell">
+<div class="post-shell{% if page.wide %} post-shell-wide{% endif %}">
   <div class="post-body" id="post-body">
     {{ content }}
   </div>

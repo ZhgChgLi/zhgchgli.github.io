@@ -15,3 +15,5 @@
   url: /about/
 - id: contact
   url: /contact/
+- id: ads
+  url: /ads/

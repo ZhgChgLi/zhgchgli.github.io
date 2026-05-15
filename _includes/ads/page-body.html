@@ -1,0 +1,276 @@
+{%- comment -%}
+  Shared body for L10n/pages/<lang>/ads.html.
+
+  Reads:
+    site.data.strings[site.i18n.current].ads  → translated labels
+    site.data.ads_stats                       → JSON refreshed daily by
+                                                .github/workflows/pages.yml
+                                                from the GAS Web App in /Ads.
+
+  Renders:
+    1. Hero lede
+    2. 30-day audience tiles (with vs-prev-30-days delta)
+    3. Top countries  — Chart.js horizontal bar  + percent-bar list
+    4. Devices        — Chart.js doughnut         + percent-bar list
+    5. Browsers       — Chart.js horizontal bar  + percent-bar list
+    6. Operating systems — same shape as browsers
+    7. Age            — Chart.js doughnut         + list (or N/A notice)
+    8. Gender         — Chart.js doughnut         + list (or N/A notice)
+    9. Top posts (last 30 days) — uses dense-row.html when path matches a post
+   10. Pricing card
+   11. Contact CTA
+   12. Last-updated footer
+
+  Charts are progressive enhancement: the percent-bar lists are SSR'd
+  from site.data.ads_stats, so the page is fully readable without JS.
+{%- endcomment -%}
+
+{%- assign t = site.data.strings[site.i18n.current] -%}
+{%- assign s = site.data.ads_stats -%}
+
+<section class="ads-hero">
+  <p class="ads-hero-lede">{{ t.ads.hero_lede }}</p>
+  <p class="ads-support-note">{% include icon.html name="mug-saucer" %} {{ t.ads.support_note }}</p>
+  {% if s.demo %}<div class="ads-demo-flag">demo data</div>{% endif %}
+</section>
+
+{% if s and s.audience and s.audience.current %}
+{%- assign cur = s.audience.current -%}
+{%- assign prv = s.audience.prev -%}
+<section class="ads-section">
+  <h2 class="ads-section-h">{{ t.ads.stats_h }}</h2>
+  <div class="ads-stats-row">
+    {% include ads/stat-tile.html label=t.ads.stat_users      cur=cur.activeUsers prv=prv.activeUsers fmt="int" delta_label=t.ads.delta_vs_prev %}
+    {% include ads/stat-tile.html label=t.ads.stat_views      cur=cur.pageViews   prv=prv.pageViews   fmt="int" delta_label=t.ads.delta_vs_prev %}
+    {% include ads/stat-tile.html label=t.ads.stat_sessions   cur=cur.sessions    prv=prv.sessions    fmt="int" delta_label=t.ads.delta_vs_prev %}
+    {% include ads/stat-tile.html label=t.ads.stat_engagement cur=cur.engagementRate prv=prv.engagementRate fmt="pct" delta_label=t.ads.delta_vs_prev %}
+  </div>
+</section>
+{% else %}
+<section class="ads-section"><p class="ads-na">{{ t.ads.stats_unavailable }}</p></section>
+{% endif %}
+
+{% if s.countries and s.countries.size > 0 %}
+<section class="ads-section">
+  <h2 class="ads-section-h">{{ t.ads.countries_h }}</h2>
+  <div class="ads-chart-row">
+    <div class="ads-chart-wrap"><canvas id="ads-chart-countries" data-chart="countries"></canvas></div>
+    {% include ads/bar-list.html rows=s.countries label_field="country" %}
+  </div>
+</section>
+{% endif %}
+
+{% if s.langSites and s.langSites.size > 0 %}
+<section class="ads-section">
+  <h2 class="ads-section-h">{{ t.ads.langsites_h }}</h2>
+  <div class="ads-chart-row ads-chart-row-doughnut">
+    <div class="ads-chart-wrap ads-chart-wrap-doughnut"><canvas id="ads-chart-langsites" data-chart="langsites"></canvas></div>
+    <div class="ads-bars">
+      {% for r in s.langSites %}
+      {%- assign lkey = "langsite_" | append: r.code -%}
+      {%- assign lbl = t.ads[lkey] | default: r.host | default: r.code -%}
+      <div class="ads-bar">
+        <span class="ads-bar-label">{{ lbl }}</span>
+        <div class="ads-bar-track"><div class="ads-bar-fill" style="width:{{ r.pct }}%"></div></div>
+        <span class="ads-bar-value">{{ r.users | views_plus | replace: '+', '' }} · {{ r.pct }}%</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if s.devices and s.devices.size > 0 %}
+<section class="ads-section">
+  <h2 class="ads-section-h">{{ t.ads.devices_h }}</h2>
+  <div class="ads-chart-row ads-chart-row-doughnut">
+    <div class="ads-chart-wrap ads-chart-wrap-doughnut"><canvas id="ads-chart-devices" data-chart="devices"></canvas></div>
+    {% include ads/bar-list.html rows=s.devices label_field="device" %}
+  </div>
+</section>
+{% endif %}
+
+<div class="ads-two-up">
+  {% if s.browsers and s.browsers.size > 0 %}
+  <section class="ads-section">
+    <h2 class="ads-section-h">{{ t.ads.browsers_h }}</h2>
+    {% include ads/bar-list.html rows=s.browsers label_field="browser" %}
+  </section>
+  {% endif %}
+  {% if s.os and s.os.size > 0 %}
+  <section class="ads-section">
+    <h2 class="ads-section-h">{{ t.ads.os_h }}</h2>
+    {% include ads/bar-list.html rows=s.os label_field="os" %}
+  </section>
+  {% endif %}
+</div>
+
+{%- comment -%}
+  Map age/gender unavailable `reason` codes (set by GoogleAnalytics.js)
+  to the right localised message:
+    signals_off       → Google Signals 未開啟
+    below_threshold   → 流量未達匿名化門檻
+    error / fallback  → 通用 N/A 文案
+{%- endcomment -%}
+{% capture na_age %}{% if s.age.reason == 'signals_off' %}{{ t.ads.demographics_signals_off }}{% elsif s.age.reason == 'below_threshold' %}{{ t.ads.demographics_below_threshold }}{% else %}{{ t.ads.demographics_na }}{% endif %}{% endcapture %}
+{% capture na_gender %}{% if s.gender.reason == 'signals_off' %}{{ t.ads.demographics_signals_off }}{% elsif s.gender.reason == 'below_threshold' %}{{ t.ads.demographics_below_threshold }}{% else %}{{ t.ads.demographics_na }}{% endif %}{% endcapture %}
+
+<div class="ads-two-up">
+  <section class="ads-section">
+    <h2 class="ads-section-h">{{ t.ads.age_h }}</h2>
+    {% if s.age.available and s.age.rows.size > 0 %}
+    <div class="ads-chart-row ads-chart-row-doughnut">
+      <div class="ads-chart-wrap ads-chart-wrap-doughnut"><canvas id="ads-chart-age" data-chart="age"></canvas></div>
+      {% include ads/bar-list.html rows=s.age.rows label_field="bucket" %}
+    </div>
+    {% else %}
+    <p class="ads-na">{{ na_age | strip }}</p>
+    {% endif %}
+  </section>
+  <section class="ads-section">
+    <h2 class="ads-section-h">{{ t.ads.gender_h }}</h2>
+    {% if s.gender.available and s.gender.rows.size > 0 %}
+    <div class="ads-chart-row ads-chart-row-doughnut">
+      <div class="ads-chart-wrap ads-chart-wrap-doughnut"><canvas id="ads-chart-gender" data-chart="gender"></canvas></div>
+      <div class="ads-bars">
+        {% for r in s.gender.rows %}
+        {%- if r.gender == 'male' -%}{%- assign g_label = t.ads.gender_male -%}
+        {%- elsif r.gender == 'female' -%}{%- assign g_label = t.ads.gender_female -%}
+        {%- else -%}{%- assign g_label = t.ads.gender_unknown -%}{%- endif -%}
+        <div class="ads-bar">
+          <span class="ads-bar-label">{{ g_label }}</span>
+          <div class="ads-bar-track"><div class="ads-bar-fill" style="width:{{ r.pct }}%"></div></div>
+          <span class="ads-bar-value">{{ r.users | views_plus | replace: '+', '' }} · {{ r.pct }}%</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <p class="ads-na">{{ na_gender | strip }}</p>
+    {% endif %}
+  </section>
+</div>
+
+{% assign top_month = site.data.rankings.month %}
+{% if top_month and top_month.size > 0 %}
+<section class="ads-section">
+  <h2 class="ads-section-h">{{ t.ads.top_posts_h }}</h2>
+  <ol class="trending-list ads-top-list">
+    {% for entry in top_month %}
+      {% assign rp = entry.post %}
+      {% assign rank = forloop.index %}
+      <li>
+        <a class="row" href="{{ rp.url | relative_url }}">
+          <span class="rank-num" aria-hidden="true">{{ rank | prepend: '0' | slice: -2, 2 }}</span>
+          <span class="rcover">
+            {% if rp.image.path %}
+              <img src="{{ rp.image.path | relative_url }}" alt="" loading="lazy" decoding="async"
+                   {% if rp.image.lqip %}lqip="{{ rp.image.lqip }}"{% endif %}>
+            {% endif %}
+          </span>
+          <span class="rbody">
+            <span class="eyebrow muted">{{ rp.categories | first }} <span class="sep">/</span> {{ rp.date | date: '%Y-%m-%d' }}</span>
+            <span class="rtitle">{{ rp.title }}</span>
+            <span class="rexcerpt">{{ rp.description | default: rp.excerpt | strip_html | truncate: 120 }}</span>
+          </span>
+          <span class="rstats">
+            <span class="rnum">{{ entry.views | views_plus }}</span>
+            <span class="rlbl">{{ t.ads.views_unit }}</span>
+          </span>
+        </a>
+      </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endif %}
+
+<section class="ads-section">
+  <h2 class="ads-section-h">{{ t.ads.top_queries_h }}</h2>
+  <p class="ads-section-lede">{{ t.ads.top_queries_lede }}</p>
+  {% if s.topQueries.available and s.topQueries.rows.size > 0 %}
+  <table class="ads-queries">
+    <thead>
+      <tr>
+        <th class="q-name">{{ t.ads.q_query }}</th>
+        <th class="q-num">{{ t.ads.q_clicks }}</th>
+        <th class="q-num">{{ t.ads.q_impressions }}</th>
+        <th class="q-num">{{ t.ads.q_ctr }}</th>
+        <th class="q-num">{{ t.ads.q_position }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for q in s.topQueries.rows %}
+      <tr>
+        <td class="q-name">{{ q.query }}</td>
+        <td class="q-num">{{ q.clicks      | views_plus | replace: '+', '' }}</td>
+        <td class="q-num">{{ q.impressions | views_plus | replace: '+', '' }}</td>
+        <td class="q-num">{{ q.ctr }}%</td>
+        <td class="q-num">{{ q.position }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="ads-na">{{ t.ads.queries_unavailable }}</p>
+  {% endif %}
+</section>
+
+<section class="ads-section">
+  <h2 class="ads-section-h">{{ t.ads.pricing_h }}</h2>
+  <p class="ads-section-lede">{{ t.ads.placement_desc }}</p>
+  <div class="ads-plans">
+    {% for plan in t.ads.plans %}
+    <div class="ads-plan{% if plan.best %} ads-plan-best{% endif %}">
+      <div class="ads-plan-name">{{ plan.duration }}</div>
+      <div class="ads-plan-price">
+        <span class="num">{{ plan.price }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="ads-pricing-terms">
+    <div class="eyebrow">{{ t.ads.pricing_terms_h }}</div>
+    <ul>
+      <li>{{ t.ads.pricing_t1 }}</li>
+      <li>{{ t.ads.pricing_t2 }}</li>
+      <li>{{ t.ads.pricing_t3 }}</li>
+      <li>{{ t.ads.pricing_t4 }}</li>
+    </ul>
+  </div>
+</section>
+
+<section class="ads-section">
+  <h2 class="ads-section-h">{{ t.ads.contact_h }}</h2>
+  <p class="ads-contact-lede">{{ t.ads.contact_lede }}</p>
+  <div class="ads-contact-actions">
+    <a class="btn-pill ads-contact-btn" href="mailto:{{ site.author.email }}?subject=Sponsorship%20inquiry%20-%20zhgchg.li">
+      {% include icon.html name="paper-plane" %}
+      <span>{{ t.ads.contact_cta }}</span>
+    </a>
+  </div>
+</section>
+
+{% if s.generatedAt %}
+<p class="ads-updated">{{ t.ads.updated_at }} {{ s.generatedAt | date: "%Y-%m-%d %H:%M" }} (UTC+8)</p>
+{% endif %}
+
+{%- comment -%}
+  Pre-render the dataset for the chart-init JS. Plain JSON, served inline
+  to avoid one extra round trip.
+{%- endcomment -%}
+<script>
+  window.__adsStats = {{ s | jsonify }};
+  window.__adsLabels = {
+    male:    {{ t.ads.gender_male    | jsonify }},
+    female:  {{ t.ads.gender_female  | jsonify }},
+    unknown: {{ t.ads.gender_unknown | jsonify }},
+    langsites: {
+      "zh-tw": {{ t.ads.langsite_zh-tw  | jsonify }},
+      "en":    {{ t.ads.langsite_en     | jsonify }},
+      "jp":    {{ t.ads.langsite_jp     | jsonify }},
+      "zh-cn": {{ t.ads.langsite_zh-cn  | jsonify }},
+      "other": {{ t.ads.langsite_other  | jsonify }}
+    }
+  };
+</script>
+<script src="{{ '/assets/js/ads-charts.js' | relative_url }}" defer></script>

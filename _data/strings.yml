@@ -11,6 +11,7 @@ zh-tw:
     archive: 歸檔
     about: 關於
     contact: 聯絡
+    ads: 廣告刊登
     search: 搜尋
   drawer:
     navigate_section: Navigate
@@ -114,6 +115,69 @@ zh-tw:
     comments_em: · Comments
     comments_powered: ""
     related_h: 你也許會喜歡
+    ads_inquire: 我要刊登
+    ads_support_note: 獨立寫作、免費觀看，敬請支持本站廣告。
+    ad_label: "Advertisement · 廣告"
+  ads:
+    eyebrow: ZhgChgLi · Sponsorship
+    hero_h1: 在 ZhgChgLi 刊登廣告
+    hero_lede: "本站流量數據參考與廣告版位方案報價。"
+    support_note: "廣告刊登屬於贊助性質，支持我持續獨立寫作內容。"
+    stats_h: 近 30 天數據
+    stats_unavailable: 數據暫時無法載入，請稍後再試。
+    stat_users: 不重複訪客
+    stat_views: 瀏覽次數
+    stat_sessions: 工作階段
+    stat_engagement: 互動率
+    delta_vs_prev: 相比前 30 天
+    countries_h: 讀者來自
+    langsites_h: 語言版本分布
+    langsite_zh-tw: 繁體中文 · zhgchg.li
+    langsite_en: English · en.zhgchg.li
+    langsite_jp: 日本語 · jp.zhgchg.li
+    langsite_zh-cn: 简体中文 · zh-hans.zhgchg.li
+    langsite_other: 其他
+    devices_h: 裝置別
+    browsers_h: 瀏覽器
+    os_h: 作業系統
+    age_h: 年齡分布
+    gender_h: 性別分布
+    demographics_na: 尚無數據
+    demographics_signals_off: 尚無數據
+    demographics_below_threshold: 尚無數據
+    gender_male: 男性
+    gender_female: 女性
+    gender_unknown: 未知
+    top_posts_h: 近 30 天熱門文章
+    views_unit: 次
+    top_queries_h: 近 30 天熱門搜尋關鍵字
+    top_queries_lede: "讀者透過 Google 搜尋進站時實際輸入的關鍵字（資料來源：Search Console）。"
+    queries_unavailable: 關鍵字數據暫時無法載入。
+    q_query: 關鍵字
+    q_clicks: 點擊
+    q_impressions: 曝光
+    q_ctr: CTR
+    q_position: 平均排名
+    pricing_h: 刊登方案
+    placement_desc: "版位：文章內容區塊。第一章節後顯示 1 次，爾後每 3 個章節顯示 1 次，最後一個章節後再顯示 1 次（重複位置會自動去重；最少 1 次）。"
+    pricing_terms_h: 共通條款
+    pricing_t1: 全部已發佈與未來新文皆刊出
+    pricing_t2: 全語系刊登（zh-tw / en / zh-cn / jp 同步）
+    pricing_t3: PayPal 線上收款 · 確認後寄送付款連結
+    pricing_t4: 贊助刊登性質，恕不接受中途退款
+    plans:
+      - duration: 7 日
+        price: "NT$1,000"
+      - duration: 30 日
+        price: "NT$3,000"
+        best: true
+      - duration: 60 日
+        price: "NT$5,000"
+    contact_h: 意者來信
+    contact_lede: "請來信告知欲刊登的素材（圖文 / 連結 / 期間），確認後提供 PayPal 付款連結。"
+    contact_cta: 寄信洽詢
+    paypal_label: PayPal 收款連結
+    updated_at: 數據更新於
   trending:
     eyebrow_week: Issue · Weekly Charts
     eyebrow_month: Issue · Monthly Charts
@@ -186,6 +250,7 @@ en:
     archive: Archive
     about: About
     contact: Contact
+    ads: Advertise
     search: Search
   drawer:
     navigate_section: Navigate
@@ -289,6 +354,69 @@ en:
     comments_em: ""
     comments_powered: ""
     related_h: You may also enjoy
+    ads_inquire: Advertise here
+    ads_support_note: Independent writing, free to read — your support of these ads keeps the site going.
+    ad_label: Advertisement
+  ads:
+    eyebrow: ZhgChgLi · Sponsorship
+    hero_h1: Advertise on ZhgChgLi
+    hero_lede: "Site traffic, refreshed daily — and the rate card for our ad slots."
+    support_note: "Sponsorships are how I keep writing independently — thanks for keeping the lights on."
+    stats_h: Last 30 days
+    stats_unavailable: Stats are temporarily unavailable. Please try again later.
+    stat_users: Active users
+    stat_views: Page views
+    stat_sessions: Sessions
+    stat_engagement: Engagement rate
+    delta_vs_prev: vs previous 30 days
+    countries_h: Audience by country
+    langsites_h: Audience by language site
+    langsite_zh-tw: Traditional Chinese · zhgchg.li
+    langsite_en: English · en.zhgchg.li
+    langsite_jp: Japanese · jp.zhgchg.li
+    langsite_zh-cn: Simplified Chinese · zh-hans.zhgchg.li
+    langsite_other: Other
+    devices_h: Device
+    browsers_h: Browser
+    os_h: Operating system
+    age_h: Age
+    gender_h: Gender
+    demographics_na: No data
+    demographics_signals_off: No data
+    demographics_below_threshold: No data
+    gender_male: Male
+    gender_female: Female
+    gender_unknown: Unknown
+    top_posts_h: Top articles, last 30 days
+    views_unit: views
+    top_queries_h: Top search queries, last 30 days
+    top_queries_lede: "What readers searched for on Google before landing here (source: Search Console)."
+    queries_unavailable: Search query data is temporarily unavailable.
+    q_query: Query
+    q_clicks: Clicks
+    q_impressions: Impressions
+    q_ctr: CTR
+    q_position: Avg. position
+    pricing_h: Pricing
+    placement_desc: "Placement: in-article slot. Renders after section 1, then every 3 sections after that, plus after the last section (deduped — minimum once)."
+    pricing_terms_h: Common terms
+    pricing_t1: Runs across all published and future articles
+    pricing_t2: All language editions — zh-tw / en / zh-cn / jp
+    pricing_t3: PayPal — invoice sent after confirmation
+    pricing_t4: Sponsorship — no mid-term refunds
+    plans:
+      - duration: 7 days
+        price: "NT$1,000"
+      - duration: 30 days
+        price: "NT$3,000"
+        best: true
+      - duration: 60 days
+        price: "NT$5,000"
+    contact_h: Get in touch
+    contact_lede: "Email me your creative (image / copy / link / window). I'll confirm and send you a PayPal invoice."
+    contact_cta: Email me
+    paypal_label: PayPal
+    updated_at: Stats updated at
     ai_translation_notice: "This article was AI-translated — please let me know if anything looks off."
   trending:
     eyebrow_week: Issue · Weekly Charts
@@ -362,6 +490,7 @@ zh-cn:
     archive: 归档
     about: 关于
     contact: 联络
+    ads: 广告刊登
     search: 搜索
   drawer:
     navigate_section: 导航
@@ -465,6 +594,69 @@ zh-cn:
     comments_em: · Comments
     comments_powered: ""
     related_h: 你也许会喜欢
+    ads_inquire: 我要刊登
+    ads_support_note: 独立写作、免费观看，敬请支持本站广告。
+    ad_label: "Advertisement · 广告"
+  ads:
+    eyebrow: ZhgChgLi · Sponsorship
+    hero_h1: 在 ZhgChgLi 刊登广告
+    hero_lede: "本站流量数据参考与广告版位方案报价。"
+    support_note: "广告刊登属于赞助性质，支持我持续独立写作内容。"
+    stats_h: 近 30 天数据
+    stats_unavailable: 数据暂时无法加载，请稍后再试。
+    stat_users: 独立访客
+    stat_views: 浏览次数
+    stat_sessions: 会话数
+    stat_engagement: 互动率
+    delta_vs_prev: 相比前 30 天
+    countries_h: 读者来自
+    langsites_h: 语言版本分布
+    langsite_zh-tw: 繁体中文 · zhgchg.li
+    langsite_en: English · en.zhgchg.li
+    langsite_jp: 日本語 · jp.zhgchg.li
+    langsite_zh-cn: 简体中文 · zh-hans.zhgchg.li
+    langsite_other: 其他
+    devices_h: 设备类型
+    browsers_h: 浏览器
+    os_h: 操作系统
+    age_h: 年龄分布
+    gender_h: 性别分布
+    demographics_na: 暂无数据
+    demographics_signals_off: 暂无数据
+    demographics_below_threshold: 暂无数据
+    gender_male: 男性
+    gender_female: 女性
+    gender_unknown: 未知
+    top_posts_h: 近 30 天热门文章
+    views_unit: 次
+    top_queries_h: 近 30 天热门搜索关键字
+    top_queries_lede: "读者透过 Google 搜索进站时实际输入的关键字（资料来源：Search Console）。"
+    queries_unavailable: 关键字数据暂时无法加载。
+    q_query: 关键字
+    q_clicks: 点击
+    q_impressions: 曝光
+    q_ctr: CTR
+    q_position: 平均排名
+    pricing_h: 刊登方案
+    placement_desc: "版位：文章内容区块。第一章节后显示 1 次，尔后每 3 个章节显示 1 次，最后一个章节后再显示 1 次（重复位置会自动去重；最少 1 次）。"
+    pricing_terms_h: 共通条款
+    pricing_t1: 全部已发布与未来新文皆刊出
+    pricing_t2: 全语系刊登（zh-tw / en / zh-cn / jp 同步）
+    pricing_t3: PayPal 在线收款 · 确认后寄送付款链接
+    pricing_t4: 赞助刊登性质，恕不接受中途退款
+    plans:
+      - duration: 7 日
+        price: "NT$1,000"
+      - duration: 30 日
+        price: "NT$3,000"
+        best: true
+      - duration: 60 日
+        price: "NT$5,000"
+    contact_h: 意者来信
+    contact_lede: "请来信告知欲刊登的素材（图文 / 链接 / 期间），确认后提供 PayPal 付款链接。"
+    contact_cta: 写信洽询
+    paypal_label: PayPal 收款链接
+    updated_at: 数据更新于
   trending:
     eyebrow_week: Issue · Weekly Charts
     eyebrow_month: Issue · Monthly Charts
@@ -537,6 +729,7 @@ jp:
     archive: アーカイブ
     about: 概要
     contact: お問い合わせ
+    ads: 広告掲載
     search: 検索
   drawer:
     navigate_section: ナビゲーション
@@ -640,6 +833,69 @@ jp:
     comments_em: ""
     comments_powered: ""
     related_h: こちらもおすすめ
+    ads_inquire: 広告掲載について
+    ads_support_note: 個人で書いている無料コンテンツです。広告のご閲覧で運営をご支援ください。
+    ad_label: "Advertisement · 広告"
+  ads:
+    eyebrow: ZhgChgLi · Sponsorship
+    hero_h1: ZhgChgLi に広告を掲載
+    hero_lede: "サイトのトラフィックデータと広告枠の料金プラン。"
+    support_note: "広告掲載はスポンサー支援であり、これからも独立して書き続けるための支えになります。"
+    stats_h: 直近 30 日のデータ
+    stats_unavailable: データを取得できませんでした。しばらくしてから再度お試しください。
+    stat_users: アクティブユーザー
+    stat_views: ページビュー
+    stat_sessions: セッション数
+    stat_engagement: エンゲージメント率
+    delta_vs_prev: 前 30 日比
+    countries_h: 国別オーディエンス
+    langsites_h: 言語版別オーディエンス
+    langsite_zh-tw: 繁体字中国語 · zhgchg.li
+    langsite_en: English · en.zhgchg.li
+    langsite_jp: 日本語 · jp.zhgchg.li
+    langsite_zh-cn: 簡体字中国語 · zh-hans.zhgchg.li
+    langsite_other: その他
+    devices_h: デバイス
+    browsers_h: ブラウザ
+    os_h: OS
+    age_h: 年齢層
+    gender_h: 性別
+    demographics_na: データなし
+    demographics_signals_off: データなし
+    demographics_below_threshold: データなし
+    gender_male: 男性
+    gender_female: 女性
+    gender_unknown: 不明
+    top_posts_h: 直近 30 日の人気記事
+    views_unit: 回
+    top_queries_h: 直近 30 日の人気検索キーワード
+    top_queries_lede: "読者が Google 検索で実際に入力したキーワード（データソース: Search Console）。"
+    queries_unavailable: キーワードデータを取得できませんでした。
+    q_query: キーワード
+    q_clicks: クリック
+    q_impressions: 表示回数
+    q_ctr: CTR
+    q_position: 平均掲載順位
+    pricing_h: プラン
+    placement_desc: "掲載位置：記事内コンテンツ枠。第 1 章直後、以降は 3 章ごと、および最終章直後に表示（重複位置は自動で重複排除、最少 1 回）。"
+    pricing_terms_h: 共通条件
+    pricing_t1: 公開済みおよび将来公開する全記事に掲載
+    pricing_t2: 全言語版に掲載（zh-tw / en / zh-cn / jp）
+    pricing_t3: PayPal オンライン決済・確認後に請求書をお送りします
+    pricing_t4: スポンサー掲載のため、期間途中の返金はお受けできません
+    plans:
+      - duration: 7 日間
+        price: "NT$1,000"
+      - duration: 30 日間
+        price: "NT$3,000"
+        best: true
+      - duration: 60 日間
+        price: "NT$5,000"
+    contact_h: お問い合わせ
+    contact_lede: "掲載素材（画像 / コピー / リンク / 期間）をメールでお送りください。確認後、PayPal の請求書をお送りします。"
+    contact_cta: メールで問い合わせ
+    paypal_label: PayPal リンク
+    updated_at: データ更新日時
     ai_translation_notice: "本記事は AI による翻訳です。お気づきの点があればお知らせください。"
   trending:
     eyebrow_week: Issue · Weekly Charts

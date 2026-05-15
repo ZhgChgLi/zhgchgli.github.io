@@ -207,6 +207,8 @@ exclude:
   - vendor
   - node_modules
   - Design
+  # Ads/ is the GAS source pushed via clasp; not part of the static site.
+  - Ads
   - CLAUDE.md
   - README.md
   - .github

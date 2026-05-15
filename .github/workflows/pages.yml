@@ -71,16 +71,28 @@ jobs:
             curl -fsSL --retry 3 --retry-delay 2 -o "$api.json" "$STATS_BASE?api=$api"
           done
 
+      - name: Fetch ads stats JSON (for /ads/ page)
+        env:
+          ADS_STATS_URL: http://https//script.google.com/macros/s/AKfycbw1TowznLUc09sz-Ach6iK0yUwFGyRWF-wBYAKZjlIoNI92bsVTtA7hOtVHLzjrP30Ldg/exec
+        run: |
+          set -euo pipefail
+          if [[ -z "${ADS_STATS_URL}" ]]; then
+            echo "ADS_STATS_URL secret not set — skipping (page will use last-committed _data/ads_stats.json)"
+            exit 0
+          fi
+          echo "→ fetching ads stats"
+          curl -fsSL --retry 3 --retry-delay 2 -o _data/ads_stats.json "${ADS_STATS_URL}?api=stats"
+
       - name: Commit fetched stats JSON back to repo
         run: |
           set -euo pipefail
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add top7.json top30.json total.json
+          git add top7.json top30.json total.json _data/ads_stats.json
           if git diff --cached --quiet; then
             echo "no stats changes to commit"
           else
-            git commit -m "chore: update stats JSON (top7/top30/total)"
+            git commit -m "chore: refresh stats JSON (top7/top30/total + ads)"
             git push origin HEAD:${{ github.ref_name }}
           fi
 
