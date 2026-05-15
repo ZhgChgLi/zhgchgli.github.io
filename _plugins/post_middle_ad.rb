@@ -7,14 +7,15 @@
 #   _layouts/post.html                     — emits the placeholder
 #                                            <div class="post-promo post-promo-middle" hidden>
 #
-# Placement rules (all clones share one AdSense slot — keeping the
-# inventory concentrated improves fill rate vs spreading across many
-# fresh, un-warmed slot IDs):
+# Placement rules:
 #   * Posts with ≥1 <h3>: up to 3 ads — after the FIRST <h3>, the
 #     MIDDLE <h3>, and the LAST <h3>. Duplicates collapse, so a post
 #     with 1 section gets 1 ad, with 2 sections gets 2 ads, etc.
 #   * Posts with zero <h3>: a single ad is inserted at the top of the
 #     body.
+#   * Each clone gets its own AdSense slot ID from SLOT_IDS so AdSense
+#     bids per slot independently (one slot's unfilled doesn't poison
+#     the others).
 
 require 'nokogiri'
 
@@ -22,6 +23,11 @@ module ZhgChgLi
   module PostMiddleAd
     AD_SELECTOR   = 'div.post-promo.post-promo-middle'
     BODY_SELECTOR = '#post-body'
+    SLOT_IDS = %w[
+      4115199933
+      8599187119
+      5122976533
+    ].freeze
 
     def self.process(html)
       return html unless html.is_a?(String)
@@ -46,15 +52,15 @@ module ZhgChgLi
         # No sections — one ad at the very top of the body.
         first = body.children.first
         if first
-          first.before(template.dup)
+          first.before(ad_with_slot(template, SLOT_IDS[0]))
         else
-          body.add_child(template.dup)
+          body.add_child(ad_with_slot(template, SLOT_IDS[0]))
         end
         return doc.to_html
       end
 
-      compute_positions(n).each do |pos|
-        h3s[pos].add_next_sibling(template.dup)
+      compute_positions(n).each_with_index do |pos, i|
+        h3s[pos].add_next_sibling(ad_with_slot(template, SLOT_IDS[i]))
       end
 
       doc.to_html
@@ -71,6 +77,15 @@ module ZhgChgLi
     def self.compute_positions(n)
       return [] if n.zero?
       [0, n / 2, n - 1].uniq.sort
+    end
+
+    # Clone the placeholder and rewrite its <ins data-ad-slot> so each
+    # clone is its own AdSense unit.
+    def self.ad_with_slot(template, slot_id)
+      clone = template.dup
+      ins = clone.at_css('ins.adsbygoogle')
+      ins['data-ad-slot'] = slot_id if ins
+      clone
     end
   end
 
