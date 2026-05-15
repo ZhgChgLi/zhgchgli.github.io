@@ -103,7 +103,7 @@ zh-tw:
     filed_under: 收錄於
     improve_title: 在 GitHub 上補充修正
     improve_subtitle: 編輯這篇文章
-    medium_origin_title: 本文首次發表於 Medium
+    medium_origin_title: 本文同步發表於 Medium
     medium_origin_subtitle: 點此查看原文
     share_title: 分享這篇文章
     share_subtitle: 複製連結 · 分享到社群
@@ -347,7 +347,7 @@ en:
     filed_under: Filed under
     improve_title: Improve this page
     improve_subtitle: Edit on GitHub
-    medium_origin_title: Originally published on Medium
+    medium_origin_title: Also published on Medium
     medium_origin_subtitle: Read the original
     share_title: Share this essay
     share_subtitle: Copy link · share to socials
@@ -592,7 +592,7 @@ zh-cn:
     filed_under: 收录于
     improve_title: 在 GitHub 上补充修正
     improve_subtitle: 编辑这篇文章
-    medium_origin_title: 本文首次发表于 Medium
+    medium_origin_title: 本文同步发表于 Medium
     medium_origin_subtitle: 点此查看原文
     share_title: 分享这篇文章
     share_subtitle: 复制链接 · 分享到社群
@@ -836,7 +836,7 @@ jp:
     filed_under: 分類
     improve_title: GitHub で編集
     improve_subtitle: この記事を改善
-    medium_origin_title: 本記事は Medium で初公開
+    medium_origin_title: 本記事は Medium にも掲載
     medium_origin_subtitle: オリジナルを読む
     share_title: この記事をシェア
     share_subtitle: リンクをコピー · SNS でシェア
