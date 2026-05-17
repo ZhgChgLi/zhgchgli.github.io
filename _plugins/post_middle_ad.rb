@@ -24,9 +24,9 @@ module ZhgChgLi
     AD_SELECTOR   = 'div.post-promo.post-promo-middle'
     BODY_SELECTOR = '#post-body'
     SLOT_IDS = %w[
-      9453027800
-      9453027800
-      9453027800
+      4115199933
+      8599187119
+      5122976533
     ].freeze
 
     def self.process(html)
