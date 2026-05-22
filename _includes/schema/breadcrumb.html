@@ -1,0 +1,52 @@
+{%- comment -%}
+  BreadcrumbList JSON-LD.
+
+  Emitted for:
+    - post pages           : Home → Category → Post
+    - category archives    : Home → Categories → :cat
+    - tag archives         : Home → Tags → :tag
+    - year archives        : Home → Archive → :year
+
+  Other pages skip this block.
+{%- endcomment -%}
+{%- assign emit = false -%}
+{%- if page.layout == 'post' -%}{%- assign emit = true -%}{%- assign btype = 'post' -%}
+{%- elsif page.layout == 'archive-category.html' or page.layout == 'archive-category' -%}{%- assign emit = true -%}{%- assign btype = 'category' -%}
+{%- elsif page.layout == 'archive-tag.html' or page.layout == 'archive-tag' -%}{%- assign emit = true -%}{%- assign btype = 'tag' -%}
+{%- elsif page.layout == 'archive-year.html' or page.layout == 'archive-year' -%}{%- assign emit = true -%}{%- assign btype = 'year' -%}
+{%- endif -%}
+{%- if emit -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}/" }
+{%- if btype == 'post' -%}
+    {%- if page.categories.size > 0 -%}
+      {%- assign cat = page.categories | first -%}
+      {%- assign cat_slug = cat | slugify -%}
+    ,
+    { "@type": "ListItem", "position": 2, "name": {{ cat | jsonify }}, "item": "{{ '/categories/' | append: cat_slug | append: '/' | absolute_url }}" },
+    { "@type": "ListItem", "position": 3, "name": {{ page.title | strip_html | jsonify }}, "item": "{{ page.url | replace:'index.html','' | absolute_url }}" }
+    {%- else -%}
+    ,
+    { "@type": "ListItem", "position": 2, "name": {{ page.title | strip_html | jsonify }}, "item": "{{ page.url | replace:'index.html','' | absolute_url }}" }
+    {%- endif -%}
+{%- elsif btype == 'category' -%}
+    ,
+    { "@type": "ListItem", "position": 2, "name": "Categories", "item": "{{ '/categories/' | absolute_url }}" },
+    { "@type": "ListItem", "position": 3, "name": {{ page.title | default: page.category | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+{%- elsif btype == 'tag' -%}
+    ,
+    { "@type": "ListItem", "position": 2, "name": "Tags", "item": "{{ '/tags/' | absolute_url }}" },
+    { "@type": "ListItem", "position": 3, "name": {{ page.title | default: page.tag | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+{%- elsif btype == 'year' -%}
+    ,
+    { "@type": "ListItem", "position": 2, "name": "Archive", "item": "{{ '/archive/' | absolute_url }}" },
+    { "@type": "ListItem", "position": 3, "name": {{ page.title | default: page.date | date: '%Y' | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+{%- endif -%}
+  ]
+}
+</script>
+{%- endif -%}

@@ -105,7 +105,32 @@
 <link rel="manifest" href="{{ '/site.webmanifest' | relative_url }}">
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+{%- if site.google_analytics -%}
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+{%- endif -%}
+{%- if page.layout == 'post' -%}
+<link rel="preconnect" href="https://giscus.app" crossorigin>
+<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+<link rel="dns-prefetch" href="https://googleads.g.doubleclick.net">
+{%- endif -%}
 
+{%- comment -%}
+  Hero image preload + fetchpriority — LCP optimization for post pages.
+  Pairs with fetchpriority="high" on the <img> in _layouts/post.html so
+  the browser starts the hero download alongside CSS, instead of waiting
+  for layout.
+{%- endcomment -%}
+{%- if page.layout == 'post' and page.image and page.image.path -%}
+<link rel="preload" as="image" href="{{ page.image.path | relative_url }}" fetchpriority="high">
+{%- endif -%}
+
+{%- comment -%}
+  Preload main.css so the browser starts the request alongside HTML parse
+  instead of waiting until it hits the stylesheet link below. The plain
+  <link rel=stylesheet> still applies render-blocking semantics; preload
+  only buys the network parallelism, not the cssom-blocking change.
+{%- endcomment -%}
+<link rel="preload" as="style" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.css_hash }}">
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.css_hash }}">
 
 {%- if page.layout == 'post' -%}
@@ -113,8 +138,29 @@
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"></noscript>
 {%- endif -%}
 
+{%- comment -%}
+  Structured data (JSON-LD).
+
+  jekyll-seo-tag already emits a basic BlogPosting / WebSite block; we layer
+  more complete and specific entities on top (Google merges multiple JSON-LD
+  blocks per page).
+
+  Order: Article → Breadcrumb → WebSite (home) → Person (home + about) →
+  FAQPage (per-post `aioFaqs:`) → HowTo (per-post `howto:`).
+  The latter two are pre-rendered JSON-LD strings in frontmatter so the post
+  author has full control over wording.
+{%- endcomment -%}
+{%- include schema/article.html -%}
+{%- include schema/breadcrumb.html -%}
+{%- include schema/website.html -%}
+{%- include schema/person.html -%}
+
 {% if page.aioFaqs %}
 <script type="application/ld+json">{{ page.aioFaqs }}</script>
+{% endif %}
+
+{% if page.howto %}
+<script type="application/ld+json">{{ page.howto }}</script>
 {% endif %}
 
 {% if site.google_analytics %}

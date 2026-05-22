@@ -42,7 +42,17 @@ module ZhgChgLi
       if cover.is_a?(Hash) && cover['path']
         webp = webp_if_exists(cover['path'])
         cover['path'] = webp if webp
-        cover['lqip'] = lqip_data_url(*dimensions_for(cover['path'], info))
+        w, h = dimensions_for(cover['path'], info)
+        cover['lqip'] = lqip_data_url(w, h)
+        # Expose explicit dimensions to layouts/JSON-LD; LCP-critical for hero.
+        # Only set when photos.json had a real entry (skip the 1200×800 fallback
+        # so consumers can fall back to CSS aspect-ratio instead of a wrong
+        # number).
+        if entry_exists?(cover['path'], info)
+          cover['width']  ||= w
+          cover['height'] ||= h
+        end
+        cover['alt'] ||= post.data['title']
       end
     end
 
@@ -53,8 +63,9 @@ module ZhgChgLi
       content.gsub(/\[\s*!\[(.*?)\]\((\/assets\/[^\s)]+)(?:\s+"([^"]*)")?\)\s*\]\(([^)]+)\)(\{\:[^}]*\})?/) do
         alt, path, title, link, tail = Regexp.last_match.captures
         next $~[0] unless image_path?(path)
+        orig = path
         path = webp_if_exists(path) || path
-        ial = build_ial(path, info, tail)
+        ial = build_ial(path, info, tail, orig)
         "[![#{sanitize_alt(alt)}](#{path}#{title_part(title)})#{ial}](#{link})"
       end
     end
@@ -64,8 +75,9 @@ module ZhgChgLi
       content.gsub(/!\[(.*?)\]\((\/assets\/[^\s)]+)(?:\s+"([^"]*)")?\)(\{\:[^}]*\})?/) do
         alt, path, title, tail = Regexp.last_match.captures
         next $~[0] unless image_path?(path)
+        orig = path
         path = webp_if_exists(path) || path
-        "![#{sanitize_alt(alt)}](#{path}#{title_part(title)})#{build_ial(path, info, tail)}"
+        "![#{sanitize_alt(alt)}](#{path}#{title_part(title)})#{build_ial(path, info, tail, orig)}"
       end
     end
 
@@ -92,7 +104,10 @@ module ZhgChgLi
     end
 
     # Build the kramdown inline-attribute list including any pre-existing one.
-    def build_ial(path, info, existing_tail)
+    # `orig_path` is the markdown source path before webp swap — preserved so
+    # the lightbox can open the un-recompressed original (jpg/png) for the
+    # detail/zoom view, while inline display still uses the smaller .webp.
+    def build_ial(path, info, existing_tail, orig_path = nil)
       width, height = dimensions_for(path, info)
       attrs = [
         %(loading="lazy"),
@@ -101,6 +116,9 @@ module ZhgChgLi
         %(height="#{height}"),
         %(lqip="#{lqip_data_url(width, height)}")
       ]
+      if orig_path && orig_path != path
+        attrs << %(data-orig="#{orig_path}")
+      end
       if existing_tail.nil? || existing_tail.empty?
         "{: #{attrs.join(' ')} }"
       else
@@ -122,6 +140,11 @@ module ZhgChgLi
       base = File.basename(image_path, File.extname(image_path))
       entry = info[base] || {}
       [entry['width'] || 1200, entry['height'] || 800]
+    end
+
+    def entry_exists?(image_path, info)
+      base = File.basename(image_path, File.extname(image_path))
+      info.key?(base)
     end
 
     def lqip_data_url(width, height)

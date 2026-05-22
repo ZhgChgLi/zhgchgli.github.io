@@ -325,7 +325,7 @@
     }
     compute();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    window.addEventListener('resize', onScroll, { passive: true });
   })();
 </script>
 {%- endif -%}

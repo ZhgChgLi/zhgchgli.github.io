@@ -1,0 +1,33 @@
+{%- comment -%}
+  WebSite JSON-LD with SearchAction — exposes the sitelinks search box to
+  Google. Only emitted on the homepage to keep this hint canonical.
+
+  /search?q={search_term_string} — search.html reads ?q= on load (see
+  scripts.html search bootstrap).
+{%- endcomment -%}
+{%- assign clean = page.url | replace: 'index.html', '' -%}
+{%- if clean == '/' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ site.title | jsonify }},
+  "alternateName": "ZhgChgLi",
+  "url": "{{ site.url }}/",
+  "description": {{ site.description | strip_newlines | normalize_whitespace | jsonify }},
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "url": "{{ site.url }}/"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "{{ site.url }}/search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{%- endif -%}

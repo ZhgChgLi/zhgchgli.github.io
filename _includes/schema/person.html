@@ -1,0 +1,32 @@
+{%- comment -%}
+  Person JSON-LD for the site author. Emitted on the homepage and /about/
+  so the author entity has a canonical anchor that Article author blocks
+  can reference via sameAs.
+{%- endcomment -%}
+{%- assign clean = page.url | replace: 'index.html', '' -%}
+{%- assign is_home = false -%}
+{%- if clean == '/' -%}{%- assign is_home = true -%}{%- endif -%}
+{%- if is_home or clean == '/about/' -%}
+{%- assign me = site.data.authors.ZhgChgLi -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": {{ me.display_name | default: me.name | jsonify }},
+  "url": "{{ site.url }}/about/",
+  "image": "{{ me.picture | absolute_url }}",
+  "description": {{ me.bio | strip_html | jsonify }},
+  "sameAs": [
+    {%- assign sep = '' -%}
+    {%- for s in site.data.social -%}
+      {%- if s.url and s.url contains '://' -%}{{ sep }}"{{ s.url }}"{%- assign sep = ',' -%}{%- endif -%}
+    {%- endfor -%}
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "url": "{{ site.url }}/"
+  }
+}
+</script>
+{%- endif -%}

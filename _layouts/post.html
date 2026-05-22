@@ -62,9 +62,13 @@ layout: default
 
   {% if page.image and page.image.path %}
     {% assign cover_url = page.image.path | relative_url %}
+    {% assign cover_alt = page.image.alt | default: page.title | strip_html %}
     <div class="post-cover">
       <div class="blur" style="background-image: url('{{ cover_url }}');"></div>
-      <img src="{{ cover_url }}" alt="{{ page.title }}" decoding="async"
+      <img src="{{ cover_url }}" alt="{{ cover_alt }}"
+           {% if page.image.width %}width="{{ page.image.width }}"{% endif %}
+           {% if page.image.height %}height="{{ page.image.height }}"{% endif %}
+           fetchpriority="high" decoding="async"
            {% if page.image.lqip %}lqip="{{ page.image.lqip }}"{% endif %}>
     </div>
     {% if author_verified %}
@@ -333,6 +337,7 @@ layout: default
         <a class="related-card" href="{{ rp.url | relative_url }}">
           {% if rp.image.path %}
           <div class="cover"><img src="{{ rp.image.path | relative_url }}" alt="" loading="lazy" decoding="async"
+               width="600" height="450"
                {% if rp.image.lqip %}lqip="{{ rp.image.lqip }}"{% endif %}></div>
           {% endif %}
           <div class="meta">{{ rp.categories | first }} · {{ rp.date | date: '%Y-%m-%d' }}</div>
@@ -360,14 +365,17 @@ layout: default
     copy: {{ _ic_copy | strip | jsonify }}
   };
 
-  // GLightbox: wrap article images in zoomable links
+  // GLightbox: wrap article images in zoomable links. Open the un-recompressed
+  // original (jpg/png) when available — photo_optimization.rb stashes the
+  // pre-webp path in data-orig so lightbox shows the higher-fidelity source
+  // for zoom, while inline display keeps the smaller .webp.
   document.addEventListener('DOMContentLoaded', function () {
     var body = document.getElementById('post-body');
     if (body && window.GLightbox) {
       body.querySelectorAll('img').forEach(function (img) {
         if (img.closest('a')) return;
         var a = document.createElement('a');
-        a.href = img.currentSrc || img.src;
+        a.href = img.getAttribute('data-orig') || img.currentSrc || img.src;
         a.className = 'glightbox';
         a.setAttribute('data-gallery', 'post');
         if (img.alt) a.setAttribute('data-title', img.alt);

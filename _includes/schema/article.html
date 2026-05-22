@@ -1,0 +1,61 @@
+{%- comment -%}
+  BlogPosting / Article JSON-LD. jekyll-seo-tag emits a basic BlogPosting
+  but omits dateModified, full author Person, image dimensions, keywords,
+  inLanguage, and articleSection. This block layers a complete one on top
+  (Google merges multiple JSON-LD blocks per page).
+{%- endcomment -%}
+{%- if page.layout == 'post' -%}
+{%- assign author_handle = page.author | default: site.author.name -%}
+{%- assign post_author = site.data.authors[author_handle] -%}
+{%- assign author_name = post_author.display_name | default: post_author.name | default: site.author.display_name | default: site.author.name -%}
+{%- assign author_link = post_author.link | default: site.author.link | default: '/about/' -%}
+{%- assign author_pic = post_author.picture | default: post_author.avatar | default: site.author.avatar -%}
+{%- assign author_bio = post_author.bio | default: site.author.bio -%}
+{%- assign desc = page.description | default: page.excerpt | strip_html | normalize_whitespace | truncate: 280 -%}
+{%- assign cover_url = page.image.path | default: '/assets/images/zhgchgli_og.jpg' | absolute_url -%}
+{%- assign img_alt = page.image.alt | default: page.title | strip_html -%}
+{%- assign lang_iso = site.lang | default: 'zh-Hant' -%}
+{%- for lng in site.i18n.languages -%}{%- if lng.code == site.i18n.current -%}{%- assign lang_iso = lng.iso -%}{%- endif -%}{%- endfor -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ page.url | replace:'index.html','' | absolute_url }}" },
+  "headline": {{ page.title | strip_html | jsonify }},
+  "description": {{ desc | jsonify }},
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ cover_url }}"{%- if page.image.width %},
+    "width": {{ page.image.width }}{%- endif %}{%- if page.image.height %},
+    "height": {{ page.image.height }}{%- endif %}
+  },
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "author": {
+    "@type": "Person",
+    "name": {{ author_name | jsonify }},
+    "url": "{{ author_link | absolute_url }}"{%- if author_pic %},
+    "image": "{{ author_pic | absolute_url }}"{%- endif %}{%- if author_bio %},
+    "description": {{ author_bio | strip_html | jsonify }}{%- endif %},
+    "sameAs": [
+      {%- assign sep = '' -%}
+      {%- for s in site.data.social -%}
+        {%- if s.url and s.url contains '://' -%}{{ sep }}"{{ s.url }}"{%- assign sep = ',' -%}{%- endif -%}
+      {%- endfor -%}
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "url": "{{ site.url }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ '/assets/img/favicons/favicon-32x32.png' | absolute_url }}"
+    }
+  }{%- if page.categories.size > 0 %},
+  "articleSection": {{ page.categories | first | jsonify }}{%- endif %}{%- if page.tags.size > 0 %},
+  "keywords": {{ page.tags | join: ', ' | jsonify }}{%- endif %},
+  "inLanguage": "{{ lang_iso }}"
+}
+</script>
+{%- endif -%}
