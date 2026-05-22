@@ -1,43 +1,66 @@
 {%- comment -%}
-  giscus mounts via dynamic script injection so its initial data-theme
-  picks the right light/dark CSS based on <html data-theme> at render
-  time. (A static <script data-theme="..."> would bake in one URL at
-  build time; dark-mode users would see a flash of light comments
-  before scripts.html could send setConfig.) Subsequent toggle changes
-  are applied to the iframe via setConfig postMessage from scripts.html.
+  giscus mounts via IntersectionObserver so the giscus client.js (and the
+  iframe to giscus.app, which is the single largest third-party payload on
+  the page) only downloads when the comments section approaches the
+  viewport. On a typical desktop visit that's well after LCP/TBT settle.
+
+  data-theme is resolved at runtime from <html data-theme>, falling back to
+  prefers-color-scheme. A static `data-theme="..."` would bake in one URL at
+  build time; dark-mode users would flash light comments before scripts.html
+  could send setConfig. Subsequent theme toggles are postMessage'd to the
+  iframe by scripts.html.
 {%- endcomment -%}
+<div id="giscus-mount"></div>
 <script>
   (function () {
-    var t = document.documentElement.dataset.theme || 'auto';
-    var dark = t === 'dark' || (t === 'auto' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    // Use window.location.origin (runtime) instead of Liquid's
-    // `absolute_url` (build-time site.url) so dev / preview hosts work.
-    // Production canonical URL is https://zhgchg.li either way.
-    var themeUrl = window.location.origin
-      + (dark ? '/assets/css/giscus-dark.css' : '/assets/css/giscus.css');
+    var mount = document.currentScript.previousElementSibling;
+    if (!mount || mount.id !== 'giscus-mount') {
+      mount = document.getElementById('giscus-mount');
+    }
+    if (!mount || mount.dataset.loaded === '1') return;
 
-    var s = document.createElement('script');
-    s.src = 'https://giscus.app/client.js';
-    var attrs = {
-      'data-repo':              '{{ site.giscus.repo }}',
-      'data-repo-id':           '{{ site.giscus.repo_id }}',
-      'data-category':          '{{ site.giscus.category }}',
-      'data-category-id':       '{{ site.giscus.category_id }}',
-      'data-mapping':           'specific',
-      'data-term':              '{{ page.discussion_id | default: page.slug | default: page.url | escape }}',
-      'data-strict':            '0',
-      'data-reactions-enabled': '{{ site.giscus.reactions_enabled | default: "1" }}',
-      'data-emit-metadata':     '{{ site.giscus.emit_metadata | default: "0" }}',
-      'data-input-position':    '{{ site.giscus.input_position | default: "bottom" }}',
-      'data-theme':             themeUrl,
-      'data-lang':              '{{ site.giscus.lang | default: "zh-TW" }}',
-      'data-loading':           'lazy'
-    };
-    Object.keys(attrs).forEach(function (k) { s.setAttribute(k, attrs[k]); });
-    s.crossOrigin = 'anonymous';
-    s.async = true;
+    function loadGiscus() {
+      if (mount.dataset.loaded === '1') return;
+      mount.dataset.loaded = '1';
 
-    var here = document.currentScript;
-    here.parentNode.insertBefore(s, here);
+      var t = document.documentElement.dataset.theme || 'auto';
+      var dark = t === 'dark' || (t === 'auto' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      var themeUrl = window.location.origin
+        + (dark ? '/assets/css/giscus-dark.css' : '/assets/css/giscus.css');
+
+      var s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      var attrs = {
+        'data-repo':              '{{ site.giscus.repo }}',
+        'data-repo-id':           '{{ site.giscus.repo_id }}',
+        'data-category':          '{{ site.giscus.category }}',
+        'data-category-id':       '{{ site.giscus.category_id }}',
+        'data-mapping':           'specific',
+        'data-term':              '{{ page.discussion_id | default: page.slug | default: page.url | escape }}',
+        'data-strict':            '0',
+        'data-reactions-enabled': '{{ site.giscus.reactions_enabled | default: "1" }}',
+        'data-emit-metadata':     '{{ site.giscus.emit_metadata | default: "0" }}',
+        'data-input-position':    '{{ site.giscus.input_position | default: "bottom" }}',
+        'data-theme':             themeUrl,
+        'data-lang':              '{{ site.giscus.lang | default: "zh-TW" }}',
+        'data-loading':           'lazy'
+      };
+      Object.keys(attrs).forEach(function (k) { s.setAttribute(k, attrs[k]); });
+      s.crossOrigin = 'anonymous';
+      s.async = true;
+      mount.appendChild(s);
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { loadGiscus(); io.disconnect(); }
+        });
+      }, { rootMargin: '400px 0px' });
+      io.observe(mount);
+    } else {
+      // Old browsers: just load on idle / next tick.
+      (window.requestIdleCallback || window.setTimeout)(loadGiscus, 1);
+    }
   })();
 </script>

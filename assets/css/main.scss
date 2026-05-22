@@ -131,6 +131,10 @@ body {
 :root { --content-max: 1280px; }
 main { max-width: var(--content-max); margin: 0 auto; }
 img { display: block; max-width: 100%; height: auto; }
+/* CLS fallback: any lazy img that didn't get width/height (legacy markdown
+   not yet routed through photo_optimization.rb, or 3rd-party HTML) reserves
+   a 16:9 box so layout doesn't jump when the bytes arrive. */
+img[loading="lazy"]:not([width]):not([height]) { aspect-ratio: 16 / 9; }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; }
 hr { border: none; border-top: 1px solid var(--rule); margin: 32px 0; }
@@ -1173,6 +1177,18 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
    the framed wrapper on narrow viewports / inside .post-shell (728px). */
 .post-promo-card ins.adsbygoogle,
 .post-promo-card iframe { max-width: 100% !important; }
+
+/* CLS guard: reserve vertical space for AdSense slots before the script
+   measures and assigns dimensions. Without this the slot collapses to 0
+   then snaps open, shifting everything below. Heights chosen to match
+   the most common rendered ad sizes (mobile 250px, desktop 280px).
+   Scoped to .post-promo-card to match the existing max-width rule above
+   and avoid clobbering any future ad placements (sidebar, sticky, in-feed)
+   that need different reserved heights. */
+.post-promo-card ins.adsbygoogle { display: block; min-height: 250px; }
+@media (min-width: 768px) {
+  .post-promo-card ins.adsbygoogle { min-height: 280px; }
+}
 
 /* House-promo fallback — assets/js/promo-fallback.js swaps to this when
    AdSense is blocked or returns unfilled. The .house-promo-card wrapper
