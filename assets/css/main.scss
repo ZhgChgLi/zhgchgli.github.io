@@ -1007,14 +1007,15 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   outline-width: 3px;
 }
 
-/* GLightbox theme — always cream regardless of site theme. Photo galleries
-   read better on light bg even for dark-mode users (cf. Apple Photos,
-   Twitter image viewer); the photo itself carries the visual weight, the
-   chrome should stay neutral and out of the way. Hardcoded light-token
-   hex values so the lightbox doesn't flip with prefers-color-scheme. */
+/* GLightbox theme — two layers:
+   1. Overlay + controls follow the site theme (dark mode darkens).
+   2. The image card + description panel stay fixed light cream so the
+      photo always reads on a neutral light frame, regardless of theme. */
+
+/* (1) Overlay + transparent middle layers — theme-aware via tokens. */
 .glightbox-container .goverlay {
-  background: #f6efe4 !important;  /* cream-100 (light) */
-  opacity: 1;
+  background: var(--paper) !important;
+  opacity: 0.95;
 }
 .glightbox-container .ginner-container,
 .glightbox-container .gcontainer,
@@ -1022,29 +1023,39 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .glightbox-container .gslide {
   background: transparent !important;
 }
+
+/* (2) Image card + description panel — hardcoded light-token hex so they
+   never flip with prefers-color-scheme. The cream gives the photo a
+   visible frame and matches description coloring. */
+.glightbox-container .gslide-image {
+  background: #f6efe4;  /* cream-100 (light) */
+  padding: 16px;
+  border-radius: 4px;
+}
 .glightbox-clean .gslide-description {
   background: #fbf7f1;  /* cream-50 (light) */
   color: #1d1813;       /* ink-900 (light) */
 }
 .glightbox-clean .gslide-title { color: #1d1813; }
 .glightbox-clean .gslide-desc { color: #3d342a; }  /* ink-700 (light) */
+
+/* Controls follow theme. */
 .glightbox-clean .gclose,
 .glightbox-clean .gnext,
 .glightbox-clean .gprev {
-  background: #ede2cf;  /* cream-200 (light) */
+  background: var(--cream-200);
   border-radius: 999px;
 }
 .glightbox-clean .gclose svg,
 .glightbox-clean .gnext svg,
-.glightbox-clean .gprev svg { fill: #1d1813; }
+.glightbox-clean .gprev svg { fill: var(--ink-900); }
 .glightbox-clean .gclose:hover,
 .glightbox-clean .gnext:hover,
-.glightbox-clean .gprev:hover { background: #ddc9a8; }  /* cream-300 (light) */
-.glightbox-clean .gcounter { color: #6b5e51; }  /* ink-500 (light) */
-/* Loader spinner — accent color on cream ring (white default invisible). */
+.glightbox-clean .gprev:hover { background: var(--cream-300); }
+.glightbox-clean .gcounter { color: var(--ink-500); }
 .glightbox-container .gloader {
-  border-color: #ede2cf;
-  border-top-color: #b14e2c;  /* accent (light) */
+  border-color: var(--cream-200);
+  border-top-color: var(--accent);
 }
 .post-body iframe,
 .post-body .embed-video {
