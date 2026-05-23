@@ -1007,37 +1007,44 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   outline-width: 3px;
 }
 
-/* GLightbox theme — repaint the default black overlay in the magazine's
-   cream/ink tokens so the lightbox doesn't feel like a different product.
-   Tokens (var(--paper), var(--ink-*)) auto-switch with light/dark mode. */
+/* GLightbox theme — always cream regardless of site theme. Photo galleries
+   read better on light bg even for dark-mode users (cf. Apple Photos,
+   Twitter image viewer); the photo itself carries the visual weight, the
+   chrome should stay neutral and out of the way. Hardcoded light-token
+   hex values so the lightbox doesn't flip with prefers-color-scheme. */
 .glightbox-container .goverlay {
-  background: var(--paper) !important;
-  opacity: 0.97;
+  background: #f6efe4 !important;  /* cream-100 (light) */
+  opacity: 1;
+}
+.glightbox-container .ginner-container,
+.glightbox-container .gcontainer,
+.glightbox-container .gslider,
+.glightbox-container .gslide {
+  background: transparent !important;
 }
 .glightbox-clean .gslide-description {
-  background: var(--cream-50);
-  color: var(--ink-900);
+  background: #fbf7f1;  /* cream-50 (light) */
+  color: #1d1813;       /* ink-900 (light) */
 }
-.glightbox-clean .gslide-title { color: var(--ink-900); }
-.glightbox-clean .gslide-desc { color: var(--ink-700); }
+.glightbox-clean .gslide-title { color: #1d1813; }
+.glightbox-clean .gslide-desc { color: #3d342a; }  /* ink-700 (light) */
 .glightbox-clean .gclose,
 .glightbox-clean .gnext,
 .glightbox-clean .gprev {
-  background: var(--cream-200);
+  background: #ede2cf;  /* cream-200 (light) */
   border-radius: 999px;
 }
 .glightbox-clean .gclose svg,
 .glightbox-clean .gnext svg,
-.glightbox-clean .gprev svg { fill: var(--ink-900); }
+.glightbox-clean .gprev svg { fill: #1d1813; }
 .glightbox-clean .gclose:hover,
 .glightbox-clean .gnext:hover,
-.glightbox-clean .gprev:hover { background: var(--cream-300); }
-.glightbox-clean .gcounter { color: var(--ink-500); }
-/* The native loader spinner uses white; tint to accent so it's visible on
-   the cream overlay. */
+.glightbox-clean .gprev:hover { background: #ddc9a8; }  /* cream-300 (light) */
+.glightbox-clean .gcounter { color: #6b5e51; }  /* ink-500 (light) */
+/* Loader spinner — accent color on cream ring (white default invisible). */
 .glightbox-container .gloader {
-  border-color: var(--cream-200);
-  border-top-color: var(--accent);
+  border-color: #ede2cf;
+  border-top-color: #b14e2c;  /* accent (light) */
 }
 .post-body iframe,
 .post-body .embed-video {
@@ -2255,8 +2262,8 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   .toc-fab { right: 16px; bottom: 16px; padding: 9px 14px; font-size: 11px; }
 }
 
-/* GLightbox tweaks */
-.glightbox-clean .gslide-description { background: var(--paper); }
+/* GLightbox tweaks — see the main theme block above (~line 1010) for the
+   full overlay / chrome restyling. Just keep the scrollbar fixer here. */
 .gscrollbar-fixer { padding-right: 0 !important; }
 
 /* giscus container */
@@ -2577,9 +2584,8 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
     border-color: rgba(215, 106, 68, 0.32);
   }
 
-  /* GLightbox description panel — uses --paper which is now near-black;
-     lighten one step so caption text retains contrast on the lightbox. */
-  .glightbox-clean .gslide-description { background: var(--cream-100); }
+  /* GLightbox stays light-themed regardless of site theme (see ~line 1010) —
+     no description-panel override needed here. */
 }
 
 @media (prefers-color-scheme: dark) {
