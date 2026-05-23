@@ -1006,6 +1006,39 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   outline-color: var(--accent);
   outline-width: 3px;
 }
+
+/* GLightbox theme — repaint the default black overlay in the magazine's
+   cream/ink tokens so the lightbox doesn't feel like a different product.
+   Tokens (var(--paper), var(--ink-*)) auto-switch with light/dark mode. */
+.glightbox-container .goverlay {
+  background: var(--paper) !important;
+  opacity: 0.97;
+}
+.glightbox-clean .gslide-description {
+  background: var(--cream-50);
+  color: var(--ink-900);
+}
+.glightbox-clean .gslide-title { color: var(--ink-900); }
+.glightbox-clean .gslide-desc { color: var(--ink-700); }
+.glightbox-clean .gclose,
+.glightbox-clean .gnext,
+.glightbox-clean .gprev {
+  background: var(--cream-200);
+  border-radius: 999px;
+}
+.glightbox-clean .gclose svg,
+.glightbox-clean .gnext svg,
+.glightbox-clean .gprev svg { fill: var(--ink-900); }
+.glightbox-clean .gclose:hover,
+.glightbox-clean .gnext:hover,
+.glightbox-clean .gprev:hover { background: var(--cream-300); }
+.glightbox-clean .gcounter { color: var(--ink-500); }
+/* The native loader spinner uses white; tint to accent so it's visible on
+   the cream overlay. */
+.glightbox-container .gloader {
+  border-color: var(--cream-200);
+  border-top-color: var(--accent);
+}
 .post-body iframe,
 .post-body .embed-video {
   display: block;
