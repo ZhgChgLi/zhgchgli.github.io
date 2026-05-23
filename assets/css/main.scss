@@ -2225,6 +2225,9 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 /* GLightbox tweaks */
 .glightbox-clean .gslide-description { background: var(--paper); }
 .gscrollbar-fixer { padding-right: 0 !important; }
+/* Fixed cream backing for lightbox images (same in light & dark mode) so
+   transparent PNGs / screenshots don't end up on a stark white or black bg. */
+.gslide-image img { background: #f6efe4; }
 
 /* giscus container */
 .giscus, .giscus-frame { width: 100%; }
@@ -2545,8 +2548,14 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   }
 
   /* GLightbox description panel — uses --paper which is now near-black;
-     lighten one step so caption text retains contrast on the lightbox. */
+     lighten one step so caption text retains contrast on the lightbox.
+     GLightbox's clean theme ships with hard-coded near-black text, which
+     blends into the dark panel; force light ink in dark mode. */
   .glightbox-clean .gslide-description { background: var(--cream-100); }
+  .glightbox-clean .gslide-title,
+  .glightbox-clean .gslide-desc,
+  .glightbox-clean .gdesc-inner { color: var(--ink-900); }
+  .glightbox-clean .gslide-desc a { color: var(--accent); }
 }
 
 @media (prefers-color-scheme: dark) {
