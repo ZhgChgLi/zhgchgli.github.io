@@ -1761,6 +1761,14 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   content: ""; position: absolute; left: 0; top: 10px;
   width: 8px; height: 1px; background: var(--accent);
 }
+.sponsor-pricing-terms li.sponsor-term-highlight {
+  font-weight: 700;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  padding: 7px 12px 7px 18px; border-radius: 5px;
+}
+.sponsor-pricing-terms li.sponsor-term-highlight::before {
+  top: 13px; width: 7px; height: 7px; border-radius: 50%;
+}
 @media (max-width: 760px) {
   .sponsor-plans { grid-template-columns: 1fr; }
   .sponsor-plan-mid::before { right: auto; left: 16px; }

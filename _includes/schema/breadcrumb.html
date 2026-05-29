@@ -23,8 +23,9 @@
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}/" }
 {%- if btype == 'post' -%}
-    {%- if page.categories.size > 0 -%}
-      {%- assign cat = page.categories | first -%}
+    {%- assign cat = '' -%}
+    {%- if page.categories.size > 0 -%}{%- assign cat = page.categories | first | strip -%}{%- endif -%}
+    {%- if cat != '' -%}
       {%- assign cat_slug = cat | slugify -%}
     ,
     { "@type": "ListItem", "position": 2, "name": {{ cat | jsonify }}, "item": "{{ '/categories/' | append: cat_slug | append: '/' | absolute_url }}" },

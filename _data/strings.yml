@@ -170,6 +170,7 @@ zh-tw:
     pricing_t2: 全語系刊登（zh-tw / en / zh-cn / jp 同步）
     pricing_t3: PayPal 線上收款 · 確認後寄送付款連結
     pricing_t4: 贊助刊登性質，恕不接受中途退款、無法保證點擊轉換與瀏覽量
+    pricing_t5: 刊登期間將關閉全站 Google AdSense 廣告（含內文穿插與蓋板廣告）
     plans:
       - duration: 7 日
         price: "$39 USD"
@@ -414,6 +415,7 @@ en:
     pricing_t2: All language editions — zh-tw / en / zh-cn / jp
     pricing_t3: PayPal — invoice sent after confirmation
     pricing_t4: Sponsorship — no mid-term refunds; clicks and views are not guaranteed
+    pricing_t5: While your ad runs, all Google AdSense ads are disabled site-wide (including in-article and overlay/anchor ads)
     plans:
       - duration: 7 days
         price: "$39 USD"
@@ -659,6 +661,7 @@ zh-cn:
     pricing_t2: 全语系刊登（zh-tw / en / zh-cn / jp 同步）
     pricing_t3: PayPal 在线收款 · 确认后寄送付款链接
     pricing_t4: 赞助刊登性质，恕不接受中途退款、无法保证点击转换与浏览量
+    pricing_t5: 刊登期间将关闭全站 Google AdSense 广告（含内文穿插与盖板广告）
     plans:
       - duration: 7 日
         price: "$39 USD"
@@ -903,6 +906,7 @@ jp:
     pricing_t2: 全言語版に掲載（zh-tw / en / zh-cn / jp）
     pricing_t3: PayPal オンライン決済・確認後に請求書をお送りします
     pricing_t4: スポンサー掲載のため、期間途中の返金はお受けできません。また、クリック数や閲覧数は保証いたしかねます
+    pricing_t5: 掲載期間中はサイト全体の Google AdSense 広告（記事内およびオーバーレイ広告を含む）を停止します
     plans:
       - duration: 7 日間
         price: "$39 USD"
