@@ -83,16 +83,34 @@ jobs:
           echo "→ fetching ads stats"
           curl -fsSL --retry 3 --retry-delay 2 -o _data/ads_stats.json "${ADS_STATS_URL}?api=stats"
 
+      # Affiliate product ads — only meaningful for the zh-tw deployment
+      # (other-language repos skip this so they don't call OpenAI).
+      - name: Set up Python (product ads)
+        if: ${{ steps.lang.outputs.lang == 'zh-tw' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+          cache-dependency-path: tools/translators/requirements.txt
+
+      - name: Generate product ads (_data/ad_products.json + assets/ads)
+        if: ${{ steps.lang.outputs.lang == 'zh-tw' }}
+        env:
+          AD_CSV_URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QvMv0NTbLeUzcCoB-GWz_SRe1mmdGmQ3PlPHW-EDL2IfHjlO5ohooOQKVEBojhGD7QQ1-CpXbxQK/pub?gid=861335507&single=true&output=csv
+        run: |
+          pip install pillow
+          python tools/translators/ad_maker.py
+
       - name: Commit fetched stats JSON back to repo
         run: |
           set -euo pipefail
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add top7.json top30.json total.json _data/ads_stats.json
+          git add top7.json top30.json total.json _data/ads_stats.json _data/ad_products.json assets/ads || true
           if git diff --cached --quiet; then
             echo "no stats changes to commit"
           else
-            git commit -m "chore: refresh stats JSON (top7/top30/total + ads)"
+            git commit -m "chore: refresh stats JSON (top7/top30/total + ads) + product ads"
             git push origin HEAD:${{ github.ref_name }}
           fi
 

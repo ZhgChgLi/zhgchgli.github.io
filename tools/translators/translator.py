@@ -30,6 +30,10 @@ import mistune
 from mistune.renderers.markdown import MarkdownRenderer
 from openai import OpenAI
 
+from _env import load_dotenv
+
+load_dotenv()  # local: pull OPENAI_API_KEY etc. from repo-root .env (no-op in CI)
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 SRC_LANG = "zh-tw"
 SUBDIRS = ["zmediumtomarkdown", "ai"]

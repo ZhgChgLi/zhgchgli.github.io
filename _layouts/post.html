@@ -137,6 +137,15 @@ layout: default
     {%- endfor -%}
   {%- endif -%}
   {%- assign active_ad = _ad_matches | sample -%}
+  {%- comment %} Product-ad tier (priority: sponsor > product > default).
+     Only on zh-tw, only when there's no active sponsor and the CSV-driven
+     product pool is non-empty. The .post-promo-product placeholder is filled
+     client-side by assets/js/ad-rotator.js, which picks one in-deadline
+     product at random and hides the AdSense primary. {% endcomment -%}
+  {%- assign _has_products = false -%}
+  {%- if site.i18n.current == 'zh-tw' and active_ad == nil and site.data.ad_products and site.data.ad_products.size > 0 -%}
+    {%- assign _has_products = true -%}
+  {%- endif -%}
   <div class="post-promo post-promo-middle" hidden>
     {% if active_ad %}
       <div class="post-promo-primary">
@@ -146,6 +155,7 @@ layout: default
         {% include ad-active-card.html %}
       </div>
     {% else %}
+      {% if _has_products %}<div class="post-promo-product" hidden></div>{% endif %}
       <div class="post-promo-primary">
         {% include ad-sponsored-card-middle.html %}
       </div>
@@ -154,6 +164,23 @@ layout: default
       </div>
     {% endif %}
   </div>
+
+  {%- comment %} Hidden candidate pool, rendered once OUTSIDE .post-promo-middle
+     so _plugins/post_middle_ad.rb (which clones .post-promo-middle) never
+     duplicates it. ad-rotator.js reads it, filters by data-deadline, and
+     clones the winner into each .post-promo-product slot. {% endcomment -%}
+  {%- if _has_products -%}
+  <template id="ad-product-pool">
+    {%- assign _today = "now" | date: "%Y-%m-%d" -%}
+    {%- for _pair in site.data.ad_products -%}
+      {%- assign _p = _pair[1] -%}
+      {%- assign _dl = _p.deadline | date: "%Y-%m-%d" -%}
+      {%- if _dl and _today <= _dl -%}
+        <div class="ad-product-wrap" data-deadline="{{ _p.deadline }}">{% include ad-product-card.html product=_p %}</div>
+      {%- endif -%}
+    {%- endfor -%}
+  </template>
+  {%- endif -%}
 
   <div id="post-bottom" style="height: 64px"></div>
 

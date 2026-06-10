@@ -51,6 +51,9 @@
   // without IntersectionObserver).
   function startWatch(wrap) {
     if (wrap.dataset.watching === "1") return;
+    // ad-rotator.js already took this slot over with an affiliate product;
+    // its AdSense primary is intentionally hidden — leave it alone.
+    if (wrap.classList.contains("post-promo-using-product")) return;
     wrap.dataset.watching = "1";
 
     var ins = wrap.querySelector("ins.adsbygoogle");

@@ -1,0 +1,61 @@
+{%- comment -%}
+  Affiliate product card — one entry from site.data.ad_products, pre-rendered
+  by _layouts/post.html into the hidden <template id="ad-product-pool"> pool
+  (zh-tw only). assets/js/ad-rotator.js picks one valid (within-deadline)
+  product at random per page load and clones it into every in-article slot,
+  replacing the AdSense primary. Same eyebrow-top / CTA-bottom rhythm as the
+  sponsor + house cards so cloned positions line up.
+
+  Caller MUST set `product` (one value from site.data.ad_products).
+{%- endcomment -%}
+{%- assign p = include.product -%}
+
+<aside class="ad-product-card">
+  <div class="post-promo-eyebrow">
+    <span>{{ t.post.ad_label }}</span>
+    <span class="rule" aria-hidden="true"></span>
+  </div>
+
+  <a class="ad-product-hero" href="{{ p.url }}" target="_blank" rel="sponsored noopener">
+    {%- comment -%} Prefer the images[] gallery; fall back to a legacy single image. {%- endcomment -%}
+    {%- assign imgs = p.images -%}
+    {%- if imgs == nil or imgs.size == 0 -%}
+      {%- if p.image and p.image != '' -%}{%- assign imgs = '' | split: '' | push: p.image -%}{%- else -%}{%- assign imgs = '' | split: '' -%}{%- endif -%}
+    {%- endif -%}
+    {%- if imgs.size > 0 -%}
+    <div class="ad-product-gallery">
+      <div class="ad-product-track">
+        {%- for src in imgs -%}
+        <div class="ad-product-slide"><img src="{{ src | relative_url }}" alt="{{ p.name }}" loading="lazy" decoding="async"></div>
+        {%- endfor -%}
+      </div>
+      {%- if imgs.size > 1 -%}
+      <div class="ad-product-dots" aria-hidden="true">
+        {%- for src in imgs -%}<span class="ad-product-dot{% if forloop.first %} is-active{% endif %}"></span>{%- endfor -%}
+      </div>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+    <div class="ad-product-body">
+      <div class="ad-product-title">{{ p.name }}</div>
+      {%- if p.promo and p.promo != '' -%}<div class="ad-product-desc">{{ p.promo }}</div>{%- endif -%}
+      <div class="ad-product-foot">
+        {%- if p.price and p.price != '' -%}
+        <span class="ad-product-pricing">
+          {%- if p.list_price and p.list_price != '' -%}<span class="ad-product-list-price">{{ p.list_price }}</span>{%- endif -%}
+          <span class="ad-product-price">{{ p.price }}</span>
+        </span>
+        {%- endif -%}
+        <span class="ad-product-cta">
+          <span>{{ t.post.product_ad_cta }}</span>
+          {% include icon.html name="arrow-right" %}
+        </span>
+      </div>
+    </div>
+  </a>
+
+  <div class="post-promo-eyebrow">
+    <span class="rule" aria-hidden="true"></span>
+    <a class="post-promo-eyebrow-cta" href="{{ '/ads/' | relative_url }}" target="_blank">{{ t.post.ads_inquire }} →</a>
+  </div>
+</aside>

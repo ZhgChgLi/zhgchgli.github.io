@@ -123,6 +123,7 @@ zh-tw:
     house_ad_desc: "支持我的創作，刊登您的贊助廣告"
     house_ad_cta_primary: "了解刊登方案"
     house_ad_cta_secondary: "寄信洽詢"
+    product_ad_cta: "立即查看"
   ads:
     eyebrow: ZhgChgLi · Sponsorship
     hero_h1: 在 ZhgChgLi 刊登廣告
@@ -368,6 +369,7 @@ en:
     house_ad_desc: "Support my writing — sponsor a slot here."
     house_ad_cta_primary: "See the rate card"
     house_ad_cta_secondary: "Email me"
+    product_ad_cta: "View deal"
   ads:
     eyebrow: ZhgChgLi · Sponsorship
     hero_h1: Advertise on ZhgChgLi
@@ -614,6 +616,7 @@ zh-cn:
     house_ad_desc: "支持我的创作，刊登您的赞助广告"
     house_ad_cta_primary: "了解刊登方案"
     house_ad_cta_secondary: "写信洽询"
+    product_ad_cta: "立即查看"
   ads:
     eyebrow: ZhgChgLi · Sponsorship
     hero_h1: 在 ZhgChgLi 刊登广告
@@ -859,6 +862,7 @@ jp:
     house_ad_desc: "私の創作活動を応援、スポンサー広告を掲載しませんか"
     house_ad_cta_primary: "プランを見る"
     house_ad_cta_secondary: "メールで問い合わせ"
+    product_ad_cta: "詳細を見る"
   ads:
     eyebrow: ZhgChgLi · Sponsorship
     hero_h1: ZhgChgLi に広告を掲載

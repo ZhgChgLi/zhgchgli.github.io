@@ -69,3 +69,42 @@ rm tools/translators/cache/en/zmediumtomarkdown/2024-02-19-2724f02f6e7.md.json
 rm L10n/posts/en/zmediumtomarkdown/2024-02-19-2724f02f6e7.md
 python3 tools/translators/translator.py en
 ```
+
+## Product ads (`ad_maker.py`)
+
+Builds the in-article affiliate-product ad pool **for the zh-tw site only**.
+Pure scraping — **no OpenAI / API key needed** (only `pillow`).
+
+- **Source**: a published Google Sheet CSV (`AD_CSV_URL`, falls back to the
+  hard-coded `DEFAULT_CSV_URL`) with columns
+  `商品名稱 / 商品連結 / 推廣連結 / 期限`.
+  - **商品連結** (the real momo product page) is scraped for the **main image**
+    (first `#GoodsDetailPic_S` frame `_R.webp` on a classic `GoodsDetail.jsp`
+    page, or `og:image` on a `TP` 賣場 page — saved as `assets/ads/<id>.webp`,
+    `id = sha1(推廣連結)[:12]`), the **price** (`市售價` / TP `.primary-price-value`
+    → `NT$` no decimals), and the **description** (`og:description`, shown
+    verbatim, trimmed to `DESC_MAXLEN`). A short link is auto-resolved to the
+    desktop page; momo's image-CDN cert quirk is handled with a relaxed TLS
+    context for image downloads only.
+  - **推廣連結** (affiliate link) is used only as the card's click-through CTA.
+- **Output**: `_data/ad_products.json` (keyed by `id`), consumed at build time
+  by `_layouts/post.html` + `assets/js/ad-rotator.js`, which picks one
+  in-deadline product at random per page view and replaces the AdSense slot.
+  Priority is **sponsor (`_data/active_ad.yml`) > product > AdSense/house**.
+- **Dropped**: a product missing name / main image / description is skipped, as
+  is a **delisted / nonexistent** product (its page bounces to `Notice.jsp`).
+- **Caching**: a product already carrying an image + description is skipped on
+  re-run (only its name/deadline are refreshed from the latest CSV). Products
+  dropped from the CSV are removed and their image deleted. Per-product failures
+  are isolated and never abort the batch.
+
+Runs on every `pages.yml` deploy (zh-tw job only); incremental skip avoids
+re-scraping unchanged products.
+
+```bash
+AD_CSV_URL='https://docs.google.com/.../pub?...&output=csv' \
+  python3 tools/translators/ad_maker.py
+```
+
+To re-scrape one product, delete it from `_data/ad_products.json` (and its
+`assets/ads/<id>.webp`) and re-run.

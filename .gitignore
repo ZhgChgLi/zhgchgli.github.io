@@ -26,3 +26,4 @@ tools/translators/.venv/
 
 # typo_checker.py per-run report (consumed by workflow to open issue)
 /.typo-fixes.json
+.env

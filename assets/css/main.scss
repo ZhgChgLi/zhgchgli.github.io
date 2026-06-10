@@ -1378,6 +1378,140 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   .active-hero-desc  { font-size: 13px; margin-bottom: 14px; }
 }
 
+/* ── Affiliate product card (assets/js/ad-rotator.js fills .post-promo-product) ──
+   Built on the .active-hero language, plus a price badge + a solid CTA button
+   for stronger click pull. */
+.ad-product-card {
+  display: block;
+  font-family: var(--font-zh);
+}
+.ad-product-card .post-promo-eyebrow { text-align: left; }
+
+.ad-product-hero {
+  display: block;
+  position: relative;
+  margin: 18px 0 26px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+.ad-product-hero:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(177, 78, 44, 0.12);
+}
+/* Image carousel — horizontal scroll-snap track (native swipe) + JS autoplay
+   and dot navigation, wired up in assets/js/ad-rotator.js. */
+.ad-product-gallery {
+  position: relative;
+  width: 100%;
+  background: var(--paper);
+}
+.ad-product-track {
+  display: flex;
+  width: 100%;
+  aspect-ratio: 3 / 2;           /* fixed frame — wide & short to limit height */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.ad-product-track::-webkit-scrollbar { display: none; }
+.ad-product-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+.ad-product-slide img {
+  width: 100%; height: 100%;
+  object-fit: contain;           /* whole product, keep ratio, letterbox — no crop, no distort */
+  display: block;
+}
+.ad-product-dots {
+  position: absolute;
+  left: 0; right: 0; bottom: 10px;
+  display: flex; justify-content: center; gap: 6px;
+  pointer-events: none;
+}
+.ad-product-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
+  pointer-events: auto; cursor: pointer;
+  transition: background .2s, width .2s, border-radius .2s;
+}
+.ad-product-dot.is-active { background: #fff; width: 16px; border-radius: 3px; }
+.ad-product-body { display: block; padding: 24px 28px 26px; }
+.ad-product-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 500;
+  line-height: 1.3; letter-spacing: -0.01em;
+  color: var(--ink-900);
+  margin-bottom: 8px;
+}
+.ad-product-desc {
+  display: block;
+  font-size: 14px; line-height: 1.65; color: var(--ink-500);
+  margin-bottom: 18px;
+}
+.ad-product-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.ad-product-pricing {
+  display: inline-flex; align-items: baseline; gap: 8px;
+}
+.ad-product-list-price {
+  font-family: var(--font-en);
+  font-size: 14px; font-weight: 400;
+  color: var(--ink-400);
+  text-decoration: line-through;
+}
+.ad-product-price {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+.ad-product-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 20px;
+  background: var(--accent); color: #fff;
+  border-radius: 4px;
+  font-family: var(--font-en); font-weight: 600;
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  transition: background .2s, gap .2s;
+}
+.ad-product-cta svg { width: 12px; height: 12px; }
+.ad-product-hero:hover .ad-product-cta { background: var(--ink-900); gap: 12px; }
+
+/* Beat .post-body a defaults so the wrapping link keeps the card's own
+   colours / border instead of the article anchor's accent underline. */
+.post-body .ad-product-hero,
+.post-body .ad-product-hero:hover {
+  color: inherit;
+  border-bottom: 1px solid var(--rule);
+}
+.post-body .ad-product-hero:hover { border-color: var(--accent); }
+.post-body .ad-product-hero .ad-product-title { color: var(--ink-900); }
+.post-body .ad-product-hero .ad-product-desc  { color: var(--ink-500); }
+.post-body .ad-product-hero .ad-product-price { color: var(--accent); }
+.post-body .ad-product-hero .ad-product-list-price { color: var(--ink-400); border-bottom: none; }
+.post-body .ad-product-hero .ad-product-cta   { color: #fff; }
+/* The hero image fills its frame — no inline-img margin / zoom cursor. */
+.post-body .ad-product-slide img { margin: 0; cursor: pointer; border-radius: 0; object-fit: contain; }
+
+@media (max-width: 540px) {
+  .ad-product-body  { padding: 20px 22px 22px; }
+  .ad-product-title { font-size: 19px; }
+  .ad-product-desc  { font-size: 13px; margin-bottom: 16px; }
+  .ad-product-price { font-size: 18px; }
+}
+
 .post-promo-card {
   display: block;
   position: relative;
