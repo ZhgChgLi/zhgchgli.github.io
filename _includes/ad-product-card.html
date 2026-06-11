@@ -42,7 +42,6 @@
       <div class="ad-product-foot">
         {%- if p.price and p.price != '' -%}
         <span class="ad-product-pricing">
-          {%- if p.list_price and p.list_price != '' -%}<span class="ad-product-list-price">{{ p.list_price }}</span>{%- endif -%}
           <span class="ad-product-price">{{ p.price }}</span>
         </span>
         {%- endif -%}

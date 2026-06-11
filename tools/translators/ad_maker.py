@@ -2,14 +2,13 @@
 """
 Build the in-article affiliate-product ad pool from a published Google Sheet.
 
-Reads a CSV (columns: 商品名稱 / 商品連結 / 推廣連結 / 期限). The PRODUCT link
-(商品連結) is the real (desktop) product page — it's scraped for:
+Reads a CSV (columns: 商品名稱 / 商品價格 / 商品連結 / 推廣連結 / 期限). The
+PRICE comes straight from the sheet (商品價格), refreshed on every run. The
+PRODUCT link (商品連結) is the real (desktop) product page — it's scraped for:
   * images — all gallery frames (momo's #GoodsDetailPic_S _R.webp on a classic
     GoodsDetail.jsp page) for the card carousel; images[0] is the main image.
     Falls back to a single og:image when there's no gallery (e.g. TP 賣場 pages);
     saved as assets/ads/<id>-N.webp
-  * price — the SALE price: 特價/促銷價 (GoodsDetail.jsp) or .primary-price-value
-    (TP 賣場), falling back to 市售價; NT$ prefix, no decimals; blank if not found
   * description — og:description, shown verbatim as the card description
 The PROMO link (推廣連結) is the affiliate link, used only as the card's
 click-through CTA. Writes _data/ad_products.json (keyed by a stable hash of the
@@ -147,38 +146,18 @@ def extract_og_description(html):
     ]) or ""
 
 
-def extract_price(html):
-    """Product price → 'NT$1,188'. Prefers the SALE price (特價/促銷價), tries:
-      1. 特價 / 促銷價 priceTitle attribute (classic GoodsDetail.jsp, camelCase)
-      2. .primary-price-value (TP 賣場 pages — already the sale price)
-      3. 市售價 priceTitle (fall back to list price when no sale price)
-      4. any price="..." attribute / .seoPrice
-    Returns '' if nothing is found (the card then hides the price)."""
-    m = (re.search(r'priceTitle=["\'](?:特價|促銷價)["\'][^>]*\bprice=["\']([\d,.]+)["\']', html, re.I)
-         or re.search(r'class=["\']primary-price-value[^"\']*["\'][^>]*>\s*([\d,.]+)', html, re.I)
-         or re.search(r'priceTitle=["\']市售價["\'][^>]*\bprice=["\']([\d,.]+)["\']', html, re.I)
-         or re.search(r'\bprice=["\']([\d,.]+)["\']', html, re.I)
-         or re.search(r'class=["\']seoPrice["\'][^>]*>\s*([\d,.]+)', html, re.I))
-    if not m:
+def normalize_price(raw):
+    """Format the CSV price cell for display. The price now comes straight from
+    the Google Sheet (商品價格 column), not the product page. A bare number →
+    'NT$1,280'; a value already carrying a currency mark (NT$ / $ / 元 / TWD) is
+    kept verbatim. Blank stays blank (the card then hides the price)."""
+    s = (raw or "").strip()
+    if not s:
         return ""
-    val = m.group(1).split(".")[0].strip()  # drop any decimals
-    return ("NT$" + val) if val else ""
-
-
-def _price_num(s):
-    """'NT$1,188' → 1188 (int) for comparison; -1 if unparseable."""
-    digits = re.sub(r"[^\d]", "", s or "")
-    return int(digits) if digits else -1
-
-
-def extract_list_price(html):
-    """The list price 市售價 → 'NT$1,550' (the strike-through original price).
-    '' when the page has no separate 市售價."""
-    m = re.search(r'priceTitle=["\']市售價["\'][^>]*\bprice=["\']([\d,.]+)["\']', html, re.I)
-    if not m:
-        return ""
-    val = m.group(1).split(".")[0].strip()
-    return ("NT$" + val) if val else ""
+    if re.search(r"[$＄]|NT|元|TWD", s, re.I):
+        return s
+    digits = re.sub(r"[^\d]", "", s.split(".")[0])
+    return ("NT$" + format(int(digits), ",")) if digits else s
 
 
 def is_unavailable(html):
@@ -266,36 +245,26 @@ def cleanup_images(ad_id):
 
 
 def scrape_product(product_url, ad_id):
-    """Fetch the PRODUCT page once and return (images, description, price, list_price):
+    """Fetch the PRODUCT page once and return (images, description):
       images       list of "/assets/ads/<id>-N.webp"; images[0] is the MAIN
                    image (first #GoodsDetailPic_S frame _R.webp). A page with no
                    gallery (e.g. TP 賣場) falls back to a single og:image.
       description  card text (og:description, trimmed to DESC_MAXLEN)
-      price        sale price "NT$..." or "" (price hidden)
-      list_price   original 市售價 "NT$..." for strike-through, only when it's
-                   genuinely higher than the sale price; "" otherwise
+    Price is NOT scraped here — it comes from the CSV (商品價格 column).
     Never raises."""
     try:
         html = fetch_product_html(product_url)
     except Exception as e:  # noqa: BLE001 — best-effort scraping
         print(f"  ⚠️  讀取商品頁失敗（{e.__class__.__name__}）：{product_url}")
-        return [], "", "", ""
+        return [], ""
 
     if is_unavailable(html):
         print(f"  ⚠️  商品已下架/不存在：{product_url}")
-        return [], "", "", ""
+        return [], ""
 
     description = extract_og_description(html)
     if len(description) > DESC_MAXLEN:
         description = description[:DESC_MAXLEN].rstrip() + "…"
-
-    price = extract_price(html)
-    if not price:
-        print(f"  ⚠️  找不到價格：{product_url}")
-    # Original price for strike-through — only when it's really higher than sale.
-    list_price = extract_list_price(html)
-    if _price_num(list_price) <= _price_num(price):
-        list_price = ""
 
     gallery = extract_gallery(html)
     if not gallery:  # no momo gallery (e.g. TP page) → single og:image
@@ -314,7 +283,7 @@ def scrape_product(product_url, ad_id):
             images.append(f"/assets/ads/{ad_id}-{i}.webp")
         except Exception as e:  # noqa: BLE001 — best-effort scraping
             print(f"  ⚠️  抓圖失敗（{e.__class__.__name__}）：{img_url}")
-    return images, description, price, list_price
+    return images, description
 
 
 def read_csv_rows(csv_url):
@@ -362,6 +331,7 @@ def main():
         seen_ids.add(ad_id)
         name = row["name"]
         deadline = normalize_deadline(row.get("deadline", ""))
+        price = normalize_price(row.get("price", ""))  # straight from the sheet
 
         prev = existing.get(ad_id)
         prev_images = (prev or {}).get("images") or []
@@ -370,21 +340,20 @@ def main():
             and all(os.path.exists(os.path.join(ROOT, p.lstrip("/"))) for p in prev_images)
         )
         if cached_ok:
-            # Reuse scraped images/price/description; refresh CSV-driven fields.
+            # Reuse scraped images/description; refresh CSV-driven fields
+            # (name/price/deadline) so a price edit in the sheet lands instantly.
             results[ad_id] = {
-                "name": name, "price": prev.get("price", ""),
-                "list_price": prev.get("list_price", ""), "url": url,
+                "name": name, "price": price, "url": url,
                 "deadline": deadline, "images": prev_images, "promo": prev["promo"],
             }
             print(f"⏭ 已存在，沿用：{name}")
             continue
 
         try:
-            images, description, price, list_price = [], "", "", ""
+            images, description = [], ""
             if product_url:
-                images, description, price, list_price = scrape_product(product_url, ad_id)
+                images, description = scrape_product(product_url, ad_id)
             description = description or (prev or {}).get("promo") or ""
-            price = price or (prev or {}).get("price", "")
 
             # Require name + at least one image + description; else drop it
             # (and clear any frames we just downloaded).
@@ -395,7 +364,7 @@ def main():
                 continue
 
             results[ad_id] = {
-                "name": name, "price": price, "list_price": list_price, "url": url,
+                "name": name, "price": price, "url": url,
                 "deadline": deadline, "images": images, "promo": description,
             }
             print(f"✅ 已處理：{name}（{len(images)} 圖）")
