@@ -1549,7 +1549,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   transition: background .2s, gap .2s;
 }
 .ad-product-cta svg { width: 12px; height: 12px; }
-.ad-product-hero:hover .ad-product-cta { background: var(--ink-900); gap: 12px; }
+.ad-product-hero:hover .ad-product-cta { background: var(--ink-900); color: var(--paper); gap: 12px; }
 
 /* Beat .post-body a defaults so the wrapping link keeps the card's own
    colours / border instead of the article anchor's accent underline. */
@@ -1564,6 +1564,9 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .post-body .ad-product-hero .ad-product-price { color: var(--accent); }
 .post-body .ad-product-hero .ad-product-list-price { color: var(--ink-400); border-bottom: none; }
 .post-body .ad-product-hero .ad-product-cta   { color: #fff; }
+/* On hover the CTA bg flips to --ink-900 (light in dark mode); pair the text
+   with --paper so it stays legible in both themes. */
+.post-body .ad-product-hero:hover .ad-product-cta { color: var(--paper); }
 /* The hero image fills full width, centered with vertical whitespace. */
 .post-body .ad-product-slide img { margin: 0; cursor: pointer; border-radius: 0; width: 100%; height: auto; }
 
