@@ -1388,9 +1388,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .ad-product-card .post-promo-eyebrow { text-align: left; }
 
 .ad-product-hero {
-  display: flex;
-  flex-direction: column;
-  height: 450px;                 /* fixed overall card height */
+  display: block;
   position: relative;
   margin: 18px 0 26px;
   background: var(--paper);
@@ -1411,14 +1409,11 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .ad-product-gallery {
   position: relative;
   width: 100%;
-  flex: 1 1 auto;                /* fill the space left after the body */
-  min-height: 0;
   background: var(--paper);
 }
 .ad-product-track {
   display: flex;
   width: 100%;
-  height: 100%;                  /* fill the flexible gallery area */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -1428,14 +1423,10 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .ad-product-slide {
   flex: 0 0 100%;
   scroll-snap-align: start;
-  display: flex;
-  align-items: center;           /* center vertically → whitespace top/bottom */
-  justify-content: center;
-  overflow: hidden;
 }
 .ad-product-slide img {
-  width: 100%;                   /* full-width fill, no side gaps */
-  height: auto;                  /* keep ratio — vertical whitespace as needed */
+  width: 100%;                   /* fit width — full bleed, never cropped or distorted */
+  height: auto;                  /* natural height by aspect ratio */
   display: block;
 }
 .ad-product-dots {
