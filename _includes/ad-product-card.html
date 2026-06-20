@@ -24,6 +24,10 @@
     {%- endif -%}
     {%- if imgs.size > 0 -%}
     <div class="ad-product-gallery">
+      {%- comment -%} KKday-only badge — gated on the KKday product's `conditions` field. {%- endcomment -%}
+      {%- if p.conditions -%}
+      <span class="ad-product-badge"><span class="ad-product-badge-icon" aria-hidden="true"></span><span class="ad-product-badge-brand">KKday</span>本站商品推薦</span>
+      {%- endif -%}
       <div class="ad-product-track">
         {%- for src in imgs -%}
         <div class="ad-product-slide"><img src="{{ src | relative_url }}" alt="{{ p.name }}" loading="lazy" decoding="async"></div>
@@ -34,11 +38,14 @@
         {%- for src in imgs -%}<span class="ad-product-dot{% if forloop.first %} is-active{% endif %}"></span>{%- endfor -%}
       </div>
       {%- endif -%}
+      {%- comment -%} Title + destination overlaid on the image with a scrim. {%- endcomment -%}
+      <div class="ad-product-overlay">
+        <div class="ad-product-title">{{ p.name }}</div>
+        {%- if p.promo and p.promo != '' -%}<div class="ad-product-desc">{{ p.promo }}</div>{%- endif -%}
+      </div>
     </div>
     {%- endif -%}
     <div class="ad-product-body">
-      <div class="ad-product-title">{{ p.name }}</div>
-      {%- if p.promo and p.promo != '' -%}<div class="ad-product-desc">{{ p.promo }}</div>{%- endif -%}
       <div class="ad-product-foot">
         {%- if p.price and p.price != '' -%}
         <span class="ad-product-pricing">

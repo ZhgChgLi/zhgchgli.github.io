@@ -8,14 +8,13 @@
 #                                            <div class="post-promo post-promo-middle" hidden>
 #
 # Placement rules:
-#   * Posts with ≥1 <h3>: up to 3 ads — after the FIRST <h3>, the
-#     MIDDLE <h3>, and the LAST <h3>. Duplicates collapse, so a post
-#     with 1 section gets 1 ad, with 2 sections gets 2 ads, etc.
+#   * Posts with ≥1 <h3>: an ad after the FIRST <h3>, then after every
+#     5th <h3> (1st, 6th, 11th, …), and always after the LAST <h3>.
+#     Duplicates collapse, so a short post may get just 1–2 ads.
 #   * Posts with zero <h3>: a single ad is inserted at the top of the
 #     body.
-#   * Each clone gets its own AdSense slot ID from SLOT_IDS so AdSense
-#     bids per slot independently (one slot's unfilled doesn't poison
-#     the others).
+#   * Clones cycle through SLOT_IDS for their AdSense slot ID, so when a
+#     post needs more ads than there are slots the IDs simply repeat.
 
 require 'nokogiri'
 
@@ -60,7 +59,7 @@ module ZhgChgLi
       end
 
       compute_positions(n).each_with_index do |pos, i|
-        h3s[pos].add_next_sibling(ad_with_slot(template, SLOT_IDS[i]))
+        h3s[pos].add_next_sibling(ad_with_slot(template, SLOT_IDS[i % SLOT_IDS.length]))
       end
 
       doc.to_html
@@ -69,14 +68,18 @@ module ZhgChgLi
       html
     end
 
-    # First, middle, last <h3> indices (0-based). Duplicates collapse:
-    #   n=1 → [0]            (first == middle == last)
-    #   n=2 → [0, 1]         (middle == first)
-    #   n=3 → [0, 1, 2]
-    #   n=10 → [0, 5, 9]
+    # Ad anchor <h3> indices (0-based): the first, then every 5th, plus the
+    # last. Duplicates collapse:
+    #   n=1  → [0]              (first == last)
+    #   n=3  → [0, 2]           (first, last)
+    #   n=6  → [0, 5]           (first, 6th == last)
+    #   n=14 → [0, 5, 10, 13]   (1st, 6th, 11th, last)
+    #   n=18 → [0, 5, 10, 15, 17]
     def self.compute_positions(n)
       return [] if n.zero?
-      [0, n / 2, n - 1].uniq.sort
+      positions = (0...n).step(5).to_a   # 0, 5, 10, … → 1st, then every 5th
+      positions << (n - 1)               # always after the last
+      positions.uniq.sort
     end
 
     # Clone the placeholder and rewrite its <ins data-ad-slot> so each

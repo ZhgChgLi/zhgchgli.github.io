@@ -138,13 +138,20 @@ layout: default
   {%- endif -%}
   {%- assign active_ad = _ad_matches | sample -%}
   {%- comment %} Product-ad tier (priority: sponsor > product > default).
-     Only on zh-tw, only when there's no active sponsor and the CSV-driven
-     product pool is non-empty. The .post-promo-product placeholder is filled
+     Only on zh-tw, only when there's no active sponsor and the KKday product
+     pool is non-empty. The .post-promo-product placeholder is filled
      client-side by assets/js/ad-rotator.js, which picks one in-deadline
      product at random and hides the AdSense primary. {% endcomment -%}
+  {%- comment %} momo 商品廣告暫時下線（保留以便還原）：
   {%- assign _has_products = false -%}
   {%- if site.i18n.current == 'zh-tw' and active_ad == nil and site.data.ad_products and site.data.ad_products.size > 0 -%}
     {%- assign _has_products = true -%}
+  {%- endif -%}
+  {% endcomment -%}
+  {%- comment %} KKday 商品廣告（主來源）。 {% endcomment -%}
+  {%- assign _has_kkday_products = false -%}
+  {%- if site.i18n.current == 'zh-tw' and active_ad == nil and site.data.kkday_ad_products and site.data.kkday_ad_products.size > 0 -%}
+    {%- assign _has_kkday_products = true -%}
   {%- endif -%}
   <div class="post-promo post-promo-middle" hidden>
     {% if active_ad %}
@@ -155,7 +162,7 @@ layout: default
         {% include ad-active-card.html %}
       </div>
     {% else %}
-      {% if _has_products %}<div class="post-promo-product" hidden></div>{% endif %}
+      {% if _has_kkday_products %}<div class="post-promo-product" hidden></div>{% endif %}
       <div class="post-promo-primary">
         {% include ad-sponsored-card-middle.html %}
       </div>
@@ -169,6 +176,7 @@ layout: default
      so _plugins/post_middle_ad.rb (which clones .post-promo-middle) never
      duplicates it. ad-rotator.js reads it, filters by data-deadline, and
      clones the winner into each .post-promo-product slot. {% endcomment -%}
+  {%- comment %} momo pool 暫時下線（保留以便還原）：
   {%- if _has_products -%}
   <template id="ad-product-pool">
     {%- assign _today = "now" | date: "%Y-%m-%d" -%}
@@ -176,6 +184,32 @@ layout: default
       {%- assign _p = _pair[1] -%}
       {%- assign _dl = _p.deadline | date: "%Y-%m-%d" -%}
       {%- if _dl and _today <= _dl -%}
+        <div class="ad-product-wrap" data-deadline="{{ _p.deadline }}">{% include ad-product-card.html product=_p %}</div>
+      {%- endif -%}
+    {%- endfor -%}
+  </template>
+  {%- endif -%}
+  {% endcomment -%}
+
+  {%- comment %} KKday pool：先數有幾個商品的「條件名稱」被包含在文章標題裡，
+     有就只渲染這些（優先曝光符合條件的商品），沒有就渲染全部商品。
+     ad-rotator.js 再從 pool 隨機抽一個塞進文章（隨機曝光）。 {% endcomment -%}
+  {%- if _has_kkday_products -%}
+  <template id="ad-product-pool">
+    {%- assign _match_count = 0 -%}
+    {%- for _pair in site.data.kkday_ad_products -%}
+      {%- assign _p = _pair[1] -%}
+      {%- for _c in _p.conditions -%}
+        {%- if _c != '' and page.title contains _c -%}{%- assign _match_count = _match_count | plus: 1 -%}{%- break -%}{%- endif -%}
+      {%- endfor -%}
+    {%- endfor -%}
+    {%- for _pair in site.data.kkday_ad_products -%}
+      {%- assign _p = _pair[1] -%}
+      {%- assign _is_match = false -%}
+      {%- for _c in _p.conditions -%}
+        {%- if _c != '' and page.title contains _c -%}{%- assign _is_match = true -%}{%- break -%}{%- endif -%}
+      {%- endfor -%}
+      {%- if _match_count == 0 or _is_match -%}
         <div class="ad-product-wrap" data-deadline="{{ _p.deadline }}">{% include ad-product-card.html product=_p %}</div>
       {%- endif -%}
     {%- endfor -%}

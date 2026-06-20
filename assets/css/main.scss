@@ -891,7 +891,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
    KKday brand teal so readers can tell at a glance these are bookable
    third-party offers, while still flowing with the body text. Trailing ↗
    marks them as outbound. */
-.layout-post .post-body a[href*="kkday.com"] {
+.layout-post .post-body a[href*="kkday.com"]:not(.ad-product-hero) {
   --kkday: #26bec9;
   --kkday-soft: #5dd4dc;
 
@@ -910,7 +910,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   box-decoration-break: clone;
   overflow-wrap: anywhere;
 }
-.layout-post .post-body a[href*="kkday.com"]::before {
+.layout-post .post-body a[href*="kkday.com"]:not(.ad-product-hero)::before {
   content: "";
   display: inline-block;
   width: 1.35em;
@@ -935,18 +935,18 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640'><path d='M128 128C92.7 128 64 156.7 64 192L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 192C576 156.7 547.3 128 512 128L128 128zM360 352L488 352C501.3 352 512 362.7 512 376C512 389.3 501.3 400 488 400L360 400C346.7 400 336 389.3 336 376C336 362.7 346.7 352 360 352zM336 264C336 250.7 346.7 240 360 240L488 240C501.3 240 512 250.7 512 264C512 277.3 501.3 288 488 288L360 288C346.7 288 336 277.3 336 264zM212 208C223 208 232 217 232 228L232 232L240 232C251 232 260 241 260 252C260 263 251 272 240 272L192.5 272C185.6 272 180 277.6 180 284.5C180 290.6 184.4 295.8 190.4 296.8L232.1 303.8C257.4 308 276 329.9 276 355.6C276 381.7 257 403.3 232 407.4L232 412.1C232 423.1 223 432.1 212 432.1C201 432.1 192 423.1 192 412.1L192 408.1L168 408.1C157 408.1 148 399.1 148 388.1C148 377.1 157 368.1 168 368.1L223.5 368.1C230.4 368.1 236 362.5 236 355.6C236 349.5 231.6 344.3 225.6 343.3L183.9 336.3C158.5 332 140 310.1 140 284.5C140 255.7 163.2 232.3 192 232L192 228C192 217 201 208 212 208z'/></svg>") no-repeat center / contain;
           mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640'><path d='M128 128C92.7 128 64 156.7 64 192L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 192C576 156.7 547.3 128 512 128L128 128zM360 352L488 352C501.3 352 512 362.7 512 376C512 389.3 501.3 400 488 400L360 400C346.7 400 336 389.3 336 376C336 362.7 346.7 352 360 352zM336 264C336 250.7 346.7 240 360 240L488 240C501.3 240 512 250.7 512 264C512 277.3 501.3 288 488 288L360 288C346.7 288 336 277.3 336 264zM212 208C223 208 232 217 232 228L232 232L240 232C251 232 260 241 260 252C260 263 251 272 240 272L192.5 272C185.6 272 180 277.6 180 284.5C180 290.6 184.4 295.8 190.4 296.8L232.1 303.8C257.4 308 276 329.9 276 355.6C276 381.7 257 403.3 232 407.4L232 412.1C232 423.1 223 432.1 212 432.1C201 432.1 192 423.1 192 412.1L192 408.1L168 408.1C157 408.1 148 399.1 148 388.1C148 377.1 157 368.1 168 368.1L223.5 368.1C230.4 368.1 236 362.5 236 355.6C236 349.5 231.6 344.3 225.6 343.3L183.9 336.3C158.5 332 140 310.1 140 284.5C140 255.7 163.2 232.3 192 232L192 228C192 217 201 208 212 208z'/></svg>") no-repeat center / contain;
 }
-.layout-post .post-body a[href*="kkday.com"]::after {
+.layout-post .post-body a[href*="kkday.com"]:not(.ad-product-hero)::after {
   content: "↗";
   font-size: 0.85em;
   color: var(--kkday-soft);
   margin-left: 2px;
 }
-.layout-post .post-body a[href*="kkday.com"]:hover {
+.layout-post .post-body a[href*="kkday.com"]:not(.ad-product-hero):hover {
   background: rgba(38, 190, 201, 0.20);
   border-color: var(--kkday);
   color: #074046;
 }
-.layout-post .post-body a[href*="kkday.com"]:hover::after { color: var(--kkday); }
+.layout-post .post-body a[href*="kkday.com"]:not(.ad-product-hero):hover::after { color: var(--kkday); }
 .post-body img { margin: 32px auto; cursor: zoom-in; border-radius: 2px; }
 
 /* Images that wrap a real navigational link (NOT the auto-injected GLightbox
@@ -1388,7 +1388,9 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .ad-product-card .post-promo-eyebrow { text-align: left; }
 
 .ad-product-hero {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 450px;                 /* fixed overall card height */
   position: relative;
   margin: 18px 0 26px;
   background: var(--paper);
@@ -1409,12 +1411,14 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .ad-product-gallery {
   position: relative;
   width: 100%;
+  flex: 1 1 auto;                /* fill the space left after the body */
+  min-height: 0;
   background: var(--paper);
 }
 .ad-product-track {
   display: flex;
   width: 100%;
-  aspect-ratio: 3 / 2;           /* fixed frame — wide & short to limit height */
+  height: 100%;                  /* fill the flexible gallery area */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -1424,10 +1428,14 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .ad-product-slide {
   flex: 0 0 100%;
   scroll-snap-align: start;
+  display: flex;
+  align-items: center;           /* center vertically → whitespace top/bottom */
+  justify-content: center;
+  overflow: hidden;
 }
 .ad-product-slide img {
-  width: 100%; height: 100%;
-  object-fit: contain;           /* whole product, keep ratio, letterbox — no crop, no distort */
+  width: 100%;                   /* full-width fill, no side gaps */
+  height: auto;                  /* keep ratio — vertical whitespace as needed */
   display: block;
 }
 .ad-product-dots {
@@ -1444,19 +1452,73 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   transition: background .2s, width .2s, border-radius .2s;
 }
 .ad-product-dot.is-active { background: #fff; width: 16px; border-radius: 3px; }
-.ad-product-body { display: block; padding: 24px 28px 26px; }
+
+/* KKday "本站商品推薦" badge — brand-teal pill overlaid on the card image,
+   marking these as the site's curated KKday picks. KKday-only (gated on the
+   product's `conditions` field in _includes/ad-product-card.html). */
+.ad-product-badge {
+  position: absolute;
+  top: 0; left: 0;               /* flush to the image's top-left corner */
+  z-index: 2;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 13px;
+  background: linear-gradient(135deg, #2bc6d1, #1aa6b3);
+  color: #fff;
+  border-radius: 0 0 14px 0;     /* square top-left, only the inner corner rounded */
+  font-family: var(--font-zh);
+  font-size: 12px; font-weight: 600; line-height: 1;
+  box-shadow: 0 2px 8px rgba(11, 103, 112, 0.28);
+  pointer-events: none;          /* let clicks fall through to the hero link */
+}
+.ad-product-badge-icon {
+  width: 16px; height: 16px; flex: none;
+  background-color: #fff;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640'><path d='M128 128C92.7 128 64 156.7 64 192L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 192C576 156.7 547.3 128 512 128L128 128zM360 352L488 352C501.3 352 512 362.7 512 376C512 389.3 501.3 400 488 400L360 400C346.7 400 336 389.3 336 376C336 362.7 346.7 352 360 352zM336 264C336 250.7 346.7 240 360 240L488 240C501.3 240 512 250.7 512 264C512 277.3 501.3 288 488 288L360 288C346.7 288 336 277.3 336 264zM212 208C223 208 232 217 232 228L232 232L240 232C251 232 260 241 260 252C260 263 251 272 240 272L192.5 272C185.6 272 180 277.6 180 284.5C180 290.6 184.4 295.8 190.4 296.8L232.1 303.8C257.4 308 276 329.9 276 355.6C276 381.7 257 403.3 232 407.4L232 412.1C232 423.1 223 432.1 212 432.1C201 432.1 192 423.1 192 412.1L192 408.1L168 408.1C157 408.1 148 399.1 148 388.1C148 377.1 157 368.1 168 368.1L223.5 368.1C230.4 368.1 236 362.5 236 355.6C236 349.5 231.6 344.3 225.6 343.3L183.9 336.3C158.5 332 140 310.1 140 284.5C140 255.7 163.2 232.3 192 232L192 228C192 217 201 208 212 208z'/></svg>") no-repeat center / contain;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640'><path d='M128 128C92.7 128 64 156.7 64 192L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 192C576 156.7 547.3 128 512 128L128 128zM360 352L488 352C501.3 352 512 362.7 512 376C512 389.3 501.3 400 488 400L360 400C346.7 400 336 389.3 336 376C336 362.7 346.7 352 360 352zM336 264C336 250.7 346.7 240 360 240L488 240C501.3 240 512 250.7 512 264C512 277.3 501.3 288 488 288L360 288C346.7 288 336 277.3 336 264zM212 208C223 208 232 217 232 228L232 232L240 232C251 232 260 241 260 252C260 263 251 272 240 272L192.5 272C185.6 272 180 277.6 180 284.5C180 290.6 184.4 295.8 190.4 296.8L232.1 303.8C257.4 308 276 329.9 276 355.6C276 381.7 257 403.3 232 407.4L232 412.1C232 423.1 223 432.1 212 432.1C201 432.1 192 423.1 192 412.1L192 408.1L168 408.1C157 408.1 148 399.1 148 388.1C148 377.1 157 368.1 168 368.1L223.5 368.1C230.4 368.1 236 362.5 236 355.6C236 349.5 231.6 344.3 225.6 343.3L183.9 336.3C158.5 332 140 310.1 140 284.5C140 255.7 163.2 232.3 192 232L192 228C192 217 201 208 212 208z'/></svg>") no-repeat center / contain;
+}
+.ad-product-badge-brand {
+  font-family: var(--font-en);
+  font-weight: 800;
+  padding-right: 7px;
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.01em;
+}
+@media (max-width: 540px) {
+  .ad-product-badge { top: 0; left: 0; font-size: 11px; padding: 6px 11px; gap: 6px; border-radius: 0 0 12px 0; }
+  .ad-product-badge-icon { width: 14px; height: 14px; }
+}
+.ad-product-body { flex: 0 0 auto; display: block; padding: 24px 28px 26px; }
+/* Title + destination overlaid on the image, sitting on a semi-transparent
+   dark scrim for legibility. */
+.ad-product-overlay {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 1;
+  padding: 44px 24px 16px;
+  background: linear-gradient(to top,
+    rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.50) 42%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;          /* clicks fall through to the hero link */
+}
 .ad-product-title {
-  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;         /* keep long product names tidy */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   font-family: var(--font-display);
-  font-size: 22px; font-weight: 500;
+  font-size: 22px; font-weight: 600;
   line-height: 1.3; letter-spacing: -0.01em;
-  color: var(--ink-900);
-  margin-bottom: 8px;
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+  margin-bottom: 4px;
 }
 .ad-product-desc {
-  display: block;
-  font-size: 14px; line-height: 1.65; color: var(--ink-500);
-  margin-bottom: 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 14px; line-height: 1.6;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
 }
 .ad-product-foot {
   display: flex; align-items: center; justify-content: space-between;
@@ -1497,18 +1559,19 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   border-bottom: 1px solid var(--rule);
 }
 .post-body .ad-product-hero:hover { border-color: var(--accent); }
-.post-body .ad-product-hero .ad-product-title { color: var(--ink-900); }
-.post-body .ad-product-hero .ad-product-desc  { color: var(--ink-500); }
+.post-body .ad-product-hero .ad-product-title { color: #fff; }
+.post-body .ad-product-hero .ad-product-desc  { color: rgba(255, 255, 255, 0.92); }
 .post-body .ad-product-hero .ad-product-price { color: var(--accent); }
 .post-body .ad-product-hero .ad-product-list-price { color: var(--ink-400); border-bottom: none; }
 .post-body .ad-product-hero .ad-product-cta   { color: #fff; }
-/* The hero image fills its frame — no inline-img margin / zoom cursor. */
-.post-body .ad-product-slide img { margin: 0; cursor: pointer; border-radius: 0; object-fit: contain; }
+/* The hero image fills full width, centered with vertical whitespace. */
+.post-body .ad-product-slide img { margin: 0; cursor: pointer; border-radius: 0; width: 100%; height: auto; }
 
 @media (max-width: 540px) {
-  .ad-product-body  { padding: 20px 22px 22px; }
+  .ad-product-body  { padding: 18px 20px 20px; }
+  .ad-product-overlay { padding: 36px 18px 14px; }
   .ad-product-title { font-size: 19px; }
-  .ad-product-desc  { font-size: 13px; margin-bottom: 16px; }
+  .ad-product-desc  { font-size: 13px; }
   .ad-product-price { font-size: 18px; }
 }
 
@@ -2653,12 +2716,12 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   /* KKday affiliate links — bump background opacity and flip text to the
      brighter teal so the chip reads on a dark surface while staying
      KKday-branded. */
-  .layout-post .post-body a[href*="kkday.com"] {
+  .layout-post .post-body a[href*="kkday.com"]:not(.ad-product-hero) {
     background: rgba(38, 190, 201, 0.18);
     border-color: rgba(38, 190, 201, 0.42);
     color: #5dd4dc;
   }
-  .layout-post .post-body a[href*="kkday.com"]:hover {
+  .layout-post .post-body a[href*="kkday.com"]:not(.ad-product-hero):hover {
     background: rgba(38, 190, 201, 0.32);
     border-color: #26bec9;
     color: #a0e6eb;

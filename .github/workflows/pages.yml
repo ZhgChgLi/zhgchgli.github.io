@@ -93,20 +93,27 @@ jobs:
           cache: 'pip'
           cache-dependency-path: tools/translators/requirements.txt
 
-      - name: Generate product ads (_data/ad_products.json + assets/ads)
+      # momo 商品廣告暫時下線（保留以便還原）：
+      # - name: Generate product ads (_data/ad_products.json + assets/ads)
+      #   if: ${{ steps.lang.outputs.lang == 'zh-tw' }}
+      #   env:
+      #     AD_CSV_URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QvMv0NTbLeUzcCoB-GWz_SRe1mmdGmQ3PlPHW-EDL2IfHjlO5ohooOQKVEBojhGD7QQ1-CpXbxQK/pub?gid=861335507&single=true&output=csv
+      #   run: |
+      #     pip install pillow
+      #     python tools/translators/ad_maker.py
+
+      - name: Generate KKday product ads (_data/kkday_ad_products.json + assets/ads/kkday)
         if: ${{ steps.lang.outputs.lang == 'zh-tw' }}
-        env:
-          AD_CSV_URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QvMv0NTbLeUzcCoB-GWz_SRe1mmdGmQ3PlPHW-EDL2IfHjlO5ohooOQKVEBojhGD7QQ1-CpXbxQK/pub?gid=861335507&single=true&output=csv
         run: |
           pip install pillow
-          python tools/translators/ad_maker.py
+          python tools/translators/kkday_ad_maker.py
 
       - name: Commit fetched stats JSON back to repo
         run: |
           set -euo pipefail
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add top7.json top30.json total.json _data/ads_stats.json _data/ad_products.json assets/ads || true
+          git add top7.json top30.json total.json _data/ads_stats.json _data/ad_products.json _data/kkday_ad_products.json assets/ads || true
           if git diff --cached --quiet; then
             echo "no stats changes to commit"
           else
