@@ -1492,7 +1492,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 .ad-product-title {
   display: -webkit-box;
-  -webkit-line-clamp: 2;         /* keep long product names tidy */
+  -webkit-line-clamp: 1;         /* 商品名稱 • 城市/目的地 — single line */
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-family: var(--font-display);
@@ -1504,7 +1504,7 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 }
 .ad-product-desc {
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;         /* 商品介紹 — up to two lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-size: 14px; line-height: 1.6;
@@ -1530,6 +1530,8 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   color: var(--accent);
   letter-spacing: -0.01em;
 }
+/* "NT$" prefix smaller than the digits. */
+.ad-product-cur { font-size: 0.62em; font-weight: 600; margin-right: 1px; }
 .ad-product-cta {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 11px 20px;

@@ -40,7 +40,7 @@
       {%- endif -%}
       {%- comment -%} Title + destination overlaid on the image with a scrim. {%- endcomment -%}
       <div class="ad-product-overlay">
-        <div class="ad-product-title">{{ p.name }}</div>
+        <div class="ad-product-title">{{ p.name }}{%- if p.dest and p.dest != '' %} • {{ p.dest }}{% endif -%}</div>
         {%- if p.promo and p.promo != '' -%}<div class="ad-product-desc">{{ p.promo }}</div>{%- endif -%}
       </div>
     </div>
@@ -49,7 +49,8 @@
       <div class="ad-product-foot">
         {%- if p.price and p.price != '' -%}
         <span class="ad-product-pricing">
-          <span class="ad-product-price">{{ p.price }}</span>
+          <span class="ad-product-price">{{ p.price | replace: 'NT$', '<span class="ad-product-cur">NT$</span>' }}</span>
+          {%- if p.list_price and p.list_price != '' -%}<span class="ad-product-list-price">{{ p.list_price | replace: 'NT$', '<span class="ad-product-cur">NT$</span>' }}</span>{%- endif -%}
         </span>
         {%- endif -%}
         <span class="ad-product-cta">

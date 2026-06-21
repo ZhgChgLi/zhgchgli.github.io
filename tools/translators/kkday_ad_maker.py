@@ -10,16 +10,18 @@ filtering, so this script does the filtering:
   * 售價 < 500 元 (or non-TWD / unparseable) → dropped.
   * 商品連結 → the card click-through, with the affiliate ?cid=19365 appended
     (repo convention; momory feedback_kkday_execution_rules).
-  * 圖片 → the single product image, downloaded and converted to
-    assets/ads/kkday/<id>-0.webp (same download flow as ad_maker).
+  * 圖片清單 → the product gallery, each frame downloaded and converted to
+    assets/ads/kkday/<id>-N.webp (capped at MAX_IMAGES) for the card carousel;
+    falls back to the single 圖片 when the list is empty.
+  * 售價 / 原價 → selling price + (struck-through) original price; 原價 is only
+    kept when it's above 售價 (a real discount), otherwise blank.
   * 條件名稱 → kept as a `conditions` list per product so _layouts/post.html can
     show products whose condition is contained in the article title first, and
     fall back to all products otherwise. The same product can appear under
     several conditions in the feed; we de-duplicate by 商品連結 and merge the
     conditions, so each image is downloaded once.
-  * promo (card description) is composed from the feed fields
-    (城市/目的地・⭐評分（評論數 則評論）); the feed has no description column and
-    we don't scrape the kkday page.
+  * promo (card description) is the product 商品介紹 (newlines collapsed), with
+    城市/目的地 as fallback.
 
 Writes _data/kkday_ad_products.json (keyed by a stable hash of 商品連結).
 Consumed at build time by _layouts/post.html (zh-tw only) + the shared
@@ -75,6 +77,9 @@ DEADLINE_DAYS = 7
 # layout.
 DESC_MAXLEN = 90
 
+# Max gallery images per product (carousel) — caps download time per run.
+MAX_IMAGES = 6
+
 # Gentle pause between image downloads.
 SLEEP_SEC = 0.3
 
@@ -123,11 +128,20 @@ def normalize_price(raw):
     return ("NT$" + format(int(digits), ",")) if digits else s
 
 
+def original_price(item):
+    """Strikethrough original price (原價 / sale_price) — only when it's a valid
+    number ABOVE the selling price (售價); otherwise blank (no fake discount)."""
+    orig = price_num(item.get("原價"))
+    sell = price_num(item.get("售價"))
+    if orig and sell and orig > sell:
+        return normalize_price(item.get("原價"))
+    return ""
+
+
 def build_promo(item):
-    """Card description from feed fields (no description column / no page
-    scraping): just 城市/目的地. Rating stars and review counts are intentionally
-    omitted."""
-    promo = str(item.get("城市/目的地", "") or "").strip()
+    """Card subtitle: the product 商品介紹 with newlines/whitespace collapsed,
+    trimmed to DESC_MAXLEN. (城市/目的地 now lives in the title, not here.)"""
+    promo = re.sub(r"\s+", " ", str(item.get("商品介紹", "") or "").strip())
     if len(promo) > DESC_MAXLEN:
         promo = promo[:DESC_MAXLEN].rstrip() + "…"
     return promo
@@ -249,35 +263,47 @@ def main():
         product_url = str(it.get("商品連結", "") or "").strip()
         url = with_cid(product_url)
         price = normalize_price(it.get("售價"))
+        list_price = original_price(it)
+        dest = str(it.get("城市/目的地", "") or "").strip()
         promo = build_promo(it)
+
+        # Gallery sources: 圖片清單 (array) first, else the single 圖片.
+        src_imgs = [s for s in (it.get("圖片清單") or []) if str(s).strip()]
+        if not src_imgs:
+            single = str(it.get("圖片", "") or "").strip()
+            src_imgs = [single] if single else []
+        src_imgs = src_imgs[:MAX_IMAGES]
 
         prev = existing.get(ad_id)
         prev_images = (prev or {}).get("images") or []
-        cached_ok = prev_images and all(
-            os.path.exists(os.path.join(ROOT, p.lstrip("/"))) for p in prev_images)
+        # Re-download when the image count changes (e.g. single → gallery).
+        cached_ok = (
+            prev_images and len(prev_images) == len(src_imgs)
+            and all(os.path.exists(os.path.join(ROOT, p.lstrip("/"))) for p in prev_images))
 
         if cached_ok:
             images = prev_images
             print(f"⏭ 已存在，沿用圖片：{name}")
         else:
-            img_url = str(it.get("圖片", "") or "").strip()
             cleanup_images(ad_id)
             images = []
-            if img_url:
+            for idx, img_url in enumerate(src_imgs):
+                if idx:
+                    time.sleep(0.3)  # gentle intra-product pause
                 try:
-                    _download_webp(img_url, os.path.join(IMG_DIR, f"{ad_id}-0.webp"))
-                    images = [f"/assets/ads/kkday/{ad_id}-0.webp"]
-                    print(f"✅ 已處理：{name}")
+                    _download_webp(img_url, os.path.join(IMG_DIR, f"{ad_id}-{idx}.webp"))
+                    images.append(f"/assets/ads/kkday/{ad_id}-{idx}.webp")
                 except Exception as e:  # noqa: BLE001 — best-effort image download
                     print(f"  ⚠️  抓圖失敗（{e.__class__.__name__}）：{img_url}")
             if not images:
                 print(f"⏭ 略過（缺圖片）：{name}")
                 continue
+            print(f"✅ 已處理：{name}（{len(images)} 圖）")
             time.sleep(SLEEP_SEC)
 
         results[ad_id] = {
-            "name": name, "price": price, "url": url,
-            "deadline": deadline, "images": images, "promo": promo,
+            "name": name, "dest": dest, "price": price, "list_price": list_price,
+            "url": url, "deadline": deadline, "images": images, "promo": promo,
             "conditions": conditions,
         }
 
