@@ -50,7 +50,7 @@
         {%- if p.price and p.price != '' -%}
         <span class="ad-product-pricing">
           <span class="ad-product-price">{{ p.price | replace: 'NT$', '<span class="ad-product-cur">NT$</span>' }}</span>
-          {%- if p.list_price and p.list_price != '' -%}<span class="ad-product-list-price">{{ p.list_price | replace: 'NT$', '<span class="ad-product-cur">NT$</span>' }}</span>{%- endif -%}
+          {%- if p.list_price and p.list_price != '' -%}<span class="ad-product-list-price">{{ p.list_price | remove: 'NT$' }}</span>{%- endif -%}
         </span>
         {%- endif -%}
         <span class="ad-product-cta">
