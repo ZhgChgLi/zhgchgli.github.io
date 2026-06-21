@@ -9,7 +9,7 @@
 #
 # Placement rules:
 #   * Posts with ≥1 <h3>: an ad after the FIRST <h3>, then after every
-#     5th <h3> (1st, 6th, 11th, …), and always after the LAST <h3>.
+#     4th <h3> (1st, 5th, 9th, …), and always after the LAST <h3>.
 #     Duplicates collapse, so a short post may get just 1–2 ads.
 #   * Posts with zero <h3>: a single ad is inserted at the top of the
 #     body.
@@ -68,16 +68,16 @@ module ZhgChgLi
       html
     end
 
-    # Ad anchor <h3> indices (0-based): the first, then every 5th, plus the
+    # Ad anchor <h3> indices (0-based): the first, then every 4th, plus the
     # last. Duplicates collapse:
-    #   n=1  → [0]              (first == last)
-    #   n=3  → [0, 2]           (first, last)
-    #   n=6  → [0, 5]           (first, 6th == last)
-    #   n=14 → [0, 5, 10, 13]   (1st, 6th, 11th, last)
-    #   n=18 → [0, 5, 10, 15, 17]
+    #   n=1  → [0]                 (first == last)
+    #   n=3  → [0, 2]              (first, last)
+    #   n=4  → [0, 3]              (first, 4th == last)
+    #   n=9  → [0, 4, 8]           (1st, 5th, 9th == last)
+    #   n=14 → [0, 4, 8, 12, 13]   (1st, 5th, 9th, 13th, last)
     def self.compute_positions(n)
       return [] if n.zero?
-      positions = (0...n).step(5).to_a   # 0, 5, 10, … → 1st, then every 5th
+      positions = (0...n).step(4).to_a   # 0, 4, 8, … → 1st, then every 4th
       positions << (n - 1)               # always after the last
       positions.uniq.sort
     end
