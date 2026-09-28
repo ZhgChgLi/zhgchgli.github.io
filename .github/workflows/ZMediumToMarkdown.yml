@@ -1,8 +1,8 @@
 name: ZMediumToMarkdown
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "10 1 15 * *" # At 01:10 on day-of-month 15.
+  # schedule:
+  #   - cron: "10 1 15 * *" # At 01:10 on day-of-month 15.
 
 permissions:
   contents: write
