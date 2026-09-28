@@ -1,0 +1,173 @@
+#!/usr/bin/env bash
+# Local mirror of .github/workflows/ZMediumToMarkdown.yml.
+# Usage:
+#   bin/zmtm-local            # fetch + full post-processing (OpenAI steps included)
+#   bin/zmtm-local --no-ai    # fetch + optimize_photos + zh-cn + unify-tags only
+#
+# Secrets are read from the environment; any key not already set is filled
+# from the repo-root `.env` (same rules as tools/translators/_env.py):
+#   MEDIUM_COOKIE_UID, MEDIUM_COOKIE_SID
+#   MEDIUM_HOST, MEDIUM_HOST_SECRET  (optional Cloudflare Worker proxy; without
+#                             it the gem hits medium.com directly and just warns)
+#   OPENAI_API_KEY            (not needed with --no-ai)
+#
+# Nothing is committed — review `git status -- L10n assets` afterwards.
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+NO_AI=0
+for arg in "$@"; do
+  case "$arg" in
+    --no-ai) NO_AI=1 ;;
+    -h|--help) sed -n '2,14p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    *) echo "✗ Unknown option: $arg" >&2; exit 1 ;;
+  esac
+done
+
+# Load .env without overriding variables already exported in the shell.
+if [[ -f .env ]]; then
+  while IFS= read -r raw || [[ -n "$raw" ]]; do
+    line="$(printf '%s' "$raw" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+    [[ -z "$line" || "$line" == \#* || "$line" != *=* ]] && continue
+    key="${line%%=*}"; val="${line#*=}"
+    key="${key#export }"
+    key="$(printf '%s' "$key" | sed 's/[[:space:]]*$//')"
+    val="$(printf '%s' "$val" | sed 's/^[[:space:]]*//')"
+    if [[ ${#val} -ge 2 && ( "$val" == \"*\" || "$val" == \'*\' ) ]]; then
+      val="${val:1:${#val}-2}"
+    fi
+    if [[ -n "$key" && -z "${!key+x}" ]]; then
+      export "$key=$val"
+    fi
+  done < .env
+fi
+
+required=(MEDIUM_COOKIE_UID MEDIUM_COOKIE_SID)
+(( NO_AI )) || required+=(OPENAI_API_KEY)
+missing=()
+for k in "${required[@]}"; do
+  [[ -n "${!k:-}" ]] || missing+=("$k")
+done
+if (( ${#missing[@]} )); then
+  echo "✗ Missing env: ${missing[*]} (export them or put them in .env)" >&2
+  exit 1
+fi
+
+[[ -f unlist.txt ]] || { echo "✗ unlist.txt not found in repo root" >&2; exit 1; }
+
+# ZMediumToMarkdown 4.x needs Ruby >= 3.2, but the repo's .ruby-version pins
+# an older Ruby for Jekyll. Under rbenv, run the CLI on the newest installed
+# Ruby >= 3.2 (override with ZMTM_RUBY=<version>) without touching Jekyll's.
+ZMTM_RUBY="${ZMTM_RUBY:-}"
+if [[ -z "$ZMTM_RUBY" ]] && command -v rbenv >/dev/null; then
+  ZMTM_RUBY="$(rbenv versions --bare \
+    | awk -F. '$1 > 3 || ($1 == 3 && $2 >= 2)' \
+    | sort -t. -k1,1n -k2,2n -k3,3n | tail -1)"
+fi
+
+zmtm_exec() {
+  if [[ -n "$ZMTM_RUBY" ]]; then
+    RBENV_VERSION="$ZMTM_RUBY" ZMediumToMarkdown "$@"
+  else
+    ZMediumToMarkdown "$@"
+  fi
+}
+
+command -v ZMediumToMarkdown >/dev/null || { echo "✗ ZMediumToMarkdown not in PATH — gem install ZMediumToMarkdown" >&2; exit 1; }
+zmtm_version="$(zmtm_exec --version 2>&1 | sed -n 's/.*Version:[[:space:]]*\([0-9][0-9.]*\).*/\1/p' | head -1 || true)"
+if [[ "${zmtm_version%%.*}" != [4-9]* ]]; then
+  echo "✗ ZMediumToMarkdown >= 4 required (got '${zmtm_version:-unknown}' on Ruby ${ZMTM_RUBY:-current})." >&2
+  echo "  Install it on Ruby >= 3.2, e.g.: RBENV_VERSION=3.2.11 gem install ZMediumToMarkdown" >&2
+  exit 1
+fi
+echo "→ ZMediumToMarkdown ${zmtm_version}${ZMTM_RUBY:+ (Ruby ${ZMTM_RUBY})}"
+
+# Translator scripts need Python >= 3.10 (python-frontmatter uses
+# typing.TypeGuard); don't silently fall back to an old system python3.
+PY=tools/translators/.venv/bin/python
+if ! "$PY" -c 'import sys; sys.exit(sys.version_info < (3, 10))' 2>/dev/null; then
+  echo "✗ ${PY} is missing, broken, or older than 3.10. Rebuild it:" >&2
+  echo "  rm -rf tools/translators/.venv && python3.13 -m venv tools/translators/.venv" >&2
+  echo "  tools/translators/.venv/bin/pip install -r tools/translators/requirements.txt" >&2
+  exit 1
+fi
+
+export ZMTM_TOS_ACCEPTED="${ZMTM_TOS_ACCEPTED:-1}"
+
+# Match the GitHub Actions runner (UTC). ZMediumToMarkdown formats dates with
+# the local zone: front matter would flip to +0800, and posts published after
+# 16:00 UTC would get a next-day filename (i.e. a duplicate post).
+export TZ=UTC
+SRC=L10n/posts/zh-tw/zmediumtomarkdown
+WORK=_posts/zmediumtomarkdown
+
+# Stage zh-tw masters so the CLI only fetches diffs. _posts/ is a gitignored
+# build artifact (bin/lang may have left another copy there), so reset it.
+echo "→ Staging ${SRC}/ → ${WORK}/"
+rm -rf "$WORK"
+mkdir -p "$WORK"
+[[ -d "$SRC" ]] && cp -R "${SRC}/." "${WORK}/"
+
+zmtm() {
+  zmtm_exec --jekyll "$@" \
+    --cookie_uid "$MEDIUM_COOKIE_UID" \
+    --cookie_sid "$MEDIUM_COOKIE_SID"
+}
+
+echo "→ Fetching unlisted posts (unlist.txt)"
+sed 's/\r$//' unlist.txt \
+  | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' \
+  | awk 'NF && $0 !~ /^[[:space:]]*#/' \
+  | while IFS= read -r line; do
+      echo "▶ ZMediumToMarkdown --jekyll -p '$line'"
+      zmtm -p "$line" </dev/null
+    done
+
+echo "→ Fetching latest posts"
+zmtm -u zhgchgli
+
+echo "→ Syncing ${WORK}/ → ${SRC}/"
+mkdir -p "$SRC"
+cp -R "${WORK}/." "${SRC}/"
+
+echo "→ Optimizing photos"
+"$PY" tools/translators/optimize_photos.py
+
+if (( ! NO_AI )); then
+  changed=()
+  while IFS= read -r f; do
+    changed+=("$f")
+  done < <(git ls-files -mo --exclude-standard -- \
+             'L10n/posts/zh-tw/*.md' 'L10n/posts/zh-tw/*.markdown')
+  if (( ${#changed[@]} )); then
+    printf '→ Typo check on %d changed zh-tw post(s)\n' "${#changed[@]}"
+    "$PY" tools/translators/typo_checker.py --files "${changed[@]}"
+  else
+    echo "→ No zh-tw post changes — skip typo checker"
+  fi
+
+  echo "→ SEO / AIO metadata (zh-tw)"
+  "$PY" tools/translators/seo_maker.py
+  "$PY" tools/translators/aio_maker.py
+
+  echo "→ Translating en / jp"
+  "$PY" tools/translators/translator.py en
+  "$PY" tools/translators/translator.py jp
+fi
+
+echo "→ Converting zh-cn + unifying tags"
+"$PY" tools/translators/translator_cn.py
+./bin/unify-tags
+
+if (( ! NO_AI )); then
+  echo "→ SEO / AIO metadata (en, jp)"
+  "$PY" tools/translators/seo_maker.py en
+  "$PY" tools/translators/seo_maker.py jp
+  "$PY" tools/translators/aio_maker.py en
+  "$PY" tools/translators/aio_maker.py jp
+fi
+
+echo "✓ Done. Review with: git status -- L10n assets"
+[[ -f .typo-report.json ]] && echo "  Typo findings: .typo-report.json"
+exit 0
