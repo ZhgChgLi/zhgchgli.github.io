@@ -426,6 +426,34 @@ layout: default
     copy: {{ _ic_copy | strip | jsonify }}
   };
 
+  // Copy with fallbacks. navigator.clipboard is missing on non-HTTPS pages and
+  // rejects with NotAllowedError when a permissions policy blocks it (iframes,
+  // in-app browsers), so fall back to execCommand('copy'), then to a prompt()
+  // the reader can copy from. Resolves true only when text hit the clipboard.
+  window.copyText = window.copyText || function (text) {
+    function legacyCopy() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      if (!ok) window.prompt('', text);
+      return ok;
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).then(
+        function () { return true; },
+        function () { return legacyCopy(); }
+      );
+    }
+    return Promise.resolve(legacyCopy());
+  };
+
   // GLightbox: wrap article images in zoomable links. Open the un-recompressed
   // original (jpg/png) when available — photo_optimization.rb stashes the
   // pre-webp path in data-orig so lightbox shows the higher-fidelity source
@@ -567,7 +595,8 @@ layout: default
     document.querySelectorAll('[data-share-action="copy"]').forEach(function (b) {
       b.addEventListener('click', function () {
         var url = b.closest('[data-share]').getAttribute('data-url') || location.href;
-        navigator.clipboard && navigator.clipboard.writeText(url).then(function () {
+        window.copyText(url).then(function (ok) {
+          if (!ok) return;
           var prev = b.innerHTML;
           b.innerHTML = ICONS.check;
           setTimeout(function () { b.innerHTML = prev; }, 1500);
@@ -684,8 +713,8 @@ layout: default
 
       btn.addEventListener('click', function () {
         var text = (code.innerText || '').replace(/\s+$/, '');
-        if (!navigator.clipboard) return;
-        navigator.clipboard.writeText(text).then(function () {
+        window.copyText(text).then(function (ok) {
+          if (!ok) return;
           btn.classList.add('copied');
           btn.innerHTML = window.ICONS.check + '<span>' + copiedLabel + '</span>';
           setTimeout(function () {
