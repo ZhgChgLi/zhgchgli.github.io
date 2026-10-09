@@ -1,0 +1,28 @@
+{
+  "source_hash": "20ac58f3283c4fbeb2372de237c871215d5b41ddf939d922ec6099b20e68e0dd",
+  "translations": {
+    "![](/assets/b7dff6220119/1*VGVaZDQ6_zS_u0suS03Y4Q.jpeg)\n\n": "![](/assets/b7dff6220119/1*VGVaZDQ6_zS_u0suS03Y4Q.jpeg)",
+    "![](/assets/b7dff6220119/1*ZvwyIscE0CNYq8gdXW_gQw.png)\n\n": "![](/assets/b7dff6220119/1*ZvwyIscE0CNYq8gdXW_gQw.png)",
+    "### 𝗔𝗜 的「白牌」軟體開發\n\n": "### White-label Software Development with AI",
+    "**搶先預覽:**\n\n": "**Sneak Peek:**",
+    "AI 出來之後，把這部分的成本直接抹平，復刻 + 客製化一個工具 App 甚至不需要一天，如附圖就是我花半天把上面所有我曾經安裝的 macOS App 直接自幹整合成一個 App；同時是開發者也是使用者的我，一則以喜，一則以憂。\n\n": "Since AI emerged, this part of the cost has been completely eliminated. Replicating and customizing a tool app can take less than a day. As shown in the attached image, I spent half a day integrating all the macOS apps I had installed into one app by myself. As both a developer and a user, I feel both joy and concern.",
+    "AI 對工具軟體與工程師工作的一些心得。\n\n": "Some Thoughts on AI for Tool Software and Engineers' Work.",
+    "Side project 旅遊規劃+出行 App 還在調校，預計 10 月底上線。 認真尊敬 UI/UX 設計師，AI 這塊體驗非常差。\n\n": "Side project travel planning + trip App is still being fine-tuned, expected to launch by the end of October. I truly respect UI/UX designers; AI's experience in this area is very poor.",
+    "[![](https://opengraph.githubassets.com/72d75d08f30eef86c7aee7c1dbe244d567592f08d11493a0ffd0e370c45e9f84/storytold/photocraft)](https://github.com/storytold/photocraft){:target=\"_blank\"}\n\n": "[![](https://opengraph.githubassets.com/72d75d08f30eef86c7aee7c1dbe244d567592f08d11493a0ffd0e370c45e9f84/storytold/photocraft)](https://github.com/storytold/photocraft){:target=\"_blank\"}",
+    "\\_[Post](https://medium.com/zrealm-ios-dev/%E7%9A%84-%E7%99%BD%E7%89%8C-%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC-b7dff6220119){:target=\"_blank\"} converted from Medium by [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"*blank\"}.*\n\n": "\\_[Post](https://medium.com/zrealm-ios-dev/%E7%9A%84-%E7%99%BD%E7%89%8C-%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC-b7dff6220119){:target=\"_blank\"} converted from Medium by [ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown){:target=\"*blank\"}.*",
+    "— — —\n\n": "— — —",
+    "作為開發者，在 AI 出現以前當然也可以自己做，但是等於要重造一個輪子，然後只為了在上面優化一個小細節，本身曠日費時且沒有效益。\n\n": "As a developer, of course you could do it yourself before AI appeared, but that would be like reinventing the wheel just to optimize a small detail on top. It is time-consuming and inefficient.",
+    "例如直接請 AI 做一個旅遊規劃 App，它只會弄出一個 To-do List App；但是我根據自身的旅遊經驗，規劃一個完整的產品藍圖，包含行事曆、時間軸、地圖……等功能，它都做得出來，但是它自己想不出來。\n\n": "For example, if you directly ask AI to create a travel planning app, it will only produce a To-do List app. However, based on my travel experience, when I design a complete product blueprint including calendar, timeline, map, and other features, AI can build it, but it cannot come up with the idea on its own.",
+    "別人可以復刻，但他們不知道為何這樣做，也不知道未來該如何擴充功能或怎麼整合生態系，你的東西還是會永遠領先復刻者。\n\n": "Others can replicate it, but they don’t know why it was done this way, nor how to expand features or integrate with the ecosystem in the future. Your work will always stay ahead of the replicators.",
+    "回到工程師的工作上，我覺得也是相同道理。\n\n": "Back to the engineer's work, I think the same principle applies.",
+    "在過去，我安裝了：Amphetamine（防止電腦休眠）+ Magnet（視窗管理）+ Itsycal（行事曆）+ Stats（監控電腦狀態）+ 藍牙裝置電量監控 + Claude Code Usage 監控……等等小工具 App。\n\n": "In the past, I installed: Amphetamine (prevents computer sleep) + Magnet (window management) + Itsycal (calendar) + Stats (monitors computer status) + Bluetooth device battery monitoring + Claude Code Usage monitoring... and other small utility apps.",
+    "想到我最近也用 AI 做了一個個人貼身服務的 macOS App。\n\n": "I recently used AI to create a personal assistant macOS App.",
+    "所以我們並沒有消失或被取代，而是工作模式橫移到 TPM 的角色了。\n\n": "So we have not disappeared or been replaced; instead, our work mode has shifted to the TPM role.",
+    "每一個無不是匠人出品，但我們都知道產品再好也不可能滿足所有人，每個人都會有自己的許願功能。\n\n": "Not every product is crafted by an artisan, but we all know that no matter how good a product is, it cannot satisfy everyone. Each person will have their own desired features.",
+    "當然其他人還是能輕易地復刻，但我相信這些只有你腦中才有的設計藍圖是偷不走的。\n\n": "Of course, others can still easily replicate it, but I believe the design blueprint that exists only in your mind cannot be stolen.",
+    "看到有大佬用 AI 做了開源版 Adobe 全家桶:\n\n": "Saw an expert create an open-source version of the Adobe suite using AI:",
+    "結合這半年的 Side Project 開發心得（一款旅遊規劃 App），工程技術上我覺得 AI 都能做到 80–90 分以上，主要的價值還是在人腦（Product Thinking）怎麼想這個 **產品的功能跟體驗上** 。\n\n": "Combining the development experience from the past six months of a side project (a travel planning app), I believe AI can achieve 80–90% technically. The main value still lies in how the human brain (Product Thinking) designs the **product’s features and experience**.",
+    "開心的事是想要什麼都能自己做來用；擔心的事是大家都能做，那做的東西該怎麼脫穎而出？\n\n": "The happy part is being able to do whatever you want by yourself; the worry is that if everyone can do it, how will your work stand out?",
+    "開發本身已經沒什麼價值，更有價值的是貢獻你的腦力去消化、了解需求，結合公司目標跟現況、分析需求、指派給 AI 開發，完成後再做審查跟監督工作。\n\n": "Development itself holds little value now. What’s more valuable is using your brainpower to understand and analyze requirements, align them with company goals and current status, assign development to AI, and then review and supervise the results."
+  }
+}
