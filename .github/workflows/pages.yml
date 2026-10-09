@@ -102,11 +102,12 @@ jobs:
       #     pip install pillow
       #     python tools/translators/ad_maker.py
 
-      - name: Generate KKday product ads (_data/kkday_ad_products.json + assets/ads/kkday)
-        if: ${{ steps.lang.outputs.lang == 'zh-tw' }}
-        run: |
-          pip install pillow
-          python tools/translators/kkday_ad_maker.py
+      # KKday 商品廣告暫時下線，全站改走 AdSense（保留以便還原）：
+      # - name: Generate KKday product ads (_data/kkday_ad_products.json + assets/ads/kkday)
+      #   if: ${{ steps.lang.outputs.lang == 'zh-tw' }}
+      #   run: |
+      #     pip install pillow
+      #     python tools/translators/kkday_ad_maker.py
 
       - name: Commit fetched stats JSON back to repo
         run: |
