@@ -148,11 +148,13 @@ layout: default
     {%- assign _has_products = true -%}
   {%- endif -%}
   {% endcomment -%}
-  {%- comment %} KKday 商品廣告（主來源）。 {% endcomment -%}
+  {%- comment %} KKday 商品廣告。 {% endcomment -%}
   {%- assign _has_kkday_products = false -%}
+  {%- comment %} KKday 商品廣告暫時下線，全站改走 AdSense（保留以便還原）：
   {%- if site.i18n.current == 'zh-tw' and active_ad == nil and site.data.kkday_ad_products and site.data.kkday_ad_products.size > 0 -%}
     {%- assign _has_kkday_products = true -%}
   {%- endif -%}
+  {% endcomment -%}
   <div class="post-promo post-promo-middle" hidden>
     {% if active_ad %}
       <div class="post-promo-primary">
