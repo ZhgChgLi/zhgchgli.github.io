@@ -1,13 +1,13 @@
 # LinkTest report
-Generated: 2026-10-09T04:56:15Z
-Commit:    59562fb0db3aad02998dedfcdcdef61fbc6ef657
-Source:    workflow 37886017499
+Generated: 2026-10-12T15:28:36Z
+Commit:    dfdfd486b8a63bb979fbac4f4da99031e9d57d88
+Source:    workflow 38270211870
 
 Running 3 checks (Scripts, Links, Images) in ["_site"] on *.html files...
 
 
-Checking 768 internal links
-Checking internal link hashes in 5 files
+Checking 758 internal links
+Checking internal link hashes in 1 file
 Ran on 1047 files!
 
 
