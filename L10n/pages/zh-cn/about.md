@@ -12,6 +12,10 @@ iOS/Web/Automation Developer and Engineer Manager @ Taipei / Taiwan 🇹🇼
 
 [All Links](https://link.zhgchg.li/){:target="_blank"} | [Contact Me](/contact/) | [Google 出現與本人李仲澄無關之搜尋結果聲明](/posts/declaration_for_google_search_result/)
 
+## 作品
+### [TripEZGo — 旅行规划 App](https://tripezgo.com/){:target="_blank"}
+iPhone／iPad 的旅行规划 App：日历排行程、时间轴排交通，跟旅伴一起共编、旅途中分享位置。从设计、开发到上架一手包办。
+
 ## Skills
 - iOS (Swift/Obj-C)
 - Web (PHP/Laravel/MySQL/JavaScript/Jquery/HTML/CSS3/Bootstrap)

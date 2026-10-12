@@ -2089,6 +2089,27 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   .donate-actions { justify-content: center; }
 }
 
+/* TripEZGo card (bottom of the author's travel journals, before donate) */
+.tripezgo-card {
+  display: flex; gap: 24px; align-items: center;
+  padding: 28px 32px;
+  margin-bottom: 40px;
+  background: linear-gradient(135deg, rgba(47,145,142,0.08), rgba(92,198,195,0.12));
+  border: 1px solid rgba(47,145,142,0.22);
+  border-radius: 4px;
+}
+.tripezgo-icon { flex-shrink: 0; width: 64px; height: 64px; border-radius: 14px; box-shadow: 0 6px 16px rgba(47,145,142,0.25); }
+.tripezgo-body { flex: 1; min-width: 0; }
+.tripezgo-body h4 { font-family: var(--font-display); font-size: 22px; font-weight: 600; margin: 0 0 8px; color: var(--ink-900); }
+.tripezgo-body p { font-size: 14px; color: var(--ink-700); line-height: 1.65; margin: 0 0 16px; }
+.tripezgo-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.tripezgo-actions .btn-pill { background: #2f918e; border-color: #2f918e; color: #fff; }
+.tripezgo-actions .btn-pill:hover { background: #1d7370; border-color: #1d7370; color: #fff; }
+@media (max-width: 540px) {
+  .tripezgo-card { flex-direction: column; text-align: center; padding: 24px; gap: 16px; }
+  .tripezgo-actions { justify-content: center; }
+}
+
 /* Contact card (post bottom, after donate, before author) */
 .contact-card {
   display: flex; gap: 24px; align-items: center;

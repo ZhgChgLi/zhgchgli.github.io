@@ -1,0 +1,17 @@
+{%- comment -%}
+  TripEZGo（作者做的旅行規劃 App）卡片：只在作者本人寫的遊記底部出現（_layouts/post.html 判斷），
+  連到該語言的 tripezgo.com 首頁。字在 _data/strings.yml 的 <lang>.tripezgo。
+{%- endcomment -%}
+<div class="post-tail">
+  <aside class="tripezgo-card" aria-label="{{ t.tripezgo.title }}">
+    <img class="tripezgo-icon" src="{{ '/assets/images/tripezgo-icon.png' | relative_url }}" width="64" height="64" alt="TripEZGo" loading="lazy" decoding="async">
+    <div class="tripezgo-body">
+      <div class="eyebrow" style="margin-bottom:6px">{{ t.tripezgo.eyebrow }}</div>
+      <h4>{{ t.tripezgo.title }}</h4>
+      <p>{{ t.tripezgo.subtitle }}</p>
+      <div class="tripezgo-actions">
+        <a class="btn-pill" href="{{ t.tripezgo.url }}" target="_blank" rel="noopener">{{ t.tripezgo.cta }} {% include icon.html name="arrow-right" %}</a>
+      </div>
+    </div>
+  </aside>
+</div>

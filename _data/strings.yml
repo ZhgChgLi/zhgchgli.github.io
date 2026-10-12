@@ -2,6 +2,12 @@
 # In templates: {% assign t = site.data.strings[site.i18n.current] %}
 
 zh-tw:
+  tripezgo:
+    eyebrow: "作者的作品"
+    title: "TripEZGo 旅行規劃 App"
+    subtitle: "我把排這些行程的方式，做成了一個 iPhone／iPad App：行事曆排行程、時間軸排交通，跟旅伴一起編，出發後也跟著走。免註冊、離線可用。"
+    cta: "看看 TripEZGo"
+    url: "https://tripezgo.com/"
   nav:
     home: 首頁
     list: 文章
@@ -248,6 +254,12 @@ zh-tw:
     rss_cta: 訂閱 RSS
 
 en:
+  tripezgo:
+    eyebrow: "From the author"
+    title: "TripEZGo, a trip planner app"
+    subtitle: "I turned the way I plan these trips into an iPhone and iPad app: events on a calendar, travel on a timeline, co-edited with your companions, and with you on the road. No sign-up, works offline."
+    cta: "See TripEZGo"
+    url: "https://tripezgo.com/en/"
   nav:
     home: Home
     list: Writing
@@ -495,6 +507,12 @@ en:
     rss_cta: Subscribe via RSS
 
 zh-cn:
+  tripezgo:
+    eyebrow: "作者的作品"
+    title: "TripEZGo 旅行规划 App"
+    subtitle: "我把排这些行程的方式，做成了一个 iPhone／iPad App：日历排行程、时间轴排交通，跟旅伴一起编，出发后也跟着走。免注册、离线可用。"
+    cta: "看看 TripEZGo"
+    url: "https://tripezgo.com/"
   nav:
     home: 首页
     list: 文章
@@ -741,6 +759,12 @@ zh-cn:
     rss_cta: 订阅 RSS
 
 jp:
+  tripezgo:
+    eyebrow: "作者のアプリ"
+    title: "旅行計画アプリ TripEZGo"
+    subtitle: "こうした旅程の組み方を、iPhone／iPad アプリにしました。予定はカレンダー、移動はタイムラインで、旅の仲間と一緒に編集、旅先でもそのまま使えます。登録不要・オフライン対応。"
+    cta: "TripEZGo を見る"
+    url: "https://tripezgo.com/ja/"
   nav:
     home: ホーム
     list: 記事

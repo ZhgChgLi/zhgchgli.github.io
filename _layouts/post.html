@@ -289,6 +289,15 @@ layout: default
     </div>
   </div>
 
+  {%- comment %} 作者本人寫的遊記，底部放 TripEZGo 卡片（分類名四語不同；同分類也有 AI 代寫的攻略，那些不放） {% endcomment -%}
+  {%- assign _is_journal = false -%}
+  {%- for _c in page.categories -%}
+    {%- if _c == 'Z 度旅行遊記' or _c == 'Travel Journals' or _c == 'Z 度旅行記' -%}{%- assign _is_journal = true -%}{%- endif -%}
+  {%- endfor -%}
+  {%- if _is_journal and page.author == 'ZhgChgLi' and t.tripezgo -%}
+    {% include tripezgo-card.html %}
+  {%- endif %}
+
   {% if site.donate.paypal %}
   <div class="post-tail">
     <aside class="donate-card" aria-label="{{ t.donate.title }}">
