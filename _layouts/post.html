@@ -155,8 +155,23 @@ layout: default
     {%- assign _has_kkday_products = true -%}
   {%- endif -%}
   {% endcomment -%}
+  {%- comment %} 「遊記」分類（四語分類名不同，日文有兩種寫法）：文章中段的廣告全部換成 TripEZGo 廣告卡，
+     不論作者、不論有沒有贊助檔期（使用者 2026-10-25）。 {% endcomment -%}
+  {%- assign _is_journal = false -%}
+  {%- for _c in page.categories -%}
+    {%- if _c == 'Z 度旅行遊記' or _c == 'Travel Journals' or _c == 'Z 度旅行記' or _c == 'Z度旅行記' -%}{%- assign _is_journal = true -%}{%- endif -%}
+  {%- endfor -%}
+  {%- assign _tripezgo_ads = false -%}
+  {%- if _is_journal and t.tripezgo.ads -%}{%- assign _tripezgo_ads = true -%}{%- endif -%}
   <div class="post-promo post-promo-middle" hidden>
-    {% if active_ad %}
+    {% if _tripezgo_ads %}
+      <div class="post-promo-primary">
+        {% include tripezgo-ad-card.html %}
+      </div>
+      <div class="post-promo-fallback" hidden>
+        {% include tripezgo-ad-card.html %}
+      </div>
+    {% elsif active_ad %}
       <div class="post-promo-primary">
         {% include ad-active-card.html %}
       </div>
@@ -217,6 +232,8 @@ layout: default
     {%- endfor -%}
   </template>
   {%- endif -%}
+
+  {%- if _tripezgo_ads %}<script src="{{ '/assets/js/tripezgo-ad.js' | relative_url }}" defer></script>{% endif %}
 
   <div id="post-bottom" style="height: 64px"></div>
 
@@ -289,11 +306,7 @@ layout: default
     </div>
   </div>
 
-  {%- comment %} 作者本人寫的遊記，底部放 TripEZGo 卡片（分類名四語不同；同分類也有 AI 代寫的攻略，那些不放） {% endcomment -%}
-  {%- assign _is_journal = false -%}
-  {%- for _c in page.categories -%}
-    {%- if _c == 'Z 度旅行遊記' or _c == 'Travel Journals' or _c == 'Z 度旅行記' -%}{%- assign _is_journal = true -%}{%- endif -%}
-  {%- endfor -%}
+  {%- comment %} 作者本人寫的遊記，底部放 TripEZGo 卡片（同分類也有 AI 代寫的攻略，那些不放；_is_journal 在中段廣告前算好） {% endcomment -%}
   {%- if _is_journal and page.author == 'ZhgChgLi' and t.tripezgo -%}
     {% include tripezgo-card.html %}
   {%- endif %}

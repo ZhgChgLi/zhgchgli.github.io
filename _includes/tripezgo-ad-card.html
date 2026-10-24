@@ -1,0 +1,27 @@
+{%- comment -%}
+  TripEZGo 廣告卡：「遊記」分類的文章裡，取代文章中段的 AdSense／house ad（_layouts/post.html 判斷）。
+  版型照 ad-active-card.html（圖片框 16/8＋下面的副標與 CTA），整張是一個連結，連到該語言的 tripezgo.com。
+  三則都先 render、全部 hidden，assets/js/tripezgo-ad.js 每個版位隨機打開一則（每次進文章都可能不同）。
+  字在 _data/strings.yml 的 <lang>.tripezgo.ads；圖是 Open Design tripezgo/blog-ads 產的
+  /assets/images/tripezgo-ads/ad-<n>-<lang>.webp（1360×680，標題、CTA、App Store 徽章已經在圖上）。
+{%- endcomment -%}
+<aside class="active-promo-card tripezgo-ads" data-tripezgo-ads>
+  <div class="post-promo-eyebrow">
+    <span>{{ t.tripezgo.eyebrow }}</span>
+    <span class="rule" aria-hidden="true"></span>
+  </div>
+  {%- for ad in t.tripezgo.ads %}
+  <a class="active-hero" href="{{ t.tripezgo.url }}" target="_blank" rel="noopener"{% unless forloop.first %} hidden{% endunless %}>
+    <div class="active-hero-image">
+      <img src="{{ '/assets/images/tripezgo-ads/ad-' | append: forloop.index | append: '-' | append: site.i18n.current | append: '.webp' | relative_url }}" width="1360" height="680" alt="{{ ad.title }}" loading="lazy" decoding="async">
+    </div>
+    <div class="active-hero-body">
+      <div class="active-hero-desc">{{ ad.desc }}</div>
+      <span class="active-hero-cta">
+        <span>{{ ad.cta }}</span>
+        {% include icon.html name="arrow-right" %}
+      </span>
+    </div>
+  </a>
+  {%- endfor %}
+</aside>

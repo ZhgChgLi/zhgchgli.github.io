@@ -2910,3 +2910,7 @@ body.layout-report-shell {
   .trending-list .rcover { width: 72px; height: 72px; }
   .trending-list .rtitle { font-size: 17px; }
 }
+
+/* TripEZGo 廣告卡（_includes/tripezgo-ad-card.html）：三則先 render，tripezgo-ad.js 隨機打開一則；
+   .active-hero 的 display:block 會蓋過 [hidden]，這裡補回來。 */
+.tripezgo-ads .active-hero[hidden] { display: none; }
