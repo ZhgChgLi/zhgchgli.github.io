@@ -153,6 +153,11 @@ social:
 # Third-party
 google_analytics: G-6WZJENT8WR
 
+# 不投放任何廣告的文章（post slug；四語版本共用 slug，一起生效）。
+# 會關掉 AdSense script、文中廣告卡（含 TripEZGo / 贊助 / 商品）。
+no_ads_slugs:
+  - ac297c511520
+
 giscus:
   repo: ZhgChgLi/zhgchgli.github.io
   repo_id: R_kgDOHdowLw

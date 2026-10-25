@@ -163,6 +163,15 @@ layout: default
   {%- endfor -%}
   {%- assign _tripezgo_ads = false -%}
   {%- if _is_journal and t.tripezgo.ads -%}{%- assign _tripezgo_ads = true -%}{%- endif -%}
+  {%- comment %} _config.yml no_ads_slugs 裡的文章不投放任何廣告：不輸出 placeholder，
+     _plugins/post_middle_ad.rb 找不到模板就不會插卡。 {% endcomment -%}
+  {%- assign _no_ads = false -%}
+  {%- if site.no_ads_slugs contains page.slug -%}
+    {%- assign _no_ads = true -%}
+    {%- assign _has_kkday_products = false -%}
+    {%- assign _tripezgo_ads = false -%}
+  {%- endif -%}
+  {% unless _no_ads %}
   <div class="post-promo post-promo-middle" hidden>
     {% if _tripezgo_ads %}
       <div class="post-promo-primary">
@@ -188,6 +197,7 @@ layout: default
       </div>
     {% endif %}
   </div>
+  {% endunless %}
 
   {%- comment %} Hidden candidate pool, rendered once OUTSIDE .post-promo-middle
      so _plugins/post_middle_ad.rb (which clones .post-promo-middle) never
