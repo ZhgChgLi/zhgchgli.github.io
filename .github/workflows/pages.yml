@@ -90,8 +90,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-          cache: 'pip'
-          cache-dependency-path: tools/translators/requirements.txt
+          # 廣告產生步驟下線期間沒有任何 pip install，~/.cache/pip 不存在，
+          # 開 cache: 'pip' 會在 post step 報錯讓整個 build 失敗。還原廣告步驟時再打開：
+          # cache: 'pip'
+          # cache-dependency-path: tools/translators/requirements.txt
 
       # momo 商品廣告暫時下線（保留以便還原）：
       # - name: Generate product ads (_data/ad_products.json + assets/ads)
