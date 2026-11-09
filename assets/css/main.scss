@@ -441,13 +441,12 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
 .foot a.donate-link { color: #b14e2c; font-weight: 600; }
 .foot a.donate-link:hover { color: #d97a55; }
 .foot a.donate-link .icon { color: #d97a55; }
-.foot .brand-foot {
-  font-family: var(--font-display);
-  font-size: 28px; font-style: normal;
-  color: var(--ink-900);
-  margin-bottom: 8px;
-}
-.foot .brand-foot .dot { color: var(--accent); }
+/* "Produced by ZhgChg.Li" badge (replaces the old text wordmark).
+   Light badge by default; the dark one is swapped in by the dark-mode
+   block near the end of this file, following <html data-theme>. */
+.foot .produced-by { margin-bottom: 12px; line-height: 0; }
+.foot .produced-by img { display: block; width: 141px; height: 54px; }
+.foot .produced-by .pb-dark { display: none; }
 .foot .copy { font-size: 11px; color: var(--ink-400); margin-top: 12px; }
 .foot .icon,
 .foot .coupon-chip { margin-right: 8px; width: 14px; height: 14px; vertical-align: -2px; }
@@ -2784,6 +2783,22 @@ a.chip:hover { background: var(--cream-200); color: var(--ink-900); }
   :root:not([data-theme="light"]):not([data-theme="dark"]) { @include dark-overrides; }
 }
 :root[data-theme="dark"] { @include dark-overrides; }
+
+/* Footer "Produced by" badge: dark artwork in dark mode, same three-state rule. */
+@mixin produced-by-dark {
+  .foot .produced-by .pb-light { display: none; }
+  .foot .produced-by .pb-dark { display: block; }
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) { @include produced-by-dark; }
+}
+:root[data-theme="dark"] { @include produced-by-dark; }
+/* Report layouts stay light in dark mode, so their footer keeps the light badge.
+   !important because the :root:not():not() selectors above out-specify any body.* rule. */
+body.layout-report .foot .produced-by .pb-light,
+body.layout-report-shell .foot .produced-by .pb-light { display: block !important; }
+body.layout-report .foot .produced-by .pb-dark,
+body.layout-report-shell .foot .produced-by .pb-dark { display: none !important; }
 
 /* ============================================
    Report layout — opt out of dark mode

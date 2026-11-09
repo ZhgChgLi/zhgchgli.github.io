@@ -1,7 +1,11 @@
 <footer class="foot">
   <div class="foot-inner">
     <div>
-      <div class="brand-foot"><b>ZhgChg</b><span class="dot">.</span><i>Li</i></div>
+      {%- comment -%} "Produced by ZhgChg.Li" badge replaces the old text wordmark. Two images, one per theme; main.scss shows the one matching <html data-theme>. {%- endcomment -%}
+      <div class="produced-by">
+        <img class="pb-light" src="{{ '/assets/img/produced-by-zhgchgli-light.svg' | relative_url }}" width="141" height="54" alt="Produced by ZhgChg.Li">
+        <img class="pb-dark" src="{{ '/assets/img/produced-by-zhgchgli-dark.svg' | relative_url }}" width="141" height="54" alt="Produced by ZhgChg.Li">
+      </div>
       <div>{{ site.author.bio }}</div>
       {% assign year = site.time | date: '%Y' %}
       {% assign built_at = site.time | date: '%Y-%m-%d %H:%M %z' %}
